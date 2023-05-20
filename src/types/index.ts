@@ -5,3 +5,9 @@ export interface ButtonProps {
   children: ReactNode;
   className: string;
 }
+
+export interface Offers {
+  id: number;
+  heading: string;
+  description: string;
+}
