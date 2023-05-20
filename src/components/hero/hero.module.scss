@@ -1,0 +1,10 @@
+@use "../../styles/mixins" as *;
+
+.hero {
+  .content {
+    @include container();
+    h2 {
+      font-weight: 600;
+    }
+  }
+}
