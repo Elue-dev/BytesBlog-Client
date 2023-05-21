@@ -6,7 +6,7 @@ export const userInterests: string[] = [
   "Business",
   "Education",
   "Data science",
-  "Data science",
+  "Finance",
   "Culture",
   "Science",
   "Health",

@@ -1,6 +1,7 @@
 import { InterestsProps } from "@/types";
 import { userInterests } from "./data";
 import { IoChevronBackCircleOutline } from "react-icons/io5";
+import Button from "../button";
 
 export default function Interests({
   interests,
@@ -8,7 +9,14 @@ export default function Interests({
   previousStep,
 }: InterestsProps) {
   console.log(interests);
-  console.log(setInterests);
+
+  const setUserInterest = (int: string) => {
+    if (interests.includes(int)) {
+      setInterests(interests.filter((cat) => cat !== int));
+    } else {
+      setInterests([...interests, int]);
+    }
+  };
 
   return (
     <div className="flex h-screen items-center justify-center">
@@ -27,16 +35,26 @@ export default function Interests({
           This would determine the blog posts you would see
         </p>
         <div className="flex flex-wrap gap-7 pt-6">
-          {userInterests.map((interest, idx) => (
+          {userInterests.map((interest: string, idx: number) => (
             <div key={idx}>
-              <div>
-                <span className="cursor-pointer rounded-2xl border border-lighterGray p-2 text-lighterGray">
+              <div onClick={() => setUserInterest(interest)}>
+                <span
+                  className={`${
+                    interests.includes(interest)
+                      ? "border-2 border-primaryColor p-2 text-primaryColor transition duration-500 ease-in-out"
+                      : "border border-lighterGray p-2 text-lighterGray transition duration-500 ease-in-out"
+                  } cursor-pointer rounded-2xl`}
+                >
                   {interest}
                 </span>
               </div>
             </div>
           ))}
         </div>
+
+        <Button className="mt-14 w-full rounded-lg bg-primaryColor uppercase text-white">
+          Create Account
+        </Button>
       </div>
     </div>
   );
