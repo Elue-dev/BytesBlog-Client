@@ -29,6 +29,12 @@ export interface CAProps {
   previousStep?: () => void;
 }
 
+export interface InterestsProps {
+  interests: string[];
+  setInterests: Dispatch<SetStateAction<InterestsProps["interests"]>>;
+  previousStep?: () => void;
+}
+
 export interface InputProps {
   type: string;
   className: string;

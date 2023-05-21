@@ -34,15 +34,15 @@ export default function CreateAccount() {
     case 1:
       return (
         <SignUpForm
-        //   values={values}
-        //   handleInputChange={handleInputChange}
-        //   nextStep={nextStep}
-        //   setValues={setValues}
+          values={values}
+          handleInputChange={handleInputChange}
+          nextStep={nextStep}
+          setValues={setValues}
         />
       );
       break;
     case 2:
-      return <Interests />;
+      return <Interests interests={interests} setInterests={setInterests} />;
       break;
     default:
       return null;
