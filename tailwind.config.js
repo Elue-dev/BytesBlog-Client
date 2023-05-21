@@ -6,10 +6,13 @@ export default {
       colors: {
         primaryColor: "#169639",
         primaryColorLight: "#F2FFF5",
+        primaryColorLighter: "#F1FFE4",
         lightTextColor: "#8E8E93",
         blackNeutral: "#07080A",
         lightGray: "#B6B6B6",
         lighterGray: "#767D8D",
+        lightGraySec: "#E9ECEF",
+        lightText: "#555",
       },
     },
   },

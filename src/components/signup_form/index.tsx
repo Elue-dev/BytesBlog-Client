@@ -4,18 +4,50 @@ import bytesLogo from "@/assets/bytesLogo.svg";
 import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { HiOutlineEye } from "react-icons/hi";
+import { HiOutlineEyeSlash } from "react-icons/hi2";
+import { BsFillCheckSquareFill } from "react-icons/bs";
 import Input from "../input";
+import { useEffect, useRef, useState } from "react";
 
 export default function SignUpForm({
   values,
   handleInputChange,
   nextStep,
-  setValues,
 }: CAProps) {
-  console.log(values);
-  console.log(handleInputChange);
-  console.log(nextStep);
-  console.log(setValues);
+  const { firstname, lastname, email, password, confirmPassword } = values;
+  const [visible, setVisible] = useState(false);
+  const [cpVisible, setCPVisible] = useState(false);
+  const [numberCondition, setNumberCondition] = useState(false);
+  const [charCondition, setCharCondition] = useState(false);
+  const [lengthCondition, setLengthCondition] = useState(false);
+  const [caseCondition, setCaseCondition] = useState(false);
+  const passwordRef = useRef<any | undefined>();
+  const cPasswordRef = useRef<any | undefined>();
+
+  useEffect(() => {
+    if (password.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/)) {
+      setCaseCondition(true);
+    } else {
+      setCaseCondition(false);
+    }
+    if (password.length > 7) {
+      setLengthCondition(true);
+    } else {
+      setLengthCondition(false);
+    }
+
+    if (password.match(/([0-9])/)) {
+      setNumberCondition(true);
+    } else {
+      setNumberCondition(false);
+    }
+
+    if (password.match(/([!,%,&,@,#,$,^,*,?,_,~])/)) {
+      setCharCondition(true);
+    } else {
+      setCharCondition(false);
+    }
+  }, [password]);
 
   return (
     <section>
@@ -35,34 +67,113 @@ export default function SignUpForm({
           <form action="">
             <div className="flex flex-col gap-4 sm:flex-row">
               <div className="relative w-full sm:w-1/2">
-                <Input type="text" className="w-full p-2.5" />
+                <Input
+                  type="text"
+                  className="w-full p-2.5"
+                  value={firstname}
+                  name="firstname"
+                  onChange={handleInputChange}
+                />
                 <span className="form-text">First Name</span>
               </div>
 
               <div className="relative w-full pt-3 sm:w-1/2 sm:pt-0">
-                <Input type="text" className="w-full p-2.5" />
+                <Input
+                  type="text"
+                  name="lastname"
+                  className="w-full p-2.5"
+                  value={lastname}
+                  onChange={handleInputChange}
+                />
                 <span className="form-text">Last Name</span>
               </div>
             </div>
 
             <div className="relative pt-8">
-              <Input type="text" className="w-full p-2.5" />
+              <Input
+                type="text"
+                name="email"
+                className="w-full p-2.5"
+                value={email}
+                onChange={handleInputChange}
+              />
               <span className="form-text">Email Address</span>
             </div>
 
             <div className="relative pt-8">
-              <Input type="text" className="w-full p-2.5" />
+              <Input
+                type={visible ? "text" : "password"}
+                name="password"
+                ref={passwordRef}
+                className="w-full p-2.5"
+                value={password}
+                onChange={handleInputChange}
+              />
               <span className="form-text">Password</span>
               <span className="absolute bottom-3 right-2 cursor-pointer text-2xl text-gray-600">
-                <HiOutlineEye />
+                <div onClick={() => setVisible(!visible)}>
+                  {visible ? <HiOutlineEyeSlash /> : <HiOutlineEye />}
+                </div>
+              </span>
+            </div>
+            <div className="flex flex-wrap gap-3 pt-3">
+              <span
+                className={`${
+                  caseCondition
+                    ? "flex items-center justify-start gap-2 bg-primaryColorLighter p-2 text-primaryColor"
+                    : "bg-lightGraySec p-2"
+                }`}
+              >
+                {caseCondition && <BsFillCheckSquareFill />}
+                <span>Upper & Lower case letter </span>
+              </span>
+              <span
+                className={`${
+                  lengthCondition
+                    ? "flex items-center justify-start gap-2 rounded-sm bg-primaryColorLighter p-2 text-primaryColor"
+                    : "rounded-sm bg-lightGraySec p-2"
+                }`}
+              >
+                {lengthCondition && <BsFillCheckSquareFill />}
+                <span>8 characters long</span>
+              </span>
+              <span
+                className={`${
+                  numberCondition
+                    ? "flex items-center justify-start gap-2 bg-primaryColorLighter p-2 text-primaryColor"
+                    : "bg-lightGraySec p-2"
+                }`}
+              >
+                {numberCondition && <BsFillCheckSquareFill />}
+                <span>Number</span>
+              </span>
+
+              <span
+                className={`${
+                  charCondition
+                    ? "flex items-center justify-start gap-2 bg-primaryColorLighter p-2 text-primaryColor"
+                    : "bg-lightGraySec p-2"
+                }`}
+              >
+                {charCondition && <BsFillCheckSquareFill />}
+                <span>Special character</span>
               </span>
             </div>
 
             <div className="relative pt-8">
-              <Input type="text" className="w-full p-2.5" />
+              <Input
+                type={cpVisible ? "text" : "password"}
+                name="confirmPassword"
+                ref={cPasswordRef}
+                className="w-full p-2.5"
+                value={confirmPassword}
+                onChange={handleInputChange}
+              />
               <span className="form-text">Confirm Password</span>
               <span className="absolute bottom-3 right-2 cursor-pointer text-2xl text-gray-600">
-                <HiOutlineEye />
+                <div onClick={() => setCPVisible(!cpVisible)}>
+                  {cpVisible ? <HiOutlineEyeSlash /> : <HiOutlineEye />}
+                </div>
               </span>
             </div>
 

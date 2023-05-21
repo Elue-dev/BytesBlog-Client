@@ -1,4 +1,10 @@
-import { ReactNode, Dispatch, SetStateAction, ChangeEvent } from "react";
+import {
+  ReactNode,
+  Dispatch,
+  SetStateAction,
+  ChangeEvent,
+  MutableRefObject,
+} from "react";
 
 export interface ButtonProps {
   type?: "button" | "submit" | "reset" | undefined;
@@ -24,7 +30,6 @@ export interface CAValues {
 
 export interface CAProps {
   values: CAValues;
-  setValues: Dispatch<SetStateAction<CAProps["values"]>>;
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
   nextStep?: () => void;
   previousStep?: () => void;
@@ -32,11 +37,18 @@ export interface CAProps {
 
 export interface InterestsProps {
   interests: string[];
+  values: CAValues;
+  initialValues: CAValues;
+  setValues: Dispatch<SetStateAction<CAProps["values"]>>;
   setInterests: Dispatch<SetStateAction<InterestsProps["interests"]>>;
   previousStep?: () => void;
 }
 
 export interface InputProps {
   type: string;
+  name: string;
+  ref?: MutableRefObject<any>;
   className: string;
+  value: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }

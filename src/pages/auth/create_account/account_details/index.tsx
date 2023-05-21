@@ -37,13 +37,15 @@ export default function CreateAccount() {
           values={values}
           handleInputChange={handleInputChange}
           nextStep={nextStep}
-          setValues={setValues}
         />
       );
       break;
     case 2:
       return (
         <Interests
+          values={values}
+          setValues={setValues}
+          initialValues={initialValues}
           interests={interests}
           setInterests={setInterests}
           previousStep={previousStep}

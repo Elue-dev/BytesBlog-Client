@@ -5,17 +5,25 @@ import Button from "../button";
 
 export default function Interests({
   interests,
+  initialValues,
   setInterests,
   previousStep,
+  values,
+  setValues,
 }: InterestsProps) {
-  console.log(interests);
-
   const setUserInterest = (int: string) => {
     if (interests.includes(int)) {
       setInterests(interests.filter((cat) => cat !== int));
     } else {
       setInterests([...interests, int]);
     }
+  };
+
+  const createUserAccount = () => {
+    console.log({ values });
+    console.log({ interests });
+    setValues(initialValues);
+    setInterests([]);
   };
 
   return (
@@ -41,9 +49,9 @@ export default function Interests({
                 <span
                   className={`${
                     interests.includes(interest)
-                      ? "border-2 border-primaryColor p-2 text-primaryColor transition duration-500 ease-in-out"
-                      : "border border-lighterGray p-2 text-lighterGray transition duration-500 ease-in-out"
-                  } cursor-pointer rounded-2xl`}
+                      ? "border-2 border-primaryColor p-2 text-primaryColor "
+                      : "border border-lighterGray p-2 text-lighterGray"
+                  } cursor-pointer rounded-2xl transition duration-500 ease-in-out`}
                 >
                   {interest}
                 </span>
@@ -52,7 +60,10 @@ export default function Interests({
           ))}
         </div>
 
-        <Button className="mt-14 w-full rounded-lg bg-primaryColor uppercase text-white">
+        <Button
+          className="mt-14 w-full rounded-lg bg-primaryColor uppercase text-white"
+          onClick={createUserAccount}
+        >
           Create Account
         </Button>
       </div>
