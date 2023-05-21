@@ -1,6 +1,19 @@
 @use "../../styles/mixins" as *;
 
 .hero {
+  background: url("../../assets/herobg.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 91% -245px;
+  position: relative;
+  z-index: 1;
+  @include mQ(600px) {
+    height: 95vh !important;
+    background-position: 61% -245px;
+  }
+  @include mQ(380px) {
+    height: 87vh !important;
+  }
   .content {
     @include container();
     h2 {

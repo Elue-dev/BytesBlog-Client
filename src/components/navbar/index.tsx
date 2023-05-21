@@ -1,5 +1,5 @@
 import styles from "./navbar.module.scss";
-import logo2 from "@/assets/logo2.svg";
+import logo2 from "@/assets/bytesLogo.svg";
 import Button from "../button";
 
 export default function Navbar() {

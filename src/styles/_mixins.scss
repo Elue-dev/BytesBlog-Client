@@ -2,4 +2,13 @@
   max-width: 1300px;
   margin: auto;
   width: 80%;
+  @include mQ(600px) {
+    width: 90%;
+  }
+}
+
+@mixin mQ($respond) {
+  @media (max-width: $respond) {
+    @content;
+  }
 }

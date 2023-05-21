@@ -8,6 +8,7 @@ export interface ButtonProps {
 
 export interface Offers {
   id: number;
+  icon: string;
   heading: string;
   description: string;
 }
