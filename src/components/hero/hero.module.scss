@@ -18,6 +18,10 @@
     @include container();
     h2 {
       font-weight: 600;
+      max-width: 450px;
+      @include mQ(500px) {
+        max-width: 350px !important;
+      }
     }
     p {
       max-width: 390px;
