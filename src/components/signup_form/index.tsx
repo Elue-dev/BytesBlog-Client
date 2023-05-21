@@ -8,6 +8,7 @@ import { HiOutlineEyeSlash } from "react-icons/hi2";
 import { BsFillCheckSquareFill } from "react-icons/bs";
 import Input from "../input";
 import { useEffect, useRef, useState } from "react";
+import { validateEmail } from "@/utils/utils";
 
 export default function SignUpForm({
   values,
@@ -21,6 +22,7 @@ export default function SignUpForm({
   const [charCondition, setCharCondition] = useState(false);
   const [lengthCondition, setLengthCondition] = useState(false);
   const [caseCondition, setCaseCondition] = useState(false);
+  const [validationErrors, setValidationErrors] = useState<string[]>([]);
   const passwordRef = useRef<any | undefined>();
   const cPasswordRef = useRef<any | undefined>();
 
@@ -49,6 +51,37 @@ export default function SignUpForm({
     }
   }, [password]);
 
+  const proceed = () => {
+    setValidationErrors([]);
+    const errors = [];
+    if (!firstname.trim()) {
+      errors.push("firstname");
+    }
+    if (!lastname.trim()) {
+      errors.push("lastname");
+    }
+    if (!email.trim()) {
+      errors.push("email");
+    }
+    if (!password.trim()) {
+      errors.push("password");
+    }
+    if (!confirmPassword.trim()) {
+      errors.push("confirmPassword");
+    }
+    setValidationErrors(errors);
+
+    if (errors.length === 0) {
+      if (!validateEmail(email)) {
+        return alert("Please enter a valid email format");
+      }
+      if (password !== confirmPassword) {
+        return alert("Passwords do not match");
+      }
+      nextStep && nextStep();
+    }
+  };
+
   return (
     <section>
       <div className="flex h-screen items-center justify-center">
@@ -64,12 +97,16 @@ export default function SignUpForm({
             <span className="font-normal">Continue With Google</span>
           </Button>
           <span className="mb-4 block text-center">Or</span>
-          <form action="">
+          <section>
             <div className="flex flex-col gap-4 sm:flex-row">
               <div className="relative w-full sm:w-1/2">
                 <Input
                   type="text"
-                  className="w-full p-2.5"
+                  className={`${
+                    validationErrors.includes("firstname")
+                      ? "border-rose-500"
+                      : ""
+                  } w-full p-2.5`}
                   value={firstname}
                   name="firstname"
                   onChange={handleInputChange}
@@ -81,7 +118,11 @@ export default function SignUpForm({
                 <Input
                   type="text"
                   name="lastname"
-                  className="w-full p-2.5"
+                  className={`${
+                    validationErrors.includes("lastname")
+                      ? "border-rose-500"
+                      : ""
+                  } w-full p-2.5`}
                   value={lastname}
                   onChange={handleInputChange}
                 />
@@ -93,7 +134,9 @@ export default function SignUpForm({
               <Input
                 type="text"
                 name="email"
-                className="w-full p-2.5"
+                className={`${
+                  validationErrors.includes("email") ? "border-rose-500" : ""
+                } w-full p-2.5`}
                 value={email}
                 onChange={handleInputChange}
               />
@@ -105,7 +148,9 @@ export default function SignUpForm({
                 type={visible ? "text" : "password"}
                 name="password"
                 ref={passwordRef}
-                className="w-full p-2.5"
+                className={`${
+                  validationErrors.includes("password") ? "border-rose-500" : ""
+                } w-full p-2.5`}
                 value={password}
                 onChange={handleInputChange}
               />
@@ -116,12 +161,11 @@ export default function SignUpForm({
                 </div>
               </span>
             </div>
-            <div className="flex flex-wrap gap-3 pt-3">
+
+            <div className="flex flex-wrap gap-3 pt-3 transition duration-200 ease-in-out">
               <span
                 className={`${
-                  caseCondition
-                    ? "flex items-center justify-start gap-2 bg-primaryColorLighter p-2 text-primaryColor"
-                    : "bg-lightGraySec p-2"
+                  caseCondition ? "checker-style" : "bg-lightGraySec p-2"
                 }`}
               >
                 {caseCondition && <BsFillCheckSquareFill />}
@@ -130,7 +174,7 @@ export default function SignUpForm({
               <span
                 className={`${
                   lengthCondition
-                    ? "flex items-center justify-start gap-2 rounded-sm bg-primaryColorLighter p-2 text-primaryColor"
+                    ? "checker-style"
                     : "rounded-sm bg-lightGraySec p-2"
                 }`}
               >
@@ -139,9 +183,7 @@ export default function SignUpForm({
               </span>
               <span
                 className={`${
-                  numberCondition
-                    ? "flex items-center justify-start gap-2 bg-primaryColorLighter p-2 text-primaryColor"
-                    : "bg-lightGraySec p-2"
+                  numberCondition ? "checker-style" : "bg-lightGraySec p-2"
                 }`}
               >
                 {numberCondition && <BsFillCheckSquareFill />}
@@ -150,9 +192,7 @@ export default function SignUpForm({
 
               <span
                 className={`${
-                  charCondition
-                    ? "flex items-center justify-start gap-2 bg-primaryColorLighter p-2 text-primaryColor"
-                    : "bg-lightGraySec p-2"
+                  charCondition ? "checker-style" : "bg-lightGraySec p-2"
                 }`}
               >
                 {charCondition && <BsFillCheckSquareFill />}
@@ -165,7 +205,11 @@ export default function SignUpForm({
                 type={cpVisible ? "text" : "password"}
                 name="confirmPassword"
                 ref={cPasswordRef}
-                className="w-full p-2.5"
+                className={`${
+                  validationErrors.includes("confirmPassword")
+                    ? "border-rose-500"
+                    : ""
+                } w-full p-2.5`}
                 value={confirmPassword}
                 onChange={handleInputChange}
               />
@@ -178,9 +222,9 @@ export default function SignUpForm({
             </div>
 
             <Button
-              type="submit"
+              type="button"
               className="mt-5 w-full rounded-lg bg-primaryColor font-semibold uppercase text-white"
-              onClick={nextStep}
+              onClick={proceed}
             >
               Continue
             </Button>
@@ -191,7 +235,7 @@ export default function SignUpForm({
                 Sign In
               </Link>
             </p>
-          </form>
+          </section>
         </div>
       </div>
     </section>

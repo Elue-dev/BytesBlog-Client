@@ -4,6 +4,7 @@ import {
   SetStateAction,
   ChangeEvent,
   MutableRefObject,
+  FocusEventHandler,
 } from "react";
 
 export interface ButtonProps {

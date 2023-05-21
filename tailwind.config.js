@@ -27,6 +27,16 @@ export default {
           padding: "0.25rem",
           color: "var(--blackNeutral)",
         },
+        ".checker-style": {
+          display: "flex",
+          justifyContent: "flex-start",
+          alignItems: "center",
+          gap: ".5rem",
+          padding: ".5rem",
+          borderRadius: "0.125rem",
+          backgroundColor: "#F1FFE4",
+          color: "#169639",
+        },
       });
     },
   ],
