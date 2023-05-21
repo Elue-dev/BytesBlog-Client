@@ -1,7 +1,7 @@
 import Hero from "../hero";
 import { offers } from "./data";
 import homeImage from "@/assets/homeImage.svg";
-import styles from "./home.module.scss";
+import styles from "./landing.page.module.scss";
 import Button from "../button";
 
 export default function Home() {
@@ -29,7 +29,7 @@ export default function Home() {
               </div>
             ))}
           </div>
-          <div className="mt-10 flex flex-col items-center justify-center pt-12 sm:flex-row">
+          <div className="mt-10 flex flex-col items-center justify-center gap-0 pt-12 sm:flex-row sm:gap-8">
             <div className="w-full sm:w-1/2">
               <img
                 src={homeImage}
@@ -38,7 +38,7 @@ export default function Home() {
               />
             </div>
             <div className="w-full sm:mt-0 sm:w-1/2">
-              <h2 className="mb-3 text-4xl font-semibold leading-[3rem]">
+              <h2 className="mb-3 text-4xl font-semibold leading-[3rem] sm:text-3xl">
                 Join a community of creative geniuses
               </h2>
               <p className="text-lightTextColor">

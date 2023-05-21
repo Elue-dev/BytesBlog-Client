@@ -1,4 +1,4 @@
-import Home from "@/components/home";
+import Home from "@/components/landing_page";
 import Navbar from "@/components/navbar";
 import { createBrowserRouter, Outlet } from "react-router-dom";
 

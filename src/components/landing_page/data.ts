@@ -10,15 +10,15 @@ export const offers: Offers[] = [
   },
   {
     id: 2,
-    icon: "scIcon.svg",
-    heading: "Social Connectivity",
+    icon: "idIcon2.svg",
+    heading: "Interactive Discussions",
     description:
       "Connect with curious minds, tell your story and share your knowledge even just the way you want it",
   },
   {
     id: 3,
-    icon: "idIcon.svg",
-    heading: "Interactive Discussions",
+    icon: "scIcon.svg",
+    heading: "Social Connectivity",
     description:
       "Connect with curious minds, tell your story and share your knowledge even just the way you want it",
   },
