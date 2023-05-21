@@ -1,4 +1,4 @@
-@use "../../styles/mixins" as *;
+@use "../../sass/mixins" as *;
 
 .hero {
   background: url("../../assets/herobg.svg");
@@ -6,6 +6,7 @@
   background-size: cover;
   background-position: 91% -245px;
   position: relative;
+  background-color: #f2fff5;
   z-index: 1;
   @include mQ(600px) {
     height: 95vh !important;
