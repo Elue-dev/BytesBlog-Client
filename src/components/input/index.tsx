@@ -5,6 +5,7 @@ export default function Input({
   name,
   ref,
   className,
+  onInput,
   value,
   onChange,
 }: InputProps) {
@@ -15,6 +16,7 @@ export default function Input({
       name={name}
       ref={ref}
       className={className ? inputClasses : "border"}
+      onInput={onInput}
       value={value}
       onChange={onChange}
     ></input>

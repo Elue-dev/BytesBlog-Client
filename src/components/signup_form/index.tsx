@@ -82,6 +82,11 @@ export default function SignUpForm({
     }
   };
 
+  const handleFocus = (field: string) => {
+    const updatedErrors = validationErrors.filter((err) => err !== field);
+    setValidationErrors(updatedErrors);
+  };
+
   return (
     <section>
       <div className="flex h-screen items-center justify-center">
@@ -110,6 +115,7 @@ export default function SignUpForm({
                   value={firstname}
                   name="firstname"
                   onChange={handleInputChange}
+                  onInput={() => handleFocus("firstname")}
                 />
                 <span className="form-text">First Name</span>
               </div>
@@ -125,6 +131,7 @@ export default function SignUpForm({
                   } w-full p-2.5`}
                   value={lastname}
                   onChange={handleInputChange}
+                  onInput={() => handleFocus("lastname")}
                 />
                 <span className="form-text">Last Name</span>
               </div>
@@ -139,6 +146,7 @@ export default function SignUpForm({
                 } w-full p-2.5`}
                 value={email}
                 onChange={handleInputChange}
+                onInput={() => handleFocus("email")}
               />
               <span className="form-text">Email Address</span>
             </div>
@@ -153,6 +161,7 @@ export default function SignUpForm({
                 } w-full p-2.5`}
                 value={password}
                 onChange={handleInputChange}
+                onInput={() => handleFocus("password")}
               />
               <span className="form-text">Password</span>
               <span className="absolute bottom-3 right-2 cursor-pointer text-2xl text-gray-600">
@@ -212,6 +221,7 @@ export default function SignUpForm({
                 } w-full p-2.5`}
                 value={confirmPassword}
                 onChange={handleInputChange}
+                onInput={() => handleFocus("confirmPassword")}
               />
               <span className="form-text">Confirm Password</span>
               <span className="absolute bottom-3 right-2 cursor-pointer text-2xl text-gray-600">

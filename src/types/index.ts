@@ -49,6 +49,7 @@ export interface InputProps {
   type: string;
   name: string;
   ref?: MutableRefObject<any>;
+  onInput?: FocusEventHandler<HTMLInputElement>;
   className: string;
   value: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
