@@ -15,7 +15,7 @@ export default function SignUpForm({
     <section>
       <div className="flex h-screen items-center justify-center">
         <div className=" mx-4 my-8 w-full max-w-md rounded-lg bg-white p-0 sm:p-5 sm:shadow-lg">
-          <Link to="/" className="mb-3 flex items-center justify-center">
+          <Link to="/" className="mb-3 flex items-center justify-center pt-4">
             <img src={bytesLogo} alt="BytesBlog Logo" />
           </Link>
           <h1 className="mb-3 flex items-center justify-center text-3xl font-medium">
@@ -28,20 +28,20 @@ export default function SignUpForm({
           <span className="mb-4 block text-center">Or</span>
           <form action="">
             <div className="flex flex-col gap-4 sm:flex-row">
-              <div className="relative pt-3">
-                <Input type="text" className="w-full p-2 sm:w-auto" />
+              <div className="relative w-full sm:w-1/2">
+                <Input type="text" className="w-full p-2" />
                 <span className="absolute bottom-8 left-2 bg-white px-1 text-blackNeutral">
                   First Name
                 </span>
               </div>
-
-              <div className="relative pt-3">
-                <Input type="text" className="w-full p-2 sm:w-auto" />
+              <div className="relative w-full pt-3 sm:w-1/2 sm:pt-0">
+                <Input type="text" className="w-full p-2" />
                 <span className="absolute bottom-8 left-2 bg-white px-1 text-blackNeutral">
                   Last Name
                 </span>
               </div>
             </div>
+
             <div className="relative pt-8">
               <Input type="text" className="w-full p-2" />
               <span className="absolute bottom-8 left-2 bg-white px-1 text-blackNeutral">
