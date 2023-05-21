@@ -32,7 +32,14 @@ export default function CreateAccount() {
 
   switch (pageStep) {
     case 1:
-      return <SignUpForm />;
+      return (
+        <SignUpForm
+        //   values={values}
+        //   handleInputChange={handleInputChange}
+        //   nextStep={nextStep}
+        //   setValues={setValues}
+        />
+      );
       break;
     case 2:
       return <Interests />;

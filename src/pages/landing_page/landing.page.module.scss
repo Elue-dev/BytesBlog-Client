@@ -6,10 +6,10 @@
       margin-top: -12rem !important;
     }
     @include mQ(500px) {
-      margin-top: -10rem !important;
+      margin-top: 3rem !important;
     }
     @include mQ(380px) {
-      margin-top: -1rem !important;
+      margin-top: 1rem !important;
     }
   }
   .main {

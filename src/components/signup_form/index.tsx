@@ -5,12 +5,14 @@ import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import Input from "../input";
 
-export default function SignUpForm({
-  values,
-  handleInputChange,
-  nextStep,
-  setValues,
-}: CAProps) {
+// {
+//     values,
+//     handleInputChange,
+//     nextStep,
+//     setValues,
+//   }: CAProps
+
+export default function SignUpForm() {
   return (
     <section>
       <div className="flex h-screen items-center justify-center">
