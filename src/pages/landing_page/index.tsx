@@ -1,8 +1,8 @@
-import Hero from "../hero";
+import Hero from "../../components/hero";
 import { offers } from "./data";
 import homeImage from "@/assets/homeImage.svg";
 import styles from "./landing.page.module.scss";
-import Button from "../button";
+import Button from "../../components/button";
 
 export default function Home() {
   return (
