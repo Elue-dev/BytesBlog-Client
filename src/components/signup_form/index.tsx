@@ -3,6 +3,7 @@ import Button from "../button";
 import bytesLogo from "@/assets/bytesLogo.svg";
 import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
+import { HiOutlineEye } from "react-icons/hi";
 import Input from "../input";
 
 export default function SignUpForm({
@@ -34,36 +35,34 @@ export default function SignUpForm({
           <form action="">
             <div className="flex flex-col gap-4 sm:flex-row">
               <div className="relative w-full sm:w-1/2">
-                <Input type="text" className="w-full p-2" />
-                <span className="absolute bottom-8 left-2 bg-white px-1 text-blackNeutral">
-                  First Name
-                </span>
+                <Input type="text" className="w-full p-2.5" />
+                <span className="form-text">First Name</span>
               </div>
+
               <div className="relative w-full pt-3 sm:w-1/2 sm:pt-0">
-                <Input type="text" className="w-full p-2" />
-                <span className="absolute bottom-8 left-2 bg-white px-1 text-blackNeutral">
-                  Last Name
-                </span>
+                <Input type="text" className="w-full p-2.5" />
+                <span className="form-text">Last Name</span>
               </div>
             </div>
 
             <div className="relative pt-8">
-              <Input type="text" className="w-full p-2" />
-              <span className="absolute bottom-8 left-2 bg-white px-1 text-blackNeutral">
-                Email Address
-              </span>
+              <Input type="text" className="w-full p-2.5" />
+              <span className="form-text">Email Address</span>
             </div>
+
             <div className="relative pt-8">
-              <Input type="text" className="w-full p-2" />
-              <span className="absolute bottom-8 left-2 bg-white px-1 text-blackNeutral">
-                Password
+              <Input type="text" className="w-full p-2.5" />
+              <span className="form-text">Password</span>
+              <span className="absolute bottom-3 right-2 cursor-pointer text-2xl text-gray-600">
+                <HiOutlineEye />
               </span>
             </div>
 
             <div className="relative pt-8">
-              <Input type="text" className="w-full p-2" />
-              <span className="absolute bottom-8 left-2 bg-white px-1 text-blackNeutral">
-                Confirm Password
+              <Input type="text" className="w-full p-2.5" />
+              <span className="form-text">Confirm Password</span>
+              <span className="absolute bottom-3 right-2 cursor-pointer text-2xl text-gray-600">
+                <HiOutlineEye />
               </span>
             </div>
 
@@ -74,6 +73,13 @@ export default function SignUpForm({
             >
               Continue
             </Button>
+
+            <p className="mb-3 mt-4 text-right text-blackNeutral">
+              Already have a Bytes account?{" "}
+              <Link to="/sign-in" className="font-semibold underline">
+                Sign In
+              </Link>
+            </p>
           </form>
         </div>
       </div>

@@ -9,8 +9,22 @@ export default {
         lightTextColor: "#8E8E93",
         blackNeutral: "#07080A",
         lightGray: "#B6B6B6",
+        lighterGray: "#767D8D",
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      addUtilities({
+        ".form-text": {
+          position: "absolute",
+          bottom: "1.95rem",
+          left: "1rem",
+          backgroundColor: "white",
+          padding: "0.25rem",
+          color: "var(--blackNeutral)",
+        },
+      });
+    },
+  ],
 };
