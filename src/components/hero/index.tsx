@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Button from "../button";
 import styles from "./hero.module.scss";
 
@@ -12,10 +13,11 @@ export default function Hero() {
           Share your thoughts even as you immerse yourself in our rich content
           that covers a wide range of topics.
         </p>
-
-        <Button className="mt-6 bg-primaryColor uppercase text-white">
-          Get Started
-        </Button>
+        <Link to="/create-account">
+          <Button className="mt-6 bg-primaryColor p-4 uppercase text-white">
+            Get Started
+          </Button>
+        </Link>
       </div>
     </section>
   );

@@ -1,24 +1,22 @@
 import { InputProps } from "@/types";
+import { forwardRef } from "react";
 
-export default function Input({
-  type,
-  name,
-  ref,
-  className,
-  onInput,
-  value,
-  onChange,
-}: InputProps) {
-  const inputClasses = `rounded border border-lightGray outline-none focus:border-primaryColor transition ease-in text-lightText	 duration-300 ${className}`;
-  return (
-    <input
-      type={type}
-      name={name}
-      ref={ref}
-      className={className ? inputClasses : "border"}
-      onInput={onInput}
-      value={value}
-      onChange={onChange}
-    ></input>
-  );
-}
+const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ type, name, className, onInput, value, onChange }, ref) => {
+    const inputClasses = `rounded border border-lightGray outline-none focus:border-primaryColor transition ease-in text-lightText	 duration-300 ${className}`;
+
+    return (
+      <input
+        type={type}
+        name={name}
+        ref={ref}
+        className={className ? inputClasses : "border"}
+        onInput={onInput}
+        value={value}
+        onChange={onChange}
+      ></input>
+    );
+  }
+);
+
+export default Input;

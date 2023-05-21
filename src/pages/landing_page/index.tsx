@@ -3,6 +3,7 @@ import { offers } from "./data";
 import homeImage from "@/assets/homeImage.svg";
 import styles from "./landing.page.module.scss";
 import Button from "../../components/button";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   return (
@@ -45,9 +46,11 @@ export default function Home() {
                 Connect with curious minds, tell your story and share your
                 knowledge even just the way you want it
               </p>
-              <Button className="mt-6 bg-primaryColor p-4 uppercase text-white">
-                Get Started
-              </Button>
+              <Link to="/create-account">
+                <Button className="mt-6 bg-primaryColor p-4 uppercase text-white">
+                  Get Started
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
