@@ -92,7 +92,11 @@ export default function SignUpForm({
       <div className="flex h-screen items-center justify-center">
         <div className=" mx-4 my-8 w-full max-w-md rounded-lg bg-white p-0 sm:p-5 sm:shadow-lg">
           <Link to="/" className="mb-3 flex items-center justify-center pt-8">
-            <img src={bytesLogo} alt="BytesBlog Logo" />
+            <img
+              src={bytesLogo}
+              alt="BytesBlog Logo"
+              className="pt-32 sm:pt-8"
+            />
           </Link>
           <h1 className="mb-3 flex items-center justify-center text-3xl font-medium">
             Create Account
