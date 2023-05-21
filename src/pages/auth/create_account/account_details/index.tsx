@@ -42,7 +42,13 @@ export default function CreateAccount() {
       );
       break;
     case 2:
-      return <Interests interests={interests} setInterests={setInterests} />;
+      return (
+        <Interests
+          interests={interests}
+          setInterests={setInterests}
+          previousStep={previousStep}
+        />
+      );
       break;
     default:
       return null;

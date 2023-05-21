@@ -6,7 +6,7 @@ import { Link, useLocation } from "react-router-dom";
 export default function Navbar() {
   const { pathname } = useLocation();
 
-  if (["/create-account", "/sign-in"].includes(pathname)) return;
+  if (["/create-account", "/sign-in"].includes(pathname)) return null;
 
   return (
     <section className={styles.navbar}>

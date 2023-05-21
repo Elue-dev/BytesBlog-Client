@@ -4,6 +4,7 @@ export interface ButtonProps {
   type?: "button" | "submit" | "reset" | undefined;
   children: ReactNode;
   className: string;
+  onClick?: (() => void) | undefined;
 }
 
 export interface Offers {

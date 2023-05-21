@@ -26,9 +26,9 @@ export default function SignUpForm({
           <h1 className="mb-3 flex items-center justify-center text-3xl font-medium">
             Create Account
           </h1>
-          <Button className="mb-4 mt-6 flex w-full items-center justify-center gap-4 rounded-lg border border-lightGray bg-white">
+          <Button className="mb-4 mt-6 flex w-full items-center justify-center gap-3 rounded-lg border border-lightGray bg-white">
+            <FcGoogle className="text-2xl" />
             <span className="font-normal">Continue With Google</span>
-            <FcGoogle />
           </Button>
           <span className="mb-4 block text-center">Or</span>
           <form action="">
@@ -70,6 +70,7 @@ export default function SignUpForm({
             <Button
               type="submit"
               className="mt-5 w-full rounded-lg bg-primaryColor font-semibold uppercase text-white"
+              onClick={nextStep}
             >
               Continue
             </Button>
