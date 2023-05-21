@@ -19,5 +19,11 @@
     h2 {
       font-weight: 600;
     }
+    p {
+      max-width: 390px;
+      @include mQ(500px) {
+        max-width: 292px !important;
+      }
+    }
   }
 }
