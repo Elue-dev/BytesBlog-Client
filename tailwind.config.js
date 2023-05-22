@@ -7,6 +7,7 @@ export default {
         primaryColor: "#169639",
         primaryColorLight: "#F2FFF5",
         primaryColorLighter: "#F1FFE4",
+        brightGreen: "#b6e4c2",
         lightTextColor: "#8E8E93",
         blackNeutral: "#07080A",
         blackNeutralSec: "##495057",

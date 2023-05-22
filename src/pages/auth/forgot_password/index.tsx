@@ -25,8 +25,11 @@ export default function ForgotPassword() {
       if (!validateEmail(email)) {
         return alert("Please enter a valid email format");
       }
-      revealModal(`Password reset email sent to ${email}`);
-      setTimeout(() => navigate("/auth/sign-in"), 2000);
+      revealModal(
+        `A link has been sent to ${email}. Kindly open the link to reset your password.`,
+        "warning"
+      );
+      setTimeout(() => navigate("/auth/reset-password"), 2000);
     }
   };
 

@@ -76,7 +76,7 @@ export default function ResetPassword() {
       if (password !== confirmPassword) {
         return alert("Passwords do not match");
       }
-      revealModal("Password successfully reset");
+      revealModal("Password successfully reset", "success");
       setTimeout(() => navigate("/auth/sign-in"), 2000);
     }
   };

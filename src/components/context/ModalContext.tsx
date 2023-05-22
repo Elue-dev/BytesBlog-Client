@@ -6,10 +6,12 @@ export const ModalContext = createContext<ContextProps | null>(null);
 export const ModalProvider = ({ children }: ModalProviderProps) => {
   const [showModal, setShowModal] = useState(false);
   const [message, setMessage] = useState("");
+  const [modalIcon, setModalIcon] = useState("check");
 
-  const revealModal = (message: string) => {
+  const revealModal = (message: string, iconType: string) => {
     setShowModal(true);
     setMessage(message);
+    setModalIcon(iconType);
   };
 
   const closeModal = () => {
@@ -17,7 +19,14 @@ export const ModalProvider = ({ children }: ModalProviderProps) => {
     setMessage("");
   };
 
-  const values = { showModal, message, setShowModal, revealModal, closeModal };
+  const values = {
+    showModal,
+    message,
+    modalIcon,
+    setShowModal,
+    revealModal,
+    closeModal,
+  };
 
   return (
     <ModalContext.Provider value={values}>{children}</ModalContext.Provider>
