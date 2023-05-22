@@ -7,11 +7,17 @@ export const ModalProvider = ({ children }: ModalProviderProps) => {
   const [showModal, setShowModal] = useState(false);
   const [message, setMessage] = useState("");
   const [modalIcon, setModalIcon] = useState("check");
+  const [route, setRoute] = useState("");
 
-  const revealModal = (message: string, iconType: string) => {
+  const revealModal = (
+    message: string,
+    iconType: string,
+    specifiedRoute: string
+  ) => {
     setShowModal(true);
     setMessage(message);
     setModalIcon(iconType);
+    setRoute(specifiedRoute);
   };
 
   const closeModal = () => {
@@ -23,6 +29,7 @@ export const ModalProvider = ({ children }: ModalProviderProps) => {
     showModal,
     message,
     modalIcon,
+    route,
     setShowModal,
     revealModal,
     closeModal,

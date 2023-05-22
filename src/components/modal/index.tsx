@@ -3,11 +3,18 @@ import Button from "../button";
 import { useModal } from "../context/useModal";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { IoWarningOutline } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
 export default function Modal({ message }: ModalProps) {
+  const navigate = useNavigate();
   const context = useModal();
   if (!context) return null;
-  const { showModal, modalIcon, closeModal } = context;
+  const { showModal, modalIcon, route, closeModal } = context;
+
+  const closeModalAndNavigate = () => {
+    closeModal();
+    navigate(route);
+  };
 
   return (
     <div>
@@ -38,7 +45,7 @@ export default function Modal({ message }: ModalProps) {
               <Button
                 type="button"
                 className="inline-flex w-full justify-center rounded-md bg-primaryColorLighter px-4 py-2 text-lg font-semibold uppercase text-primaryColor shadow-sm"
-                onClick={closeModal}
+                onClick={closeModalAndNavigate}
               >
                 Done
               </Button>

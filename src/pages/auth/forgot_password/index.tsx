@@ -27,9 +27,10 @@ export default function ForgotPassword() {
       }
       revealModal(
         `A link has been sent to ${email}. Kindly open the link to reset your password.`,
-        "warning"
+        "warning",
+        "/auth/reset-password"
       );
-      setTimeout(() => navigate("/auth/reset-password"), 2000);
+      // setTimeout(() => navigate("/auth/reset-password"), 2000);
     }
   };
 
