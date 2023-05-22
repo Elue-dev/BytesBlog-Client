@@ -4,17 +4,17 @@ import styles from "./hero.module.scss";
 
 export default function Hero() {
   return (
-    <section className={`h-[75vh] ${styles.hero} mt-2`}>
+    <section className={`h-[75vh] ${styles.hero} mt-1`}>
       <div className={`${styles.content} pt-16`}>
-        <h2 className="leading-12 text-4xl">
+        <h2 className="leading-12 text-5xl">
           Unleash your thoughts and pen them down
         </h2>
-        <p className="mt-4 font-semibold text-lightTextColor sm:font-normal">
+        <p className="mt-4 font-normal text-grayNeutral sm:font-normal">
           Share your thoughts even as you immerse yourself in our rich content
           that covers a wide range of topics.
         </p>
         <Link to="/auth/create-account">
-          <Button className="mt-6 bg-primaryColor p-4 uppercase text-white">
+          <Button className="mt-6 bg-primaryColor p-4  text-white">
             Get Started
           </Button>
         </Link>

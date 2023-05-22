@@ -70,7 +70,7 @@ export default function ForgotPassword() {
         </div>
 
         <Button
-          className="mt-14 w-full rounded-lg bg-primaryColor uppercase text-white"
+          className="mt-14 w-full rounded-lg bg-primaryColor text-white"
           onClick={sendResetEmail}
         >
           Send Password Reset Link

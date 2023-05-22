@@ -14,7 +14,7 @@ export default function Home() {
           What we offer you
         </h1>
         <div className={`${styles.main}`}>
-          <div className="mb-16 grid gap-4 pt-10 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mb-16 grid gap-6 pt-10 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             {offers.map((offer) => (
               <div key={offer.id}>
                 <div className="flex">
@@ -30,7 +30,7 @@ export default function Home() {
               </div>
             ))}
           </div>
-          <div className="mt-10 flex flex-col items-center justify-center gap-0 pt-12 sm:flex-row sm:gap-8">
+          <div className="flex flex-col items-center justify-center gap-0 pt-1 sm:flex-row sm:gap-8 sm:pt-20">
             <div className="w-full sm:w-1/2">
               <img
                 src={homeImage}
@@ -47,7 +47,7 @@ export default function Home() {
                 knowledge even just the way you want it
               </p>
               <Link to="/auth/create-account">
-                <Button className="mt-6 bg-primaryColor p-4 uppercase text-white">
+                <Button className="mt-6 bg-primaryColor p-4 text-white">
                   Get Started
                 </Button>
               </Link>

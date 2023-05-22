@@ -6,30 +6,31 @@
   background-size: cover;
   background-position: 91% -245px;
   position: relative;
-  background-color: #f2fff5;
+  // background-color: #f2fff5;
   z-index: 1;
   @include mQ(600px) {
     height: 95vh !important;
-    // background-position: 61% -245px;
-    background-position: 61% 3px;
+    background-position: 61% -46px;
   }
   @include mQ(380px) {
-    // height: 87vh !important;
-    height: 56vh !important;
+    height: 87vh !important;
   }
   .content {
     @include container();
     h2 {
       font-weight: 600;
-      max-width: 450px;
+      max-width: 550px;
       @include mQ(500px) {
         max-width: 350px !important;
+        font-size: 40px;
       }
     }
     p {
-      max-width: 390px;
+      font-size: 24px;
+      max-width: 550px;
       @include mQ(500px) {
         max-width: 276px !important;
+        font-size: 18px;
       }
     }
   }
