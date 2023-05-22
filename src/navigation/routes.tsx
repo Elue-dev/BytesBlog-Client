@@ -8,7 +8,7 @@ import SignIn from "@/pages/auth/sign_in";
 import ForgotPassword from "@/pages/auth/forgot_password";
 import ResetPassword from "@/pages/auth/reset_password";
 import Modal from "@/components/modal";
-import { useModal } from "@/components/context/useModal";
+import { useModal } from "../context/useModal";
 
 export const Layout = () => {
   const context = useModal();

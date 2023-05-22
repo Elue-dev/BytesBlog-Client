@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Input from "@/components/input";
 import { useState } from "react";
 import { validateEmail } from "@/utils/utils";
-import { useModal } from "@/components/context/useModal";
+import { useModal } from "../../../context/useModal";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");

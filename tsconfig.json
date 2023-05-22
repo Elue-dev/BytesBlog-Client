@@ -17,7 +17,7 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
-    "src/components/context/ModalContext.js",
+    "src/context/ModalContext.js",
     "src/main.jsx"
   ],
   "exclude": ["node_modules"]

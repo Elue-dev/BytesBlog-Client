@@ -7,7 +7,7 @@ import { HiOutlineEyeSlash } from "react-icons/hi2";
 import Input from "@/components/input";
 import { ChangeEvent, useEffect, useState } from "react";
 import { BsFillCheckSquareFill } from "react-icons/bs";
-import { useModal } from "@/components/context/useModal";
+import { useModal } from "../../../context/useModal";
 
 const initialValues: RPValues = {
   password: "",

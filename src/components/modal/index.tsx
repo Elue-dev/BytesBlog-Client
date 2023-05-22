@@ -1,6 +1,6 @@
 import { ModalProps } from "@/types";
 import Button from "../button";
-import { useModal } from "../context/useModal";
+import { useModal } from "../../context/useModal";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { IoWarningOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
