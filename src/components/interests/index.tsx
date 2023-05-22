@@ -2,7 +2,6 @@ import { InterestsProps } from "@/types";
 import { userInterests } from "./data";
 import { IoChevronBackCircleOutline } from "react-icons/io5";
 import Button from "../button";
-import { useNavigate } from "react-router-dom";
 import { useModal } from "../../context/useModal";
 
 export default function Interests({
@@ -13,7 +12,6 @@ export default function Interests({
   values,
   setValues,
 }: InterestsProps) {
-  const navigate = useNavigate();
   const context = useModal();
   if (!context) return null;
   const { revealModal } = context;

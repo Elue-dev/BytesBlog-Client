@@ -9,7 +9,6 @@ import { BsFillCheckSquareFill } from "react-icons/bs";
 import Input from "../input";
 import { useEffect, useState } from "react";
 import { validateEmail } from "@/utils/utils";
-import { useModal } from "../../context/useModal";
 
 export default function SignUpForm({
   values,
