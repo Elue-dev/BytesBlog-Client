@@ -25,6 +25,7 @@ export default function Interests({
   const createUserAccount = () => {
     alert("Account Created!");
     navigate("/");
+    console.log(values);
     setValues(initialValues);
     setInterests([]);
   };
