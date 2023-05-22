@@ -1,7 +1,7 @@
 import { RPValues } from "@/types";
 import Button from "@/components/button";
 import bytesLogo from "@/assets/bytesLogo.svg";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { HiOutlineEye } from "react-icons/hi";
 import { HiOutlineEyeSlash } from "react-icons/hi2";
 import Input from "@/components/input";
@@ -23,7 +23,6 @@ export default function ResetPassword() {
   const [charCondition, setCharCondition] = useState(false);
   const [lengthCondition, setLengthCondition] = useState(false);
   const [caseCondition, setCaseCondition] = useState(false);
-  const navigate = useNavigate();
   const context = useModal();
 
   const { password, confirmPassword } = credentials;
@@ -77,7 +76,6 @@ export default function ResetPassword() {
         return alert("Passwords do not match");
       }
       revealModal("Password successfully reset", "success", "/auth/sign-in");
-      // setTimeout(() => navigate("/auth/sign-in"), 2000);
     }
   };
 
