@@ -1,7 +1,7 @@
 @use "../../sass/mixins" as *;
 
 .hero {
-  background: url("../../assets/herobg.svg");
+  background: url("../../assets/heroimg.svg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 91% -245px;
@@ -10,10 +10,12 @@
   z-index: 1;
   @include mQ(600px) {
     height: 95vh !important;
-    background-position: 61% -245px;
+    // background-position: 61% -245px;
+    background-position: 61% 3px;
   }
   @include mQ(380px) {
-    height: 87vh !important;
+    // height: 87vh !important;
+    height: 56vh !important;
   }
   .content {
     @include container();

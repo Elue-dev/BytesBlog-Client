@@ -4,7 +4,7 @@ import styles from "./hero.module.scss";
 
 export default function Hero() {
   return (
-    <section className={`h-[70vh] ${styles.hero} mt-2`}>
+    <section className={`h-[75vh] ${styles.hero} mt-2`}>
       <div className={`${styles.content} pt-16`}>
         <h2 className="leading-12 text-4xl">
           Unleash your thoughts and pen them down
