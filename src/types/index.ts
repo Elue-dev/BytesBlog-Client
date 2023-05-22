@@ -34,6 +34,11 @@ export interface SIValues {
   password: string;
 }
 
+export interface RPValues {
+  password: string;
+  confirmPassword: string;
+}
+
 export interface CAProps {
   values: CAValues;
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;

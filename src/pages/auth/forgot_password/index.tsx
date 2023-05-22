@@ -24,7 +24,7 @@ export default function ForgotPassword() {
 
       alert(`Password reset email sent to ${email}`);
       setEmail("");
-      navigate("/auth/sign-in");
+      navigate("/auth/reset-password");
     }
   };
 
