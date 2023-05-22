@@ -6,7 +6,7 @@ import { Link, useLocation } from "react-router-dom";
 export default function Navbar() {
   const { pathname } = useLocation();
 
-  if (["/create-account", "/sign-in"].includes(pathname)) return null;
+  if (pathname.includes("auth")) return null;
 
   return (
     <section className={styles.navbar}>
@@ -15,12 +15,12 @@ export default function Navbar() {
           <img src={logo2} alt="BytesBlog Logo" />
         </Link>
         <div>
-          <Link to="/sign-in">
+          <Link to="/auth/sign-in">
             <Button className="bg-white font-semibold text-primaryColor">
               Sign In
             </Button>
           </Link>
-          <Link to="/create-account">
+          <Link to="/auth/create-account">
             <Button className="bg-primaryColor text-white">Sign Up</Button>
           </Link>
         </div>

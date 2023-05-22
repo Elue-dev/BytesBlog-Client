@@ -5,6 +5,7 @@ import { createBrowserRouter, Outlet } from "react-router-dom";
 import NotFound from "@/components/not_found";
 import ScrollToTop from "@/utils/scrollToTop";
 import SignIn from "@/pages/auth/sign_in";
+import ForgotPassword from "@/pages/auth/forgot_password";
 
 export const Layout = () => {
   return (
@@ -26,12 +27,16 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/create-account",
+        path: "/auth/create-account",
         element: <CreateAccount />,
       },
       {
-        path: "/sign-in",
+        path: "/auth/sign-in",
         element: <SignIn />,
+      },
+      {
+        path: "/auth/forgot-password",
+        element: <ForgotPassword />,
       },
       {
         path: "*",

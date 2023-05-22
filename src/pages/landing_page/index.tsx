@@ -46,7 +46,7 @@ export default function Home() {
                 Connect with curious minds, tell your story and share your
                 knowledge even just the way you want it
               </p>
-              <Link to="/create-account">
+              <Link to="/auth/create-account">
                 <Button className="mt-6 bg-primaryColor p-4 uppercase text-white">
                   Get Started
                 </Button>

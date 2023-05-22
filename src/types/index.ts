@@ -52,7 +52,7 @@ export interface InterestsProps {
 
 export interface InputProps {
   type: string;
-  name: string;
+  name?: string;
   ref?: MutableRefObject<any>;
   onInput?: FocusEventHandler<HTMLInputElement>;
   className: string;

@@ -102,7 +102,7 @@ export default function SignIn() {
               </span>
             </div>
 
-            <Link to="/forgot-password">
+            <Link to="/auth/forgot-password">
               <p className="pt-1 text-right text-zinc-600">Forgot Password?</p>
             </Link>
 
@@ -116,7 +116,10 @@ export default function SignIn() {
 
             <p className="mb-3 mt-4 text-right text-blackNeutral">
               Don't have a Bytes account?{" "}
-              <Link to="/create-account" className="font-semibold underline">
+              <Link
+                to="/auth/create-account"
+                className="font-semibold underline"
+              >
                 Sign Up
               </Link>
             </p>

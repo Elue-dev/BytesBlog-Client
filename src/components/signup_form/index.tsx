@@ -241,7 +241,7 @@ export default function SignUpForm({
 
             <p className="mb-3 mt-4 text-right text-blackNeutral">
               Already have a Bytes account?{" "}
-              <Link to="/sign-in" className="font-semibold underline">
+              <Link to="/auth/sign-in" className="font-semibold underline">
                 Sign In
               </Link>
             </p>
