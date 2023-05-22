@@ -39,7 +39,6 @@ export default function CreateAccount() {
           nextStep={nextStep}
         />
       );
-      break;
     case 2:
       return (
         <Interests
@@ -51,7 +50,6 @@ export default function CreateAccount() {
           previousStep={previousStep}
         />
       );
-      break;
     default:
       return null;
   }
