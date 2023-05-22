@@ -4,6 +4,7 @@ import CreateAccount from "@/pages/auth/create_account/account_details";
 import { createBrowserRouter, Outlet } from "react-router-dom";
 import NotFound from "@/components/not_found";
 import ScrollToTop from "@/utils/scrollToTop";
+import SignIn from "@/pages/auth/sign_in";
 
 export const Layout = () => {
   return (
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: "/create-account",
         element: <CreateAccount />,
+      },
+      {
+        path: "/sign-in",
+        element: <SignIn />,
       },
       {
         path: "*",

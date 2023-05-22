@@ -29,6 +29,11 @@ export interface CAValues {
   confirmPassword: string;
 }
 
+export interface SIValues {
+  email: string;
+  password: string;
+}
+
 export interface CAProps {
   values: CAValues;
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;

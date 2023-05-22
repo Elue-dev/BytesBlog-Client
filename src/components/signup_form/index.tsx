@@ -7,7 +7,7 @@ import { HiOutlineEye } from "react-icons/hi";
 import { HiOutlineEyeSlash } from "react-icons/hi2";
 import { BsFillCheckSquareFill } from "react-icons/bs";
 import Input from "../input";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { validateEmail } from "@/utils/utils";
 
 export default function SignUpForm({
@@ -23,8 +23,6 @@ export default function SignUpForm({
   const [lengthCondition, setLengthCondition] = useState(false);
   const [caseCondition, setCaseCondition] = useState(false);
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
-  const passwordRef = useRef<any | undefined>();
-  const cPasswordRef = useRef<any | undefined>();
 
   useEffect(() => {
     if (password.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/)) {
@@ -159,7 +157,6 @@ export default function SignUpForm({
               <Input
                 type={visible ? "text" : "password"}
                 name="password"
-                ref={passwordRef}
                 className={`${
                   validationErrors.includes("password") ? "border-rose-500" : ""
                 } w-full p-2.5`}
@@ -217,7 +214,6 @@ export default function SignUpForm({
               <Input
                 type={cpVisible ? "text" : "password"}
                 name="confirmPassword"
-                ref={cPasswordRef}
                 className={`${
                   validationErrors.includes("confirmPassword")
                     ? "border-rose-500"
@@ -237,7 +233,7 @@ export default function SignUpForm({
 
             <Button
               type="button"
-              className="mt-5 w-full rounded-lg bg-primaryColor font-semibold uppercase text-white"
+              className="mt-5 w-full rounded-lg bg-primaryColor text-lg font-semibold uppercase text-white"
               onClick={proceed}
             >
               Continue

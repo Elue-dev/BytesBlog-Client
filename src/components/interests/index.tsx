@@ -2,6 +2,7 @@ import { InterestsProps } from "@/types";
 import { userInterests } from "./data";
 import { IoChevronBackCircleOutline } from "react-icons/io5";
 import Button from "../button";
+import { useNavigate } from "react-router-dom";
 
 export default function Interests({
   interests,
@@ -11,6 +12,8 @@ export default function Interests({
   values,
   setValues,
 }: InterestsProps) {
+  const navigate = useNavigate();
+
   const setUserInterest = (int: string) => {
     if (interests.includes(int)) {
       setInterests(interests.filter((cat) => cat !== int));
@@ -20,8 +23,8 @@ export default function Interests({
   };
 
   const createUserAccount = () => {
-    console.log({ values });
-    console.log({ interests });
+    alert("Account Created!");
+    navigate("/");
     setValues(initialValues);
     setInterests([]);
   };
@@ -39,7 +42,7 @@ export default function Interests({
         <h1 className="pt-3 text-center text-3xl font-semibold text-blackNeutral">
           Select Your Interests
         </h1>
-        <p className="mb-4 mt-1 text-center text-sm">
+        <p className="text-md mb-4 mt-1 text-center text-gray-700">
           This would determine the blog posts you would see
         </p>
         <div className="flex flex-wrap gap-7 pt-6">
