@@ -116,7 +116,7 @@ export default function SignIn() {
 
             <p className="mb-3 mt-4 text-right text-blackNeutral">
               Don't have a Bytes account?{" "}
-              <Link to="/create-accounnt" className="font-semibold underline">
+              <Link to="/create-account" className="font-semibold underline">
                 Sign Up
               </Link>
             </p>
