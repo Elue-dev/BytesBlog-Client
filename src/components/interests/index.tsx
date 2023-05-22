@@ -3,6 +3,7 @@ import { userInterests } from "./data";
 import { IoChevronBackCircleOutline } from "react-icons/io5";
 import Button from "../button";
 import { useNavigate } from "react-router-dom";
+import { useModal } from "../../context/useModal";
 
 export default function Interests({
   interests,
@@ -13,6 +14,9 @@ export default function Interests({
   setValues,
 }: InterestsProps) {
   const navigate = useNavigate();
+  const context = useModal();
+  if (!context) return null;
+  const { revealModal } = context;
 
   const setUserInterest = (int: string) => {
     if (interests.includes(int)) {
@@ -23,9 +27,11 @@ export default function Interests({
   };
 
   const createUserAccount = () => {
-    alert("Account Created!");
-    navigate("/");
-    console.log(values);
+    revealModal(
+      `Welcome, ${values.firstname}! Your account has been successfully created`,
+      "success",
+      "/"
+    );
     setValues(initialValues);
     setInterests([]);
   };

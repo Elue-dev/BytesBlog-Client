@@ -9,6 +9,7 @@ import { BsFillCheckSquareFill } from "react-icons/bs";
 import Input from "../input";
 import { useEffect, useState } from "react";
 import { validateEmail } from "@/utils/utils";
+import { useModal } from "../../context/useModal";
 
 export default function SignUpForm({
   values,
@@ -16,6 +17,7 @@ export default function SignUpForm({
   nextStep,
 }: CAProps) {
   const { firstname, lastname, email, password, confirmPassword } = values;
+
   const [visible, setVisible] = useState(false);
   const [cpVisible, setCPVisible] = useState(false);
   const [numberCondition, setNumberCondition] = useState(false);

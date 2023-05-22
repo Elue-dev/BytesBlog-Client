@@ -30,7 +30,6 @@ export default function ForgotPassword() {
         "warning",
         "/auth/reset-password"
       );
-      // setTimeout(() => navigate("/auth/reset-password"), 2000);
     }
   };
 
