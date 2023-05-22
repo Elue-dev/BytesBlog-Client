@@ -57,7 +57,7 @@ export default function SignIn() {
             <img
               src={bytesLogo}
               alt="BytesBlog Logo"
-              className="pt-32 sm:pt-8"
+              className="pt-8 sm:pt-4"
             />
           </Link>
           <h1 className="mb-3 flex items-center justify-center text-3xl font-medium">
