@@ -64,3 +64,19 @@ export interface InputProps {
   value: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
+
+export interface ModalProviderProps {
+  children: ReactNode;
+}
+
+export interface ContextProps {
+  message: string;
+  showModal: boolean;
+  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+  revealModal: (message: string) => void;
+  closeModal: () => void;
+}
+
+export interface ModalProps {
+  message: string;
+}

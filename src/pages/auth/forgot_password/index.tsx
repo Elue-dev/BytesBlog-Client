@@ -4,11 +4,15 @@ import { useNavigate } from "react-router-dom";
 import Input from "@/components/input";
 import { useState } from "react";
 import { validateEmail } from "@/utils/utils";
+import { useModal } from "@/components/context/useModal";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
   const navigate = useNavigate();
+  const context = useModal();
+  if (!context) return null;
+  const { revealModal } = context;
 
   const sendResetEmail = () => {
     setValidationErrors([]);
@@ -21,10 +25,8 @@ export default function ForgotPassword() {
       if (!validateEmail(email)) {
         return alert("Please enter a valid email format");
       }
-
-      alert(`Password reset email sent to ${email}`);
-      setEmail("");
-      navigate("/auth/reset-password");
+      revealModal(`Password reset email sent to ${email}`);
+      setTimeout(() => navigate("/auth/sign-in"), 2000);
     }
   };
 

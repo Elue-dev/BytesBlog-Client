@@ -7,6 +7,7 @@ import { HiOutlineEyeSlash } from "react-icons/hi2";
 import Input from "@/components/input";
 import { ChangeEvent, useEffect, useState } from "react";
 import { BsFillCheckSquareFill } from "react-icons/bs";
+import { useModal } from "@/components/context/useModal";
 
 const initialValues: RPValues = {
   password: "",
@@ -23,13 +24,9 @@ export default function ResetPassword() {
   const [lengthCondition, setLengthCondition] = useState(false);
   const [caseCondition, setCaseCondition] = useState(false);
   const navigate = useNavigate();
+  const context = useModal();
 
   const { password, confirmPassword } = credentials;
-
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setCredentials({ ...credentials, [name]: value });
-  };
 
   useEffect(() => {
     if (password.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/)) {
@@ -56,6 +53,14 @@ export default function ResetPassword() {
     }
   }, [password]);
 
+  if (!context) return null;
+  const { revealModal } = context;
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setCredentials({ ...credentials, [name]: value });
+  };
+
   const proceed = () => {
     setValidationErrors([]);
     const errors = [];
@@ -71,8 +76,8 @@ export default function ResetPassword() {
       if (password !== confirmPassword) {
         return alert("Passwords do not match");
       }
-      alert("Password reset successful");
-      navigate("/auth/sign-in");
+      revealModal("Password successfully reset");
+      setTimeout(() => navigate("/auth/sign-in"), 2000);
     }
   };
 

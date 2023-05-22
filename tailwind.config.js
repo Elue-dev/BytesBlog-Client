@@ -9,6 +9,7 @@ export default {
         primaryColorLighter: "#F1FFE4",
         lightTextColor: "#8E8E93",
         blackNeutral: "#07080A",
+        blackNeutralSec: "##495057",
         lightGray: "#B6B6B6",
         lighterGray: "#767D8D",
         lightGraySec: "#E9ECEF",

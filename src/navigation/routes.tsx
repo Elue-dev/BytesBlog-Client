@@ -7,13 +7,20 @@ import ScrollToTop from "@/utils/scrollToTop";
 import SignIn from "@/pages/auth/sign_in";
 import ForgotPassword from "@/pages/auth/forgot_password";
 import ResetPassword from "@/pages/auth/reset_password";
+import Modal from "@/components/modal";
+import { useModal } from "@/components/context/useModal";
 
 export const Layout = () => {
+  const context = useModal();
+  if (!context) return null;
+  const { message } = context;
+
   return (
     <div className="app">
       <Navbar />
       <Outlet />
       <ScrollToTop />
+      <Modal message={message} />
     </div>
   );
 };
