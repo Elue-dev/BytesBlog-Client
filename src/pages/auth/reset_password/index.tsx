@@ -1,6 +1,6 @@
 import { RPValues } from "@/types";
 import Button from "@/components/button";
-import bytesLogo from "@/assets/BYTESLOGO.svg";
+import bytesLogo from "@/assets/bytesLogo.svg";
 import { Link } from "react-router-dom";
 import { HiOutlineEye } from "react-icons/hi";
 import { HiOutlineEyeSlash } from "react-icons/hi2";

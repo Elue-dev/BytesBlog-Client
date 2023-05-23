@@ -1,5 +1,5 @@
 import styles from "./navbar.module.scss";
-import logo2 from "@/assets/BYTESLOGO.svg";
+import byteslogo from "@/assets/bytesLogo.svg";
 import Button from "../button";
 import { Link, useLocation } from "react-router-dom";
 
@@ -12,7 +12,7 @@ export default function Navbar() {
     <section className={styles.navbar}>
       <div className=" mt-4 flex items-center justify-between">
         <Link to="/">
-          <img src={logo2} alt="BytesBlog Logo" />
+          <img src={byteslogo} alt="BytesBlog Logo" />
         </Link>
         <div>
           <Link to="/auth/sign-in">
