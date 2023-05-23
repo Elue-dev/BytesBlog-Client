@@ -3,9 +3,9 @@ import Button from "../button";
 import bytesLogo from "@/assets/bytesLogo.svg";
 import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
-import { HiOutlineEye } from "react-icons/hi";
-import { HiOutlineEyeSlash } from "react-icons/hi2";
 import { BsFillCheckSquareFill } from "react-icons/bs";
+import eyeOpen from "@/assets/eyeOpen.svg";
+import eyeClosed from "@/assets/eyeClosed.svg";
 import Input from "../input";
 import { useEffect, useState } from "react";
 import { validateEmail } from "@/utils/utils";
@@ -187,7 +187,11 @@ export default function SignUpForm({
               <span className="form-text">Password</span>
               <span className="absolute bottom-3 right-2 cursor-pointer text-2xl text-gray-600">
                 <div onClick={() => setVisible(!visible)}>
-                  {visible ? <HiOutlineEyeSlash /> : <HiOutlineEye />}
+                  {visible ? (
+                    <img src={eyeClosed} alt="" />
+                  ) : (
+                    <img src={eyeOpen} alt="" />
+                  )}
                 </div>
               </span>
             </div>
@@ -246,7 +250,11 @@ export default function SignUpForm({
               <span className="form-text">Confirm Password</span>
               <span className="absolute bottom-3 right-2 cursor-pointer text-2xl text-gray-600">
                 <div onClick={() => setCPVisible(!cpVisible)}>
-                  {cpVisible ? <HiOutlineEyeSlash /> : <HiOutlineEye />}
+                  {cpVisible ? (
+                    <img src={eyeClosed} alt="" />
+                  ) : (
+                    <img src={eyeOpen} alt="" />
+                  )}
                 </div>
               </span>
             </div>

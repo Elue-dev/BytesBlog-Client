@@ -2,8 +2,8 @@ import { RPValues } from "@/types";
 import Button from "@/components/button";
 import bytesLogo from "@/assets/bytesLogo.svg";
 import { Link } from "react-router-dom";
-import { HiOutlineEye } from "react-icons/hi";
-import { HiOutlineEyeSlash } from "react-icons/hi2";
+import eyeOpen from "@/assets/eyeOpen.svg";
+import eyeClosed from "@/assets/eyeClosed.svg";
 import Input from "@/components/input";
 import { ChangeEvent, useEffect, useState } from "react";
 import { BsFillCheckSquareFill } from "react-icons/bs";
@@ -131,7 +131,11 @@ export default function ResetPassword() {
               <span className="form-text">Password</span>
               <span className="absolute bottom-3 right-2 cursor-pointer text-2xl text-gray-600">
                 <div onClick={() => setVisible(!visible)}>
-                  {visible ? <HiOutlineEyeSlash /> : <HiOutlineEye />}
+                  {cpVisible ? (
+                    <img src={eyeClosed} alt="" />
+                  ) : (
+                    <img src={eyeOpen} alt="" />
+                  )}
                 </div>
               </span>
             </div>
@@ -190,7 +194,11 @@ export default function ResetPassword() {
               <span className="form-text">Confirm New Password</span>
               <span className="absolute bottom-3 right-2 cursor-pointer text-2xl text-gray-600">
                 <div onClick={() => setCPVisible(!cpVisible)}>
-                  {cpVisible ? <HiOutlineEyeSlash /> : <HiOutlineEye />}
+                  {cpVisible ? (
+                    <img src={eyeClosed} alt="" />
+                  ) : (
+                    <img src={eyeOpen} alt="" />
+                  )}
                 </div>
               </span>
             </div>

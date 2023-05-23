@@ -3,8 +3,8 @@ import Button from "@/components/button";
 import bytesLogo from "@/assets/bytesLogo.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
-import { HiOutlineEye } from "react-icons/hi";
-import { HiOutlineEyeSlash } from "react-icons/hi2";
+import eyeOpen from "@/assets/eyeOpen.svg";
+import eyeClosed from "@/assets/eyeClosed.svg";
 import Input from "@/components/input";
 import { ChangeEvent, useState } from "react";
 import { validateEmail } from "@/utils/utils";
@@ -99,7 +99,11 @@ export default function SignIn() {
               <span className="form-text">Password</span>
               <span className="absolute bottom-3 right-2 cursor-pointer text-2xl text-gray-600">
                 <div onClick={() => setVisible(!visible)}>
-                  {visible ? <HiOutlineEyeSlash /> : <HiOutlineEye />}
+                  {visible ? (
+                    <img src={eyeClosed} alt="" />
+                  ) : (
+                    <img src={eyeOpen} alt="" />
+                  )}
                 </div>
               </span>
             </div>
