@@ -13,7 +13,7 @@ export default function Modal({ message }: ModalProps) {
 
   const closeModalAndNavigate = () => {
     closeModal();
-    navigate(route);
+    route && navigate(route);
   };
 
   return (

@@ -23,6 +23,7 @@ export default function ResetPassword() {
   const [charCondition, setCharCondition] = useState(false);
   const [lengthCondition, setLengthCondition] = useState(false);
   const [caseCondition, setCaseCondition] = useState(false);
+  const [passwordComplete, setPasswordComplete] = useState(false);
   const context = useModal();
 
   const { password, confirmPassword } = credentials;
@@ -50,7 +51,19 @@ export default function ResetPassword() {
     } else {
       setCharCondition(false);
     }
-  }, [password]);
+    if (caseCondition && numberCondition && charCondition && lengthCondition) {
+      setPasswordComplete(true);
+    } else {
+      setPasswordComplete(false);
+    }
+  }, [
+    password,
+    caseCondition,
+    numberCondition,
+    charCondition,
+    lengthCondition,
+    passwordComplete,
+  ]);
 
   if (!context) return null;
   const { revealModal } = context;
@@ -74,6 +87,11 @@ export default function ResetPassword() {
     if (errors.length === 0) {
       if (password !== confirmPassword) {
         return alert("Passwords do not match");
+      }
+      if (!passwordComplete) {
+        return alert(
+          "Your password has not met the necessary strength requirements"
+        );
       }
       revealModal("Password successfully reset", "/auth/sign-in");
     }

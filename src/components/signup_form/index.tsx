@@ -23,6 +23,7 @@ export default function SignUpForm({
   const [charCondition, setCharCondition] = useState(false);
   const [lengthCondition, setLengthCondition] = useState(false);
   const [caseCondition, setCaseCondition] = useState(false);
+  const [passwordComplete, setPasswordComplete] = useState(false);
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
 
   useEffect(() => {
@@ -48,7 +49,20 @@ export default function SignUpForm({
     } else {
       setCharCondition(false);
     }
-  }, [password]);
+
+    if (caseCondition && numberCondition && charCondition && lengthCondition) {
+      setPasswordComplete(true);
+    } else {
+      setPasswordComplete(false);
+    }
+  }, [
+    password,
+    caseCondition,
+    numberCondition,
+    charCondition,
+    lengthCondition,
+    passwordComplete,
+  ]);
 
   const proceed = () => {
     setValidationErrors([]);
@@ -76,6 +90,11 @@ export default function SignUpForm({
       }
       if (password !== confirmPassword) {
         return alert("Passwords do not match");
+      }
+      if (!passwordComplete) {
+        return alert(
+          "Your password has not met the necessary strength requirements"
+        );
       }
       nextStep && nextStep();
     }
