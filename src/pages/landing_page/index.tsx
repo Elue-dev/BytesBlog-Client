@@ -21,7 +21,7 @@ export default function Home() {
                   <img
                     src={offer.icon}
                     alt={offer.heading}
-                    className="mb-4 h-20 w-20 rounded-full bg-primaryColorLight p-4"
+                    className="mb-4 h-20 w-20 rounded-full bg-primaryColorLighter p-4"
                   />
                 </div>
                 <div></div>
