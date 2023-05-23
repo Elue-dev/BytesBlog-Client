@@ -1,5 +1,5 @@
 import styles from "./navbar.module.scss";
-import logo2 from "@/assets/bytesLogo.svg";
+import logo2 from "@/assets/BYTESLOGO.svg";
 import Button from "../button";
 import { Link, useLocation } from "react-router-dom";
 

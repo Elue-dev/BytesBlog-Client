@@ -1,9 +1,9 @@
-import { IoChevronBackCircleOutline } from "react-icons/io5";
 import Button from "@/components/button";
 import { useNavigate } from "react-router-dom";
 import Input from "@/components/input";
 import { useState } from "react";
 import { validateEmail } from "@/utils/utils";
+import backIcon from "@/assets/backIcon.svg";
 import { useModal } from "../../../context/useModal";
 
 export default function ForgotPassword() {
@@ -45,7 +45,7 @@ export default function ForgotPassword() {
           onClick={() => navigate(-1)}
           className="flex cursor-pointer items-center justify-start gap-1 pb-2"
         >
-          <IoChevronBackCircleOutline className="text-2xl" />
+          <img src={backIcon} alt="Back Icon" />
           <span>Back</span>
         </div>
         <h1 className="pt-6 text-center text-3xl font-semibold text-blackNeutral">

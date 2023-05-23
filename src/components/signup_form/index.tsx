@@ -234,7 +234,7 @@ export default function SignUpForm({
 
             <Button
               type="button"
-              className="mt-5 w-full rounded-lg bg-primaryColor text-lg font-semibold uppercase text-white"
+              className="mt-5 w-full rounded-lg bg-primaryColor text-lg font-semibold text-white"
               onClick={proceed}
             >
               Continue

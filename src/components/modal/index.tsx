@@ -1,8 +1,8 @@
 import { ModalProps } from "@/types";
 import Button from "../button";
 import { useModal } from "../../context/useModal";
-import { AiOutlineCheckCircle } from "react-icons/ai";
-import { IoWarningOutline } from "react-icons/io5";
+import infoIcon from "@/assets/info.svg";
+import checkIcon from "@/assets/checkIcon.svg";
 import { useNavigate } from "react-router-dom";
 
 export default function Modal({ message }: ModalProps) {
@@ -20,22 +20,27 @@ export default function Modal({ message }: ModalProps) {
     <div>
       {showModal ? (
         <div
-          className="fixed inset-0 z-10 flex items-center justify-center p-4 sm:p-8"
+          className="fixed inset-0 z-10 flex cursor-pointer items-center justify-center p-4 sm:p-8"
           aria-labelledby="modal-title"
           role="dialog"
           aria-modal="true"
+          onClick={closeModalAndNavigate}
         >
           <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
           <div className="relative mx-auto w-full max-w-lg rounded-lg bg-white px-4 py-10 text-center shadow-xl">
-            <div
-              className={`mx-auto mb-6 flex h-12 w-12 items-center justify-center rounded-full ${
-                modalIcon === "success" && `border border-brightGreen`
-              }`}
-            >
+            <div className="mx-auto mb-6 flex h-12 w-12 items-center justify-center rounded-full border border-brightGreen">
               {modalIcon === "success" ? (
-                <AiOutlineCheckCircle className="h-20 w-20 p-1 text-primaryColor" />
+                <img
+                  src={checkIcon}
+                  alt="Check Icon"
+                  className="h-20 w-20 p-2 text-primaryColor"
+                />
               ) : (
-                <IoWarningOutline className="h-20 w-20 p-1 text-primaryColor" />
+                <img
+                  src={infoIcon}
+                  alt="Info Icon"
+                  className="h-20 w-20 p-2 text-primaryColor"
+                />
               )}
             </div>
             <div className="mt-3">

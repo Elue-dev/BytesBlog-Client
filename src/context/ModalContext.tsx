@@ -6,18 +6,19 @@ export const ModalContext = createContext<ContextProps | null>(null);
 export const ModalProvider = ({ children }: ModalProviderProps) => {
   const [showModal, setShowModal] = useState(false);
   const [message, setMessage] = useState("");
-  const [modalIcon, setModalIcon] = useState("check");
+  const [modalIcon, setModalIcon] = useState("success");
   const [route, setRoute] = useState("");
 
   const revealModal = (
     message: string,
-    iconType: string,
-    specifiedRoute: string
+    specifiedRoute: string,
+    iconType = ""
   ) => {
     setShowModal(true);
     setMessage(message);
     setModalIcon(iconType);
     setRoute(specifiedRoute);
+    iconType === "" ? setModalIcon(modalIcon) : setModalIcon(iconType);
   };
 
   const closeModal = () => {

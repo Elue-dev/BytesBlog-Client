@@ -1,6 +1,6 @@
 import { RPValues } from "@/types";
 import Button from "@/components/button";
-import bytesLogo from "@/assets/bytesLogo.svg";
+import bytesLogo from "@/assets/BYTESLOGO.svg";
 import { Link } from "react-router-dom";
 import { HiOutlineEye } from "react-icons/hi";
 import { HiOutlineEyeSlash } from "react-icons/hi2";
@@ -75,7 +75,7 @@ export default function ResetPassword() {
       if (password !== confirmPassword) {
         return alert("Passwords do not match");
       }
-      revealModal("Password successfully reset", "success", "/auth/sign-in");
+      revealModal("Password successfully reset", "/auth/sign-in");
     }
   };
 
@@ -186,12 +186,8 @@ export default function ResetPassword() {
             </Button>
 
             <p className="mb-3 mt-4 text-right text-blackNeutral">
-              Don't have a Bytes account?{" "}
-              <Link
-                to="/auth/create-account"
-                className="font-semibold underline"
-              >
-                Sign Up
+              <Link to="/" className="font-semibold underline">
+                Back to Home
               </Link>
             </p>
           </section>

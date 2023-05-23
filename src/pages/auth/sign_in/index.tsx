@@ -1,6 +1,6 @@
 import { SIValues } from "@/types";
 import Button from "@/components/button";
-import bytesLogo from "@/assets/bytesLogo.svg";
+import bytesLogo from "@/assets/BYTESLOGO.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { HiOutlineEye } from "react-icons/hi";
