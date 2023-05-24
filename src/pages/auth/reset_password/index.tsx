@@ -93,7 +93,7 @@ export default function ResetPassword() {
           "Your password has not met the necessary strength requirements"
         );
       }
-      revealModal("Password successfully reset", "/auth/sign-in");
+      revealModal("Password successfully reset", "/auth/sign-in", "success");
     }
   };
 
