@@ -27,8 +27,8 @@ export default function Interests({
   const createUserAccount = () => {
     revealModal(
       `Welcome, ${values.firstname}! Your account has been successfully created`,
-      "success",
-      "/"
+      "/",
+      "success"
     );
     setValues(initialValues);
     setInterests([]);
