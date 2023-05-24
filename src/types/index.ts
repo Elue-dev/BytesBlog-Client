@@ -77,7 +77,7 @@ export interface ContextProps {
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
   revealModal: (
     message: string,
-    iconType?: string | ""
+    iconType?: string | "",
     specifiedRoute: string,
     
   ) => void;
