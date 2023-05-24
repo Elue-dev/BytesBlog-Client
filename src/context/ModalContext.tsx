@@ -16,7 +16,6 @@ export const ModalProvider = ({ children }: ModalProviderProps) => {
   ) => {
     setShowModal(true);
     setMessage(message);
-    setModalIcon(iconType);
     setRoute(specifiedRoute);
     iconType === "" ? setModalIcon(modalIcon) : setModalIcon(iconType);
   };
