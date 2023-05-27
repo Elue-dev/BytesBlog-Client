@@ -102,3 +102,7 @@ export interface Post {
     photo: string;
   };
 }
+
+export interface RightDetailsProps {
+  similarPosts: Post[];
+}

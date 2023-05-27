@@ -1,17 +1,22 @@
 import { Post } from "@/types";
 import { postData } from "../dummyData";
 import { BiTimeFive } from "react-icons/bi";
+import { AiOutlineCloseCircle } from "react-icons/ai";
 import likeInactive from "@/assets/likeInactive.svg";
 import commentIcon from "@/assets/commentIcon.svg";
 import bookmarkInactive from "@/assets/bookmarkInactive.svg";
+import closeIcon from "@/assets/closeIcon.png";
 import linkIcon from "@/assets/linkIcon.svg";
 import linkedin from "@/assets/linkedin.svg";
 import facebook from "@/assets/facebook.svg";
 import styles from "./post.details.module.scss";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import RightDetails from "./RightDetails";
+import { useState } from "react";
 
 export default function PostDetails() {
   const { postId } = useParams();
+  const [showSidebar, setShowSidebar] = useState(false);
 
   let currentPost: Post | undefined;
   if (postData) {
@@ -22,11 +27,37 @@ export default function PostDetails() {
 
   const similarPosts = postData.filter((post) => post.id.toString() !== postId);
 
-  console.log(window.scrollY);
-
   return (
     <section className={styles["post__details"]}>
       <div className={styles.hero}></div>
+      {showSidebar && (
+        <div className={styles.overlay} onClick={() => setShowSidebar(false)} />
+      )}
+      <div
+        className={
+          showSidebar
+            ? `${styles["menu__items"]} ${styles.show}`
+            : `${styles["menu__items"]}`
+        }
+      >
+        <h1 className="mt-8 bg-primaryColorLight p-3 text-center text-xl font-semibold sm:mt-auto sm:w-full">
+          Comments ({currentPost.comments})
+        </h1>
+        <img src={closeIcon} alt="close menu" />
+        {showSidebar && (
+          <AiOutlineCloseCircle
+            onClick={() => setShowSidebar(false)}
+            className="absolute left-[-3rem] top-3 hidden cursor-pointer text-3xl text-white sm:block"
+          />
+        )}
+
+        {showSidebar && (
+          <AiOutlineCloseCircle
+            onClick={() => setShowSidebar(false)}
+            className="absolute right-2 top-3 mb-4 block cursor-pointer text-3xl sm:hidden"
+          />
+        )}
+      </div>
       <div className="container flex flex-col pt-12 lg:flex-row">
         <div className={styles["left__quarter"]}>
           <div>
@@ -87,7 +118,10 @@ export default function PostDetails() {
                   <img src={likeInactive} alt="like post" />
                   <span>{currentPost.likes}</span>
                 </div>
-                <div className="flex cursor-pointer items-center justify-start gap-2">
+                <div
+                  className="flex cursor-pointer items-center justify-start gap-2"
+                  onClick={() => setShowSidebar(true)}
+                >
                   <img src={commentIcon} alt="comment on post" />
                   <span>{currentPost.comments}</span>
                 </div>
@@ -102,51 +136,7 @@ export default function PostDetails() {
             </div>
           </div>
         </div>
-        <div className={styles["right__quarter"]}>
-          <h2 className="pb-8 pt-12 text-2xl font-semibold lg:pt-0">
-            Similar Posts
-          </h2>
-          <>
-            {similarPosts.slice(0, 2).map((post) => (
-              <div className="mb-4 flex flex-col-reverse items-center justify-center gap-4 lg:flex-row">
-                <div>
-                  <div className="flex flex-row-reverse items-center justify-start gap-2 lg:flex-row">
-                    <img
-                      src={post.user.photo}
-                      alt={post.user.name}
-                      className="h-11 w-11 rounded-full object-cover"
-                    />
-                    <p>{post.user.name}</p>
-                  </div>
-                  <div>
-                    <h4 className="text-1xl max-w-xl pt-3 font-semibold lg:pt-0">
-                      {post.title}
-                    </h4>
-                  </div>
-                  <div className="flex items-center justify-between gap-2 pb-4 pt-4 text-right text-grayNeutral">
-                    <Link
-                      to={`/blog/post/${post.id}`}
-                      className="font-semibold text-primaryColor"
-                    >
-                      Read More
-                    </Link>
-                    <div className="flex items-center justify-start gap-1 text-grayNeutral">
-                      <BiTimeFive />
-                      <span> {post.read_time} mins read</span>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <img
-                    src={post.image}
-                    alt={post.title}
-                    className="mb-4 h-full w-full rounded-lg object-cover lg:h-36 lg:w-32"
-                  />
-                </div>
-              </div>
-            ))}
-          </>
-        </div>
+        <RightDetails similarPosts={similarPosts} />
       </div>
       <div
         className={`${styles["posts__footer"]} mt-10 h-20 w-full bg-primaryColorLight`}

@@ -18,8 +18,6 @@ export default function Navbar() {
   const navigate = useNavigate();
 
   const fixNavbar = () => {
-    console.log(window.scrollY);
-
     if (window.scrollY > 80) {
       setScrollpage(true);
     } else {
