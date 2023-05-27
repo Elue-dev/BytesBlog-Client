@@ -11,4 +11,14 @@
 }
 .navbar {
   @include container();
+  img {
+    @include mQ(350px) {
+      height: 1.8rem !important;
+    }
+  }
+  .write {
+    @include mQ(300px) {
+      padding: 0.4rem !important;
+    }
+  }
 }

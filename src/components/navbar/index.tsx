@@ -44,7 +44,9 @@ export default function Navbar() {
             {location.pathname.includes("blog") ? (
               <div className="flex items-center justify-start gap-0 sm:gap-1">
                 <Link to="/blog/write">
-                  <Button className="flex items-center justify-start gap-1 whitespace-nowrap bg-primaryColor p-2.5 text-white hover:bg-primaryColorHover sm:p-3">
+                  <Button
+                    className={`${styles.write} flex items-center justify-start gap-1 whitespace-nowrap bg-primaryColor p-2.5 text-white hover:bg-primaryColorHover sm:p-3`}
+                  >
                     Write a Post
                     <BsVectorPen />
                   </Button>

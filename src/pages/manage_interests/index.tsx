@@ -60,7 +60,7 @@ export default function ManageInterests() {
           <span>Back</span>
         </div>
         <h1 className="pt-3 text-center text-3xl font-semibold text-blackNeutral">
-          Select Your Interests
+          Manage Your Interests
         </h1>
         <p className="text-md mb-4 mt-1 text-center text-gray-700">
           This would determine the blog posts you would see

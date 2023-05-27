@@ -5,6 +5,9 @@
   @include mQ(600px) {
     width: 90%;
   }
+  @include mQ(350px) {
+    width: 95%;
+  }
 }
 
 @mixin centerItem() {
