@@ -12,17 +12,18 @@ export default function Posts() {
       {postData.map((post) => (
         <div
           key={post.id}
-          className="flex flex-col items-center gap-8 border-b-2 pb-8 pt-10 sm:flex-row"
+          className={`flex flex-col items-center gap-8 pb-8 pt-10 sm:flex-col md:flex-col lg:flex-row  ${
+            post.id !== postData.length - 1 && "border-b-2"
+          }`}
         >
-          <div className="w-full sm:w-1/2">
+          <div className="w-full sm:w-1/2 md:w-full">
             <img
               src={post.image}
               alt={post.title}
               className="h-92 w-full rounded-md object-cover"
             />
           </div>
-
-          <div className="w-full sm:w-1/2">
+          <div className="w-full sm:w-1/2 md:w-full">
             <div className="header">
               <div className="flex flex-col items-center justify-between pb-3 sm:flex-row">
                 <div className="flex items-center justify-start gap-2">

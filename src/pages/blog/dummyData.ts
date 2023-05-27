@@ -2,7 +2,7 @@ import { Post } from "@/types";
 
 export const postData: Post[] = [
   {
-    id: 1,
+    id: 0,
     title: "Tokens—how to buy them, what they mean",
     content:
       "What started as a hobby for many students during the pandemic has grown into a profitable side-hustle. Here’s how some gifted note-takers turned creators are making their study guides sell...",
@@ -19,7 +19,7 @@ export const postData: Post[] = [
   },
 
   {
-    id: 2,
+    id: 1,
     title: "Tokens—how to buy them, what they mean",
     content:
       "What started as a hobby for many students during the pandemic has grown into a profitable side-hustle. Here’s how some gifted note-takers turned creators are making their study guides sell",
@@ -36,7 +36,7 @@ export const postData: Post[] = [
   },
 
   {
-    id: 3,
+    id: 2,
     title: "Tokens—how to buy them, what they mean",
     content:
       "What started as a hobby for many students during the pandemic has grown into a profitable side-hustle. Here’s how some gifted note-takers turned creators are making their study guides sell...",
@@ -53,7 +53,7 @@ export const postData: Post[] = [
   },
 
   {
-    id: 4,
+    id: 3,
     title: "Tokens—how to buy them, what they mean",
     content:
       "What started as a hobby for many students during the pandemic has grown into a profitable side-hustle. Here’s how some gifted note-takers turned creators are making their study guides sell...",
@@ -70,7 +70,7 @@ export const postData: Post[] = [
   },
 
   {
-    id: 5,
+    id: 4,
     title: "Tokens—how to buy them, what they mean",
     content:
       "What started as a hobby for many students during the pandemic has grown into a profitable side-hustle. Here’s how some gifted note-takers turned creators are making their study guides sell...",

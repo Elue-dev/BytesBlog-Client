@@ -15,7 +15,9 @@ export default function Blog() {
       </div>
 
       <div className={styles.content}>
-        <div className={`${styles["search__bar"]} flex items-center`}>
+        <div
+          className={`${styles["search__bar"]} flex items-center justify-center`}
+        >
           <input
             type="text"
             placeholder="Search posts, articles, authors"
