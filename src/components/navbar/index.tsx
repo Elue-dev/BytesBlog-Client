@@ -86,7 +86,7 @@ export default function Navbar() {
                       </div> */}
                       <div
                         onClick={() => {
-                          navigate("");
+                          navigate("/user/manage-interests");
                           setShowDropdown(false);
                         }}
                         className="mb-3 flex cursor-pointer items-center justify-start gap-3"
