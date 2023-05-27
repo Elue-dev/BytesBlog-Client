@@ -29,7 +29,7 @@ export default function EditProfile({ setShowPopup, showPopup }: Props) {
         />
         <div className="leading-6">
           <p
-            className="cursor-pointer text-primaryColor underline"
+            className="cursor-pointer font-semibold text-primaryColor underline"
             onClick={() => setShowPopup(true)}
           >
             Replace Photo
@@ -53,7 +53,7 @@ export default function EditProfile({ setShowPopup, showPopup }: Props) {
       <div className="rounded-lg border border-gray-200 bg-white p-2 shadow sm:shadow-lg">
         <div className="p-3">
           <h2 className="text-xl font-semibold">Bio</h2>
-          <p className="pt-2 leading-3 text-grayNeutral">
+          <p className="pt-2 leading-6 text-grayNeutral">
             This will be shown when others view your profile
           </p>
           <textarea

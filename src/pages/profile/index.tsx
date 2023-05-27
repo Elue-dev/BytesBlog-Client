@@ -37,7 +37,7 @@ export default function Profile() {
             className="h-14 w-14 rounded-full object-cover"
           />
           <p
-            className="cursor-pointer text-primaryColor underline"
+            className="cursor-pointer font-semibold text-primaryColor underline"
             onClick={() => setShowPopup(true)}
           >
             Edit Profile
