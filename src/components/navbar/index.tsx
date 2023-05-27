@@ -110,7 +110,7 @@ export default function Navbar() {
             ) : (
               <>
                 <Link to="/auth/sign-in">
-                  <Button className="bg-white font-semibold text-primaryColor">
+                  <Button className="mr-4 bg-white font-semibold text-primaryColor">
                     Sign In
                   </Button>
                 </Link>

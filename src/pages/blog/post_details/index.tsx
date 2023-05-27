@@ -8,7 +8,7 @@ import linkIcon from "@/assets/linkIcon.svg";
 import linkedin from "@/assets/linkedin.svg";
 import facebook from "@/assets/facebook.svg";
 import styles from "./post.details.module.scss";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 export default function PostDetails() {
   const { postId } = useParams();
@@ -121,9 +121,17 @@ export default function PostDetails() {
                       {post.title}
                     </h4>
                   </div>
-                  <div className="flex items-center justify-end gap-2 pt-4 text-right text-grayNeutral">
-                    <BiTimeFive />
-                    <span> {post.read_time} mins read</span>
+                  <div className="flex items-center justify-between gap-2 pb-4 pt-4 text-right text-grayNeutral">
+                    <Link
+                      to={`/blog/post/${post.id}`}
+                      className="font-semibold text-primaryColor"
+                    >
+                      Read More
+                    </Link>
+                    <div className="flex items-center justify-start gap-1 text-grayNeutral">
+                      <BiTimeFive />
+                      <span> {post.read_time} mins read</span>
+                    </div>
                   </div>
                 </div>
                 <div>
