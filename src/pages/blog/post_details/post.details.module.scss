@@ -65,6 +65,10 @@
     line-height: 3;
     overflow-y: scroll;
     transition: right 0.5s ease;
+
+    @include mQ(600px) {
+      width: 380px;
+    }
   }
   .menu__items.show {
     right: -1px;

@@ -62,7 +62,7 @@ export default function PostDetails() {
               className="w-full text-stone-700 outline-none"
               cols={30}
               rows={2}
-              placeholder="Write your comment..."
+              placeholder=" Type your comment here..."
             ></textarea>
           )}
         </div>
