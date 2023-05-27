@@ -69,7 +69,7 @@ export default function Interests({
         </div>
 
         <Button
-          className="mt-14 w-full rounded-lg bg-primaryColor p-3 text-white"
+          className="mt-14 w-full rounded-lg bg-primaryColor p-3 text-white hover:bg-primaryColorHover"
           onClick={createUserAccount}
         >
           Create Account

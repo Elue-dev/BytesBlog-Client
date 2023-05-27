@@ -65,7 +65,7 @@ export default function SignIn() {
           <h1 className="mb-3 flex items-center justify-center text-3xl font-medium">
             Welcome back
           </h1>
-          <Button className="mb-4 mt-6 flex w-full items-center justify-center gap-3 rounded-lg border border-lightGray bg-white p-3">
+          <Button className="mb-4 mt-6 flex w-full items-center justify-center gap-3 rounded-lg border border-lightGray bg-white p-3 hover:bg-grayLight">
             <FcGoogle className="text-2xl" />
             <span className="font-normal">Continue With Google</span>
           </Button>
@@ -114,7 +114,7 @@ export default function SignIn() {
 
             <Button
               type="button"
-              className="mt-5 w-full rounded-lg bg-primaryColor p-3 text-lg font-semibold text-white"
+              className="mt-5 w-full rounded-lg bg-primaryColor p-3 text-lg font-semibold text-white hover:bg-primaryColorHover"
               onClick={proceed}
             >
               Sign In

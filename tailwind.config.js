@@ -6,6 +6,7 @@ export default {
       colors: {
         primaryColor: "#169639",
         primaryColorLight: "#F2FFF5",
+        primaryColorHover: "#3BB85D",
         primaryColorLighter: "#F1FFE4",
         grayNeutral: "#767D8D",
         brightGreen: "#b6e4c2",

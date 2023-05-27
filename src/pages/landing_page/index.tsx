@@ -6,6 +6,8 @@ import Button from "../../components/button";
 import { Link } from "react-router-dom";
 
 export default function Home() {
+  const user = true;
+
   return (
     <section className={styles.home}>
       <Hero />
@@ -46,11 +48,19 @@ export default function Home() {
                 Connect with curious minds, tell your story and share your
                 knowledge even just the way you want it
               </p>
-              <Link to="/blog">
-                <Button className="mt-6 bg-primaryColor p-4 text-white">
-                  Get Started
-                </Button>
-              </Link>
+              {user ? (
+                <Link to="/blog">
+                  <Button className="mt-6 bg-primaryColor p-4 text-white hover:bg-primaryColorHover">
+                    Visit Blog
+                  </Button>
+                </Link>
+              ) : (
+                <Link to="/blog">
+                  <Button className="mt-6 bg-primaryColor p-4 text-white hover:bg-primaryColorHover">
+                    Get Started
+                  </Button>
+                </Link>
+              )}
             </div>
           </div>
         </div>

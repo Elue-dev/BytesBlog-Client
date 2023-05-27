@@ -11,7 +11,7 @@ export default function Navbar() {
 
   if (pathname.includes("auth")) return null;
 
-  const user = true;
+  const user = false;
 
   return (
     <section className={styles.navbar}>
@@ -23,7 +23,7 @@ export default function Navbar() {
           {user ? (
             <div className="flex items-center justify-start gap-0 sm:gap-1">
               <Link to="/blog/write">
-                <Button className="flex items-center justify-start gap-1 whitespace-nowrap bg-primaryColor p-2.5 text-white sm:p-3">
+                <Button className="flex items-center justify-start gap-1 whitespace-nowrap bg-primaryColor p-2.5 text-white hover:bg-primaryColorHover sm:p-3">
                   Write a Post
                   <BsVectorPen />
                 </Button>
@@ -41,7 +41,7 @@ export default function Navbar() {
                 </Button>
               </Link>
               <Link to="/auth/create-account">
-                <Button className="bg-primaryColor p-3 text-white">
+                <Button className="bg-primaryColor p-3 text-white hover:bg-primaryColorHover">
                   Sign Up
                 </Button>
               </Link>

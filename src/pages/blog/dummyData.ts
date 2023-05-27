@@ -22,7 +22,7 @@ export const postData: Post[] = [
     id: 1,
     title: "Tokens—how to buy them, what they mean",
     content:
-      "What started as a hobby for many students during the pandemic has grown into a profitable side-hustle. Here’s how some gifted note-takers turned creators are making their study guides sell",
+      "What started as a hobby for many students during the pandemic has grown into a profitable side-hustle. Here’s how some gifted note-takers turned creators are making their study guides sell...",
     image:
       "https://images.pexels.com/photos/730564/pexels-photo-730564.jpeg?auto=compress&cs=tinysrgb&w=800",
     date: "April 3, 2023",
