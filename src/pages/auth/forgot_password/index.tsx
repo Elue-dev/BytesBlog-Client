@@ -27,7 +27,7 @@ export default function ForgotPassword() {
       }
       revealModal(
         `A link has been sent to ${email}. Kindly open the link to reset your password.`,
-         "/auth/reset-password",
+        "/auth/reset-password",
         "warning"
       );
     }
@@ -70,7 +70,7 @@ export default function ForgotPassword() {
         </div>
 
         <Button
-          className="mt-14 w-full rounded-lg bg-primaryColor text-white"
+          className="mt-14 w-full rounded-lg bg-primaryColor p-3 text-white"
           onClick={sendResetEmail}
         >
           Send Password Reset Link

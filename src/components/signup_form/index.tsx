@@ -119,7 +119,7 @@ export default function SignUpForm({
           <h1 className="mb-3 flex items-center justify-center text-3xl font-medium">
             Create Account
           </h1>
-          <Button className="mb-4 mt-6 flex w-full items-center justify-center gap-3 rounded-lg border border-lightGray bg-white">
+          <Button className="mb-4 mt-6 flex w-full items-center justify-center gap-3 rounded-lg border border-lightGray bg-white p-3">
             <FcGoogle className="text-2xl" />
             <span className="font-normal">Continue With Google</span>
           </Button>
@@ -261,7 +261,7 @@ export default function SignUpForm({
 
             <Button
               type="button"
-              className="mt-5 w-full rounded-lg bg-primaryColor text-lg font-semibold text-white"
+              className="mt-5 w-full rounded-lg bg-primaryColor p-3 text-lg font-semibold text-white"
               onClick={proceed}
             >
               Continue

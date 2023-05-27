@@ -49,7 +49,7 @@ export default function Modal({ message }: ModalProps) {
             <div className="mt-4 flex flex-col sm:flex-row sm:justify-center sm:space-x-4">
               <Button
                 type="button"
-                className="inline-flex w-full justify-center rounded-md bg-primaryColorLighter px-4 py-2 text-lg font-semibold uppercase text-primaryColor shadow-sm"
+                className="inline-flex w-full justify-center rounded-md bg-primaryColorLighter p-3 px-4 py-2 text-lg font-semibold uppercase text-primaryColor shadow-sm"
                 onClick={closeModalAndNavigate}
               >
                 Done
