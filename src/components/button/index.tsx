@@ -6,7 +6,7 @@ export default function Button({
   type,
   onClick,
 }: ButtonProps) {
-  const buttonClasses = `p-3 mr-2 rounded-3xl font-semibold  ${className}`;
+  const buttonClasses = `mr-2 rounded-3xl font-semibold  ${className}`;
   return (
     <button
       type={type ? type : "button"}
