@@ -29,7 +29,7 @@ export default function Blog() {
         </div>
 
         <div
-          className={` ${styles.categories} flex cursor-pointer gap-4 whitespace-nowrap border-b-4`}
+          className={` ${styles.categories} flex cursor-pointer gap-8 whitespace-nowrap border-b-4`}
         >
           {modifiedCategories.map((category, idx: number) => (
             <div
