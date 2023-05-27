@@ -13,7 +13,7 @@ export default function Hero() {
           Share your thoughts even as you immerse yourself in our rich content
           that covers a wide range of topics.
         </p>
-        <Link to="/auth/create-account">
+        <Link to="/blog">
           <Button className="mt-6 bg-primaryColor p-4  text-white">
             Get Started
           </Button>

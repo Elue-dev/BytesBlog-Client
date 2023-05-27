@@ -79,11 +79,24 @@ export interface ContextProps {
     message: string,
     specifiedRoute: string,
     iconType?: string | ""
-    
   ) => void;
   closeModal: () => void;
 }
 
 export interface ModalProps {
   message: string;
+}
+
+export interface Post {
+  id: number;
+  image: string;
+  title: string;
+  content: string;
+  likes: number;
+  read_time: number;
+  date: string;
+  user: {
+    name: string;
+    photo: string;
+  };
 }

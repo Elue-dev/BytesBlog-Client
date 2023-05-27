@@ -2,6 +2,7 @@ import { useState } from "react";
 import styles from "./home.module.scss";
 import { categories } from "../categories";
 import { BiSearchAlt2 } from "react-icons/bi";
+import Posts from "./posts";
 
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -42,7 +43,12 @@ export default function Blog() {
             </div>
           ))}
         </div>
+
+        <Posts />
       </div>
+      <div
+        className={`${styles["posts__footer"]} mt-10 h-20 w-full bg-primaryColorLight`}
+      ></div>
     </section>
   );
 }
