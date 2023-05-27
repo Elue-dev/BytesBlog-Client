@@ -1,13 +1,34 @@
 import { useState } from "react";
 import AddedPosts from "./AddedPosts";
+import EditProfile from "./EditProfile";
 import styles from "./profile.module.scss";
 import SavedPosts from "./SavedPosts";
 
 export default function Profile() {
   const [postType, setPostType] = useState("My Posts");
+  const [showPopup, setShowPopup] = useState(false);
+
   return (
     <section className={styles.profile}>
       <h1 className="text-3xl font-semibold">Profile</h1>
+      {showPopup && (
+        <div
+          className={styles.overlay}
+          onClick={() => {
+            setShowPopup(false);
+          }}
+        />
+      )}
+
+      <div
+        className={
+          showPopup
+            ? `${styles["menu__items"]} ${styles.show}`
+            : `${styles["menu__items"]}`
+        }
+      >
+        <EditProfile showPopup={showPopup} setShowPopup={setShowPopup} />
+      </div>
       <div className="pt-8">
         <div className="flex items-end justify-start gap-2">
           <img
@@ -15,7 +36,10 @@ export default function Profile() {
             alt=""
             className="h-14 w-14 rounded-full object-cover"
           />
-          <p className="cursor-pointer text-primaryColor underline">
+          <p
+            className="cursor-pointer text-primaryColor underline"
+            onClick={() => setShowPopup(true)}
+          >
             Edit Profile
           </p>
         </div>

@@ -4,4 +4,37 @@
   @include container();
   max-width: 500px;
   padding-top: 4rem;
+
+  .overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    background-color: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    display: block;
+  }
+  .menu__items {
+    position: fixed;
+    right: -400px;
+    top: 0;
+    background: #fff;
+    padding: 1rem;
+    z-index: 9999;
+    width: 400px;
+    height: auto;
+    height: 100%;
+    line-height: 3;
+    overflow-y: scroll;
+    transition: right 0.5s ease;
+
+    @include mQ(600px) {
+      width: 100%;
+    }
+  }
+  .menu__items.show {
+    right: -1px;
+  }
 }

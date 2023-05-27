@@ -74,7 +74,7 @@ export default function Navbar() {
                         <img src={profileIcon} alt="profile" />
                         <span> Profile</span>
                       </div>
-                      <div
+                      {/* <div
                         onClick={() => {
                           navigate("");
                           setShowDropdown(false);
@@ -83,7 +83,7 @@ export default function Navbar() {
                       >
                         <img src={savedPosts} alt="saved posts" />
                         <span> Saved Posts</span>
-                      </div>
+                      </div> */}
                       <div
                         onClick={() => {
                           navigate("");
