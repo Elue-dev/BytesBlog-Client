@@ -29,10 +29,10 @@ export default function PostDetails() {
       <div className={styles.hero}></div>
       <div className="container flex flex-col pt-12 lg:flex-row">
         <div className={styles["left__quarter"]}>
-          <div className="top">
-            <div className="left">
+          <div>
+            <div>
               <div className="flex flex-col justify-between sm:flex-row md:flex-row">
-                <div className="flex items-center justify-center gap-8 sm:justify-start">
+                <div className="flex items-center justify-between gap-8 sm:justify-start">
                   <div className="flex  items-center justify-start gap-2">
                     <img
                       src={currentPost.user.photo}
@@ -40,31 +40,33 @@ export default function PostDetails() {
                       className="h-11 w-11 rounded-full object-cover"
                     />
                     <div>
-                      <p>{currentPost.user.name}</p>
+                      <p className="text-lg">{currentPost.user.name}</p>
                       <p className="text-grayLight">{currentPost.date}</p>
                     </div>
                   </div>
 
                   <div className="flex items-center justify-start gap-2">
                     <BiTimeFive />
-                    <span>{currentPost.read_time} mins read</span>
+                    <span className="text-lg">
+                      {currentPost.read_time} mins read
+                    </span>
                   </div>
                 </div>
                 <div className="flex items-center justify-center gap-6 pt-4 sm:justify-start sm:gap-3 sm:pt-0">
                   <img
                     src={linkedin}
                     alt="share on linkedin"
-                    className="cursor-pointer"
+                    className="h-8 cursor-pointer lg:h-1"
                   />
                   <img
                     src={facebook}
                     alt="share on facebook"
-                    className="cursor-pointer"
+                    className="h-8 cursor-pointer lg:h-6"
                   />
                   <img
                     src={linkIcon}
                     alt="copy link"
-                    className="cursor-pointer"
+                    className="h-8 cursor-pointer lg:h-8"
                   />
                 </div>
               </div>
