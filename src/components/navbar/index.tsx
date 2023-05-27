@@ -11,7 +11,7 @@ export default function Navbar() {
 
   if (pathname.includes("auth")) return null;
 
-  const user = false;
+  const user = true;
 
   return (
     <section className={styles.navbar}>

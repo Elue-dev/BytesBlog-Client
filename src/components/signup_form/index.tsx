@@ -23,7 +23,7 @@ export default function SignUpForm({
   const [charCondition, setCharCondition] = useState(false);
   const [lengthCondition, setLengthCondition] = useState(false);
   const [caseCondition, setCaseCondition] = useState(false);
-  const [passwordComplete, setPasswordComplete] = useState(false);
+  const [passwordCheckPassed, setPasswordCheckPassed] = useState(false);
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
 
   useEffect(() => {
@@ -51,9 +51,9 @@ export default function SignUpForm({
     }
 
     if (caseCondition && numberCondition && charCondition && lengthCondition) {
-      setPasswordComplete(true);
+      setPasswordCheckPassed(true);
     } else {
-      setPasswordComplete(false);
+      setPasswordCheckPassed(false);
     }
   }, [
     password,
@@ -61,7 +61,7 @@ export default function SignUpForm({
     numberCondition,
     charCondition,
     lengthCondition,
-    passwordComplete,
+    passwordCheckPassed,
   ]);
 
   const proceed = () => {
@@ -91,7 +91,7 @@ export default function SignUpForm({
       if (password !== confirmPassword) {
         return alert("Passwords do not match");
       }
-      if (!passwordComplete) {
+      if (!passwordCheckPassed) {
         return alert(
           "Your password has not met the necessary strength requirements"
         );
@@ -125,8 +125,8 @@ export default function SignUpForm({
           </Button>
           <span className="mb-4 block text-center">Or</span>
           <section>
-            <div className="flex flex-col gap-4 sm:flex-row">
-              <div className="relative w-full sm:w-1/2">
+            <div className="flex gap-4">
+              <div className="relative  sm:w-1/2">
                 <Input
                   type="text"
                   className={`${
@@ -142,7 +142,7 @@ export default function SignUpForm({
                 <span className="form-text">First Name</span>
               </div>
 
-              <div className="relative w-full pt-3 sm:w-1/2 sm:pt-0">
+              <div className="relative w-1/2 sm:pt-0">
                 <Input
                   type="text"
                   name="lastname"
@@ -178,7 +178,10 @@ export default function SignUpForm({
                 type={visible ? "text" : "password"}
                 name="password"
                 className={`${
-                  validationErrors.includes("password") ? "border-rose-500" : ""
+                  validationErrors.includes("password") ||
+                  (!passwordCheckPassed && password)
+                    ? "border-rose-500"
+                    : ""
                 } w-full p-2.5`}
                 value={password}
                 onChange={handleInputChange}
