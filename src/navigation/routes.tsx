@@ -10,6 +10,7 @@ import ResetPassword from "@/pages/auth/reset_password";
 import Modal from "@/components/modal";
 import { useModal } from "../context/useModal";
 import Blog from "@/pages/blog/home";
+import PostDetails from "@/pages/blog/post_details";
 
 export const Layout = () => {
   const context = useModal();
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
       {
         path: "/blog",
         element: <Blog />,
+      },
+      {
+        path: "/blog/post/:postId",
+        element: <PostDetails />,
       },
       {
         path: "*",

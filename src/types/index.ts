@@ -91,10 +91,12 @@ export interface Post {
   id: number;
   image: string;
   title: string;
+  excerpt: string;
   content: string;
   likes: number;
   read_time: number;
   date: string;
+  comments: number;
   user: {
     name: string;
     photo: string;

@@ -1,0 +1,43 @@
+@import "../../../sass/mixins";
+
+.post__details {
+  .hero {
+    background-color: #f2fff5;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    height: 100px;
+  }
+  .left__quarter {
+    width: 60%;
+    padding-right: 1.5rem;
+    border-right: 0.5px solid #e5e7eb;
+    @include mQ(1000px) {
+      width: 100%;
+      padding-right: 0;
+      border-right: 0;
+      border-bottom: 0.5px solid #e5e7eb;
+    }
+  }
+  .right__quarter {
+    padding-left: 1rem;
+    width: 40%;
+    @include mQ(1000px) {
+      width: 100%;
+      padding-left: 0;
+    }
+    & > div {
+      border-bottom: 0.5px solid #e5e7eb;
+    }
+  }
+  .posts__footer {
+    width: 100%;
+    background: linear-gradient(
+      359.61deg,
+      rgba(122, 200, 143, 0.25) 0.18%,
+      rgba(122, 200, 143, 0) 75.24%
+    );
+    height: 50vh;
+  }
+}

@@ -2,15 +2,18 @@ import { Post } from "@/types";
 
 export const postData: Post[] = [
   {
-    id: 0,
+    id: 1,
     title: "Tokens—how to buy them, what they mean",
-    content:
+    comments: 10,
+    excerpt:
       "What started as a hobby for many students during the pandemic has grown into a profitable side-hustle. Here’s how some gifted note-takers turned creators are making their study guides sell...",
+    content:
+      "Lorem ipsum dolor sit amet consectetur. Vitae egestas amet nunc eleifend eu est sem viverra mauris. Sed in fusce feugiat netus mauris habitant purus egestas non. Amet risus mattis diam sed eget. Mollis viverra massa id volutpat quis quisque consectetur vel ultricies. Nunc ultricies praesent molestie consectetur pretium amet id sollicitudin egestas. Euismod urna nunc ullamcorper commodo nibh ut. Diam nisi dictum velit pretium sociis. Nisl nunc pellentesque imperdiet consectetur egestas erat velit. Vitae lacus vitae tempus arcu pretium urna non ultrices. Lorem ipsum dolor sit amet consectetur. Vitae egestas amet nunc eleifend eu est sem viverra mauris. Sed in fusce feugiat netus mauris habitant purus egestas non. Amet risus mattis diam sed eget. Mollis viverra massa id volutpat quis quisque consectetur vel ultricies. Nunc ultricies praesent molestie consectetur pretium amet id sollicitudin egestas. Euismod urna nunc ullamcorper commodo nibh ut. Diam nisi dictum velit pretium sociis. Nisl nunc pellentesque imperdiet consectetur egestas erat velit. Vitae lacus vitae tempus arcu pretium urna non ultrices.",
     image:
       "https://images.pexels.com/photos/844124/pexels-photo-844124.jpeg?auto=compress&cs=tinysrgb&w=800",
     date: "March 25, 2023",
     read_time: 2,
-    likes: 10,
+    likes: 14,
     user: {
       name: "Anita Williams",
       photo:
@@ -19,10 +22,13 @@ export const postData: Post[] = [
   },
 
   {
-    id: 1,
+    id: 2,
     title: "Tokens—how to buy them, what they mean",
-    content:
+    comments: 18,
+    excerpt:
       "What started as a hobby for many students during the pandemic has grown into a profitable side-hustle. Here’s how some gifted note-takers turned creators are making their study guides sell...",
+    content:
+      "Lorem ipsum dolor sit amet consectetur. Vitae egestas amet nunc eleifend eu est sem viverra mauris. Sed in fusce feugiat netus mauris habitant purus egestas non. Amet risus mattis diam sed eget. Mollis viverra massa id volutpat quis quisque consectetur vel ultricies. Nunc ultricies praesent molestie consectetur pretium amet id sollicitudin egestas. Euismod urna nunc ullamcorper commodo nibh ut. Diam nisi dictum velit pretium sociis. Nisl nunc pellentesque imperdiet consectetur egestas erat velit. Vitae lacus vitae tempus arcu pretium urna non ultrices. Lorem ipsum dolor sit amet consectetur. Vitae egestas amet nunc eleifend eu est sem viverra mauris. Sed in fusce feugiat netus mauris habitant purus egestas non. Amet risus mattis diam sed eget. Mollis viverra massa id volutpat quis quisque consectetur vel ultricies. Nunc ultricies praesent molestie consectetur pretium amet id sollicitudin egestas. Euismod urna nunc ullamcorper commodo nibh ut. Diam nisi dictum velit pretium sociis. Nisl nunc pellentesque imperdiet consectetur egestas erat velit. Vitae lacus vitae tempus arcu pretium urna non ultrices.",
     image:
       "https://images.pexels.com/photos/730564/pexels-photo-730564.jpeg?auto=compress&cs=tinysrgb&w=800",
     date: "April 3, 2023",
@@ -36,10 +42,13 @@ export const postData: Post[] = [
   },
 
   {
-    id: 2,
+    id: 3,
     title: "Tokens—how to buy them, what they mean",
-    content:
+    comments: 7,
+    excerpt:
       "What started as a hobby for many students during the pandemic has grown into a profitable side-hustle. Here’s how some gifted note-takers turned creators are making their study guides sell...",
+    content:
+      "Lorem ipsum dolor sit amet consectetur. Vitae egestas amet nunc eleifend eu est sem viverra mauris. Sed in fusce feugiat netus mauris habitant purus egestas non. Amet risus mattis diam sed eget. Mollis viverra massa id volutpat quis quisque consectetur vel ultricies. Nunc ultricies praesent molestie consectetur pretium amet id sollicitudin egestas. Euismod urna nunc ullamcorper commodo nibh ut. Diam nisi dictum velit pretium sociis. Nisl nunc pellentesque imperdiet consectetur egestas erat velit. Vitae lacus vitae tempus arcu pretium urna non ultrices. Lorem ipsum dolor sit amet consectetur. Vitae egestas amet nunc eleifend eu est sem viverra mauris. Sed in fusce feugiat netus mauris habitant purus egestas non. Amet risus mattis diam sed eget. Mollis viverra massa id volutpat quis quisque consectetur vel ultricies. Nunc ultricies praesent molestie consectetur pretium amet id sollicitudin egestas. Euismod urna nunc ullamcorper commodo nibh ut. Diam nisi dictum velit pretium sociis. Nisl nunc pellentesque imperdiet consectetur egestas erat velit. Vitae lacus vitae tempus arcu pretium urna non ultrices.",
     image:
       "https://images.pexels.com/photos/1447418/pexels-photo-1447418.jpeg?auto=compress&cs=tinysrgb&w=800",
     date: "April 10, 2023",
@@ -53,10 +62,13 @@ export const postData: Post[] = [
   },
 
   {
-    id: 3,
+    id: 4,
     title: "Tokens—how to buy them, what they mean",
-    content:
+    comments: 8,
+    excerpt:
       "What started as a hobby for many students during the pandemic has grown into a profitable side-hustle. Here’s how some gifted note-takers turned creators are making their study guides sell...",
+    content:
+      "Lorem ipsum dolor sit amet consectetur. Vitae egestas amet nunc eleifend eu est sem viverra mauris. Sed in fusce feugiat netus mauris habitant purus egestas non. Amet risus mattis diam sed eget. Mollis viverra massa id volutpat quis quisque consectetur vel ultricies. Nunc ultricies praesent molestie consectetur pretium amet id sollicitudin egestas. Euismod urna nunc ullamcorper commodo nibh ut. Diam nisi dictum velit pretium sociis. Nisl nunc pellentesque imperdiet consectetur egestas erat velit. Vitae lacus vitae tempus arcu pretium urna non ultrices. Lorem ipsum dolor sit amet consectetur. Vitae egestas amet nunc eleifend eu est sem viverra mauris. Sed in fusce feugiat netus mauris habitant purus egestas non. Amet risus mattis diam sed eget. Mollis viverra massa id volutpat quis quisque consectetur vel ultricies. Nunc ultricies praesent molestie consectetur pretium amet id sollicitudin egestas. Euismod urna nunc ullamcorper commodo nibh ut. Diam nisi dictum velit pretium sociis. Nisl nunc pellentesque imperdiet consectetur egestas erat velit. Vitae lacus vitae tempus arcu pretium urna non ultrices.",
     image:
       "https://images.pexels.com/photos/2228570/pexels-photo-2228570.jpeg?auto=compress&cs=tinysrgb&w=800",
     date: "May 26, 2023",
@@ -70,10 +82,13 @@ export const postData: Post[] = [
   },
 
   {
-    id: 4,
+    id: 5,
     title: "Tokens—how to buy them, what they mean",
-    content:
+    comments: 10,
+    excerpt:
       "What started as a hobby for many students during the pandemic has grown into a profitable side-hustle. Here’s how some gifted note-takers turned creators are making their study guides sell...",
+    content:
+      "Lorem ipsum dolor sit amet consectetur. Vitae egestas amet nunc eleifend eu est sem viverra mauris. Sed in fusce feugiat netus mauris habitant purus egestas non. Amet risus mattis diam sed eget. Mollis viverra massa id volutpat quis quisque consectetur vel ultricies. Nunc ultricies praesent molestie consectetur pretium amet id sollicitudin egestas. Euismod urna nunc ullamcorper commodo nibh ut. Diam nisi dictum velit pretium sociis. Nisl nunc pellentesque imperdiet consectetur egestas erat velit. Vitae lacus vitae tempus arcu pretium urna non ultrices. Lorem ipsum dolor sit amet consectetur. Vitae egestas amet nunc eleifend eu est sem viverra mauris. Sed in fusce feugiat netus mauris habitant purus egestas non. Amet risus mattis diam sed eget. Mollis viverra massa id volutpat quis quisque consectetur vel ultricies. Nunc ultricies praesent molestie consectetur pretium amet id sollicitudin egestas. Euismod urna nunc ullamcorper commodo nibh ut. Diam nisi dictum velit pretium sociis. Nisl nunc pellentesque imperdiet consectetur egestas erat velit. Vitae lacus vitae tempus arcu pretium urna non ultrices.",
     image:
       "https://images.pexels.com/photos/844127/pexels-photo-844127.jpeg?auto=compress&cs=tinysrgb&w=800",
     date: "May 27, 2023",

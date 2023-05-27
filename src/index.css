@@ -7,3 +7,15 @@
 body {
   font-family: "Source Sans Pro", sans-serif;
 }
+
+.container {
+  max-width: 1300px;
+  margin: auto;
+  width: 79%;
+}
+
+@media (max-width: 600px) {
+  .container {
+    width: 90%;
+  }
+}

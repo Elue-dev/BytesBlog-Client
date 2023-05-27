@@ -13,7 +13,7 @@ export default function Posts() {
         <div
           key={post.id}
           className={`flex flex-col items-center gap-8 pb-8 pt-10 sm:flex-col md:flex-col lg:flex-row  ${
-            post.id !== postData.length - 1 && "border-b-2"
+            postData.indexOf(post) + 1 !== postData.length && "border-b-2"
           }`}
         >
           <div className="w-full sm:w-1/2 md:w-full">
@@ -45,9 +45,12 @@ export default function Posts() {
 
               <div className="content">
                 <h1 className="pb-2 pt-3 text-3xl font-bold">{post.title}</h1>
-                <p className="leading-8 text-grayNeutral">{post.content}</p>
+                <p className="leading-8 text-grayNeutral">{post.excerpt}</p>
 
-                <Link to="/blog" className="font-semibold text-primaryColor">
+                <Link
+                  to={`/blog/post/${post.id}`}
+                  className="font-semibold text-primaryColor"
+                >
                   Read More
                 </Link>
 

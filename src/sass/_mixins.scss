@@ -1,7 +1,7 @@
 @mixin container() {
   max-width: 1300px;
   margin: auto;
-  width: 73%;
+  width: 79%;
   @include mQ(600px) {
     width: 90%;
   }
