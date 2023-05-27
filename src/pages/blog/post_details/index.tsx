@@ -18,7 +18,7 @@ export default function PostDetails() {
     currentPost = postData.find((post) => post.id.toString() === postId);
   }
 
-  if (!currentPost) return;
+  if (!currentPost) return null;
 
   const similarPosts = postData.filter((post) => post.id.toString() !== postId);
 
