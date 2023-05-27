@@ -1,5 +1,14 @@
 @use "../../sass/mixins" as *;
 
+.main {
+  position: sticky !important;
+  top: 0;
+  background: #fff;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  padding: 0.5rem;
+  transition: all 0.1s ease;
+}
 .navbar {
   @include container();
 }

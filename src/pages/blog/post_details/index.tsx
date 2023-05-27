@@ -22,6 +22,8 @@ export default function PostDetails() {
 
   const similarPosts = postData.filter((post) => post.id.toString() !== postId);
 
+  console.log(window.scrollY);
+
   return (
     <section className={styles["post__details"]}>
       <div className={styles.hero}></div>
