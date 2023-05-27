@@ -151,7 +151,7 @@ export default function PostDetails() {
                   <img
                     src={linkedin}
                     alt="share on linkedin"
-                    className="h-8 cursor-pointer lg:h-1"
+                    className="h-8 cursor-pointer lg:h-6"
                   />
                   <img
                     src={facebook}
