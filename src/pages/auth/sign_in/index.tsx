@@ -54,7 +54,7 @@ export default function SignIn() {
   return (
     <section>
       <div className="flex h-screen items-center justify-center">
-        <div className=" mx-4 my-8 w-full max-w-md rounded-lg bg-white p-0 sm:p-5 sm:shadow-lg">
+        <div className="mx-4 my-8 w-full max-w-md rounded-lg bg-white p-0 sm:p-5 sm:shadow-lg">
           <Link to="/" className="mb-3 flex items-center justify-center pt-8">
             <img
               src={bytesLogo}

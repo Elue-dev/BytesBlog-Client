@@ -3,7 +3,7 @@ import { forwardRef } from "react";
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ type, name, className, onInput, value, onChange }, ref) => {
-    const inputClasses = `rounded border border-lightGray outline-none focus:border-primaryColor transition ease-in text-lightText	 duration-300 ${className}`;
+    const inputClasses = `rounded border border-lightGray outline-none focus:border-primaryColor transition ease-in text-lightText	duration-300 ${className}`;
 
     return (
       <input
