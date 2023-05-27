@@ -93,7 +93,7 @@ export default function ResetPassword() {
           "Your password has not met the necessary strength requirements"
         );
       }
-      revealModal("Password successfully reset", "/auth/sign-in");
+      revealModal("Password successfully reset", "/auth/sign-in", "success");
     }
   };
 
@@ -131,7 +131,7 @@ export default function ResetPassword() {
               <span className="form-text">Password</span>
               <span className="absolute bottom-3 right-2 cursor-pointer text-2xl text-gray-600">
                 <div onClick={() => setVisible(!visible)}>
-                  {cpVisible ? (
+                  {visible ? (
                     <img src={eyeClosed} alt="" />
                   ) : (
                     <img src={eyeOpen} alt="" />

@@ -11,7 +11,7 @@ export default function Navbar() {
 
   if (pathname.includes("auth")) return null;
 
-  const user = true;
+  const user = false;
 
   return (
     <section className={styles.navbar}>
@@ -41,7 +41,9 @@ export default function Navbar() {
                 </Button>
               </Link>
               <Link to="/auth/create-account">
-                <Button className="bg-primaryColor text-white">Sign Up</Button>
+                <Button className="bg-primaryColor p-3 text-white">
+                  Sign Up
+                </Button>
               </Link>
             </>
           )}

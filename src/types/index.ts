@@ -79,6 +79,7 @@ export interface ContextProps {
     message: string,
     specifiedRoute: string,
     iconType?: string | ""
+    
   ) => void;
   closeModal: () => void;
 }
