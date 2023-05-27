@@ -46,10 +46,11 @@ export default function Profile() {
 
         <h3 className="py-4 text-2xl font-semibold">Seun Akingboye</h3>
         <h2 className="text-2xl font-semibold text-primaryColor">About</h2>
-        <p className="font-normal leading-7 tracking-wide text-gray600">
-          When the going gets tough, the tough gets going. When the going gets
-          tough, the tough gets going. When the going gets tough, the tough gets
-          going. When the going gets tough, the tough gets going.
+        <p className="pt-3 font-normal leading-7 tracking-wide text-gray600">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe
+          cupiditate eligendi modi iure aliquid repellendus architecto ratione
+          alias maxime illo quas eaque commodi, sit, reprehenderit voluptas
+          dolore ad vitae dignissimos.
         </p>
 
         <div className="flex items-center justify-start gap-6 border-b-4 pt-6">

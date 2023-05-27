@@ -17,7 +17,9 @@ export default function AddedPosts() {
           />
           <div>
             <h2 className="text-xl font-semibold">{post.title}</h2>
-            <p className="text-grayNeutral">{post.excerpt.slice(0, 130)}...</p>
+            <p className="pt-2 text-grayNeutral">
+              {post.excerpt.slice(0, 130)}...
+            </p>
             <div className="flex items-center justify-between pt-2 text-gray600">
               <p>{post.date}</p>
               <p className="flex items-center justify-start gap-1">
