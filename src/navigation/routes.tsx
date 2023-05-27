@@ -13,6 +13,7 @@ import Blog from "@/pages/blog/home";
 import PostDetails from "@/pages/blog/post_details";
 import Profile from "@/pages/profile";
 import ManageInterests from "@/pages/manage_interests";
+import RichEditor from "@/components/editor";
 
 export const Layout = () => {
   const context = useModal();
@@ -69,6 +70,10 @@ const router = createBrowserRouter([
       {
         path: "/user/manage-interests",
         element: <ManageInterests />,
+      },
+      {
+        path: "/editor",
+        element: <RichEditor />,
       },
       {
         path: "*",

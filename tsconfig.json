@@ -18,7 +18,8 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/context/ModalContext.js",
-    "src/main.jsx"
+    "src/main.jsx",
+    "src/components/table/index.jsx"
   ],
   "exclude": ["node_modules"]
 }
