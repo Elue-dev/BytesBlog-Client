@@ -2,7 +2,7 @@ import styles from "./navbar.module.scss";
 import byteslogo from "@/assets/bytesLogo.svg";
 import userIcon from "@/assets/userIcon.svg";
 import profileIcon from "@/assets/profileIcon.svg";
-import savedPosts from "@/assets/savedPosts.svg";
+// import savedPosts from "@/assets/savedPosts.svg";
 import interestsIcon from "@/assets/interestsIcon.svg";
 import Button from "../button";
 import { Link, useLocation, useNavigate } from "react-router-dom";
