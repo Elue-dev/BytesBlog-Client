@@ -11,6 +11,7 @@
     background-position: center;
     position: relative;
     height: 329px;
+    text-align: center;
     @include mQ(500px) {
       height: 229px;
     }
@@ -21,12 +22,12 @@
       line-height: 76px;
       font-weight: 700;
       color: #07080a;
+      width: 100%;
       @include mQ(500px) {
         font-size: 34px;
         line-height: initial;
         width: 100%;
         max-width: 377px;
-        text-align: center;
       }
     }
   }

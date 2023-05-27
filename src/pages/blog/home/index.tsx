@@ -20,7 +20,7 @@ export default function Blog() {
         >
           <input
             type="text"
-            placeholder="Search posts, articles, authors"
+            placeholder="Search posts by title or category"
             className="border text-stone-700 outline-none"
           />
           <button className="bg-black text-xl font-bold text-white">
