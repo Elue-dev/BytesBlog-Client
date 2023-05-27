@@ -11,6 +11,7 @@ import Modal from "@/components/modal";
 import { useModal } from "../context/useModal";
 import Blog from "@/pages/blog/home";
 import PostDetails from "@/pages/blog/post_details";
+import Profile from "@/pages/profile";
 
 export const Layout = () => {
   const context = useModal();
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
       {
         path: "/blog/post/:postId",
         element: <PostDetails />,
+      },
+      {
+        path: "/user/profile",
+        element: <Profile />,
       },
       {
         path: "*",

@@ -47,7 +47,7 @@
     height: 100%;
     top: 0;
     left: 0;
-    z-index: 100;
+    z-index: 9999;
     background-color: rgba(0, 0, 0, 0.5);
     cursor: pointer;
     display: block;
@@ -58,7 +58,7 @@
     top: 0;
     background: #fff;
     padding: 1rem;
-    z-index: 100;
+    z-index: 9999;
     width: 400px;
     height: auto;
     height: 100%;
@@ -70,6 +70,7 @@
       width: 380px;
     }
   }
+
   .menu__items.show {
     right: -1px;
   }

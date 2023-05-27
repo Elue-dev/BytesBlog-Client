@@ -33,7 +33,13 @@ export default function PostDetails() {
     <section className={styles["post__details"]}>
       <div className={styles.hero}></div>
       {showSidebar && (
-        <div className={styles.overlay} onClick={() => setShowSidebar(false)} />
+        <div
+          className={styles.overlay}
+          onClick={() => {
+            setShowSidebar(false);
+            setShowInput(false);
+          }}
+        />
       )}
       <div
         className={
@@ -42,7 +48,7 @@ export default function PostDetails() {
             : `${styles["menu__items"]}`
         }
       >
-        <h1 className="mb-6 mt-8 bg-primaryColorLight p-3 text-center text-xl font-semibold sm:mt-auto sm:w-full">
+        <h1 className="mb-6 mt-8 bg-primaryColorLight p-3 text-center text-xl font-semibold sm:w-full">
           Comments ({currentPost.comments})
         </h1>
 
@@ -74,7 +80,7 @@ export default function PostDetails() {
             >
               Cancel
             </Button>
-            <Button className="flex h-10 w-24 items-center justify-center border bg-primaryColor text-white">
+            <Button className="flex h-10 w-24 items-center justify-center border bg-primaryColor text-white hover:bg-primaryColorHover">
               Send
             </Button>
           </div>
@@ -108,16 +114,11 @@ export default function PostDetails() {
 
         {showSidebar && (
           <AiOutlineCloseCircle
-            color="#fff"
-            onClick={() => setShowSidebar(false)}
-            className="absolute left-[-3rem] top-3 hidden cursor-pointer text-3xl  sm:block"
-          />
-        )}
-
-        {showSidebar && (
-          <AiOutlineCloseCircle
-            onClick={() => setShowSidebar(false)}
-            className="absolute right-2 top-3 mb-4 block cursor-pointer text-3xl sm:hidden"
+            onClick={() => {
+              setShowSidebar(false);
+              setShowInput(false);
+            }}
+            className="absolute right-2 top-3 mb-4 block cursor-pointer text-3xl"
           />
         )}
       </div>

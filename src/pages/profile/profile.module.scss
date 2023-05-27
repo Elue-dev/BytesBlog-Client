@@ -1,0 +1,7 @@
+@use "../../sass/mixins" as *;
+
+.profile {
+  @include container();
+  max-width: 500px;
+  padding-top: 4rem;
+}

@@ -66,7 +66,7 @@ export default function Navbar() {
                     <div className="py-5 leading-10 text-gray500">
                       <div
                         onClick={() => {
-                          navigate("");
+                          navigate("/user/profile");
                           setShowDropdown(false);
                         }}
                         className="flex cursor-pointer items-center justify-start gap-3"
