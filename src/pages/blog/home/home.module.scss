@@ -1,0 +1,64 @@
+@import "../../../sass/mixins";
+
+.blog__home {
+  .hero {
+    //   background: url("../../../assets/blogHero.svg");
+    background-color: #f2fff5;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    height: 329px;
+    @include mQ(500px) {
+      height: 229px;
+    }
+
+    h2 {
+      @include centerItem();
+      font-size: 56px;
+      line-height: 76px;
+      font-weight: 700;
+      color: #07080a;
+      @include mQ(500px) {
+        font-size: 34px;
+        line-height: initial;
+        width: 100%;
+        max-width: 377px;
+        text-align: center;
+      }
+    }
+  }
+
+  .content {
+    @include container();
+
+    .search__bar {
+      padding: 3rem 0;
+      input {
+        border: 1px solid #e9ecef;
+        box-shadow: 0px 2px 12px rgba(86, 86, 86, 0.15);
+        border-top-left-radius: 0.4rem;
+        border-bottom-left-radius: 0.4rem;
+        width: 694px;
+        padding: 0.88rem;
+      }
+      button {
+        border-top-right-radius: 0.4rem;
+        border-bottom-right-radius: 0.4rem;
+        padding: 1.04rem;
+        @include mQ(500px) {
+          padding: 1.03rem;
+        }
+      }
+    }
+
+    .categories {
+      overflow-x: auto;
+      &::-webkit-scrollbar,
+      &::-webkit-scrollbar-thumb,
+      &::-webkit-scrollbar-track {
+        display: none;
+      }
+    }
+  }
+}

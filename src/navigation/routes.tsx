@@ -9,6 +9,7 @@ import ForgotPassword from "@/pages/auth/forgot_password";
 import ResetPassword from "@/pages/auth/reset_password";
 import Modal from "@/components/modal";
 import { useModal } from "../context/useModal";
+import Blog from "@/pages/blog/home";
 
 export const Layout = () => {
   const context = useModal();
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path: "/auth/reset-password",
         element: <ResetPassword />,
+      },
+      {
+        path: "/blog",
+        element: <Blog />,
       },
       {
         path: "*",

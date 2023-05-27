@@ -17,9 +17,9 @@ export default function NotFound() {
         <div className="flex flex-col gap-4 pt-10 sm:flex-row">
           <Button
             className="w-full border-2 border-primaryColor bg-primaryColor p-3 text-2xl font-normal uppercase text-white sm:w-1/2"
-            onClick={() => navigate("/")}
+            onClick={() => navigate(-1)}
           >
-            Go Home
+            Go Back
           </Button>
           <Button
             className="w-full border-2 border-primaryColor bg-primaryColorLight p-3 text-2xl font-normal uppercase text-primaryColor sm:w-1/2"
