@@ -1,11 +1,10 @@
 import { Post } from "@/types";
-import { postData } from "../dummyData";
+import { postData } from "../dummyPosts";
 import { BiTimeFive } from "react-icons/bi";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import likeInactive from "@/assets/likeInactive.svg";
 import commentIcon from "@/assets/commentIcon.svg";
 import bookmarkInactive from "@/assets/bookmarkInactive.svg";
-import closeIcon from "@/assets/closeIcon.png";
 import linkIcon from "@/assets/linkIcon.svg";
 import linkedin from "@/assets/linkedin.svg";
 import facebook from "@/assets/facebook.svg";
@@ -13,10 +12,13 @@ import styles from "./post.details.module.scss";
 import { useParams } from "react-router-dom";
 import RightDetails from "./RightDetails";
 import { useState } from "react";
+import Button from "@/components/button";
+import { dummyComments } from "./dummyComments";
 
 export default function PostDetails() {
   const { postId } = useParams();
   const [showSidebar, setShowSidebar] = useState(false);
+  const [showInput, setShowInput] = useState(false);
 
   let currentPost: Post | undefined;
   if (postData) {
@@ -40,14 +42,75 @@ export default function PostDetails() {
             : `${styles["menu__items"]}`
         }
       >
-        <h1 className="mt-8 bg-primaryColorLight p-3 text-center text-xl font-semibold sm:mt-auto sm:w-full">
+        <h1 className="mb-6 mt-8 bg-primaryColorLight p-3 text-center text-xl font-semibold sm:mt-auto sm:w-full">
           Comments ({currentPost.comments})
         </h1>
-        <img src={closeIcon} alt="close menu" />
+
+        <div
+          className={`mt-2 rounded-lg bg-white p-2 shadow sm:shadow-lg ${
+            showInput && "border border-primaryColor"
+          }`}
+          onClick={() => setShowInput(true)}
+        >
+          {!showInput && (
+            <span className="text-grayNeutralSec">
+              Type your comment here...
+            </span>
+          )}
+          {showInput && (
+            <textarea
+              className="w-full text-stone-700 outline-none"
+              cols={30}
+              rows={2}
+              placeholder="Write your comment..."
+            ></textarea>
+          )}
+        </div>
+        {showInput && (
+          <div className="mb-4 mt-3 flex items-center justify-end gap-3">
+            <Button
+              className="rounded-md p-1 text-primaryColor"
+              onClick={() => setShowInput(false)}
+            >
+              Cancel
+            </Button>
+            <Button className="flex h-10 w-24 items-center justify-center border bg-primaryColor text-white">
+              Send
+            </Button>
+          </div>
+        )}
+        <hr />
+
+        {dummyComments.map((comment) => (
+          <div key={comment.id} className="mt-12 leading-6">
+            <div className="mb-2 flex gap-3">
+              <img
+                src={comment.image}
+                className="h-11 w-11 rounded-full object-cover"
+                alt={comment.author}
+              />
+              <div>
+                <div className="flex gap-4">
+                  <h4 className="font-semibold">{comment.author}</h4>
+                  {comment.isMine && (
+                    <span className=" flex h-6 w-12 items-center justify-center rounded-lg bg-lightTextColor font-semibold text-white">
+                      You
+                    </span>
+                  )}
+                </div>
+                <p className="text-gray500">{comment.date}</p>
+              </div>
+            </div>
+
+            <p className="text-lighterGray">{comment.comment}</p>
+          </div>
+        ))}
+
         {showSidebar && (
           <AiOutlineCloseCircle
+            color="#fff"
             onClick={() => setShowSidebar(false)}
-            className="absolute left-[-3rem] top-3 hidden cursor-pointer text-3xl text-white sm:block"
+            className="absolute left-[-3rem] top-3 hidden cursor-pointer text-3xl  sm:block"
           />
         )}
 

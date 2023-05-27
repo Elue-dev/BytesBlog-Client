@@ -9,6 +9,7 @@ export default {
         primaryColorHover: "#3BB85D",
         primaryColorLighter: "#F1FFE4",
         grayNeutral: "#767D8D",
+        grayNeutralSec: "#ADB5BD",
         brightGreen: "#b6e4c2",
         lightTextColor: "#8E8E93",
         blackNeutral: "#07080A",

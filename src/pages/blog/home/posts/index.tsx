@@ -1,4 +1,4 @@
-import { postData } from "../../dummyData";
+import { postData } from "../../dummyPosts";
 import { BiTimeFive } from "react-icons/bi";
 // import bookmarkActive from "@/assets/bookmarkActive.svg";
 import bookmarkInactive from "@/assets/bookmarkInactive.svg";

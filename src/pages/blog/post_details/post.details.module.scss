@@ -56,16 +56,14 @@
     position: fixed;
     right: -400px;
     top: 0;
-    height: 100vh;
-    // box-shadow: $box-shadow;
     background: #fff;
     padding: 1rem;
     z-index: 100;
     width: 400px;
-    // height: auto;
-    // color: #fff;
+    height: auto;
     height: 100%;
     line-height: 3;
+    overflow-y: scroll;
     transition: right 0.5s ease;
   }
   .menu__items.show {

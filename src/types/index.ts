@@ -106,3 +106,12 @@ export interface Post {
 export interface RightDetailsProps {
   similarPosts: Post[];
 }
+
+export interface Comment {
+  id: number;
+  author: string;
+  image: string;
+  date: string;
+  comment: string;
+  isMine: boolean;
+}
