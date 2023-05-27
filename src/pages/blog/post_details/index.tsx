@@ -71,7 +71,7 @@ export default function PostDetails() {
                 </div>
               </div>
 
-              <h1 className="pb-6 pt-10 text-4xl font-semibold">
+              <h1 className="pb-6 pt-10 text-2xl font-semibold sm:text-4xl">
                 {currentPost.title}
               </h1>
               <img
