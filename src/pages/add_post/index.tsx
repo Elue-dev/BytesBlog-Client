@@ -55,6 +55,7 @@ export default function AddPost() {
           initialValues={initialValues}
           categories={categories}
           setCategories={setCategories}
+          handleInputChange={handleInputChange}
           previousStep={previousStep}
         />
       );

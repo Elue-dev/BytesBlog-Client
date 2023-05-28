@@ -8,6 +8,7 @@ export default {
         primaryColorLight: "#F2FFF5",
         primaryColorHover: "#3BB85D",
         primaryColorLighter: "#F1FFE4",
+        extraLightGreen: "#d0edd8",
         grayNeutral: "#767D8D",
         grayNeutralSec: "#ADB5BD",
         brightGreen: "#b6e4c2",
@@ -44,6 +45,9 @@ export default {
           borderRadius: "0.125rem",
           backgroundColor: "#F1FFE4",
           color: "#169639",
+        },
+        ".hoverShadow": {
+          boxShadow: " inset 0 0 0 0.15rem #d0edd8 !important",
         },
       });
     },

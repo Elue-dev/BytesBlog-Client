@@ -43,14 +43,16 @@ export default function Navbar() {
           <div>
             {location.pathname.includes("blog") ? (
               <div className="flex items-center justify-start gap-0 sm:gap-1">
-                <Link to="/blog/write">
-                  <Button
-                    className={`${styles.write} flex items-center justify-start gap-1 whitespace-nowrap bg-primaryColor p-2.5 text-white hover:bg-primaryColorHover sm:p-3`}
-                  >
-                    Write a Post
-                    <BsVectorPen />
-                  </Button>
-                </Link>
+                {!pathname.includes("write") && (
+                  <Link to="/blog/write">
+                    <Button
+                      className={`${styles.write} flex items-center justify-start gap-1 whitespace-nowrap bg-primaryColor p-2.5 text-white hover:bg-primaryColorHover sm:p-3`}
+                    >
+                      Write a Post
+                      <BsVectorPen />
+                    </Button>
+                  </Link>
+                )}
                 <div
                   className="relative flex cursor-pointer items-center justify-start gap-0 sm:gap-1"
                   onClick={() => setShowDropdown(!showDropdown)}

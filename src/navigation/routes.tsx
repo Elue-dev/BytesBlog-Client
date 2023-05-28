@@ -73,7 +73,7 @@ const router = createBrowserRouter([
         element: <ManageInterests />,
       },
       {
-        path: "/blog/add-post",
+        path: "/blog/write",
         element: <AddPost />,
       },
       {

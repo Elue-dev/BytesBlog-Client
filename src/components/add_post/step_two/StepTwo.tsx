@@ -5,6 +5,7 @@ import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import { postCategories } from "./data";
 import Button from "@/components/button";
+import { useModal } from "../../../context/useModal";
 
 export default function StepTwo({
   values,
@@ -12,16 +13,22 @@ export default function StepTwo({
   initialValues,
   categories,
   setCategories,
+  handleInputChange,
   previousStep,
 }: StepTwoProps) {
-  console.log({
-    values,
-    setValues,
-    initialValues,
-    categories,
-    setCategories,
-    previousStep,
-  });
+  const { readTime } = values;
+  const context = useModal();
+  if (!context) return null;
+  const { revealModal } = context;
+
+  const publishPost = () => {
+    revealModal(
+      `Your post has been published successfully`,
+      "/blog",
+      "success"
+    );
+    setValues(initialValues);
+  };
 
   return (
     <>
@@ -37,7 +44,7 @@ export default function StepTwo({
         </button>
 
         <div className="px-normal sm:px-16">
-          <div className="rounded-lg bg-white p-0 sm:p-8 sm:shadow-lg">
+          <div className="rounded-lg bg-white px-2 py-6 shadow-lg sm:p-8">
             <h2 className="text-2xl font-semibold text-blackNeutral">
               Reding Duration
             </h2>
@@ -47,14 +54,17 @@ export default function StepTwo({
             </p>
             <input
               type="text"
+              value={readTime}
+              name="readTime"
+              onChange={handleInputChange}
               placeholder="e.g 3, 4, 5"
-              className="w-full rounded-sm border-2 p-2 text-blackNeutral outline-none"
+              className="w-full rounded-lg border-2 p-2 text-blackNeutral outline-none hover:border-extraLightGreen hover:hoverShadow focus:border-extraLightGreen focus:hoverShadow"
             />
           </div>
         </div>
 
         <div className="px-normal sm:px-16">
-          <div className="mt-8 rounded-lg bg-white p-0 sm:p-8 sm:shadow-lg">
+          <div className="mt-8 rounded-lg bg-white p-0 px-2 py-6 shadow-lg sm:p-8">
             <h2 className="text-2xl font-semibold text-blackNeutral">
               Category
             </h2>
@@ -78,7 +88,10 @@ export default function StepTwo({
         </div>
 
         <div className="px-normal flex flex-col items-end justify-end pt-8 sm:px-16">
-          <Button className="flex h-10 w-24 items-center justify-center bg-primaryColor text-white hover:bg-primaryColorHover">
+          <Button
+            className="flex h-10 w-24 items-center justify-center bg-primaryColor text-white hover:bg-primaryColorHover"
+            onClick={publishPost}
+          >
             Publish
           </Button>
         </div>
