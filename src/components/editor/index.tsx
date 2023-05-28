@@ -3,7 +3,6 @@ import "primereact/resources/primereact.min.css";
 import { useState } from "react";
 import { Editor } from "primereact/editor";
 import { MultiSelect } from "primereact/multiselect";
-import "./editor.css";
 
 export default function RichEditor() {
   const [text, setText] = useState<string>("");

@@ -71,7 +71,7 @@ export default function EditProfile({ setShowPopup, showPopup }: Props) {
           >
             Cancel
           </Button>
-          <Button className="w-1/2 bg-primaryColor text-white">
+          <Button className="w-1/2 bg-primaryColor text-white hover:bg-primaryColorHover">
             Save Changes
           </Button>
         </div>

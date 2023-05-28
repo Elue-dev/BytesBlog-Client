@@ -115,3 +115,29 @@ export interface Comment {
   comment: string;
   isMine: boolean;
 }
+
+export interface AddBPost {
+  title: string;
+  readTime: string;
+}
+
+export interface StepOneprops {
+  values: AddBPost;
+  image: File | undefined;
+  content: string;
+  setContent: Dispatch<SetStateAction<string>>;
+  setImage: Dispatch<SetStateAction<File | undefined>>;
+  imagePreview: string | undefined;
+  setImagePreview: Dispatch<SetStateAction<string | undefined>>;
+  handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  nextStep?: () => void;
+}
+
+export interface StepTwoProps {
+  categories: string[];
+  values: AddBPost;
+  initialValues: AddBPost;
+  setValues: Dispatch<SetStateAction<StepTwoProps["values"]>>;
+  setCategories: Dispatch<SetStateAction<StepTwoProps["categories"]>>;
+  previousStep?: () => void;
+}
