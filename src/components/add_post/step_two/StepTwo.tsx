@@ -3,7 +3,6 @@ import { IoChevronBackCircleOutline } from "react-icons/io5";
 import { MultiSelect } from "primereact/multiselect";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
-import styles from "./step.two.module.scss";
 import { postCategories } from "./data";
 import Button from "@/components/button";
 
