@@ -100,7 +100,7 @@ export default function StepOne({
                 <img
                   src={imagePreview}
                   alt="blog image"
-                  className="h-52 w-full object-cover"
+                  className="h-52 w-full rounded-lg object-cover"
                 />
               </>
             ) : (
