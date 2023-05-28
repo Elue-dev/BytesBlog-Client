@@ -37,10 +37,9 @@ export default function RichEditor() {
         optionLabel="name"
         placeholder="Select Categories"
         maxSelectedLabels={3}
-        // className="md:w-20rem mt-5 w-full border-2 text-primaryColor"
         selectAll={false}
         selectionLimit={2}
-        className="custom-multiselect md:w-20rem mt-5 w-full border-2"
+        className="custom-multiselect md:w-20rem mt-5 w-full"
       />
       <button
         className="mt-4 h-10 w-20 rounded bg-primaryColor font-semibold text-white"
