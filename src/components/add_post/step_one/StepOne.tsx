@@ -6,6 +6,7 @@ import { ChangeEvent, useRef } from "react";
 import { Editor } from "primereact/editor";
 import styles from "./step.one.module.scss";
 import Button from "@/components/button";
+import { useAlert } from "../../../context/useAlert";
 
 export default function StepOne({
   values,
@@ -19,8 +20,12 @@ export default function StepOne({
   nextStep,
 }: StepOneprops) {
   const imageUploadRef = useRef<any | undefined>();
-  const { title } = values;
+  const context = useAlert();
 
+  if (!context) return null;
+  const { revealAlert } = context;
+
+  const { title } = values;
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     setImage(file);
@@ -28,16 +33,40 @@ export default function StepOne({
   };
 
   const handleNextStep = () => {
-    // if (!title) {
-    //   return alert("title required");
-    // }
-    // if (!content) {
-    //   return alert("content required");
-    // }
-    // if (!image) {
-    //   return alert("image required");
-    // }
-    console.log({ image });
+    const fields: { [key: string]: string | File | undefined } = {
+      title,
+      content,
+      image,
+    };
+
+    const missingFields: string[] = [];
+
+    for (const field in fields) {
+      if (
+        Object.prototype.hasOwnProperty.call(fields, field) &&
+        !fields[field]
+      ) {
+        missingFields.push(field);
+      }
+    }
+
+    if (missingFields.length > 0) {
+      return revealAlert(
+        `${missingFields.join(", ")} ${
+          missingFields.length > 1 ? "are" : "is"
+        } required`,
+        "error"
+      );
+    }
+
+    if (missingFields.length > 0)
+      return revealAlert(
+        `${missingFields.join(", ")} ${
+          missingFields.length > 1 ? "are" : "is"
+        } required`,
+        "error"
+      );
+
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     nextStep && nextStep();
   };
@@ -65,7 +94,7 @@ export default function StepOne({
             className="hidden"
             onChange={(e) => handleImageChange(e)}
           />
-          <div className="" onClick={() => imageUploadRef.current.click()}>
+          <div onClick={() => imageUploadRef.current.click()}>
             {imagePreview ? (
               <>
                 <img
@@ -98,7 +127,11 @@ export default function StepOne({
           {imagePreview ? (
             <Button
               className="flex h-12 w-32 items-center justify-center whitespace-nowrap bg-primaryColorLighter text-primaryColor"
-              onClick={() => imageUploadRef.current.click()}
+              onClick={() => {
+                setImage(undefined);
+                setImagePreview(undefined);
+                imageUploadRef.current.click();
+              }}
             >
               Change Image
             </Button>

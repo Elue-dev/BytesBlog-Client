@@ -8,6 +8,7 @@ import eyeClosed from "@/assets/eyeClosed.svg";
 import Input from "@/components/input";
 import { ChangeEvent, useState } from "react";
 import { validateEmail } from "@/utils/utils";
+import { useAlert } from "../../../context/useAlert";
 
 const initialValues: SIValues = {
   email: "",
@@ -19,6 +20,9 @@ export default function SignIn() {
   const [visible, setVisible] = useState(false);
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
   //const navigate = useNavigate();
+  const context = useAlert();
+  if (!context) return null;
+  const { revealAlert } = context;
 
   const { email, password } = credentials;
 
@@ -30,18 +34,15 @@ export default function SignIn() {
   const proceed = () => {
     setValidationErrors([]);
     const errors = [];
-    if (!email.trim()) {
-      errors.push("email");
-    }
-    if (!password.trim()) {
-      errors.push("password");
-    }
+    if (!email.trim()) errors.push("email");
+
+    if (!password.trim()) errors.push("password");
+
     setValidationErrors(errors);
 
     if (errors.length === 0) {
-      if (!validateEmail(email)) {
-        return alert("Please enter a valid email format");
-      }
+      if (!validateEmail(email))
+        return revealAlert("Please enter a valid email format", "error");
     }
     //navigate("/");
   };

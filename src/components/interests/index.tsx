@@ -3,6 +3,7 @@ import { userInterests } from "./data";
 import { IoChevronBackCircleOutline } from "react-icons/io5";
 import Button from "../button";
 import { useModal } from "../../context/useModal";
+import { useAlert } from "../../context/useAlert";
 
 export default function Interests({
   interests,
@@ -13,8 +14,11 @@ export default function Interests({
   setValues,
 }: InterestsProps) {
   const context = useModal();
+  const alertContext = useAlert();
   if (!context) return null;
+  if (!alertContext) return null;
   const { revealModal } = context;
+  const { revealAlert } = alertContext;
 
   const setUserInterest = (int: string) => {
     if (interests.includes(int)) {
@@ -25,6 +29,9 @@ export default function Interests({
   };
 
   const createUserAccount = () => {
+    if (interests.length !== 5)
+      return revealAlert("Interests must be at least 5", "error");
+
     revealModal(
       `Welcome, ${values.firstname}! Your account has been successfully created`,
       "/",
@@ -57,7 +64,7 @@ export default function Interests({
                 <span
                   className={`${
                     interests.includes(interest)
-                      ? "border-2 border-primaryColor p-2 font-bold text-primaryColor"
+                      ? "border-1 border border-primaryColor p-2 font-bold text-primaryColor"
                       : "border border-lighterGray p-2 text-lighterGray"
                   } cursor-pointer rounded-2xl transition duration-500 ease-in-out`}
                 >

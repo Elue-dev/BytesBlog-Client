@@ -2,6 +2,7 @@ import { userInterests } from "@/components/interests/data";
 import { IoChevronBackCircleOutline } from "react-icons/io5";
 import Button from "@/components/button";
 import { useModal } from "../../context/useModal";
+import { useAlert } from "../../context/useAlert";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
@@ -9,6 +10,7 @@ export default function ManageInterests() {
   const [interests, setInterests] = useState<string[]>([]);
   const navigate = useNavigate();
   const context = useModal();
+  const alertContext = useAlert();
 
   const currentUserInterests = [
     "Technology",
@@ -30,7 +32,9 @@ export default function ManageInterests() {
   }, []);
 
   if (!context) return null;
+  if (!alertContext) return null;
   const { revealModal } = context;
+  const { revealAlert } = alertContext;
 
   const setUserInterest = (int: string) => {
     if (interests.includes(int)) {
@@ -41,6 +45,9 @@ export default function ManageInterests() {
   };
 
   const updateInterests = () => {
+    if (interests.length !== 5)
+      return revealAlert("Interests must be at least 5", "error");
+
     revealModal(
       `Your interests have been updated successfully`,
       "/blog",

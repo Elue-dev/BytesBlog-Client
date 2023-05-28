@@ -73,36 +73,31 @@ export default function SignUpForm({
   const proceed = () => {
     setValidationErrors([]);
     const errors = [];
-    if (!firstname.trim()) {
-      errors.push("firstname");
-    }
-    if (!lastname.trim()) {
-      errors.push("lastname");
-    }
-    if (!email.trim()) {
-      errors.push("email");
-    }
-    if (!password.trim()) {
-      errors.push("password");
-    }
-    if (!confirmPassword.trim()) {
-      errors.push("confirmPassword");
-    }
+    if (!firstname.trim()) errors.push("firstname");
+
+    if (!lastname.trim()) errors.push("lastname");
+
+    if (!email.trim()) errors.push("email");
+
+    if (!password.trim()) errors.push("password");
+
+    if (!confirmPassword.trim()) errors.push("confirmPassword");
+
     setValidationErrors(errors);
 
     if (errors.length === 0) {
-      if (!validateEmail(email)) {
+      if (!validateEmail(email))
         return revealAlert("Please enter a valid email format", "error");
-      }
-      if (password !== confirmPassword) {
+
+      if (password !== confirmPassword)
         return revealAlert("Passwords do not match", "error");
-      }
-      if (!passwordCheckPassed) {
+
+      if (!passwordCheckPassed)
         return revealAlert(
           "Your password has not met the necessary strength requirements",
           "error"
         );
-      }
+
       nextStep && nextStep();
     }
   };

@@ -1,6 +1,7 @@
 import Button from "@/components/button";
 import { Dispatch, SetStateAction } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { useAlert } from "../../context/useAlert";
 
 interface Props {
   showPopup: boolean;
@@ -8,6 +9,16 @@ interface Props {
 }
 
 export default function EditProfile({ setShowPopup, showPopup }: Props) {
+  const context = useAlert();
+
+  if (!context) return null;
+  const { revealAlert } = context;
+
+  const updateUserProfile = () => {
+    setShowPopup(false);
+    revealAlert("Profile successsfully updated", "success");
+  };
+
   return (
     <>
       <h1 className="mb-6 mt-8 bg-primaryColorLight p-3 text-center text-xl font-semibold sm:w-full">
@@ -71,7 +82,10 @@ export default function EditProfile({ setShowPopup, showPopup }: Props) {
           >
             Cancel
           </Button>
-          <Button className="w-1/2 bg-primaryColor text-white hover:bg-primaryColorHover">
+          <Button
+            className="w-1/2 bg-primaryColor text-white hover:bg-primaryColorHover"
+            onClick={updateUserProfile}
+          >
             Save Changes
           </Button>
         </div>

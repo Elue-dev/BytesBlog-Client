@@ -8,6 +8,7 @@ import Input from "@/components/input";
 import { ChangeEvent, useEffect, useState } from "react";
 import { BsFillCheckSquareFill } from "react-icons/bs";
 import { useModal } from "../../../context/useModal";
+import { useAlert } from "../../../context/useAlert";
 
 const initialValues: RPValues = {
   password: "",
@@ -25,6 +26,7 @@ export default function ResetPassword() {
   const [caseCondition, setCaseCondition] = useState(false);
   const [passwordComplete, setPasswordComplete] = useState(false);
   const context = useModal();
+  const alertContext = useAlert();
 
   const { password, confirmPassword } = credentials;
 
@@ -66,7 +68,9 @@ export default function ResetPassword() {
   ]);
 
   if (!context) return null;
+  if (!alertContext) return null;
   const { revealModal } = context;
+  const { revealAlert } = alertContext;
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -86,11 +90,12 @@ export default function ResetPassword() {
 
     if (errors.length === 0) {
       if (password !== confirmPassword) {
-        return alert("Passwords do not match");
+        return revealAlert("Passwords do not match", "error");
       }
       if (!passwordComplete) {
-        return alert(
-          "Your password has not met the necessary strength requirements"
+        return revealAlert(
+          "Your password has not met the necessary strength requirements",
+          "error"
         );
       }
       revealModal("Password successfully reset", "/auth/sign-in", "success");

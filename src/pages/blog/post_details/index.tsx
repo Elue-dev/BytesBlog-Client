@@ -17,11 +17,11 @@ import { dummyComments } from "./dummyComments";
 import { useAlert } from "../../../context/useAlert";
 
 export default function PostDetails() {
-  const { postId } = useParams();
-  const [showSidebar, setShowSidebar] = useState(false);
+  const [comment, setComment] = useState("");
   const [showInput, setShowInput] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(false);
+  const { postId } = useParams();
   const context = useAlert();
-
   if (!context) return null;
   const { revealAlert } = context;
 
@@ -35,6 +35,7 @@ export default function PostDetails() {
   const similarPosts = postData.filter((post) => post.id.toString() !== postId);
 
   const addComment = () => {
+    if (!comment) return revealAlert("Please enter your comment", "error");
     setShowInput(false);
     revealAlert("Comment added", "success");
   };
@@ -84,6 +85,8 @@ export default function PostDetails() {
                 <p className="text-gray600">Seun Akingboye</p>
               </div>
               <textarea
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
                 className="w-full text-stone-700 outline-none"
                 cols={30}
                 rows={2}

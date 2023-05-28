@@ -6,6 +6,7 @@ import "primereact/resources/primereact.min.css";
 import { postCategories } from "./data";
 import Button from "@/components/button";
 import { useModal } from "../../../context/useModal";
+import { useAlert } from "../../../context/useAlert";
 import { useEffect } from "react";
 
 export default function StepTwo({
@@ -21,6 +22,7 @@ export default function StepTwo({
 }: StepTwoProps) {
   const { readTime } = values;
   const context = useModal();
+  const alertContext = useAlert();
 
   const manageArray = () => {
     const name: string[] = [];
@@ -33,10 +35,21 @@ export default function StepTwo({
   }, [categories]);
 
   if (!context) return null;
+  if (!alertContext) return null;
   const { revealModal } = context;
+  const { revealAlert } = alertContext;
 
   const publishPost = () => {
-    console.log({ categories });
+    const convertReadTime = parseInt(readTime);
+
+    if (isNaN(convertReadTime))
+      return revealAlert("Read time must be a number eg 1, 2, 3", "error");
+
+    if (categories.length === 0)
+      return revealAlert(
+        "Please select at least one category for this post",
+        "error"
+      );
 
     revealModal(
       `Your post has been published successfully`,
