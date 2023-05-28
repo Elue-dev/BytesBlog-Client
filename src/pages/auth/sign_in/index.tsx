@@ -1,7 +1,7 @@
 import { SIValues } from "@/types";
 import Button from "@/components/button";
 import bytesLogo from "@/assets/bytesLogo.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import eyeOpen from "@/assets/eyeOpen.svg";
 import eyeClosed from "@/assets/eyeClosed.svg";
@@ -19,7 +19,7 @@ export default function SignIn() {
   const [credentials, setCredentials] = useState(initialValues);
   const [visible, setVisible] = useState(false);
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
   const context = useAlert();
   if (!context) return null;
   const { revealAlert } = context;
@@ -43,8 +43,9 @@ export default function SignIn() {
     if (errors.length === 0) {
       if (!validateEmail(email))
         return revealAlert("Please enter a valid email format", "error");
+
+      navigate("/");
     }
-    //navigate("/");
   };
 
   const handleFocus = (field: string) => {
