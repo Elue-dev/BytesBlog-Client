@@ -35,7 +35,6 @@ export default function PostDetails() {
   const similarPosts = postData.filter((post) => post.id.toString() !== postId);
 
   const addComment = () => {
-    setShowSidebar(false);
     setShowInput(false);
     revealAlert("Comment added", "success");
   };

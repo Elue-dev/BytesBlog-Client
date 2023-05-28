@@ -72,7 +72,7 @@ export default function ManageInterests() {
                 <span
                   className={`${
                     interests.includes(interest)
-                      ? "border-2 border-primaryColor p-2 font-bold text-primaryColor"
+                      ? "border-1 border border-primaryColor p-2 font-bold text-primaryColor"
                       : "border border-lighterGray p-2 text-lighterGray"
                   } cursor-pointer rounded-2xl transition duration-500 ease-in-out`}
                 >

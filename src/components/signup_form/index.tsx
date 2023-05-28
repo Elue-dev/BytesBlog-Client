@@ -9,6 +9,7 @@ import eyeClosed from "@/assets/eyeClosed.svg";
 import Input from "../input";
 import { useEffect, useState } from "react";
 import { validateEmail } from "@/utils/utils";
+import { useAlert } from "../../context/useAlert";
 
 export default function SignUpForm({
   values,
@@ -64,6 +65,11 @@ export default function SignUpForm({
     passwordCheckPassed,
   ]);
 
+  const context = useAlert();
+
+  if (!context) return null;
+  const { revealAlert } = context;
+
   const proceed = () => {
     setValidationErrors([]);
     const errors = [];
@@ -86,14 +92,15 @@ export default function SignUpForm({
 
     if (errors.length === 0) {
       if (!validateEmail(email)) {
-        return alert("Please enter a valid email format");
+        return revealAlert("Please enter a valid email format", "error");
       }
       if (password !== confirmPassword) {
-        return alert("Passwords do not match");
+        return revealAlert("Passwords do not match", "error");
       }
       if (!passwordCheckPassed) {
-        return alert(
-          "Your password has not met the necessary strength requirements"
+        return revealAlert(
+          "Your password has not met the necessary strength requirements",
+          "error"
         );
       }
       nextStep && nextStep();

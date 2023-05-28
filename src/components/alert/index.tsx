@@ -11,7 +11,14 @@ export default function Alert() {
     <section>
       {showAlert ? (
         <div className={`${styles.alert} ${styles.show}`}>
-          <Message severity={severity || undefined} text={message} />
+          <Message
+            severity={severity || undefined}
+            text={message}
+            style={{
+              border: "2px solid rgb(239, 239, 239)",
+              boxShadow: "inset 0 0 0 0.15rem #d0edd8 !important",
+            }}
+          />
         </div>
       ) : null}
     </section>
