@@ -6,7 +6,7 @@ import "primereact/resources/primereact.min.css";
 import { postCategories } from "./data";
 import Button from "@/components/button";
 import { useModal } from "../../../context/useModal";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export default function StepTwo({
   values,

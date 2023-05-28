@@ -5,13 +5,18 @@ export const AlertContext = createContext<AlertContextProps | null>(null);
 
 export const AlertProvider = ({ children }: AlertProviderProps) => {
   const [showAlert, setShowAlert] = useState(false);
-  const [severity, setSeverity] = useState(""); //info, success, warn, error
+  const [severity, setSeverity] = useState<
+    "success" | "info" | "warn" | "error" | undefined
+  >("success");
   const [message, setMessage] = useState("");
 
-  const revealAlert = (message: string, severity: string) => {
+  const revealAlert = (
+    message: string,
+    severity: "success" | "info" | "warn" | "error" | string
+  ) => {
     setShowAlert(true);
     setMessage(message);
-    setSeverity(severity);
+    setSeverity(severity as "success" | "info" | "warn" | "error" | undefined);
 
     setTimeout(() => {
       setShowAlert(false);

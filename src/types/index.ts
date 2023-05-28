@@ -89,19 +89,15 @@ export interface ModalContextProps {
 
 export interface AlertContextProps {
   showAlert: boolean;
-  severity: string;
+  severity: "success" | "info" | "warn" | "error" | undefined;
   setSeverity: Dispatch<SetStateAction<AlertContextProps["severity"]>>;
   setShowAlert: Dispatch<SetStateAction<boolean>>;
   message: string;
   setMessage: Dispatch<SetStateAction<AlertContextProps["message"]>>;
-  revealAlert: (message: string, severity: string) => void;
-}
-
-export interface ModalProps {
-  message: string;
-}
-export interface AlertProps {
-  message: string;
+  revealAlert: (
+    message: string,
+    severity: "success" | "info" | "warn" | "error" | string
+  ) => void;
 }
 
 export interface Post {
