@@ -1,8 +1,8 @@
 import Button from "../button";
 import { useModal } from "../../context/useModal";
-import infoIcon from "@/assets/info.svg";
-import checkIcon from "@/assets/checkIcon.svg";
 import { useNavigate } from "react-router-dom";
+import { BsCheckCircle } from "react-icons/bs";
+import { RiErrorWarningLine } from "react-icons/ri";
 
 export default function Modal() {
   const navigate = useNavigate();
@@ -29,16 +29,11 @@ export default function Modal() {
           <div className="relative mx-auto w-full max-w-lg rounded-lg bg-white px-4 py-10 text-center shadow-xl">
             <div className="mx-auto mb-6 flex h-12 w-12 items-center justify-center rounded-full border border-brightGreen">
               {modalIcon === "success" ? (
-                <img
-                  src={checkIcon}
-                  alt="Check Icon"
-                  className="h-20 w-20 p-2 text-primaryColor"
-                />
+                <BsCheckCircle color="#169639" className="text-4xl font-bold" />
               ) : (
-                <img
-                  src={infoIcon}
-                  alt="Info Icon"
-                  className="h-20 w-20 p-2 text-primaryColor"
+                <RiErrorWarningLine
+                  color="#169639"
+                  className="text-4xl font-bold"
                 />
               )}
             </div>

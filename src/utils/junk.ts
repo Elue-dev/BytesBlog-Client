@@ -238,3 +238,9 @@
 //     height: 50vh;
 //   }
 // }
+
+// <img
+//   src={checkIcon}
+//   alt="Check Icon"
+//   className="h-20 w-20 p-2 text-primaryColor"
+// />
