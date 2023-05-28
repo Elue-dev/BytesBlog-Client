@@ -101,7 +101,10 @@ export default function PostDetails() {
           <div className="mb-4 mt-3 flex items-center justify-end gap-3">
             <Button
               className="rounded-md p-1 text-primaryColor"
-              onClick={() => setShowInput(false)}
+              onClick={() => {
+                     setShowInput(false)
+                     setComment("");
+                     }}
             >
               Cancel
             </Button>
