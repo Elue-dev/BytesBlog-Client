@@ -23,9 +23,14 @@ export const AlertProvider = ({ children }: AlertProviderProps) => {
     }, 4000);
   };
 
+  const closeAlert = () => {
+    setShowAlert(false);
+  };
+
   const values = {
     showAlert,
     setShowAlert,
+    closeAlert,
     message,
     severity,
     setSeverity,

@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 export default function ManageInterests() {
   const [interests, setInterests] = useState<string[]>([]);
   const navigate = useNavigate();
-  const context = useModal();
+  const modalContext = useModal();
   const alertContext = useAlert();
 
   const currentUserInterests = [
@@ -31,10 +31,10 @@ export default function ManageInterests() {
     setInterests(filteredUserInterests);
   }, []);
 
-  if (!context) return null;
+  if (!modalContext) return null;
   if (!alertContext) return null;
-  const { revealModal } = context;
-  const { revealAlert } = alertContext;
+  const { revealModal } = modalContext;
+  const { revealAlert, closeAlert } = alertContext;
 
   const setUserInterest = (int: string) => {
     if (interests.includes(int)) {
@@ -45,7 +45,8 @@ export default function ManageInterests() {
   };
 
   const updateInterests = () => {
-    if (interests.length !== 5)
+    closeAlert();
+    if (interests.length < 5)
       return revealAlert("Interests must be at least 5", "error");
 
     revealModal(

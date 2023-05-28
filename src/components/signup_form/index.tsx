@@ -65,12 +65,13 @@ export default function SignUpForm({
     passwordCheckPassed,
   ]);
 
-  const context = useAlert();
+  const alertContext = useAlert();
 
-  if (!context) return null;
-  const { revealAlert } = context;
+  if (!alertContext) return null;
+  const { revealAlert, closeAlert } = alertContext;
 
   const proceed = () => {
+    closeAlert();
     setValidationErrors([]);
     const errors = [];
     if (!firstname.trim()) errors.push("firstname");
@@ -98,6 +99,11 @@ export default function SignUpForm({
           "error"
         );
 
+      if (firstname && !/^[A-Za-z0-9\s]+$/.test(firstname))
+        return revealAlert("First Name contains unwanted characters", "error");
+
+      if (lastname && !/^[A-Za-z0-9\s]+$/.test(lastname))
+        return revealAlert("Last Name contains unwanted characters", "error");
       nextStep && nextStep();
     }
   };

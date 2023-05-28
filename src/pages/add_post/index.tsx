@@ -1,5 +1,5 @@
-import StepOne from "@/components/add_post/step_one/StepOne";
-import StepTwo from "@/components/add_post/step_two/StepTwo";
+import StepOne from "@/components/add_post/step_one";
+import StepTwo from "@/components/add_post/step_two";
 import { AddBPost } from "@/types";
 import { useState, ChangeEvent } from "react";
 

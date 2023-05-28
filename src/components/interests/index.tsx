@@ -13,12 +13,12 @@ export default function Interests({
   values,
   setValues,
 }: InterestsProps) {
-  const context = useModal();
+  const modalContext = useModal();
   const alertContext = useAlert();
-  if (!context) return null;
+  if (!modalContext) return null;
   if (!alertContext) return null;
-  const { revealModal } = context;
-  const { revealAlert } = alertContext;
+  const { revealModal } = modalContext;
+  const { revealAlert, closeAlert } = alertContext;
 
   const setUserInterest = (int: string) => {
     if (interests.includes(int)) {
@@ -29,7 +29,8 @@ export default function Interests({
   };
 
   const createUserAccount = () => {
-    if (interests.length !== 5)
+    closeAlert();
+    if (interests.length < 5)
       return revealAlert("Interests must be at least 5", "error");
 
     revealModal(

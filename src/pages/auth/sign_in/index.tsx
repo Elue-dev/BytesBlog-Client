@@ -20,9 +20,9 @@ export default function SignIn() {
   const [visible, setVisible] = useState(false);
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
   const navigate = useNavigate();
-  const context = useAlert();
-  if (!context) return null;
-  const { revealAlert } = context;
+  const alertContext = useAlert();
+  if (!alertContext) return null;
+  const { revealAlert, closeAlert } = alertContext;
 
   const { email, password } = credentials;
 
@@ -32,6 +32,7 @@ export default function SignIn() {
   };
 
   const proceed = () => {
+    closeAlert();
     setValidationErrors([]);
     const errors = [];
     if (!email.trim()) errors.push("email");

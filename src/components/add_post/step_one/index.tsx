@@ -23,7 +23,7 @@ export default function StepOne({
   const context = useAlert();
 
   if (!context) return null;
-  const { revealAlert } = context;
+  const { revealAlert, closeAlert } = context;
 
   const { title } = values;
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -33,20 +33,25 @@ export default function StepOne({
   };
 
   const handleNextStep = () => {
+    closeAlert();
     const fields: { [key: string]: string | File | undefined } = {
       title,
-      content,
       image,
+      content,
     };
 
     const missingFields: string[] = [];
 
     for (const field in fields) {
-      if (
-        Object.prototype.hasOwnProperty.call(fields, field) &&
-        !fields[field]
-      ) {
-        missingFields.push(field);
+      if (Object.prototype.hasOwnProperty.call(fields, field)) {
+        const value = fields[field];
+        if (
+          (typeof value === "string" && value.trim().length === 0) ||
+          value === undefined ||
+          (value instanceof File && !value.name.trim().length)
+        ) {
+          missingFields.push(field);
+        }
       }
     }
 
@@ -59,13 +64,8 @@ export default function StepOne({
       );
     }
 
-    if (missingFields.length > 0)
-      return revealAlert(
-        `${missingFields.join(", ")} ${
-          missingFields.length > 1 ? "are" : "is"
-        } required`,
-        "error"
-      );
+    if (title && !/^[A-Za-z0-9\s]+$/.test(title))
+      return revealAlert("Title contains unwanted characters", "error");
 
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     nextStep && nextStep();

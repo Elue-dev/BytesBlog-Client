@@ -92,6 +92,7 @@ export interface AlertContextProps {
   severity: "success" | "info" | "warn" | "error" | undefined;
   setSeverity: Dispatch<SetStateAction<AlertContextProps["severity"]>>;
   setShowAlert: Dispatch<SetStateAction<boolean>>;
+  closeAlert: () => void;
   message: string;
   setMessage: Dispatch<SetStateAction<AlertContextProps["message"]>>;
   revealAlert: (

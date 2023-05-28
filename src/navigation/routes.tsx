@@ -12,7 +12,6 @@ import Blog from "@/pages/blog/home";
 import PostDetails from "@/pages/blog/post_details";
 import Profile from "@/pages/profile";
 import ManageInterests from "@/pages/manage_interests";
-import RichEditor from "@/components/editor";
 import AddPost from "@/pages/add_post";
 import Alert from "@/components/alert";
 
@@ -72,10 +71,6 @@ const router = createBrowserRouter([
       {
         path: "/blog/write",
         element: <AddPost />,
-      },
-      {
-        path: "/editor",
-        element: <RichEditor />,
       },
       {
         path: "*",

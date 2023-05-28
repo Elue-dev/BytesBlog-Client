@@ -21,9 +21,9 @@ export default function PostDetails() {
   const [showInput, setShowInput] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
   const { postId } = useParams();
-  const context = useAlert();
-  if (!context) return null;
-  const { revealAlert } = context;
+  const alertContext = useAlert();
+  if (!alertContext) return null;
+  const { revealAlert, closeAlert } = alertContext;
 
   let currentPost: Post | undefined;
   if (postData) {
@@ -35,6 +35,7 @@ export default function PostDetails() {
   const similarPosts = postData.filter((post) => post.id.toString() !== postId);
 
   const addComment = () => {
+    closeAlert();
     if (!comment) return revealAlert("Please enter your comment", "error");
     setShowInput(false);
     revealAlert("Comment added", "success");

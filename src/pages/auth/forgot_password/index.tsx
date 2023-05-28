@@ -5,16 +5,21 @@ import { useState } from "react";
 import { validateEmail } from "@/utils/utils";
 import backIcon from "@/assets/backIcon.svg";
 import { useModal } from "../../../context/useModal";
+import { useAlert } from "../../../context/useAlert";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
   const navigate = useNavigate();
-  const context = useModal();
-  if (!context) return null;
-  const { revealModal } = context;
+  const modalContext = useModal();
+  const alertContext = useAlert();
+  if (!modalContext) return null;
+  if (!alertContext) return null;
+  const { revealModal } = modalContext;
+  const { revealAlert, closeAlert } = alertContext;
 
   const sendResetEmail = () => {
+    closeAlert();
     setValidationErrors([]);
     const errors = [];
     if (!email.trim()) {
@@ -23,7 +28,7 @@ export default function ForgotPassword() {
     setValidationErrors(errors);
     if (errors.length === 0) {
       if (!validateEmail(email)) {
-        return alert("Please enter a valid email format");
+        return revealAlert("Please enter a valid email format", "error");
       }
       revealModal(
         `A link has been sent to ${email}. Kindly open the link to reset your password.`,

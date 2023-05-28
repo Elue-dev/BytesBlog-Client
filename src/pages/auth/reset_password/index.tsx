@@ -25,7 +25,7 @@ export default function ResetPassword() {
   const [lengthCondition, setLengthCondition] = useState(false);
   const [caseCondition, setCaseCondition] = useState(false);
   const [passwordComplete, setPasswordComplete] = useState(false);
-  const context = useModal();
+  const modalContext = useModal();
   const alertContext = useAlert();
 
   const { password, confirmPassword } = credentials;
@@ -67,10 +67,10 @@ export default function ResetPassword() {
     passwordComplete,
   ]);
 
-  if (!context) return null;
+  if (!modalContext) return null;
   if (!alertContext) return null;
-  const { revealModal } = context;
-  const { revealAlert } = alertContext;
+  const { revealModal } = modalContext;
+  const { revealAlert, closeAlert } = alertContext;
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -78,6 +78,7 @@ export default function ResetPassword() {
   };
 
   const proceed = () => {
+    closeAlert();
     setValidationErrors([]);
     const errors = [];
     if (!password.trim()) {

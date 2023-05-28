@@ -9,12 +9,13 @@ interface Props {
 }
 
 export default function EditProfile({ setShowPopup, showPopup }: Props) {
-  const context = useAlert();
+  const alertContext = useAlert();
 
-  if (!context) return null;
-  const { revealAlert } = context;
+  if (!alertContext) return null;
+  const { revealAlert, closeAlert } = alertContext;
 
   const updateUserProfile = () => {
+    closeAlert();
     setShowPopup(false);
     revealAlert("Profile successsfully updated", "success");
   };

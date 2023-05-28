@@ -3,9 +3,9 @@ import { Message } from "primereact/message";
 import styles from "./alert.module.scss";
 
 export default function Alert() {
-  const context = useAlert();
-  if (!context) return null;
-  const { showAlert, message, severity } = context;
+  const alertContext = useAlert();
+  if (!alertContext) return null;
+  const { showAlert, message, severity } = alertContext;
 
   return (
     <section>
