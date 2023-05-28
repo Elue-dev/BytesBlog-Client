@@ -1,7 +1,7 @@
-import { ContextProps, ModalProviderProps } from "@/types";
+import { ModalContextProps, ModalProviderProps } from "@/types";
 import { createContext, useState } from "react";
 
-export const ModalContext = createContext<ContextProps | null>(null);
+export const ModalContext = createContext<ModalContextProps | null>(null);
 
 export const ModalProvider = ({ children }: ModalProviderProps) => {
   const [showModal, setShowModal] = useState(false);

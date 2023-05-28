@@ -7,6 +7,7 @@ export default {
         primaryColor: "#169639",
         primaryColorLight: "#F2FFF5",
         primaryColorHover: "#3BB85D",
+        borderPrimary: "#7ac88f",
         primaryColorLighter: "#F1FFE4",
         extraLightGreen: "#d0edd8",
         grayNeutral: "#767D8D",

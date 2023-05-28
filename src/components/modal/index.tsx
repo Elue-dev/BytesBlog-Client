@@ -1,19 +1,18 @@
-import { ModalProps } from "@/types";
 import Button from "../button";
 import { useModal } from "../../context/useModal";
 import infoIcon from "@/assets/info.svg";
 import checkIcon from "@/assets/checkIcon.svg";
 import { useNavigate } from "react-router-dom";
 
-export default function Modal({ message }: ModalProps) {
+export default function Modal() {
   const navigate = useNavigate();
   const context = useModal();
   if (!context) return null;
-  const { showModal, modalIcon, route, closeModal } = context;
+  const { showModal, modalIcon, route, closeModal, message } = context;
 
   const closeModalAndNavigate = () => {
     closeModal();
-    navigate(route);
+    route !== "" && navigate(route);
   };
 
   return (

@@ -11,6 +11,7 @@ const initialValues: AddBPost = {
 export default function AddPost() {
   const [pageStep, setPageStep] = useState(1);
   const [values, setValues] = useState(initialValues);
+  const [names, setNames] = useState<string[]>([]);
   const [content, setContent] = useState<string>("");
   const [categories, setCategories] = useState<string[]>([]);
   const [image, setImage] = useState<File | undefined>(undefined);
@@ -53,6 +54,8 @@ export default function AddPost() {
           values={values}
           setValues={setValues}
           initialValues={initialValues}
+          names={names}
+          setNames={setNames}
           categories={categories}
           setCategories={setCategories}
           handleInputChange={handleInputChange}

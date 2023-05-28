@@ -21,8 +21,6 @@ export default function StepOne({
   const imageUploadRef = useRef<any | undefined>();
   const { title } = values;
 
-  console.log({ values, handleInputChange, nextStep, image });
-
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     setImage(file);
@@ -39,6 +37,8 @@ export default function StepOne({
     // if (!image) {
     //   return alert("image required");
     // }
+    console.log({ image });
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     nextStep && nextStep();
   };
 
@@ -54,15 +54,6 @@ export default function StepOne({
             onChange={handleInputChange}
             placeholder="Title"
             className={`${styles.title} outline-none`}
-          />
-        </div>
-
-        <div className="card pt-8">
-          <Editor
-            value={content}
-            placeholder={"Write your story....."}
-            onTextChange={(e) => setContent(e.htmlValue!)}
-            style={{ height: "280px" }}
           />
         </div>
 
@@ -92,25 +83,35 @@ export default function StepOne({
               </div>
             )}
           </div>
-          <div className="flex items-center justify-between rounded-sm pt-6">
-            {imagePreview ? (
-              <Button
-                className="flex h-12 w-40 items-center justify-center whitespace-nowrap bg-primaryColorLighter text-primaryColor"
-                onClick={() => imageUploadRef.current.click()}
-              >
-                Change Image
-              </Button>
-            ) : (
-              <div></div>
-            )}
-            <Button
-              className="flex h-10 w-20 items-center justify-center bg-primaryColor text-white hover:bg-primaryColorHover"
-              onClick={handleNextStep}
-            >
-              Next
-            </Button>
-          </div>
         </form>
+
+        <div className="card pt-8">
+          <Editor
+            value={content}
+            placeholder={"Write your story....."}
+            onTextChange={(e) => setContent(e.htmlValue!)}
+            style={{ height: "280px" }}
+          />
+        </div>
+
+        <div className="flex items-center justify-between rounded-sm pt-6">
+          {imagePreview ? (
+            <Button
+              className="flex h-12 w-32 items-center justify-center whitespace-nowrap bg-primaryColorLighter text-primaryColor"
+              onClick={() => imageUploadRef.current.click()}
+            >
+              Change Image
+            </Button>
+          ) : (
+            <div></div>
+          )}
+          <Button
+            className="flex h-12 w-28 items-center justify-center bg-primaryColor text-white hover:bg-primaryColorHover"
+            onClick={handleNextStep}
+          >
+            Next
+          </Button>
+        </div>
       </section>
       <div className="footer mt-10 h-20 w-full bg-primaryColorLight"></div>
     </>

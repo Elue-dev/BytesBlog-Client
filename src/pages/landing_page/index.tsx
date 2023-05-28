@@ -50,13 +50,13 @@ export default function Home() {
               </p>
               {user ? (
                 <Link to="/blog">
-                  <Button className="mt-6 bg-primaryColor p-4 text-white hover:bg-primaryColorHover">
+                  <Button className="mt-6 w-24 bg-primaryColor p-4 text-white hover:bg-primaryColorHover">
                     Visit Blog
                   </Button>
                 </Link>
               ) : (
                 <Link to="/blog">
-                  <Button className="mt-6 bg-primaryColor p-4 text-white hover:bg-primaryColorHover">
+                  <Button className="mt-6 w-24 bg-primaryColor p-4 text-white hover:bg-primaryColorHover">
                     Get Started
                   </Button>
                 </Link>

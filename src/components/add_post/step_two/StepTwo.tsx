@@ -6,11 +6,14 @@ import "primereact/resources/primereact.min.css";
 import { postCategories } from "./data";
 import Button from "@/components/button";
 import { useModal } from "../../../context/useModal";
+import { useEffect, useState } from "react";
 
 export default function StepTwo({
   values,
   setValues,
   initialValues,
+  names,
+  setNames,
   categories,
   setCategories,
   handleInputChange,
@@ -18,10 +21,23 @@ export default function StepTwo({
 }: StepTwoProps) {
   const { readTime } = values;
   const context = useModal();
+
+  const manageArray = () => {
+    const name: string[] = [];
+    categories.map((cat: any) => name.push(cat.name));
+    setNames(name);
+  };
+
+  useEffect(() => {
+    manageArray();
+  }, [categories]);
+
   if (!context) return null;
   const { revealModal } = context;
 
   const publishPost = () => {
+    console.log({ categories });
+
     revealModal(
       `Your post has been published successfully`,
       "/blog",
@@ -72,9 +88,20 @@ export default function StepTwo({
               Select the category/categories that best describe this post.{" "}
               <span className="font-semibold">Maximum of 3.</span>
             </p>
+            <div className="flex flex-wrap gap-3">
+              {names.map((name, idx) => (
+                <div
+                  key={idx}
+                  className="rounded-lg border-2 border-borderPrimary bg-primaryColorLight p-1 font-semibold text-blackNeutral"
+                >
+                  {name}
+                </div>
+              ))}
+            </div>
             <MultiSelect
               value={categories}
               onChange={(e) => setCategories(e.value)}
+              onBlur={manageArray}
               options={postCategories}
               optionLabel="name"
               placeholder="Select Categories"
@@ -89,7 +116,7 @@ export default function StepTwo({
 
         <div className="px-normal flex flex-col items-end justify-end pt-8 sm:px-16">
           <Button
-            className="flex h-10 w-24 items-center justify-center bg-primaryColor text-white hover:bg-primaryColorHover"
+            className="flex h-12 w-28 items-center justify-center bg-primaryColor text-white hover:bg-primaryColorHover"
             onClick={publishPost}
           >
             Publish

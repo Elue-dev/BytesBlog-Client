@@ -1,5 +1,12 @@
+@use "../../../sass/mixins" as *;
+
 .title {
   font-size: 2rem;
+  width: 100%;
+
+  @include mQ(500px) {
+    font-size: 1.2rem;
+  }
 }
 .title::placeholder {
   font-weight: 600;

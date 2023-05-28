@@ -69,12 +69,16 @@ export interface ModalProviderProps {
   children: ReactNode;
 }
 
-export interface ContextProps {
+export interface AlertProviderProps {
+  children: ReactNode;
+}
+
+export interface ModalContextProps {
   modalIcon: string;
   message: string;
   showModal: boolean;
   route: string;
-  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowModal: Dispatch<SetStateAction<boolean>>;
   revealModal: (
     message: string,
     specifiedRoute: string,
@@ -83,7 +87,20 @@ export interface ContextProps {
   closeModal: () => void;
 }
 
+export interface AlertContextProps {
+  showAlert: boolean;
+  severity: string;
+  setSeverity: Dispatch<SetStateAction<AlertContextProps["severity"]>>;
+  setShowAlert: Dispatch<SetStateAction<boolean>>;
+  message: string;
+  setMessage: Dispatch<SetStateAction<AlertContextProps["message"]>>;
+  revealAlert: (message: string, severity: string) => void;
+}
+
 export interface ModalProps {
+  message: string;
+}
+export interface AlertProps {
   message: string;
 }
 
@@ -137,6 +154,8 @@ export interface StepTwoProps {
   categories: string[];
   values: AddBPost;
   initialValues: AddBPost;
+  names: string[];
+  setNames: Dispatch<SetStateAction<StepTwoProps["names"]>>;
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
   setValues: Dispatch<SetStateAction<StepTwoProps["values"]>>;
   setCategories: Dispatch<SetStateAction<StepTwoProps["categories"]>>;

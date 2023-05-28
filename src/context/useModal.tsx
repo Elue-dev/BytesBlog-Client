@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { ModalContext } from "./ModalContext";
-import { ContextProps } from "@/types";
+import { ModalContextProps } from "@/types";
 
-export const useModal = (): ContextProps | null => {
+export const useModal = (): ModalContextProps | null => {
   return useContext(ModalContext);
 };

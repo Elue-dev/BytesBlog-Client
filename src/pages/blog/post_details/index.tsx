@@ -14,11 +14,16 @@ import RightDetails from "./RightDetails";
 import { useState } from "react";
 import Button from "@/components/button";
 import { dummyComments } from "./dummyComments";
+import { useAlert } from "../../../context/useAlert";
 
 export default function PostDetails() {
   const { postId } = useParams();
   const [showSidebar, setShowSidebar] = useState(false);
   const [showInput, setShowInput] = useState(false);
+  const context = useAlert();
+
+  if (!context) return null;
+  const { revealAlert } = context;
 
   let currentPost: Post | undefined;
   if (postData) {
@@ -28,6 +33,12 @@ export default function PostDetails() {
   if (!currentPost) return null;
 
   const similarPosts = postData.filter((post) => post.id.toString() !== postId);
+
+  const addComment = () => {
+    setShowSidebar(false);
+    setShowInput(false);
+    revealAlert("Comment added", "success");
+  };
 
   return (
     <section className={styles["post__details"]}>
@@ -64,12 +75,22 @@ export default function PostDetails() {
             </span>
           )}
           {showInput && (
-            <textarea
-              className="w-full text-stone-700 outline-none"
-              cols={30}
-              rows={2}
-              placeholder=" Type your comment here..."
-            ></textarea>
+            <>
+              <div className="mb-2 flex items-center justify-start gap-2">
+                <img
+                  src="https://media.licdn.com/dms/image/C4D03AQEJs8pt7dfmwA/profile-displayphoto-shrink_200_200/0/1656258962473?e=1688601600&v=beta&t=UudLiADbwrewUUl5diZf7p8TjFsmzXT0QCu01fmNJw8"
+                  className="h-10 w-10 rounded-full object-cover"
+                  alt="username"
+                />
+                <p className="text-gray600">Seun Akingboye</p>
+              </div>
+              <textarea
+                className="w-full text-stone-700 outline-none"
+                cols={30}
+                rows={2}
+                placeholder=" Type your comment here..."
+              ></textarea>
+            </>
           )}
         </div>
         {showInput && (
@@ -80,7 +101,10 @@ export default function PostDetails() {
             >
               Cancel
             </Button>
-            <Button className="flex h-10 w-24 items-center justify-center border bg-primaryColor text-white hover:bg-primaryColorHover">
+            <Button
+              className="flex h-10 w-24 items-center justify-center border bg-primaryColor text-white hover:bg-primaryColorHover"
+              onClick={addComment}
+            >
               Send
             </Button>
           </div>
@@ -118,6 +142,7 @@ export default function PostDetails() {
               setShowSidebar(false);
               setShowInput(false);
             }}
+            color="#8791A7"
             className="absolute right-2 top-3 mb-4 block cursor-pointer text-3xl"
           />
         )}
@@ -200,6 +225,7 @@ export default function PostDetails() {
             </div>
           </div>
         </div>
+
         <RightDetails similarPosts={similarPosts} />
       </div>
       <div

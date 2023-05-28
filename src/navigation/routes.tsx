@@ -8,25 +8,22 @@ import SignIn from "@/pages/auth/sign_in";
 import ForgotPassword from "@/pages/auth/forgot_password";
 import ResetPassword from "@/pages/auth/reset_password";
 import Modal from "@/components/modal";
-import { useModal } from "../context/useModal";
 import Blog from "@/pages/blog/home";
 import PostDetails from "@/pages/blog/post_details";
 import Profile from "@/pages/profile";
 import ManageInterests from "@/pages/manage_interests";
 import RichEditor from "@/components/editor";
 import AddPost from "@/pages/add_post";
+import Alert from "@/components/alert";
 
 export const Layout = () => {
-  const context = useModal();
-  if (!context) return null;
-  const { message } = context;
-
   return (
     <div className="app">
       <Navbar />
       <Outlet />
       <ScrollToTop />
-      <Modal message={message} />
+      <Modal />
+      <Alert />
     </div>
   );
 };
