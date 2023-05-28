@@ -1,0 +1,34 @@
+.custom-multiselect .p-multiselect-trigger {
+  background-color: #169639 !important;
+  border-color: #169639 !important;
+  color: #fff !important;
+}
+
+.custom-multiselect .p-multiselect-trigger:hover,
+.custom-multiselect .p-multiselect-trigger:focus {
+  background-color: #13852f !important;
+  border-color: #13852f !important;
+}
+
+.custom-multiselect
+  .p-multiselect-list
+  .p-multiselect-item.p-highlight
+  .p-checkbox-box {
+  background-color: #169639 !important;
+  border-color: #169639 !important;
+}
+
+.custom-multiselect
+  .p-multiselect-list
+  .p-multiselect-item.p-highlight
+  .p-checkbox-box::after {
+  background-color: #fff !important;
+}
+
+.custom-multiselect
+  .p-multiselect-list
+  .p-multiselect-item:hover
+  .p-checkbox-box {
+  background-color: #13852f !important;
+  border-color: #13852f !important;
+}
