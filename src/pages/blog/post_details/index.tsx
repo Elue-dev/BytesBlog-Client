@@ -38,6 +38,7 @@ export default function PostDetails() {
     closeAlert();
     if (!comment) return revealAlert("Please enter your comment", "error");
     setShowInput(false);
+    setComment("");
     revealAlert("Comment added", "success");
   };
 
