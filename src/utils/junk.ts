@@ -244,3 +244,34 @@
 //   alt="Check Icon"
 //   className="h-20 w-20 p-2 text-primaryColor"
 // />
+
+//MULTI SELECT
+// const manageArray = () => {
+//     const name: string[] = [];
+//     categories.map((cat: any) => name.push(cat.name));
+//     setNames(name);
+//   };
+
+//   useEffect(() => {
+//     manageArray();
+//   }, [categories]);
+
+// onBlur={manageArray}
+
+{
+  /* <div className="flex flex-wrap gap-3">
+              {names.map((name, idx) => (
+                <div
+                  key={idx}
+                  className="rounded-lg border-2 border-borderPrimary bg-primaryColorLight p-1 font-semibold text-blackNeutral"
+                >
+                  {name}
+                </div>
+              ))}
+            </div> */
+}
+
+// names: string[];
+// setNames: Dispatch<SetStateAction<StepTwoProps["names"]>>;
+
+// const [names, setNames] = useState<string[]>([]);
