@@ -102,9 +102,9 @@ export default function PostDetails() {
             <Button
               className="rounded-md p-1 text-primaryColor"
               onClick={() => {
-                     setShowInput(false)
-                     setComment("");
-                     }}
+                setShowInput(false);
+                setComment("");
+              }}
             >
               Cancel
             </Button>
@@ -206,9 +206,9 @@ export default function PostDetails() {
                 alt={currentPost.title}
                 className="rounded-lg object-cover"
               />
-              <p className="pt-8 leading-8 text-grayNeutral">
+              <article className="pt-8 leading-8 text-grayNeutral">
                 {currentPost.content}
-              </p>
+              </article>
               <div className="flex gap-6 pb-10 pt-2 lg:pb-0">
                 <div className="flex cursor-pointer items-center justify-start gap-2">
                   <img src={likeInactive} alt="like post" />

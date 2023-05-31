@@ -158,3 +158,10 @@ export interface StepTwoProps {
   setCategories: Dispatch<SetStateAction<StepTwoProps["categories"]>>;
   previousStep?: () => void;
 }
+
+export type User = {
+  username: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+};

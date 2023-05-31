@@ -73,7 +73,6 @@ export default function ForgotPassword() {
             <span className="form-text">Email Address</span>
           </div>
         </div>
-
         <Button
           className="mt-14 w-full rounded-lg bg-primaryColor p-3 text-white hover:bg-primaryColorHover"
           onClick={sendResetEmail}

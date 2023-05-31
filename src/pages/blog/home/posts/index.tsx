@@ -45,7 +45,9 @@ export default function Posts() {
 
               <div className="content">
                 <h1 className="pb-2 pt-3 text-3xl font-bold">{post.title}</h1>
-                <p className="leading-8 text-grayNeutral">{post.excerpt}</p>
+                <article className="leading-8 text-grayNeutral">
+                  {post.excerpt}
+                </article>
 
                 <Link
                   to={`/blog/post/${post.id}`}
