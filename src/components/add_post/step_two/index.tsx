@@ -7,11 +7,14 @@ import { postCategories } from "./data";
 import Button from "@/components/button";
 import { useModal } from "../../../context/useModal";
 import { useAlert } from "../../../context/useAlert";
+import { useEffect } from "react";
 
 export default function StepTwo({
   values,
   setValues,
   initialValues,
+  names,
+  setNames,
   categories,
   setCategories,
   handleInputChange,
@@ -20,6 +23,16 @@ export default function StepTwo({
   const { readTime } = values;
   const context = useModal();
   const alertContext = useAlert();
+
+  const manageArray = () => {
+    const name: string[] = [];
+    categories.map((cat: any) => name.push(cat.name));
+    setNames(name);
+  };
+
+  useEffect(() => {
+    manageArray();
+  }, [categories]);
 
   if (!context) return null;
   if (!alertContext) return null;
@@ -89,15 +102,24 @@ export default function StepTwo({
               Select the category/categories that best describe this post.{" "}
               <span className="font-semibold">Maximum of 3.</span>
             </p>
-
+            <div className="flex flex-wrap gap-3">
+              {names.map((name, idx) => (
+                <div
+                  key={idx}
+                  className="rounded-lg border-2 border-borderPrimary bg-primaryColorLight p-1 font-semibold text-blackNeutral"
+                >
+                  {name}
+                </div>
+              ))}
+            </div>
             <MultiSelect
               value={categories}
               onChange={(e) => setCategories(e.value)}
+              onBlur={manageArray}
               options={postCategories}
               optionLabel="name"
               placeholder="Select Categories"
               maxSelectedLabels={3}
-              display={"chip"}
               selectAll={false}
               selectionLimit={3}
               showSelectAll={false}

@@ -151,6 +151,8 @@ export interface StepTwoProps {
   categories: string[];
   values: AddBPost;
   initialValues: AddBPost;
+  names: string[];
+  setNames: Dispatch<SetStateAction<StepTwoProps["names"]>>;
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
   setValues: Dispatch<SetStateAction<StepTwoProps["values"]>>;
   setCategories: Dispatch<SetStateAction<StepTwoProps["categories"]>>;
