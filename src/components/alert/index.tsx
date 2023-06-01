@@ -10,7 +10,7 @@ export default function Alert() {
   return (
     <section>
       {showAlert ? (
-        <div className={`${styles.alert} ${styles.show}`}>
+        <div className={styles.alert}>
           <Message
             severity={severity || undefined}
             text={message}

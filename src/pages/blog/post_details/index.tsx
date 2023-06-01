@@ -10,7 +10,7 @@ import facebook from "@/assets/facebook.svg";
 import styles from "./post.details.module.scss";
 import { useParams } from "react-router-dom";
 import RightDetails from "./RightDetails";
-import { useState } from "react";
+import { MutableRefObject, useEffect, useRef, useState } from "react";
 import Button from "@/components/button";
 import { dummyComments } from "./dummyComments";
 import { useAlert } from "../../../context/useAlert";
@@ -21,14 +21,22 @@ export default function PostDetails() {
   const [showInput, setShowInput] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
   const { postId } = useParams();
+  const commentInputRef = useRef<HTMLTextAreaElement>(null);
   const alertContext = useAlert();
-  if (!alertContext) return null;
-  const { revealAlert, closeAlert } = alertContext;
 
   let currentPost: Post | undefined;
   if (postData) {
     currentPost = postData.find((post) => post.id.toString() === postId);
   }
+
+  useEffect(() => {
+    if (showInput) {
+      commentInputRef.current?.focus();
+    }
+  }, [showInput]);
+
+  if (!alertContext) return null;
+  const { revealAlert, closeAlert } = alertContext;
 
   if (!currentPost) return null;
 
@@ -89,6 +97,7 @@ export default function PostDetails() {
               <textarea
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
+                ref={commentInputRef}
                 className="w-full text-stone-700 outline-none"
                 cols={30}
                 rows={2}
