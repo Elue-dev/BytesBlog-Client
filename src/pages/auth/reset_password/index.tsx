@@ -1,4 +1,3 @@
-import { RPValues } from "@/types";
 import Button from "@/components/button";
 import bytesLogo from "@/assets/bytesLogo.svg";
 import { Link } from "react-router-dom";
@@ -9,6 +8,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { BsFillCheckSquareFill } from "react-icons/bs";
 import { useModal } from "../../../context/useModal";
 import { useAlert } from "../../../context/useAlert";
+import { RPValues } from "@/types/auth";
 
 const initialValues: RPValues = {
   password: "",

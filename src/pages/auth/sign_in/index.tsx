@@ -1,4 +1,3 @@
-import { SIValues } from "@/types";
 import Button from "@/components/button";
 import bytesLogo from "@/assets/bytesLogo.svg";
 import { Link, useNavigate } from "react-router-dom";
@@ -9,6 +8,7 @@ import Input from "@/components/input";
 import { ChangeEvent, useState } from "react";
 import { validateEmail } from "@/utils/utils";
 import { useAlert } from "../../../context/useAlert";
+import { SIValues } from "@/types/auth";
 
 const initialValues: SIValues = {
   email: "",

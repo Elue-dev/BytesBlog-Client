@@ -1,4 +1,4 @@
-import { Comment } from "@/types";
+import { Comment } from "@/types/posts";
 
 export const dummyComments: Comment[] = [
   {

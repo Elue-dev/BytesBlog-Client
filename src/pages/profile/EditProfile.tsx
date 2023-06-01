@@ -1,14 +1,12 @@
 import Button from "@/components/button";
-import { Dispatch, SetStateAction } from "react";
+import { EditProfProps } from "@/types/general";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useAlert } from "../../context/useAlert";
 
-interface Props {
-  showPopup: boolean;
-  setShowPopup: Dispatch<SetStateAction<boolean>>;
-}
-
-export default function EditProfile({ setShowPopup, showPopup }: Props) {
+export default function EditProfile({
+  setShowPopup,
+  showPopup,
+}: EditProfProps) {
   const alertContext = useAlert();
 
   if (!alertContext) return null;

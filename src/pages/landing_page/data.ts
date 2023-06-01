@@ -1,4 +1,4 @@
-import { Offers } from "@/types";
+import { Offers } from "@/types/general";
 
 export const offers: Offers[] = [
   {

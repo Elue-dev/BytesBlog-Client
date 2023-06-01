@@ -1,9 +1,9 @@
-import { InterestsProps } from "@/types";
 import { userInterests } from "./data";
 import { IoChevronBackCircleOutline } from "react-icons/io5";
 import Button from "../button";
 import { useModal } from "../../context/useModal";
 import { useAlert } from "../../context/useAlert";
+import { InterestsProps } from "@/types/auth";
 
 export default function Interests({
   interests,

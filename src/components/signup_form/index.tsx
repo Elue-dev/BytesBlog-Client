@@ -1,4 +1,3 @@
-import { CAProps } from "@/types";
 import Button from "../button";
 import bytesLogo from "@/assets/bytesLogo.svg";
 import { Link } from "react-router-dom";
@@ -10,6 +9,7 @@ import Input from "../input";
 import { useEffect, useState } from "react";
 import { validateEmail } from "@/utils/utils";
 import { useAlert } from "../../context/useAlert";
+import { CAProps } from "@/types/auth";
 
 export default function SignUpForm({
   values,

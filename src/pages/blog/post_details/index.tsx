@@ -1,4 +1,3 @@
-import { Post } from "@/types";
 import { postData } from "../dummyPosts";
 import { BiTimeFive } from "react-icons/bi";
 import { AiOutlineCloseCircle } from "react-icons/ai";
@@ -15,6 +14,7 @@ import { useState } from "react";
 import Button from "@/components/button";
 import { dummyComments } from "./dummyComments";
 import { useAlert } from "../../../context/useAlert";
+import { Post } from "@/types/posts";
 
 export default function PostDetails() {
   const [comment, setComment] = useState("");

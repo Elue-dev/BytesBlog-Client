@@ -1,6 +1,6 @@
 import Interests from "@/components/interests";
 import SignUpForm from "@/components/signup_form";
-import { CAValues } from "@/types";
+import { CAValues } from "@/types/auth";
 import { useState, ChangeEvent } from "react";
 
 const initialValues: CAValues = {

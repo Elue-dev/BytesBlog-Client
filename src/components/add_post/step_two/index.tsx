@@ -1,4 +1,3 @@
-import { StepTwoProps } from "@/types";
 import { IoChevronBackCircleOutline } from "react-icons/io5";
 import { MultiSelect } from "primereact/multiselect";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
@@ -8,6 +7,7 @@ import Button from "@/components/button";
 import { useModal } from "../../../context/useModal";
 import { useAlert } from "../../../context/useAlert";
 import { useEffect } from "react";
+import { StepTwoProps } from "@/types/posts";
 
 export default function StepTwo({
   values,

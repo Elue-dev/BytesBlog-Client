@@ -1,7 +1,7 @@
 import styles from "./post.details.module.scss";
 import { Link } from "react-router-dom";
 import { BiTimeFive } from "react-icons/bi";
-import { Post, RightDetailsProps } from "@/types";
+import { Post, RightDetailsProps } from "@/types/posts";
 
 export default function RightDetails({ similarPosts }: RightDetailsProps) {
   return (

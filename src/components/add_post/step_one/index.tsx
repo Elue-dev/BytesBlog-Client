@@ -1,4 +1,3 @@
-import { StepOneprops } from "@/types";
 import plusIcon from "@/assets/plusIcon.svg";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
@@ -7,6 +6,7 @@ import { Editor } from "primereact/editor";
 import styles from "./step.one.module.scss";
 import Button from "@/components/button";
 import { useAlert } from "../../../context/useAlert";
+import { StepOneprops } from "@/types/posts";
 
 export default function StepOne({
   values,

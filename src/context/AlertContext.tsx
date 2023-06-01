@@ -1,4 +1,4 @@
-import { AlertContextProps, AlertProviderProps } from "@/types";
+import { AlertContextProps, AlertProviderProps } from "@/types/context/alert";
 import { createContext, useState } from "react";
 
 export const AlertContext = createContext<AlertContextProps | null>(null);
