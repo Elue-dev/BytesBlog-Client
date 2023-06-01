@@ -10,7 +10,7 @@ import facebook from "@/assets/facebook.svg";
 import styles from "./post.details.module.scss";
 import { useParams } from "react-router-dom";
 import RightDetails from "./RightDetails";
-import { MutableRefObject, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Button from "@/components/button";
 import { dummyComments } from "./dummyComments";
 import { useAlert } from "../../../context/useAlert";
