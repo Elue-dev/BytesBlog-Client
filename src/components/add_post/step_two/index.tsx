@@ -46,6 +46,9 @@ export default function StepTwo({
     if (isNaN(convertReadTime))
       return revealAlert("Read time must be a number eg 1, 2, 3", "error");
 
+    if (convertReadTime === 0 || convertReadTime < 1)
+      return revealAlert("Read time must be 1 and above", "error");
+
     if (categories.length === 0)
       return revealAlert(
         "Please select at least one category for this post",
@@ -83,7 +86,7 @@ export default function StepTwo({
               (minutes).
             </p>
             <input
-              type="text"
+              type="number"
               value={readTime}
               name="readTime"
               onChange={handleInputChange}

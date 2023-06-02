@@ -75,7 +75,7 @@ export default function StepOne({
     <>
       <section className="container max-w-lg p-0 pt-12 sm:pt-20">
         <div className="flex items-center justify-start gap-2">
-          <img src={plusIcon} alt="title" className="h-4" />
+          <h2 className="text-2xl font-semibold text-grayLight">Title</h2>
           <input
             type="text"
             value={title}
@@ -97,6 +97,21 @@ export default function StepOne({
           <div onClick={() => imageUploadRef.current.click()}>
             {imagePreview ? (
               <>
+                <div className="mb-6 flex items-center justify-between">
+                  <h2 className="mb-2 text-2xl font-semibold text-grayLight">
+                    Image
+                  </h2>
+                  <Button
+                    className="flex h-12 w-32 items-center justify-center whitespace-nowrap bg-primaryColorLighter text-primaryColor"
+                    onClick={() => {
+                      setImage(undefined);
+                      setImagePreview(undefined);
+                      imageUploadRef.current.click();
+                    }}
+                  >
+                    Change Image
+                  </Button>
+                </div>
                 <img
                   src={imagePreview}
                   alt="blog image"
@@ -123,21 +138,7 @@ export default function StepOne({
           />
         </div>
 
-        <div className="flex items-center justify-between rounded-sm pt-6">
-          {imagePreview ? (
-            <Button
-              className="flex h-12 w-32 items-center justify-center whitespace-nowrap bg-primaryColorLighter text-primaryColor"
-              onClick={() => {
-                setImage(undefined);
-                setImagePreview(undefined);
-                imageUploadRef.current.click();
-              }}
-            >
-              Change Image
-            </Button>
-          ) : (
-            <div></div>
-          )}
+        <div className="flex items-center justify-end rounded-sm pt-6">
           <Button
             className="flex h-12 w-28 items-center justify-center bg-primaryColor text-white hover:bg-primaryColorHover"
             onClick={handleNextStep}
