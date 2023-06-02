@@ -81,27 +81,25 @@ export default function Profile() {
       </div>
       <hr />
 
-      <div>
-        <div className="flex items-center justify-between">
-          <h2 className="mt-4 text-2xl font-semibold">Interests</h2>
-          <Link
-            to="/user/manage-interests"
-            className="flex items-center justify-start gap-1"
+      <div className="mt-4 flex items-center justify-between">
+        <h2 className="text-2xl font-semibold">Interests</h2>
+        <Link
+          to="/user/manage-interests"
+          className="flex items-center justify-start gap-1"
+        >
+          <CiEdit className="font-semibold text-lighterGray" />
+          <p className="font-semibold text-lighterGray">Manage</p>
+        </Link>
+      </div>
+      <div className="mb-8 mt-4 flex flex-wrap gap-3">
+        {interests.map((interest, idx) => (
+          <div
+            key={idx}
+            className="rounded-lg border-2 border-borderPrimary bg-primaryColorLight p-1 font-semibold text-blackNeutral"
           >
-            <CiEdit className="font-semibold text-lighterGray" />
-            <p className="font-semibold text-lighterGray">Manage</p>
-          </Link>
-        </div>
-        <div className="mb-8 mt-4 flex flex-wrap gap-3">
-          {interests.map((interest, idx) => (
-            <div
-              key={idx}
-              className="rounded-lg border-2 border-borderPrimary bg-primaryColorLight p-1 font-semibold text-blackNeutral"
-            >
-              {interest}
-            </div>
-          ))}
-        </div>
+            {interest}
+          </div>
+        ))}
       </div>
       <hr />
 
