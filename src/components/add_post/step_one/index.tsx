@@ -105,7 +105,6 @@ export default function StepOne({
                     className="flex h-12 w-32 items-center justify-center whitespace-nowrap bg-primaryColorLighter text-primaryColor"
                     onClick={() => {
                       setImage(undefined);
-                      // setImagePreview(undefined);
                       imageUploadRef.current.click();
                     }}
                   >

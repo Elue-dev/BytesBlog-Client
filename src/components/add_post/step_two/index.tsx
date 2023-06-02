@@ -106,12 +106,12 @@ export default function StepTwo({
               <span className="font-semibold">Maximum of 3.</span>
             </p>
             <div className="flex flex-wrap gap-3">
-              {catNames.map((category, idx) => (
+              {catNames.map((catName, idx) => (
                 <div
                   key={idx}
                   className="rounded-lg border-2 border-borderPrimary bg-primaryColorLight p-1 font-semibold text-blackNeutral"
                 >
-                  {category}
+                  {catName}
                 </div>
               ))}
             </div>
