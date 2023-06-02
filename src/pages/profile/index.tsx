@@ -95,7 +95,7 @@ export default function Profile() {
         {interests.map((interest, idx) => (
           <div
             key={idx}
-            className="rounded-lg border-2 border-borderPrimary bg-primaryColorLight p-1 font-semibold text-blackNeutral"
+            className="rounded-lg border-2 border-borderPrimary bg-primaryColorLight p-1 font-semibold text-blackNeutralSec"
           >
             {interest}
           </div>
