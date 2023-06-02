@@ -1,22 +1,25 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import AddedPosts from "./AddedPosts";
 import EditProfile from "./EditProfile";
-import styles from "./profile.module.scss";
 import SavedPosts from "./SavedPosts";
+import { CiEdit } from "react-icons/ci";
+import styles from "./profile.module.scss";
 
 export default function Profile() {
   const [postType, setPostType] = useState("My Posts");
   const [showSidebar, setShowSidebar] = useState(false);
 
   const interests = [
-    "Culture",
-    "Science",
-    "Health",
+    "Technology",
+    "Programming",
+    "Writing",
+    "Religion",
+    "Business",
     "UI/UX",
     "Lifestyle",
-    "Music",
-    "Food",
-    "Books",
+    "Culture",
+    "Science",
   ];
 
   return (
@@ -64,7 +67,9 @@ export default function Profile() {
             </p>
           </div>
 
-          <h3 className="py-4 text-2xl font-semibold">Seun Akingboye</h3>
+          <h3 className="py-4 text-2xl font-medium text-lighterGray">
+            Seun Akingboye
+          </h3>
           <h2 className="text-2xl font-semibold">About</h2>
           <p className="mb-6 pt-3 font-normal leading-7 tracking-wide text-gray600">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe
@@ -77,7 +82,16 @@ export default function Profile() {
       <hr />
 
       <div>
-        <h2 className="mt-4 text-2xl font-semibold">Interests</h2>
+        <div className="flex items-center justify-between">
+          <h2 className="mt-4 text-2xl font-semibold">Interests</h2>
+          <Link
+            to="/user/manage-interests"
+            className="flex items-center justify-start gap-1"
+          >
+            <CiEdit className="font-semibold text-lighterGray" />
+            <p className="font-semibold text-lighterGray">Manage</p>
+          </Link>
+        </div>
         <div className="mb-8 mt-4 flex flex-wrap gap-3">
           {interests.map((interest, idx) => (
             <div
