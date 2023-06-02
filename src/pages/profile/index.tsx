@@ -67,7 +67,7 @@ export default function Profile() {
             </p>
           </div>
 
-          <h3 className="py-4 text-2xl font-medium text-lighterGray">
+          <h3 className="py-4 text-xl font-medium text-lighterGray">
             Seun Akingboye
           </h3>
           <h2 className="text-2xl font-semibold">About</h2>
