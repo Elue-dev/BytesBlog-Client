@@ -57,3 +57,9 @@ export interface StepTwoProps {
   setCategories: Dispatch<SetStateAction<StepTwoProps["categories"]>>;
   previousStep?: () => void;
 }
+
+export interface CommentsSBProps {
+  currentPost: Post | undefined;
+  showSidebar: boolean;
+  setShowSidebar: Dispatch<SetStateAction<boolean>>;
+}
