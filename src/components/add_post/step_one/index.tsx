@@ -75,7 +75,7 @@ export default function StepOne({
     <>
       <section className="container max-w-lg p-0 pt-12 sm:pt-20">
         <div className="flex items-center justify-start gap-2">
-          <h2 className="text-2xl font-semibold text-grayLight">Title</h2>
+          <img src={plusIcon} alt="title" className="h-6" />
           <input
             type="text"
             value={title}
@@ -105,7 +105,7 @@ export default function StepOne({
                     className="flex h-12 w-32 items-center justify-center whitespace-nowrap bg-primaryColorLighter text-primaryColor"
                     onClick={() => {
                       setImage(undefined);
-                      setImagePreview(undefined);
+                      // setImagePreview(undefined);
                       imageUploadRef.current.click();
                     }}
                   >
@@ -121,7 +121,7 @@ export default function StepOne({
             ) : (
               <div className="flex cursor-pointer items-center justify-start gap-2">
                 <img src={plusIcon} alt="title" className="h-6" />
-                <p className="text-xl font-semibold text-grayLight">
+                <p className="text-2xl font-semibold text-grayLight">
                   Add Image
                 </p>
               </div>

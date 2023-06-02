@@ -1,5 +1,13 @@
 @use "../../sass/mixins" as *;
 
+.prof__edit {
+  &::-webkit-scrollbar,
+  &::-webkit-scrollbar-thumb,
+  &::-webkit-scrollbar-track {
+    display: none;
+  }
+}
+
 .profile {
   @include container();
   max-width: 500px;

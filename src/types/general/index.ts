@@ -8,6 +8,6 @@ export interface Offers {
 }
 
 export interface EditProfProps {
-  showPopup: boolean;
-  setShowPopup: Dispatch<SetStateAction<boolean>>;
+  showSidebar: boolean;
+  setShowSidebar: Dispatch<SetStateAction<boolean>>;
 }

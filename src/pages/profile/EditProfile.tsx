@@ -2,10 +2,11 @@ import Button from "@/components/button";
 import { EditProfProps } from "@/types/general";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useAlert } from "../../context/useAlert";
+import styles from "./profile.module.scss";
 
 export default function EditProfile({
-  setShowPopup,
-  showPopup,
+  setShowSidebar,
+  showSidebar,
 }: EditProfProps) {
   const alertContext = useAlert();
 
@@ -14,19 +15,19 @@ export default function EditProfile({
 
   const updateUserProfile = () => {
     closeAlert();
-    setShowPopup(false);
+    setShowSidebar(false);
     revealAlert("Profile successsfully updated", "success");
   };
 
   return (
-    <>
+    <section className={styles["prof__edit"]}>
       <h1 className="mb-6 mt-8 bg-primaryColorLight p-3 text-center text-xl font-semibold sm:w-full">
         Profile Details
       </h1>
-      {showPopup && (
+      {showSidebar && (
         <AiOutlineCloseCircle
           color="#8791A7"
-          onClick={() => setShowPopup(false)}
+          onClick={() => setShowSidebar(false)}
           className="absolute right-2 top-3 mb-4 block cursor-pointer text-3xl"
         />
       )}
@@ -40,7 +41,7 @@ export default function EditProfile({
         <div className="leading-6">
           <p
             className="cursor-pointer font-semibold text-primaryColor underline"
-            onClick={() => setShowPopup(true)}
+            onClick={() => setShowSidebar(true)}
           >
             Replace Photo
           </p>
@@ -77,7 +78,7 @@ export default function EditProfile({
         <div className="flex items-center justify-start rounded-sm pt-6">
           <Button
             className="w-1/2 bg-primaryColorLighter text-primaryColor"
-            onClick={() => setShowPopup(false)}
+            onClick={() => setShowSidebar(false)}
           >
             Cancel
           </Button>
@@ -89,6 +90,6 @@ export default function EditProfile({
           </Button>
         </div>
       </div>
-    </>
+    </section>
   );
 }

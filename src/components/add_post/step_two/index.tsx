@@ -13,8 +13,8 @@ export default function StepTwo({
   values,
   setValues,
   initialValues,
-  names,
-  setNames,
+  catNames,
+  setCatNames,
   categories,
   setCategories,
   handleInputChange,
@@ -25,9 +25,9 @@ export default function StepTwo({
   const alertContext = useAlert();
 
   const manageArray = () => {
-    const name: string[] = [];
-    categories.map((cat: any) => name.push(cat.name));
-    setNames(name);
+    const cNames: string[] = [];
+    categories.map((cat: any) => cNames.push(cat.name));
+    setCatNames(cNames);
   };
 
   useEffect(() => {
@@ -106,12 +106,12 @@ export default function StepTwo({
               <span className="font-semibold">Maximum of 3.</span>
             </p>
             <div className="flex flex-wrap gap-3">
-              {names.map((name, idx) => (
+              {catNames.map((category, idx) => (
                 <div
                   key={idx}
                   className="rounded-lg border-2 border-borderPrimary bg-primaryColorLight p-1 font-semibold text-blackNeutral"
                 >
-                  {name}
+                  {category}
                 </div>
               ))}
             </div>

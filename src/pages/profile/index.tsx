@@ -6,29 +6,43 @@ import SavedPosts from "./SavedPosts";
 
 export default function Profile() {
   const [postType, setPostType] = useState("My Posts");
-  const [showPopup, setShowPopup] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(false);
+
+  const interests = [
+    "Culture",
+    "Science",
+    "Health",
+    "UI/UX",
+    "Lifestyle",
+    "Music",
+    "Food",
+    "Books",
+  ];
 
   return (
     <section className={styles.profile}>
       <div>
         <h1 className="text-3xl font-semibold">Profile</h1>
-        {showPopup && (
+        {showSidebar && (
           <div
             className={styles.overlay}
             onClick={() => {
-              setShowPopup(false);
+              setShowSidebar(false);
             }}
           />
         )}
 
         <div
           className={
-            showPopup
+            showSidebar
               ? `${styles["menu__items"]} ${styles.show}`
               : `${styles["menu__items"]}`
           }
         >
-          <EditProfile showPopup={showPopup} setShowPopup={setShowPopup} />
+          <EditProfile
+            showSidebar={showSidebar}
+            setShowSidebar={setShowSidebar}
+          />
         </div>
         <div className="pt-8">
           <div className="flex items-end justify-start gap-2">
@@ -44,15 +58,15 @@ export default function Profile() {
             </a>
             <p
               className="cursor-pointer font-semibold text-primaryColor underline"
-              onClick={() => setShowPopup(true)}
+              onClick={() => setShowSidebar(true)}
             >
               Edit Profile
             </p>
           </div>
 
           <h3 className="py-4 text-2xl font-semibold">Seun Akingboye</h3>
-          <h2 className="text-2xl font-semibold text-primaryColor">About</h2>
-          <p className="pt-3 font-normal leading-7 tracking-wide text-gray600">
+          <h2 className="text-2xl font-semibold">About</h2>
+          <p className="mb-6 pt-3 font-normal leading-7 tracking-wide text-gray600">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe
             cupiditate eligendi modi iure aliquid repellendus architecto ratione
             alias maxime illo quas eaque commodi, sit, reprehenderit voluptas
@@ -60,8 +74,25 @@ export default function Profile() {
           </p>
         </div>
       </div>
+      <hr />
+
       <div>
-        <div className="flex items-center justify-start gap-6 border-b-4 pt-6">
+        <h2 className="mt-4 text-2xl font-semibold">Interests</h2>
+        <div className="mb-8 mt-4 flex flex-wrap gap-3">
+          {interests.map((interest, idx) => (
+            <div
+              key={idx}
+              className="rounded-lg border-2 border-borderPrimary bg-primaryColorLight p-1 font-semibold text-blackNeutral"
+            >
+              {interest}
+            </div>
+          ))}
+        </div>
+      </div>
+      <hr />
+
+      <div>
+        <div className="flex items-center justify-start gap-6 border-b-4 pt-10">
           {["My Posts", "Saved Posts"].map((post, idx) => (
             <div
               key={idx}
