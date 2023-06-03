@@ -10,6 +10,8 @@ import { useEffect, useState } from "react";
 import { validateEmail } from "@/utils/utils";
 import { useAlert } from "@/context/useAlert";
 import { CAProps } from "@/types/auth";
+import { auth, provider } from "@/lib/firebase";
+import { signInWithPopup } from "firebase/auth";
 
 export default function SignUpForm({
   values,
@@ -108,6 +110,32 @@ export default function SignUpForm({
     }
   };
 
+  const signInWithGoogle = async () => {
+    try {
+      const res = await signInWithPopup(auth, provider);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+
+    // .then((result) => {
+    //   axios
+    //     .post("/auth/google", {
+    //       name: result.user.displayName,
+    //       email: result.user.email,
+    //       img: result.user.photoURL,
+    //     })
+    //     .then((res) => {
+    //       console.log(res);
+    //       dispatch(loginSuccess(res.data));
+    //       navigate("/");
+    //     });
+    // })
+    // .catch((error) => {
+    //   dispatch(loginFailure());
+    // });
+  };
+
   const handleFocus = (field: string) => {
     const updatedErrors = validationErrors.filter((err) => err !== field);
     setValidationErrors(updatedErrors);
@@ -129,7 +157,9 @@ export default function SignUpForm({
           </h1>
           <Button className="mb-4 mt-6 flex w-full items-center justify-center gap-3 rounded-lg border border-lightGray bg-white p-3 hover:bg-grayLight">
             <FcGoogle className="text-2xl" />
-            <span className="font-normal">Continue With Google</span>
+            <span onClick={signInWithGoogle} className="font-normal">
+              Continue With Google
+            </span>
           </Button>
           <span className="mb-4 block text-center">Or</span>
           <section>
