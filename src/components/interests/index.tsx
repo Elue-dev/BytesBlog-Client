@@ -1,9 +1,12 @@
+import { useState } from "react";
 import { userInterests } from "./data";
 import { IoChevronBackCircleOutline } from "react-icons/io5";
 import Button from "../button";
 import { useModal } from "../../context/useModal";
 import { useAlert } from "../../context/useAlert";
 import { InterestsProps } from "@/types/auth";
+import { httpRequest } from "../../lib/index";
+import { SERVER_URL } from "@/utils/variables";
 
 export default function Interests({
   interests,
@@ -13,12 +16,14 @@ export default function Interests({
   values,
   setValues,
 }: InterestsProps) {
+  const [loading, setLoading] = useState(false);
   const modalContext = useModal();
   const alertContext = useAlert();
   if (!modalContext) return null;
   if (!alertContext) return null;
   const { revealModal } = modalContext;
   const { revealAlert, closeAlert } = alertContext;
+  const { firstname, lastname, email, password } = values;
 
   const setUserInterest = (int: string) => {
     if (interests.includes(int)) {
@@ -28,18 +33,35 @@ export default function Interests({
     }
   };
 
-  const createUserAccount = () => {
+  const createUserAccount = async () => {
     closeAlert();
     if (interests.length < 5)
       return revealAlert("Interests must be at least 5", "error");
 
-    revealModal(
-      `Welcome, ${values.firstname}! Your account has been successfully created`,
-      "/",
-      "success"
-    );
-    setValues(initialValues);
-    setInterests([]);
+    const credentials = { firstname, lastname, email, password, interests };
+
+    try {
+      setLoading(true);
+      const response = await httpRequest.post(
+        `${SERVER_URL}/auth/signup`,
+        credentials
+      );
+      console.log(response);
+      if (response) {
+        setLoading(false);
+        revealModal(
+          `Welcome, ${firstname}! Your account has been successfully created. Please login`,
+          "/auth/login",
+          "success"
+        );
+        setValues(initialValues);
+        setInterests([]);
+      }
+    } catch (error) {
+      revealAlert("Something went wrong, Please try again", "error");
+      setLoading(false);
+      console.log(error);
+    }
   };
 
   return (
@@ -76,12 +98,18 @@ export default function Interests({
           ))}
         </div>
 
-        <Button
-          className="mt-14 w-full rounded-lg bg-primaryColor p-3 text-white hover:bg-primaryColorHover"
-          onClick={createUserAccount}
-        >
-          Create Account
-        </Button>
+        {loading ? (
+          <Button className="mt-14 w-full rounded-lg bg-primaryColorHover p-3 text-white hover:bg-primaryColorHover">
+            Processing...
+          </Button>
+        ) : (
+          <Button
+            className="mt-14 w-full rounded-lg bg-primaryColor p-3 text-white hover:bg-primaryColorHover"
+            onClick={createUserAccount}
+          >
+            Create Account
+          </Button>
+        )}
       </div>
     </div>
   );

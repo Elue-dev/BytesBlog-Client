@@ -9,6 +9,8 @@ import { ChangeEvent, useState } from "react";
 import { validateEmail } from "@/utils/utils";
 import { useAlert } from "../../../context/useAlert";
 import { SIValues } from "@/types/auth";
+import { SERVER_URL } from "@/utils/variables";
+import { httpRequest } from "../../../lib/index";
 
 const initialValues: SIValues = {
   email: "",
@@ -18,6 +20,7 @@ const initialValues: SIValues = {
 export default function SignIn() {
   const [credentials, setCredentials] = useState(initialValues);
   const [visible, setVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
   const navigate = useNavigate();
   const alertContext = useAlert();
@@ -31,21 +34,38 @@ export default function SignIn() {
     setCredentials({ ...credentials, [name]: value });
   };
 
-  const proceed = () => {
+  const signinUser = async () => {
     closeAlert();
     setValidationErrors([]);
     const errors = [];
     if (!email.trim()) errors.push("email");
-
     if (!password.trim()) errors.push("password");
-
     setValidationErrors(errors);
 
-    if (errors.length === 0) {
-      if (!validateEmail(email))
-        return revealAlert("Please enter a valid email format", "error");
+    const emailFormatValid = validateEmail(email);
+    if (errors.length === 0 && emailFormatValid) {
+      const credentials = { email, password };
 
-      navigate("/");
+      try {
+        setLoading(true);
+        const response = await httpRequest.post(
+          `${SERVER_URL}/auth/login`,
+          credentials
+        );
+        console.log(response);
+        if (response) {
+          setLoading(false);
+          setCredentials(initialValues);
+          navigate("/");
+        }
+      } catch (error: any) {
+        revealAlert(error.response.data.message, "error");
+        setLoading(false);
+        console.log(error);
+      }
+    } else {
+      if (errors.length === 0 && !emailFormatValid)
+        return revealAlert("Please enter a valid email format", "error");
     }
   };
 
@@ -118,7 +138,7 @@ export default function SignIn() {
             <Button
               type="button"
               className="mt-5 w-full rounded-lg bg-primaryColor p-3 text-lg font-semibold text-white hover:bg-primaryColorHover"
-              onClick={proceed}
+              onClick={signinUser}
             >
               Sign In
             </Button>
