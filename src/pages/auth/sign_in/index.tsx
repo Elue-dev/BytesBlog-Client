@@ -11,6 +11,7 @@ import { useAlert } from "../../../context/useAlert";
 import { SIValues } from "@/types/auth";
 import { SERVER_URL } from "@/utils/variables";
 import { httpRequest } from "../../../lib/index";
+import { SET_ACTIVE_USER } from "@/redux/slices/auth.slice";
 
 const initialValues: SIValues = {
   email: "",
@@ -55,6 +56,7 @@ export default function SignIn() {
         console.log(response);
         if (response) {
           setLoading(false);
+          SET_ACTIVE_USER(response.data.user);
           setCredentials(initialValues);
           navigate("/");
         }
