@@ -7,6 +7,7 @@ export default function AddedPosts() {
     <div>
       {postData.slice(0, 2).map((post) => (
         <Link
+          key={post.id}
           to={`/blog/post/${post.id}`}
           className="mb-6 flex flex-col items-center justify-start gap-6 lg:flex-row"
         >

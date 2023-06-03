@@ -4,9 +4,11 @@ import homeImage from "@/assets/homeImage.svg";
 import styles from "./landing.page.module.scss";
 import Button from "../../components/button";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectIsLoggedIn } from "@/redux/slices/auth.slice";
 
 export default function Home() {
-  const user = true;
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
   return (
     <section className={styles.home}>
@@ -48,15 +50,15 @@ export default function Home() {
                 Connect with curious minds, tell your story and share your
                 knowledge even just the way you want it
               </p>
-              {user ? (
+              {isLoggedIn ? (
                 <Link to="/blog">
                   <Button className="mt-6 w-24 bg-primaryColor p-4 text-white hover:bg-primaryColorHover">
                     Visit Blog
                   </Button>
                 </Link>
               ) : (
-                <Link to="/blog">
-                  <Button className="mt-6 w-24 bg-primaryColor p-4 text-white hover:bg-primaryColorHover">
+                <Link to="/auth/sign-in">
+                  <Button className=" mt-6 flex w-24 items-center justify-center whitespace-nowrap bg-primaryColor p-4 text-white hover:bg-primaryColorHover">
                     Get Started
                   </Button>
                 </Link>

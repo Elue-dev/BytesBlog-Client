@@ -139,13 +139,22 @@ export default function SignIn() {
               <p className="pt-1 text-right text-zinc-600">Forgot Password?</p>
             </Link>
 
-            <Button
-              type="button"
-              className="mt-5 w-full rounded-lg bg-primaryColor p-3 text-lg font-semibold text-white hover:bg-primaryColorHover"
-              onClick={signinUser}
-            >
-              Sign In
-            </Button>
+            {loading ? (
+              <Button
+                type="button"
+                className="mt-5 w-full rounded-lg bg-primaryColorHover p-3 text-lg font-semibold text-white"
+              >
+                Processing...
+              </Button>
+            ) : (
+              <Button
+                type="button"
+                className="mt-5 w-full rounded-lg bg-primaryColor p-3 text-lg font-semibold text-white hover:bg-primaryColorHover"
+                onClick={signinUser}
+              >
+                Sign In
+              </Button>
+            )}
 
             <p className="mb-3 mt-4 text-right text-blackNeutral">
               Don't have a Bytes account?{" "}

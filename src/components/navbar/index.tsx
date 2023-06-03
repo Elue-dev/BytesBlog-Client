@@ -1,6 +1,5 @@
 import styles from "./navbar.module.scss";
 import byteslogo from "@/assets/bytesLogo.svg";
-import userIcon from "@/assets/userIcon.svg";
 import profileIcon from "@/assets/profileIcon.svg";
 // import savedPosts from "@/assets/savedPosts.svg";
 import interestsIcon from "@/assets/interestsIcon.svg";
@@ -9,10 +8,29 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { BsVectorPen } from "react-icons/bs";
 import { RiArrowDownSLine, RiArrowUpSLine } from "react-icons/ri";
 import { useState } from "react";
+import {
+  REMOVE_ACTIVE_USER,
+  selectIsLoggedIn,
+} from "@/redux/slices/auth.slice";
+import { useDispatch, useSelector } from "react-redux";
+import { User } from "@/types/user";
+import { RootState } from "@/redux/store";
+import { getUserInitials } from "@/helpers/user.initials";
 
 export default function Navbar() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [scrollPage, setScrollpage] = useState(false);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const currentUser: User | null = useSelector<RootState, User | null>(
+    (state) => state.auth.user
+  );
+
+  const dispatch = useDispatch();
+
+  let initials;
+  if (currentUser) {
+    initials = getUserInitials(currentUser.firstName, currentUser.lastName);
+  }
 
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -26,6 +44,11 @@ export default function Navbar() {
   };
 
   window.addEventListener("scroll", fixNavbar);
+
+  const signOutUser = () => {
+    dispatch(REMOVE_ACTIVE_USER());
+    setShowDropdown(false);
+  };
 
   if (pathname.includes("auth")) return null;
 
@@ -41,7 +64,7 @@ export default function Navbar() {
             />
           </Link>
           <div>
-            {location.pathname.includes("blog") ? (
+            {isLoggedIn ? (
               <div className="flex items-center justify-start gap-0 sm:gap-1">
                 {!pathname.includes("write") && (
                   <Link to="/blog/write">
@@ -57,12 +80,21 @@ export default function Navbar() {
                   className="relative flex cursor-pointer items-center justify-start gap-0 sm:gap-1"
                   onClick={() => setShowDropdown(!showDropdown)}
                 >
-                  <img
-                    src={userIcon}
-                    alt="user"
-                    className="pointer-events-none h-11 sm:h-14"
-                  />
-                  {showDropdown ? <RiArrowUpSLine /> : <RiArrowDownSLine />}
+                  {currentUser?.avatar === "" ? (
+                    <>
+                      <div className={styles["user__initials"]}>{initials}</div>
+                      {showDropdown ? <RiArrowUpSLine /> : <RiArrowDownSLine />}
+                    </>
+                  ) : (
+                    <>
+                      <img
+                        src={currentUser?.avatar}
+                        alt={currentUser?.firstName}
+                        className="pointer-events-none h-11 sm:h-14"
+                      />
+                      {showDropdown ? <RiArrowUpSLine /> : <RiArrowDownSLine />}
+                    </>
+                  )}
                 </div>
 
                 {showDropdown ? (
@@ -100,7 +132,7 @@ export default function Navbar() {
                       </div>
                       <hr />
                       <div
-                        onClick={() => setShowDropdown(false)}
+                        onClick={signOutUser}
                         className="mt-4 flex cursor-pointer items-center justify-start gap-3"
                       >
                         Sign Out

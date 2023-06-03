@@ -99,7 +99,7 @@ export default function Interests({
         </div>
 
         {loading ? (
-          <Button className="mt-14 w-full rounded-lg bg-primaryColorHover p-3 text-white hover:bg-primaryColorHover">
+          <Button className="mt-14 w-full rounded-lg bg-primaryColorHover p-3 text-white">
             Processing...
           </Button>
         ) : (

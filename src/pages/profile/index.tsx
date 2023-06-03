@@ -5,22 +5,22 @@ import EditProfile from "./EditProfile";
 import SavedPosts from "./SavedPosts";
 import { CiEdit } from "react-icons/ci";
 import styles from "./profile.module.scss";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { User } from "@/types/user";
+import { getUserInitials } from "@/helpers/user.initials";
 
 export default function Profile() {
   const [postType, setPostType] = useState("My Posts");
   const [showSidebar, setShowSidebar] = useState(false);
+  const currentUser: User | null = useSelector<RootState, User | null>(
+    (state) => state.auth.user
+  );
 
-  const interests = [
-    "Technology",
-    "Programming",
-    "Writing",
-    "Religion",
-    "Business",
-    "UI/UX",
-    "Lifestyle",
-    "Culture",
-    "Science",
-  ];
+  let initials;
+  if (currentUser) {
+    initials = getUserInitials(currentUser.firstName, currentUser.lastName);
+  }
 
   return (
     <section className={styles.profile}>
@@ -49,16 +49,18 @@ export default function Profile() {
         </div>
         <div className="pt-8">
           <div className="flex items-end justify-start gap-2">
-            <a
-              target="_blank"
-              href="https://media.licdn.com/dms/image/C4D03AQEJs8pt7dfmwA/profile-displayphoto-shrink_200_200/0/1656258962473?e=1688601600&v=beta&t=UudLiADbwrewUUl5diZf7p8TjFsmzXT0QCu01fmNJw8"
-            >
-              <img
-                src="https://media.licdn.com/dms/image/C4D03AQEJs8pt7dfmwA/profile-displayphoto-shrink_200_200/0/1656258962473?e=1688601600&v=beta&t=UudLiADbwrewUUl5diZf7p8TjFsmzXT0QCu01fmNJw8"
-                alt=""
-                className="h-14 w-14 rounded-full object-cover"
-              />
-            </a>
+            {currentUser?.avatar === "" ? (
+              <div className={styles["user__initials"]}>{initials}</div>
+            ) : (
+              <a target="_blank" href={currentUser?.avatar}>
+                <img
+                  src={currentUser?.avatar}
+                  alt={currentUser?.firstName}
+                  className="h-14 w-14 rounded-full object-cover"
+                />
+              </a>
+            )}
+
             <p
               className="cursor-pointer font-semibold text-primaryColor underline"
               onClick={() => setShowSidebar(true)}
@@ -68,14 +70,13 @@ export default function Profile() {
           </div>
 
           <h3 className="py-4 text-xl font-medium text-lighterGray">
-            Seun Akingboye
+            {currentUser?.firstName} {currentUser?.lastName}
           </h3>
           <h2 className="text-2xl font-semibold">About</h2>
           <p className="mb-6 pt-3 font-normal leading-7 tracking-wide text-gray600">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe
-            cupiditate eligendi modi iure aliquid repellendus architecto ratione
-            alias maxime illo quas eaque commodi, sit, reprehenderit voluptas
-            dolore ad vitae dignissimos.
+            {currentUser?.bio === ""
+              ? "Your bio will appear here"
+              : currentUser?.bio}
           </p>
         </div>
       </div>
@@ -92,7 +93,7 @@ export default function Profile() {
         </Link>
       </div>
       <div className="mb-8 mt-4 flex flex-wrap gap-3">
-        {interests.map((interest, idx) => (
+        {currentUser?.interests.map((interest, idx) => (
           <div
             key={idx}
             className="rounded-lg border-2 border-borderPrimary bg-primaryColorLight p-1 font-semibold text-blackNeutralSec"

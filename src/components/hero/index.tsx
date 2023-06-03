@@ -1,9 +1,11 @@
+import { selectIsLoggedIn } from "@/redux/slices/auth.slice";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Button from "../button";
 import styles from "./hero.module.scss";
 
 export default function Hero() {
-  const user = true;
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
   return (
     <section className={`h-[75vh] ${styles.hero} mt-1`}>
@@ -15,15 +17,15 @@ export default function Hero() {
           Share your thoughts even as you immerse yourself in our rich content
           that covers a wide range of topics.
         </p>
-        {user ? (
+        {isLoggedIn ? (
           <Link to="/blog">
             <Button className="mt-6 w-24 bg-primaryColor p-4 text-white  hover:bg-primaryColorHover">
               Visit Blog
             </Button>
           </Link>
         ) : (
-          <Link to="/blog">
-            <Button className="mt-6 w-24 bg-primaryColor p-4 text-white  hover:bg-primaryColorHover">
+          <Link to="/auth/sign-in">
+            <Button className="mt-6 flex w-24 items-center justify-center whitespace-nowrap bg-primaryColor p-4 text-white hover:bg-primaryColorHover">
               Get Started
             </Button>
           </Link>

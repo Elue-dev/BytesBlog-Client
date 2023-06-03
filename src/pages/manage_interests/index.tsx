@@ -5,28 +5,22 @@ import { useModal } from "../../context/useModal";
 import { useAlert } from "../../context/useAlert";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { User } from "@/types/user";
 
 export default function ManageInterests() {
   const [interests, setInterests] = useState<string[]>([]);
   const navigate = useNavigate();
   const modalContext = useModal();
   const alertContext = useAlert();
-
-  const currentUserInterests = [
-    "Technology",
-    "Programming",
-    "Writing",
-    "Religion",
-    "Business",
-    "UI/UX",
-    "Lifestyle",
-    "Culture",
-    "Science",
-  ];
+  const currentUser: User | null = useSelector<RootState, User | null>(
+    (state) => state.auth.user
+  );
 
   useEffect(() => {
     const filteredUserInterests = userInterests.filter((interest) =>
-      currentUserInterests.includes(interest)
+      currentUser?.interests.includes(interest)
     );
     setInterests(filteredUserInterests);
   }, []);

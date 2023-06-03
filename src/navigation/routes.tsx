@@ -14,6 +14,8 @@ import Profile from "@/pages/profile";
 import ManageInterests from "@/pages/manage_interests";
 import AddPost from "@/pages/add_post";
 import Alert from "@/components/alert";
+import Authenticated from "@/helpers/authenticated";
+import Unauthenticated from "@/helpers/unauthenticated";
 
 export const Layout = () => {
   return (
@@ -38,39 +40,75 @@ const router = createBrowserRouter([
       },
       {
         path: "/auth/create-account",
-        element: <CreateAccount />,
+        element: (
+          <Unauthenticated>
+            <CreateAccount />,
+          </Unauthenticated>
+        ),
       },
       {
         path: "/auth/sign-in",
-        element: <SignIn />,
+        element: (
+          <Unauthenticated>
+            <SignIn />,
+          </Unauthenticated>
+        ),
       },
       {
         path: "/auth/forgot-password",
-        element: <ForgotPassword />,
+        element: (
+          <Unauthenticated>
+            <ForgotPassword />,
+          </Unauthenticated>
+        ),
       },
       {
         path: "/auth/reset-password",
-        element: <ResetPassword />,
+        element: (
+          <Unauthenticated>
+            <ResetPassword />,
+          </Unauthenticated>
+        ),
       },
       {
         path: "/blog",
-        element: <Blog />,
+        element: (
+          <Authenticated>
+            <Blog />,
+          </Authenticated>
+        ),
       },
       {
         path: "/blog/post/:postId",
-        element: <PostDetails />,
+        element: (
+          <Authenticated>
+            <PostDetails />,
+          </Authenticated>
+        ),
       },
       {
         path: "/user/profile",
-        element: <Profile />,
+        element: (
+          <Authenticated>
+            <Profile />,
+          </Authenticated>
+        ),
       },
       {
         path: "/user/manage-interests",
-        element: <ManageInterests />,
+        element: (
+          <Authenticated>
+            <ManageInterests />,
+          </Authenticated>
+        ),
       },
       {
         path: "/blog/write",
-        element: <AddPost />,
+        element: (
+          <Authenticated>
+            <AddPost />,
+          </Authenticated>
+        ),
       },
       {
         path: "*",

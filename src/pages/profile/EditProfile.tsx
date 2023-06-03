@@ -1,6 +1,10 @@
 import Button from "@/components/button";
+import { RootState } from "@/redux/store";
 import { EditProfProps } from "@/types/general";
+import { User } from "@/types/user";
+import { useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { useSelector } from "react-redux";
 import { useAlert } from "../../context/useAlert";
 import styles from "./profile.module.scss";
 
@@ -8,6 +12,15 @@ export default function EditProfile({
   setShowSidebar,
   showSidebar,
 }: EditProfProps) {
+  const currentUser: User | null = useSelector<RootState, User | null>(
+    (state) => state.auth.user
+  );
+  let userFullNames;
+  if (currentUser) {
+    userFullNames = currentUser?.firstName + currentUser?.lastName;
+  }
+
+  const [usernames, setUsernames] = useState(userFullNames);
   const alertContext = useAlert();
 
   if (!alertContext) return null;
@@ -53,7 +66,8 @@ export default function EditProfile({
         <h1 className="font-semibold text-grayNeutral">Name</h1>
         <input
           type="text"
-          value={"Seun Akingboye"}
+          value={usernames}
+          onChange={(e) => setUsernames(e.target.value)}
           className="w-full border-b-2 border-grayLight outline-none"
         />
         <p className="text-grayNeutral">
