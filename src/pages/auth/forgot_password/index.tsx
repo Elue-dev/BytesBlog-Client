@@ -6,9 +6,12 @@ import { validateEmail } from "@/utils/utils";
 import backIcon from "@/assets/backIcon.svg";
 import { useModal } from "../../../context/useModal";
 import { useAlert } from "../../../context/useAlert";
+import { SERVER_URL } from "@/utils/variables";
+import { httpRequest } from "@/lib";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
   const navigate = useNavigate();
   const modalContext = useModal();
@@ -18,23 +21,40 @@ export default function ForgotPassword() {
   const { revealModal } = modalContext;
   const { revealAlert, closeAlert } = alertContext;
 
-  const sendResetEmail = () => {
+  const sendResetEmail = async () => {
     closeAlert();
     setValidationErrors([]);
     const errors = [];
-    if (!email.trim()) {
-      errors.push("email");
-    }
+    if (!email.trim()) errors.push("email");
     setValidationErrors(errors);
-    if (errors.length === 0) {
-      if (!validateEmail(email)) {
-        return revealAlert("Please enter a valid email format", "error");
+
+    const emailFormatValid = validateEmail(email);
+    if (errors.length === 0 && emailFormatValid) {
+      try {
+        setLoading(true);
+        const response = await httpRequest.post(
+          `${SERVER_URL}/auth/forgot-password`,
+          {
+            email,
+          }
+        );
+        console.log(response);
+        if (response) {
+          setLoading(false);
+          revealModal(
+            `A link has been sent to ${email}. Kindly open the link to reset your password.`,
+            "/auth/reset-password",
+            "warning"
+          );
+        }
+      } catch (error: any) {
+        revealAlert(error.response.data.message, "error");
+        setLoading(false);
+        console.log(error);
       }
-      revealModal(
-        `A link has been sent to ${email}. Kindly open the link to reset your password.`,
-        "/auth/reset-password",
-        "warning"
-      );
+    } else {
+      if (errors.length === 0 && !emailFormatValid)
+        return revealAlert("Please enter a valid email format", "error");
     }
   };
 
@@ -73,12 +93,18 @@ export default function ForgotPassword() {
             <span className="form-text">Email Address</span>
           </div>
         </div>
-        <Button
-          className="mt-14 w-full rounded-lg bg-primaryColor p-3 text-white hover:bg-primaryColorHover"
-          onClick={sendResetEmail}
-        >
-          Send Password Reset Link
-        </Button>
+        {loading ? (
+          <Button className="mt-14 w-full rounded-lg bg-primaryColorHover p-3 text-white">
+            Processing...
+          </Button>
+        ) : (
+          <Button
+            className="mt-14 w-full rounded-lg bg-primaryColor p-3 text-white hover:bg-primaryColorHover"
+            onClick={sendResetEmail}
+          >
+            Send Password Reset Link
+          </Button>
+        )}
       </div>
     </div>
   );

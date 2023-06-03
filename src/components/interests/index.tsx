@@ -51,7 +51,7 @@ export default function Interests({
         setLoading(false);
         revealModal(
           `Welcome, ${firstname}! Your account has been successfully created. Please login`,
-          "/auth/login",
+          "/auth/sign-in",
           "success"
         );
         setValues(initialValues);

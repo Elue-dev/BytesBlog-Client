@@ -1,4 +1,5 @@
 import Button from "@/components/button";
+import { getUserInitials } from "@/helpers/user.initials";
 import { RootState } from "@/redux/store";
 import { EditProfProps } from "@/types/general";
 import { User } from "@/types/user";
@@ -15,12 +16,14 @@ export default function EditProfile({
   const currentUser: User | null = useSelector<RootState, User | null>(
     (state) => state.auth.user
   );
-  let userFullNames;
+  let initials;
   if (currentUser) {
-    userFullNames = currentUser?.firstName + currentUser?.lastName;
+    initials = getUserInitials(currentUser.firstName, currentUser.lastName);
   }
 
-  const [usernames, setUsernames] = useState(userFullNames);
+  const [usernames, setUsernames] = useState(
+    `${currentUser?.firstName} ${currentUser?.lastName}`
+  );
   const alertContext = useAlert();
 
   if (!alertContext) return null;
@@ -46,11 +49,22 @@ export default function EditProfile({
       )}
       <p className="font-semibold text-grayNeutral">Photo</p>
       <div className="flex items-center justify-start gap-2">
-        <img
-          src="https://media.licdn.com/dms/image/C4D03AQEJs8pt7dfmwA/profile-displayphoto-shrink_200_200/0/1656258962473?e=1688601600&v=beta&t=UudLiADbwrewUUl5diZf7p8TjFsmzXT0QCu01fmNJw8"
-          alt=""
-          className="h-14 w-14 rounded-full object-cover"
-        />
+        {currentUser?.avatar === "" ? (
+          <>
+            <div className={styles["user__initials"]}>{initials}</div>
+          </>
+        ) : (
+          <>
+            <a href={currentUser?.avatar}>
+              <img
+                src={currentUser?.avatar}
+                alt={currentUser?.firstName}
+                className="h-14 w-14 rounded-full object-cover"
+              />
+            </a>
+          </>
+        )}
+
         <div className="leading-6">
           <p
             className="cursor-pointer font-semibold text-primaryColor underline"

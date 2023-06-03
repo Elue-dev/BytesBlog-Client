@@ -19,6 +19,7 @@ export default defineConfig({
       "@/utils": path.resolve(__dirname, "src/utils"),
       "@/redux": path.resolve(__dirname, "src/redux"),
       "@/helpers": path.resolve(__dirname, "src/helpers"),
+      "@/lib": path.resolve(__dirname, "src/lib"),
     },
   },
 });

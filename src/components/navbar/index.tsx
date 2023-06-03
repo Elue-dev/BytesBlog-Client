@@ -20,7 +20,7 @@ import { getUserInitials } from "@/helpers/user.initials";
 export default function Navbar() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [scrollPage, setScrollpage] = useState(false);
-  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const isLoggedIn: boolean = useSelector(selectIsLoggedIn);
   const currentUser: User | null = useSelector<RootState, User | null>(
     (state) => state.auth.user
   );
@@ -90,7 +90,7 @@ export default function Navbar() {
                       <img
                         src={currentUser?.avatar}
                         alt={currentUser?.firstName}
-                        className="pointer-events-none h-11 sm:h-14"
+                        className="pointer-events-none h-11 w-11 rounded-full object-cover sm:h-14 sm:w-14"
                       />
                       {showDropdown ? <RiArrowUpSLine /> : <RiArrowDownSLine />}
                     </>
