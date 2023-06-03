@@ -7,10 +7,10 @@ import eyeClosed from "@/assets/eyeClosed.svg";
 import Input from "@/components/input";
 import { ChangeEvent, useState } from "react";
 import { validateEmail } from "@/utils/utils";
-import { useAlert } from "../../../context/useAlert";
+import { useAlert } from "@/context/useAlert";
 import { SIValues } from "@/types/auth";
 import { SERVER_URL } from "@/utils/variables";
-import { httpRequest } from "../../../lib/index";
+import { httpRequest } from "@/lib/index";
 import { SET_ACTIVE_USER } from "@/redux/slices/auth.slice";
 import { useDispatch } from "react-redux";
 

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { CommentsSBProps } from "@/types/posts";
 import Button from "@/components/button";
 import { dummyComments } from "./dummyComments";
-import { useAlert } from "../../../context/useAlert";
+import { useAlert } from "@/context/useAlert";
 
 import styles from "./post.details.module.scss";
 import { AiOutlineCloseCircle } from "react-icons/ai";

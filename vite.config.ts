@@ -12,7 +12,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "@/components": path.resolve(__dirname, "src/components"),
-      // "@/context": path.resolve(__dirname, "src/context"),
+      "@/context": path.resolve(__dirname, "src/context"),
       "@/pages": path.resolve(__dirname, "src/pages"),
       "@/navigation": path.resolve(__dirname, "src/navigation"),
       "@/assets": path.resolve(__dirname, "src/assets"),

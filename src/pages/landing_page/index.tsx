@@ -1,8 +1,8 @@
-import Hero from "../../components/hero";
+import Hero from "@/components/hero";
 import { offers } from "./data";
 import homeImage from "@/assets/homeImage.svg";
 import styles from "./landing.page.module.scss";
-import Button from "../../components/button";
+import Button from "@/components/button";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectIsLoggedIn } from "@/redux/slices/auth.slice";

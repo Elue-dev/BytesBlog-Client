@@ -1,4 +1,4 @@
-import { useAlert } from "../../context/useAlert";
+import { useAlert } from "@/context/useAlert";
 import { Message } from "primereact/message";
 import styles from "./alert.module.scss";
 

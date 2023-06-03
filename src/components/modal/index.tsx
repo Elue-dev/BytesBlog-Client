@@ -1,5 +1,5 @@
 import Button from "../button";
-import { useModal } from "../../context/useModal";
+import { useModal } from "@/context/useModal";
 import { useNavigate } from "react-router-dom";
 import { BsCheckCircle } from "react-icons/bs";
 import { RiErrorWarningLine } from "react-icons/ri";

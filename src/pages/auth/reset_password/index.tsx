@@ -6,8 +6,8 @@ import eyeClosed from "@/assets/eyeClosed.svg";
 import Input from "@/components/input";
 import { ChangeEvent, useEffect, useState } from "react";
 import { BsFillCheckSquareFill } from "react-icons/bs";
-import { useModal } from "../../../context/useModal";
-import { useAlert } from "../../../context/useAlert";
+import { useModal } from "@/context/useModal";
+import { useAlert } from "@/context/useAlert";
 import { RPValues } from "@/types/auth";
 
 const initialValues: RPValues = {

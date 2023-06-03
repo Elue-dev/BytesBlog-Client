@@ -4,8 +4,8 @@ import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import { postCategories } from "./data";
 import Button from "@/components/button";
-import { useModal } from "../../../context/useModal";
-import { useAlert } from "../../../context/useAlert";
+import { useModal } from "@/context/useModal";
+import { useAlert } from "@/context/useAlert";
 import { useEffect } from "react";
 import { StepTwoProps } from "@/types/posts";
 

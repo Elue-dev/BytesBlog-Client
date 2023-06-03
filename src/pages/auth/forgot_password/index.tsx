@@ -4,8 +4,8 @@ import Input from "@/components/input";
 import { useState } from "react";
 import { validateEmail } from "@/utils/utils";
 import backIcon from "@/assets/backIcon.svg";
-import { useModal } from "../../../context/useModal";
-import { useAlert } from "../../../context/useAlert";
+import { useModal } from "@/context/useModal";
+import { useAlert } from "@/context/useAlert";
 import { SERVER_URL } from "@/utils/variables";
 import { httpRequest } from "@/lib";
 
@@ -27,6 +27,7 @@ export default function ForgotPassword() {
     const errors = [];
     if (!email.trim()) errors.push("email");
     setValidationErrors(errors);
+    const credentials = { email };
 
     const emailFormatValid = validateEmail(email);
     if (errors.length === 0 && emailFormatValid) {
@@ -34,18 +35,12 @@ export default function ForgotPassword() {
         setLoading(true);
         const response = await httpRequest.post(
           `${SERVER_URL}/auth/forgot-password`,
-          {
-            email,
-          }
+          credentials
         );
         console.log(response);
         if (response) {
           setLoading(false);
-          revealModal(
-            `A link has been sent to ${email}. Kindly open the link to reset your password.`,
-            "/auth/reset-password",
-            "warning"
-          );
+          revealModal(response.data.message, "/auth/reset-password", "warning");
         }
       } catch (error: any) {
         revealAlert(error.response.data.message, "error");

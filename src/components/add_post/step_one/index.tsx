@@ -5,7 +5,7 @@ import { ChangeEvent, useRef } from "react";
 import { Editor } from "primereact/editor";
 import styles from "./step.one.module.scss";
 import Button from "@/components/button";
-import { useAlert } from "../../../context/useAlert";
+import { useAlert } from "@/context/useAlert";
 import { StepOneprops } from "@/types/posts";
 
 export default function StepOne({

@@ -8,7 +8,7 @@ import eyeClosed from "@/assets/eyeClosed.svg";
 import Input from "../input";
 import { useEffect, useState } from "react";
 import { validateEmail } from "@/utils/utils";
-import { useAlert } from "../../context/useAlert";
+import { useAlert } from "@/context/useAlert";
 import { CAProps } from "@/types/auth";
 
 export default function SignUpForm({

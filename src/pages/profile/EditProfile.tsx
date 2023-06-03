@@ -6,7 +6,7 @@ import { User } from "@/types/user";
 import { useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useSelector } from "react-redux";
-import { useAlert } from "../../context/useAlert";
+import { useAlert } from "@/context/useAlert";
 import styles from "./profile.module.scss";
 
 export default function EditProfile({

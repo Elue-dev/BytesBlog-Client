@@ -1,8 +1,8 @@
 import { userInterests } from "@/components/interests/data";
 import { IoChevronBackCircleOutline } from "react-icons/io5";
 import Button from "@/components/button";
-import { useModal } from "../../context/useModal";
-import { useAlert } from "../../context/useAlert";
+import { useModal } from "@/context/useModal";
+import { useAlert } from "@/context/useAlert";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
