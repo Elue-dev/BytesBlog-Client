@@ -43,7 +43,10 @@ export default function ForgotPassword() {
           revealModal(response.data.message, "/auth/reset-password", "warning");
         }
       } catch (error: any) {
-        revealAlert(error.response.data.message, "error");
+        revealAlert(
+          error.response.data.message || "Something went wrong",
+          "error"
+        );
         setLoading(false);
         console.log(error);
       }

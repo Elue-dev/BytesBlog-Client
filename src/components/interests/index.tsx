@@ -57,8 +57,11 @@ export default function Interests({
         setValues(initialValues);
         setInterests([]);
       }
-    } catch (error) {
-      revealAlert("Something went wrong, Please try again", "error");
+    } catch (error: any) {
+      revealAlert(
+        error.response.data.message || "Something went wrong, Please try again",
+        "error"
+      );
       setLoading(false);
       console.log(error);
     }

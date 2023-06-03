@@ -63,7 +63,10 @@ export default function SignIn() {
           navigate("/");
         }
       } catch (error: any) {
-        revealAlert(error.response.data.message, "error");
+        revealAlert(
+          error.response.data.message || "Something went wrong",
+          "error"
+        );
         setLoading(false);
         console.log(error);
       }
