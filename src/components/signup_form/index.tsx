@@ -9,6 +9,7 @@ import Input from "../input";
 import { useEffect, useState } from "react";
 import { validateEmail } from "@/utils/utils";
 import { useAlert } from "@/context/useAlert";
+import { useGoogleAuth } from "@/context/useGoogleAuth";
 import { CAProps } from "@/types/auth";
 import { auth, provider } from "@/lib/firebase";
 import { signInWithPopup } from "firebase/auth";
@@ -68,9 +69,12 @@ export default function SignUpForm({
   ]);
 
   const alertContext = useAlert();
+  const googleAuthContext = useGoogleAuth();
 
   if (!alertContext) return null;
+  if (!googleAuthContext) return null;
   const { revealAlert, closeAlert } = alertContext;
+  const { updateCredentials } = googleAuthContext;
 
   const proceed = () => {
     closeAlert();
@@ -112,28 +116,17 @@ export default function SignUpForm({
 
   const signInWithGoogle = async () => {
     try {
-      const res = await signInWithPopup(auth, provider);
-      console.log(res);
+      const userCredentials: any = await signInWithPopup(auth, provider);
+      const lastName = userCredentials.user.displayName.split(" ")[0];
+      const firstName = userCredentials.user.displayName.split(" ")[1];
+      const email = userCredentials.user.email;
+      const avatar = userCredentials.user.photoURL;
+
+      updateCredentials(firstName, lastName, email, avatar);
+      nextStep && nextStep();
     } catch (error) {
       console.log(error);
     }
-
-    // .then((result) => {
-    //   axios
-    //     .post("/auth/google", {
-    //       name: result.user.displayName,
-    //       email: result.user.email,
-    //       img: result.user.photoURL,
-    //     })
-    //     .then((res) => {
-    //       console.log(res);
-    //       dispatch(loginSuccess(res.data));
-    //       navigate("/");
-    //     });
-    // })
-    // .catch((error) => {
-    //   dispatch(loginFailure());
-    // });
   };
 
   const handleFocus = (field: string) => {
@@ -155,12 +148,14 @@ export default function SignUpForm({
           <h1 className="mb-3 flex items-center justify-center text-3xl font-medium">
             Create Account
           </h1>
+
           <Button className="mb-4 mt-6 flex w-full items-center justify-center gap-3 rounded-lg border border-lightGray bg-white p-3 hover:bg-grayLight">
             <FcGoogle className="text-2xl" />
             <span onClick={signInWithGoogle} className="font-normal">
               Continue With Google
             </span>
           </Button>
+
           <span className="mb-4 block text-center">Or</span>
           <section>
             <div className="flex gap-4">

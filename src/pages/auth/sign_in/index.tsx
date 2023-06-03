@@ -13,6 +13,8 @@ import { SERVER_URL } from "@/utils/variables";
 import { httpRequest } from "@/lib/index";
 import { SET_ACTIVE_USER } from "@/redux/slices/auth.slice";
 import { useDispatch } from "react-redux";
+import { auth, provider } from "@/lib/firebase";
+import { signInWithPopup } from "firebase/auth";
 
 const initialValues: SIValues = {
   email: "",
@@ -55,7 +57,6 @@ export default function SignIn() {
           `${SERVER_URL}/auth/login`,
           credentials
         );
-        console.log(response);
         if (response) {
           setLoading(false);
           dispatch(SET_ACTIVE_USER(response.data.user));
@@ -73,6 +74,31 @@ export default function SignIn() {
     } else {
       if (errors.length === 0 && !emailFormatValid)
         return revealAlert("Please enter a valid email format", "error");
+    }
+  };
+
+  const googleLogin = async () => {
+    const userCredentials: any = await signInWithPopup(auth, provider);
+    const email = userCredentials.user.email;
+
+    const credentials = { email };
+
+    try {
+      const response = await httpRequest.post(
+        `${SERVER_URL}/auth/login/google`,
+        credentials
+      );
+      if (response) {
+        dispatch(SET_ACTIVE_USER(response.data.user));
+        setCredentials(initialValues);
+        navigate("/");
+      }
+    } catch (error: any) {
+      revealAlert(
+        error.response.data.message || "Something went wrong",
+        "error"
+      );
+      console.log(error);
     }
   };
 
@@ -97,7 +123,9 @@ export default function SignIn() {
           </h1>
           <Button className="mb-4 mt-6 flex w-full items-center justify-center gap-3 rounded-lg border border-lightGray bg-white p-3 hover:bg-grayLight">
             <FcGoogle className="text-2xl" />
-            <span className="font-normal">Continue With Google</span>
+            <span onClick={googleLogin} className="font-normal">
+              Continue With Google
+            </span>
           </Button>
           <span className="mb-4 block text-center">Or</span>
           <section>

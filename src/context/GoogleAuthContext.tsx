@@ -11,8 +11,9 @@ export const GoogleAuthContext = createContext<GoogleAuthContextProps | null>(
 export const GoogleAuthProvider = ({ children }: GoogleAuthProviderProps) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
+  const [mail, setEmail] = useState("");
   const [avatar, setAvatar] = useState("");
+  const [isGoogle, setIsGoogle] = useState(false);
 
   const updateCredentials = (
     firstName: string,
@@ -24,18 +25,30 @@ export const GoogleAuthProvider = ({ children }: GoogleAuthProviderProps) => {
     setLastName(lastName);
     setEmail(email);
     setAvatar(avatar);
+    setIsGoogle(true);
+  };
+
+  const clearCredentials = () => {
+    setFirstName("");
+    setLastName("");
+    setEmail("");
+    setAvatar("");
+    setIsGoogle(false);
   };
 
   const values = {
     firstName,
     lastName,
-    email,
+    mail,
     avatar,
+    isGoogle,
     setFirstName,
     setLastName,
     setEmail,
     setAvatar,
+    setIsGoogle,
     updateCredentials,
+    clearCredentials,
   };
 
   return (

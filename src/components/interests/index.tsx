@@ -4,6 +4,7 @@ import { IoChevronBackCircleOutline } from "react-icons/io5";
 import Button from "../button";
 import { useModal } from "@/context/useModal";
 import { useAlert } from "@/context/useAlert";
+import { useGoogleAuth } from "@/context/useGoogleAuth";
 import { InterestsProps } from "@/types/auth";
 import { httpRequest } from "../../lib/index";
 import { SERVER_URL } from "@/utils/variables";
@@ -19,11 +20,17 @@ export default function Interests({
   const [loading, setLoading] = useState(false);
   const modalContext = useModal();
   const alertContext = useAlert();
+  const googleAuthContext = useGoogleAuth();
   if (!modalContext) return null;
   if (!alertContext) return null;
+  if (!googleAuthContext) return null;
   const { revealModal } = modalContext;
   const { revealAlert, closeAlert } = alertContext;
+  const { firstName, lastName, mail, avatar, isGoogle, clearCredentials } =
+    googleAuthContext;
   const { firstname, lastname, email, password } = values;
+
+  console.log({ firstName, lastName, mail, avatar, isGoogle });
 
   const setUserInterest = (int: string) => {
     if (interests.includes(int)) {
@@ -38,7 +45,16 @@ export default function Interests({
     if (interests.length < 5)
       return revealAlert("Interests must be at least 5", "error");
 
-    const credentials = { firstname, lastname, email, password, interests };
+    const credentials = isGoogle
+      ? {
+          firstname: firstName,
+          lastname: lastName,
+          email: mail,
+          avatar: avatar,
+          password: Date.now().toString(),
+          interests,
+        }
+      : { firstname, lastname, email, password, interests };
 
     try {
       setLoading(true);
@@ -50,10 +66,13 @@ export default function Interests({
       if (response) {
         setLoading(false);
         revealModal(
-          `Welcome, ${firstname}! Your account has been successfully created. Please login`,
+          `Welcome, ${
+            firstname || firstName
+          }! Your account has been successfully created. Please login`,
           "/auth/sign-in",
           "success"
         );
+        clearCredentials();
         setValues(initialValues);
         setInterests([]);
       }
