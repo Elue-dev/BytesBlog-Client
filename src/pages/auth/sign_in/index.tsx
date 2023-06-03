@@ -65,7 +65,8 @@ export default function SignIn() {
         }
       } catch (error: any) {
         revealAlert(
-          error.response.data.message || "Something went wrong",
+          error.response.data.message ||
+            "Something went wrong, Please try again",
           "error"
         );
         setLoading(false);

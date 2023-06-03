@@ -1,6 +1,6 @@
 import Button from "@/components/button";
 import bytesLogo from "@/assets/bytesLogo.svg";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import eyeOpen from "@/assets/eyeOpen.svg";
 import eyeClosed from "@/assets/eyeClosed.svg";
 import Input from "@/components/input";
@@ -9,6 +9,10 @@ import { BsFillCheckSquareFill } from "react-icons/bs";
 import { useModal } from "@/context/useModal";
 import { useAlert } from "@/context/useAlert";
 import { RPValues } from "@/types/auth";
+import { SERVER_URL } from "@/utils/variables";
+import { httpRequest } from "@/lib";
+import { REMOVE_ACTIVE_USER } from "@/redux/slices/auth.slice";
+import { useDispatch } from "react-redux";
 
 const initialValues: RPValues = {
   password: "",
@@ -17,6 +21,7 @@ const initialValues: RPValues = {
 
 export default function ResetPassword() {
   const [credentials, setCredentials] = useState(initialValues);
+  const [loading, setLoading] = useState(false);
   const [visible, setVisible] = useState(false);
   const [cpVisible, setCPVisible] = useState(false);
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
@@ -27,6 +32,8 @@ export default function ResetPassword() {
   const [passwordComplete, setPasswordComplete] = useState(false);
   const modalContext = useModal();
   const alertContext = useAlert();
+  const dispatch = useDispatch();
+  const { token } = useParams();
 
   const { password, confirmPassword } = credentials;
 
@@ -77,16 +84,12 @@ export default function ResetPassword() {
     setCredentials({ ...credentials, [name]: value });
   };
 
-  const proceed = () => {
+  const resetUserPassword = async () => {
     closeAlert();
     setValidationErrors([]);
     const errors = [];
-    if (!password.trim()) {
-      errors.push("password");
-    }
-    if (!confirmPassword.trim()) {
-      errors.push("confirmPassword");
-    }
+    if (!password.trim()) errors.push("password");
+    if (!confirmPassword.trim()) errors.push("confirmPassword");
     setValidationErrors(errors);
 
     if (errors.length === 0) {
@@ -99,7 +102,35 @@ export default function ResetPassword() {
           "error"
         );
       }
-      revealModal("Password successfully reset", "/auth/sign-in", "success");
+
+      const credentials = {
+        newPassword: password,
+        confirmNewPassword: confirmPassword,
+      };
+
+      try {
+        setLoading(true);
+        const response = await httpRequest.post(
+          `${SERVER_URL}/auth/reset-password/${token}`,
+          credentials
+        );
+        if (response) {
+          setLoading(false);
+          dispatch(REMOVE_ACTIVE_USER());
+          revealModal(
+            "Password successfully reset. Please sign in again",
+            "/auth/sign-in",
+            "success"
+          );
+        }
+      } catch (error: any) {
+        revealAlert(
+          error.response.data.message ||
+            "Something went wrong, Please try again",
+          "error"
+        );
+        setLoading(true);
+      }
     }
   };
 
@@ -212,7 +243,7 @@ export default function ResetPassword() {
             <Button
               type="button"
               className="mt-5 w-full rounded-lg bg-primaryColor p-3 text-lg font-semibold text-white hover:bg-primaryColorHover"
-              onClick={proceed}
+              onClick={resetUserPassword}
             >
               Reset Password
             </Button>

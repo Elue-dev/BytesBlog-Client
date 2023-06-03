@@ -40,11 +40,13 @@ export default function ForgotPassword() {
         console.log(response);
         if (response) {
           setLoading(false);
-          revealModal(response.data.message, "/auth/reset-password", "warning");
+          setEmail("");
+          revealModal(response.data.message, "/auth/sign-in", "warning");
         }
       } catch (error: any) {
         revealAlert(
-          error.response.data.message || "Something went wrong",
+          error.response.data.message ||
+            "Something went wrong, Please try again",
           "error"
         );
         setLoading(false);

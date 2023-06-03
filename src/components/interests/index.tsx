@@ -68,7 +68,7 @@ export default function Interests({
         revealModal(
           `Welcome, ${
             firstname || firstName
-          }! Your account has been successfully created. Please login`,
+          }! Your account has been successfully created. Please sign in`,
           "/auth/sign-in",
           "success"
         );
