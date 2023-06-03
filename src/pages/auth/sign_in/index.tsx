@@ -12,6 +12,7 @@ import { SIValues } from "@/types/auth";
 import { SERVER_URL } from "@/utils/variables";
 import { httpRequest } from "../../../lib/index";
 import { SET_ACTIVE_USER } from "@/redux/slices/auth.slice";
+import { useDispatch } from "react-redux";
 
 const initialValues: SIValues = {
   email: "",
@@ -25,6 +26,7 @@ export default function SignIn() {
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
   const navigate = useNavigate();
   const alertContext = useAlert();
+  const dispatch = useDispatch();
   if (!alertContext) return null;
   const { revealAlert, closeAlert } = alertContext;
 
@@ -56,7 +58,7 @@ export default function SignIn() {
         console.log(response);
         if (response) {
           setLoading(false);
-          SET_ACTIVE_USER(response.data.user);
+          dispatch(SET_ACTIVE_USER(response.data.user));
           setCredentials(initialValues);
           navigate("/");
         }
