@@ -5,10 +5,14 @@ import { EditProfProps } from "@/types/general";
 import { User } from "@/types/user";
 import { useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "@/context/useAlert";
 import styles from "./profile.module.scss";
 import { useTheme } from "@/context/useTheme";
+import { httpRequest } from "@/lib";
+import { SERVER_URL } from "@/utils/variables";
+import { REMOVE_ACTIVE_USER, SET_ACTIVE_USER } from "@/redux/slices/auth.slice";
+import { ClipLoader } from "react-spinners";
 
 export default function EditProfile({
   setShowSidebar,
@@ -18,6 +22,8 @@ export default function EditProfile({
     (state) => state.auth.user
   );
   let initials;
+  console.log(currentUser);
+
   if (currentUser) {
     initials = getUserInitials(currentUser.firstName, currentUser.lastName);
   }
@@ -25,18 +31,44 @@ export default function EditProfile({
   const [usernames, setUsernames] = useState(
     `${currentUser?.firstName} ${currentUser?.lastName}`
   );
+  const [bio, setBio] = useState(currentUser?.bio);
+  const [loading, setLoading] = useState(false);
   const alertContext = useAlert();
   const themeContext = useTheme();
+  const dispatch = useDispatch();
 
   if (!alertContext) return null;
   if (!themeContext) return null;
   const { revealAlert, closeAlert } = alertContext;
   const { mode } = themeContext;
 
-  const updateUserProfile = () => {
+  const updateUserProfile = async () => {
     closeAlert();
-    setShowSidebar(false);
-    revealAlert("Profile successsfully updated", "success");
+
+    const credentials = {
+      firstName: currentUser?.firstName,
+      lastName: currentUser?.lastName,
+      avatar: currentUser?.avatar,
+      bio: bio || currentUser?.bio,
+    };
+
+    try {
+      setLoading(true);
+      const response = await httpRequest.put(
+        `${SERVER_URL}/users/${currentUser?.id}`,
+        credentials
+      );
+      if (response) {
+        dispatch(REMOVE_ACTIVE_USER());
+        dispatch(SET_ACTIVE_USER(response.data.updatedUser));
+        setLoading(false);
+        setShowSidebar(false);
+        revealAlert("Profile updated", "success");
+      }
+    } catch (error: any) {
+      revealAlert(error.response.data.message, "error");
+      setLoading(false);
+    }
   };
 
   return (
@@ -98,17 +130,17 @@ export default function EditProfile({
           mode === "dark" ? "border-stone-100 bg-black" : "bg-white sm:p-5"
         } p-0 sm:shadow-lg`}
       >
-        <div className="p-3">
+        <div className="p-1">
           <h2 className="text-xl font-semibold">Bio</h2>
           <p className="pt-2 leading-6 text-grayNeutral">
             This will be shown when others view your profile
           </p>
           <textarea
+            value={bio}
+            onChange={(e) => setBio(e.target.value)}
             className={`mt-8 w-full rounded-lg border border-gray-400 bg-transparent p-1 ${
               mode === "dark" ? "text-white" : "text-stone-700"
-            }  outline-none`}
-            cols={30}
-            rows={3}
+            }  leading-6 outline-none`}
           ></textarea>
           <p className="text-right leading-3 text-grayNeutral">0/200 words</p>
         </div>
@@ -120,12 +152,21 @@ export default function EditProfile({
           >
             Cancel
           </Button>
-          <Button
-            className="w-1/2 bg-primaryColor text-white hover:bg-primaryColorHover"
-            onClick={updateUserProfile}
-          >
-            Save Changes
-          </Button>
+          {loading ? (
+            <Button
+              type="button"
+              className="mt-5 w-full rounded-lg bg-primaryColorHover p-3 text-lg font-semibold text-white"
+            >
+              <ClipLoader loading={loading} size={25} color={"#fff"} />
+            </Button>
+          ) : (
+            <Button
+              className="w-1/2 bg-primaryColor text-white hover:bg-primaryColorHover"
+              onClick={updateUserProfile}
+            >
+              Save Changes
+            </Button>
+          )}
         </div>
       </div>
     </section>

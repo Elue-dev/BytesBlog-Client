@@ -5,17 +5,23 @@ import { useModal } from "@/context/useModal";
 import { useAlert } from "@/context/useAlert";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { User } from "@/types/user";
 import { useTheme } from "@/context/useTheme";
+import { httpRequest } from "@/lib";
+import { SERVER_URL } from "@/utils/variables";
+import { REMOVE_ACTIVE_USER, SET_ACTIVE_USER } from "@/redux/slices/auth.slice";
+import { ClipLoader } from "react-spinners";
 
 export default function ManageInterests() {
   const [interests, setInterests] = useState<string[]>([]);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const modalContext = useModal();
   const alertContext = useAlert();
   const themeContext = useTheme();
+  const dispatch = useDispatch();
   const currentUser: User | null = useSelector<RootState, User | null>(
     (state) => state.auth.user
   );
@@ -42,16 +48,34 @@ export default function ManageInterests() {
     }
   };
 
-  const updateInterests = () => {
+  const updateInterests = async () => {
     closeAlert();
     if (interests.length < 5)
       return revealAlert("Interests must be at least 5", "error");
 
-    revealModal(
-      `Your interests have been updated successfully`,
-      "/blog",
-      "success"
-    );
+    const credentials = { interests };
+
+    try {
+      setLoading(true);
+      const response = await httpRequest.put(
+        `${SERVER_URL}/users/${currentUser?.id}`,
+        credentials
+      );
+      if (response) {
+        dispatch(REMOVE_ACTIVE_USER());
+        dispatch(SET_ACTIVE_USER(response.data.updatedUser));
+        setLoading(false);
+        revealModal(
+          `Your interests have been updated successfully`,
+          "/blog",
+          "success"
+        );
+      }
+    } catch (error: any) {
+      revealAlert(error.response.data.message, "error");
+      setLoading(false);
+    }
+
     setInterests([]);
   };
 
@@ -97,12 +121,21 @@ export default function ManageInterests() {
           ))}
         </div>
 
-        <Button
-          className="mt-14 w-full rounded-lg bg-primaryColor p-3 text-white hover:bg-primaryColorHover"
-          onClick={updateInterests}
-        >
-          Save Changes
-        </Button>
+        {loading ? (
+          <Button
+            type="button"
+            className="mt-5 w-full rounded-lg bg-primaryColorHover p-3 text-lg font-semibold text-white"
+          >
+            <ClipLoader loading={loading} size={25} color={"#fff"} />
+          </Button>
+        ) : (
+          <Button
+            className="mt-14 w-full rounded-lg bg-primaryColor p-3 text-white hover:bg-primaryColorHover"
+            onClick={updateInterests}
+          >
+            Save Changes
+          </Button>
+        )}
       </div>
     </div>
   );

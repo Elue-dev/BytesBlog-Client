@@ -70,11 +70,11 @@ export default function ForgotPassword() {
   };
 
   return (
-    <section style={{ background: mode === "dark" ? "#000" : "" }}>
+    <section className={`${mode === "dark" && "bg-zinc-900"}`}>
       <div className="flex h-screen items-center justify-center">
         <div
           className={`mx-4 my-8 w-full max-w-md rounded-lg ${
-            mode === "dark" ? "bg-black" : "bg-white"
+            mode === "dark" ? "bg-zinc-900" : "bg-white"
           }  p-0 sm:p-5 sm:shadow-lg`}
         >
           <div
@@ -112,7 +112,7 @@ export default function ForgotPassword() {
               />
               <span
                 className={`${
-                  mode === "light" ? "bg-white" : "bg-black"
+                  mode === "light" ? "bg-white" : "bg-zinc-900"
                 }  form-text`}
               >
                 Email Address
