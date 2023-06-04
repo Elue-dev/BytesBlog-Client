@@ -16,6 +16,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { User } from "@/types/user";
 import { RootState } from "@/redux/store";
 import { getUserInitials } from "@/helpers/user.initials";
+import ThemeToggle from "../theme_toggle";
+import { useTheme } from "@/context/useTheme";
 
 export default function Navbar() {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -24,7 +26,6 @@ export default function Navbar() {
   const currentUser: User | null = useSelector<RootState, User | null>(
     (state) => state.auth.user
   );
-
   const dispatch = useDispatch();
 
   let initials;
@@ -49,12 +50,19 @@ export default function Navbar() {
     setShowDropdown(false);
   };
 
+  const themeContext = useTheme();
+  if (!themeContext) return null;
+  const { mode } = themeContext;
+
   if (pathname.includes("auth")) return null;
 
   return (
-    <section className={scrollPage ? `${styles.main}` : ""}>
+    <section
+      className={scrollPage ? `${styles.main}` : ""}
+      style={{ background: mode === "light" ? "#fff" : "#000" }}
+    >
       <div className={styles.navbar}>
-        <div className="mt-4 flex items-center justify-between">
+        <div className="flex items-center justify-between">
           <Link to="/">
             <img
               src={byteslogo}
@@ -81,7 +89,15 @@ export default function Navbar() {
                 >
                   {currentUser?.avatar === "" ? (
                     <>
-                      <div className={styles["user__initials"]}>{initials}</div>
+                      <div
+                        className={styles["user__initials"]}
+                        style={{
+                          background: mode === "dark" ? "#f0f0f0" : "#000",
+                          color: mode === "dark" ? "#000" : "#f0f0f0",
+                        }}
+                      >
+                        {initials}
+                      </div>
                       {showDropdown ? <RiArrowUpSLine /> : <RiArrowDownSLine />}
                     </>
                   ) : (
@@ -136,6 +152,10 @@ export default function Navbar() {
                       >
                         Sign Out
                       </div>
+
+                      <div>
+                        <ThemeToggle />
+                      </div>
                     </div>
                   </div>
                 ) : null}
@@ -143,7 +163,7 @@ export default function Navbar() {
             ) : (
               <>
                 <Link to="/auth/sign-in">
-                  <Button className="mr-4 bg-white font-semibold text-primaryColor">
+                  <Button className="mr-4 bg-transparent font-semibold text-primaryColor">
                     Sign In
                   </Button>
                 </Link>
@@ -152,6 +172,7 @@ export default function Navbar() {
                     Sign Up
                   </Button>
                 </Link>
+                <span className="flex items-end"></span>
               </>
             )}
           </div>

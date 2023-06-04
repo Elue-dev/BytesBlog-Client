@@ -2,6 +2,7 @@ import { selectIsLoggedIn } from "@/redux/slices/auth.slice";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Button from "../button";
+import ThemeToggle from "../theme_toggle";
 import styles from "./hero.module.scss";
 
 export default function Hero() {
@@ -9,6 +10,11 @@ export default function Hero() {
 
   return (
     <section className={`h-[75vh] ${styles.hero} mt-1`}>
+      {!isLoggedIn && (
+        <div className="container">
+          <ThemeToggle />
+        </div>
+      )}
       <div className={`${styles.content} pt-16`}>
         <h2 className="leading-12 text-5xl">
           Unleash your thoughts and pen them down

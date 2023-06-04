@@ -85,14 +85,16 @@ export default function Interests({
     }
   };
 
+  const handleNavigate = () => {
+    previousStep && previousStep();
+    isGoogle && clearCredentials();
+  };
+
   return (
     <div className="flex h-screen items-center justify-center">
       <div className="mx-4 my-8 w-full max-w-md rounded-lg bg-white p-0 sm:p-5 sm:shadow-lg">
         <div
-          onClick={() => {
-            previousStep;
-            clearCredentials();
-          }}
+          onClick={handleNavigate}
           className="flex cursor-pointer items-center justify-start gap-1 pb-2"
         >
           <IoChevronBackCircleOutline className="text-2xl" />

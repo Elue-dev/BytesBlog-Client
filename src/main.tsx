@@ -13,6 +13,7 @@ import store from "./redux/store";
 const persistor = persistStore(store);
 const queryClient = new QueryClient();
 import "./index.css";
+import { ThemeProvider } from "./context/ThemeContext";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
@@ -22,7 +23,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
           <ModalProvider>
             <AlertProvider>
               <GoogleAuthProvider>
-                <App />
+                <ThemeProvider>
+                  <App />
+                </ThemeProvider>
               </GoogleAuthProvider>
             </AlertProvider>
           </ModalProvider>

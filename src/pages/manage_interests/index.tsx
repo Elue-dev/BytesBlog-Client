@@ -8,12 +8,14 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { User } from "@/types/user";
+import { useTheme } from "@/context/useTheme";
 
 export default function ManageInterests() {
   const [interests, setInterests] = useState<string[]>([]);
   const navigate = useNavigate();
   const modalContext = useModal();
   const alertContext = useAlert();
+  const themeContext = useTheme();
   const currentUser: User | null = useSelector<RootState, User | null>(
     (state) => state.auth.user
   );
@@ -27,8 +29,10 @@ export default function ManageInterests() {
 
   if (!modalContext) return null;
   if (!alertContext) return null;
+  if (!themeContext) return null;
   const { revealModal } = modalContext;
   const { revealAlert, closeAlert } = alertContext;
+  const { mode } = themeContext;
 
   const setUserInterest = (interest: string) => {
     if (interests.includes(interest)) {
@@ -53,7 +57,11 @@ export default function ManageInterests() {
 
   return (
     <div className="flex h-screen items-center justify-center">
-      <div className="mx-4 my-8 w-full max-w-md rounded-lg bg-white p-0 sm:p-5 sm:shadow-lg">
+      <div
+        className={`mx-4 my-8 w-full max-w-md rounded-lg ${
+          mode === "dark" ? "bg-black" : "bg-white"
+        }  p-0 sm:p-5 sm:shadow-lg`}
+      >
         <div
           onClick={() => navigate(-1)}
           className="flex cursor-pointer items-center justify-start gap-1 pb-2"
@@ -61,7 +69,11 @@ export default function ManageInterests() {
           <IoChevronBackCircleOutline className="text-2xl" />
           <span>Back</span>
         </div>
-        <h1 className="pt-3 text-center text-3xl font-semibold text-blackNeutral">
+        <h1
+          className={`pt-3 text-center text-3xl font-semibold ${
+            mode === "light" ? "text-blackNeutral" : "text-lightGraySec"
+          } `}
+        >
           Manage Your Interests
         </h1>
         <p className="text-md mb-4 mt-1 text-center text-gray-700">

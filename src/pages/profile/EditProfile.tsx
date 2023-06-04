@@ -8,6 +8,7 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { useAlert } from "@/context/useAlert";
 import styles from "./profile.module.scss";
+import { useTheme } from "@/context/useTheme";
 
 export default function EditProfile({
   setShowSidebar,
@@ -25,9 +26,12 @@ export default function EditProfile({
     `${currentUser?.firstName} ${currentUser?.lastName}`
   );
   const alertContext = useAlert();
+  const themeContext = useTheme();
 
   if (!alertContext) return null;
+  if (!themeContext) return null;
   const { revealAlert, closeAlert } = alertContext;
+  const { mode } = themeContext;
 
   const updateUserProfile = () => {
     closeAlert();
@@ -37,7 +41,7 @@ export default function EditProfile({
 
   return (
     <section className={styles["prof__edit"]}>
-      <h1 className="mb-6 mt-8 bg-primaryColorLight p-3 text-center text-xl font-semibold sm:w-full">
+      <h1 className="mb-6 mt-8 bg-primaryColorLight p-3 text-center text-xl font-semibold text-black sm:w-full">
         Profile Details
       </h1>
       {showSidebar && (
@@ -82,21 +86,25 @@ export default function EditProfile({
           type="text"
           value={usernames}
           onChange={(e) => setUsernames(e.target.value)}
-          className="w-full border-b-2 border-grayLight outline-none"
+          className="w-full border-b-2 border-grayLight bg-transparent outline-none"
         />
         <p className="text-grayNeutral">
           This will appear on your posts and profile.
         </p>
       </div>
 
-      <div className="rounded-lg border border-gray-200 bg-white p-2 shadow sm:shadow-lg">
+      <div
+        className={`my-8 w-full max-w-md rounded-lg ${
+          mode === "dark" ? "border-stone-100 bg-black" : "bg-white"
+        }  p-0 sm:p-5 sm:shadow-lg`}
+      >
         <div className="p-3">
           <h2 className="text-xl font-semibold">Bio</h2>
           <p className="pt-2 leading-6 text-grayNeutral">
             This will be shown when others view your profile
           </p>
           <textarea
-            className="mt-8 w-full rounded-lg border border-gray-400 p-1 text-stone-700 outline-none"
+            className="mt-8 w-full rounded-lg border border-gray-400 bg-transparent p-1 text-stone-700 outline-none"
             cols={30}
             rows={3}
           ></textarea>

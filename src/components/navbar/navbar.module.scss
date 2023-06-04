@@ -3,14 +3,14 @@
 .main {
   position: sticky !important;
   top: 0;
-  background: #fff;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
   z-index: 100;
-  padding: 0.5rem;
+  padding: 0.4rem;
   transition: all 0.1s ease;
 }
 .navbar {
   @include container();
+  padding: 0.5rem;
   img {
     @include mQ(350px) {
       height: 1.8rem !important;
@@ -24,8 +24,6 @@
   .user__initials {
     font-size: 1.4rem;
     font-weight: 700;
-    background: #000;
-    color: #fff;
     height: 3.1rem;
     width: 3.1rem;
     border-radius: 50%;

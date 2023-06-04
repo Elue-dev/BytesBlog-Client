@@ -14,6 +14,7 @@ import { httpRequest } from "@/lib";
 import { REMOVE_ACTIVE_USER } from "@/redux/slices/auth.slice";
 import { useDispatch } from "react-redux";
 import { ClipLoader } from "react-spinners";
+import { useTheme } from "@/context/useTheme";
 
 const initialValues: RPValues = {
   password: "",
@@ -33,6 +34,7 @@ export default function ResetPassword() {
   const [passwordComplete, setPasswordComplete] = useState(false);
   const modalContext = useModal();
   const alertContext = useAlert();
+  const themeContext = useTheme();
   const dispatch = useDispatch();
   const { token } = useParams();
 
@@ -77,8 +79,10 @@ export default function ResetPassword() {
 
   if (!modalContext) return null;
   if (!alertContext) return null;
+  if (!themeContext) return null;
   const { revealModal } = modalContext;
   const { revealAlert, closeAlert } = alertContext;
+  const { mode } = themeContext;
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -141,9 +145,13 @@ export default function ResetPassword() {
   };
 
   return (
-    <section>
+    <section style={{ background: mode === "dark" ? "#000" : "" }}>
       <div className="flex h-screen items-center justify-center">
-        <div className=" mx-4 my-8 w-full max-w-md rounded-lg bg-white p-0 sm:p-5 sm:shadow-lg">
+        <div
+          className={`mx-4 my-8 w-full max-w-md rounded-lg ${
+            mode === "dark" ? "bg-black" : "bg-white"
+          }  p-0 sm:p-5 sm:shadow-lg`}
+        >
           <Link to="/" className="mb-3 flex items-center justify-center pt-8">
             <img
               src={bytesLogo}
@@ -166,7 +174,13 @@ export default function ResetPassword() {
                 onChange={handleInputChange}
                 onInput={() => handleFocus("password")}
               />
-              <span className="form-text">Password</span>
+              <span
+                className={`${
+                  mode === "light" ? "bg-white" : "bg-black"
+                }  form-text`}
+              >
+                Password
+              </span>
               <span className="absolute bottom-3 right-2 cursor-pointer text-2xl text-gray-600">
                 <div onClick={() => setVisible(!visible)}>
                   {visible ? (
@@ -181,38 +195,40 @@ export default function ResetPassword() {
             <div className="flex flex-wrap gap-3 pt-3 transition duration-200 ease-in-out">
               <span
                 className={`${
-                  caseCondition ? "checker-style" : "bg-lightGraySec p-2"
+                  caseCondition ? "checker-style" : "bg-lightGraySec p-1"
                 }`}
               >
                 {caseCondition && <BsFillCheckSquareFill />}
-                <span>Upper & Lower case letter </span>
+                <span className="text-stone-600">
+                  Upper & Lower case letter{" "}
+                </span>
               </span>
               <span
                 className={`${
                   lengthCondition
                     ? "checker-style"
-                    : "rounded-sm bg-lightGraySec p-2"
+                    : "rounded-sm bg-lightGraySec p-1"
                 }`}
               >
                 {lengthCondition && <BsFillCheckSquareFill />}
-                <span>8 characters long</span>
+                <span className="text-stone-600">8 characters long</span>
               </span>
               <span
                 className={`${
-                  numberCondition ? "checker-style" : "bg-lightGraySec p-2"
+                  numberCondition ? "checker-style" : "bg-lightGraySec p-1"
                 }`}
               >
                 {numberCondition && <BsFillCheckSquareFill />}
-                <span>Number</span>
+                <span className="text-stone-600">Number</span>
               </span>
 
               <span
                 className={`${
-                  charCondition ? "checker-style" : "bg-lightGraySec p-2"
+                  charCondition ? "checker-style" : "bg-lightGraySec p-1"
                 }`}
               >
                 {charCondition && <BsFillCheckSquareFill />}
-                <span>Special character</span>
+                <span className="text-stone-600">Special character</span>
               </span>
             </div>
 
@@ -229,7 +245,13 @@ export default function ResetPassword() {
                 onChange={handleInputChange}
                 onInput={() => handleFocus("confirmPassword")}
               />
-              <span className="form-text">Confirm New Password</span>
+              <span
+                className={`${
+                  mode === "light" ? "bg-white" : "bg-black"
+                }  form-text`}
+              >
+                Confirm New Password
+              </span>
               <span className="absolute bottom-3 right-2 cursor-pointer text-2xl text-gray-600">
                 <div onClick={() => setCPVisible(!cpVisible)}>
                   {cpVisible ? (
@@ -258,7 +280,11 @@ export default function ResetPassword() {
               </Button>
             )}
 
-            <p className="mb-3 mt-4 text-right text-blackNeutral">
+            <p
+              className={`mb-3 mt-4 text-right ${
+                mode === "light" ? "text-blackNeutral" : "text-gray-300"
+              } `}
+            >
               <Link to="/" className="font-semibold underline">
                 Back to Home
               </Link>

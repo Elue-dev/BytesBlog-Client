@@ -11,13 +11,19 @@ import { User } from "@/types/user";
 import { getUserInitials } from "@/helpers/user.initials";
 import { formatDate } from "@/helpers/date.formatter";
 import { FcOvertime } from "react-icons/fc";
+import { useTheme } from "@/context/useTheme";
 
 export default function Profile() {
   const [postType, setPostType] = useState("My Posts");
   const [showSidebar, setShowSidebar] = useState(false);
+  const themeContext = useTheme();
+
   const currentUser: User | null = useSelector<RootState, User | null>(
     (state) => state.auth.user
   );
+
+  if (!themeContext) return null;
+  const { mode } = themeContext;
 
   let initials;
   if (currentUser)
@@ -37,6 +43,7 @@ export default function Profile() {
         )}
 
         <div
+          style={{ background: mode === "light" ? "" : "#000" }}
           className={
             showSidebar
               ? `${styles["menu__items"]} ${styles.show}`
@@ -51,7 +58,15 @@ export default function Profile() {
         <div className="pt-8">
           <div className="flex items-end justify-start gap-2">
             {currentUser?.avatar === "" ? (
-              <div className={styles["user__initials"]}>{initials}</div>
+              <div
+                className={styles["user__initials"]}
+                style={{
+                  background: mode === "dark" ? "#f0f0f0" : "#000",
+                  color: mode === "dark" ? "#000" : "#f0f0f0",
+                }}
+              >
+                {initials}
+              </div>
             ) : (
               <a target="_blank" href={currentUser?.avatar}>
                 <img

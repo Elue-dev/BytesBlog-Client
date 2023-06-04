@@ -82,7 +82,7 @@ export default function StepOne({
             name="title"
             onChange={handleInputChange}
             placeholder="Title"
-            className={`${styles.title} outline-none`}
+            className={`${styles.title} bg-transparent outline-none`}
           />
         </div>
 
@@ -91,7 +91,7 @@ export default function StepOne({
             type="file"
             ref={imageUploadRef}
             accept="image/*"
-            className="hidden"
+            className="hidden bg-transparent"
             onChange={(e) => handleImageChange(e)}
           />
           <div onClick={() => imageUploadRef.current.click()}>

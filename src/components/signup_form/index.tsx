@@ -1,10 +1,10 @@
 import Button from "../button";
-import bytesLogo from "@/assets/bytesLogo.svg";
+// import bytesLogo from "@/assets/bytesLogo.svg";
 import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { BsFillCheckSquareFill } from "react-icons/bs";
-import eyeOpen from "@/assets/eyeOpen.svg";
-import eyeClosed from "@/assets/eyeClosed.svg";
+// import eyeOpen from "@/assets/eyeOpen.svg";
+// import eyeClosed from "@/assets/eyeClosed.svg";
 import Input from "../input";
 import { useEffect, useState } from "react";
 import { validateEmail } from "@/utils/utils";
@@ -13,6 +13,8 @@ import { useGoogleAuth } from "@/context/useGoogleAuth";
 import { CAProps } from "@/types/auth";
 import { auth, provider } from "@/lib/firebase";
 import { signInWithPopup, UserCredential } from "firebase/auth";
+import { useTheme } from "@/context/useTheme";
+import { RiEyeLine, RiEyeOffLine } from "react-icons/ri";
 
 export default function SignUpForm({
   values,
@@ -69,10 +71,13 @@ export default function SignUpForm({
   ]);
 
   const alertContext = useAlert();
+  const themeContext = useTheme();
   const googleAuthContext = useGoogleAuth();
 
   if (!alertContext) return null;
   if (!googleAuthContext) return null;
+  if (!themeContext) return null;
+  const { mode } = themeContext;
   const { revealAlert, closeAlert } = alertContext;
   const { updateCredentials } = googleAuthContext;
 
@@ -137,23 +142,27 @@ export default function SignUpForm({
   };
 
   return (
-    <section>
+    <section style={{ background: mode === "dark" ? "#000" : "" }}>
       <div className="flex h-screen items-center justify-center">
-        <div className=" mx-4 my-8 w-full max-w-md rounded-lg bg-white p-0 sm:p-5 sm:shadow-lg">
-          <Link to="/" className="mb-3 flex items-center justify-center pt-8">
+        <div
+          className={`mx-4 my-8 w-full max-w-md rounded-lg ${
+            mode === "dark" ? "bg-black" : "bg-white"
+          }  p-0 sm:p-5 sm:shadow-lg`}
+        >
+          {/* <Link to="/" className="mb-3 flex items-center justify-center pt-8">
             <img
               src={bytesLogo}
               alt="BytesBlog Logo"
               className="pt-32 sm:pt-8"
             />
-          </Link>
+          </Link> */}
           <h1 className="mb-3 flex items-center justify-center text-3xl font-medium">
             Create Account
           </h1>
 
           <Button className="mb-4 mt-6 flex w-full items-center justify-center gap-3 rounded-lg border border-lightGray bg-white p-3 hover:bg-grayLight">
             <FcGoogle className="text-2xl" />
-            <span onClick={signInWithGoogle} className="font-normal">
+            <span onClick={signInWithGoogle} className="font-normal text-black">
               Continue With Google
             </span>
           </Button>
@@ -174,7 +183,13 @@ export default function SignUpForm({
                   onChange={handleInputChange}
                   onInput={() => handleFocus("firstname")}
                 />
-                <span className="form-text">First Name</span>
+                <span
+                  className={`${
+                    mode === "light" ? "bg-white" : "bg-black"
+                  }  form-text`}
+                >
+                  First Name
+                </span>
               </div>
 
               <div className="relative w-1/2 sm:pt-0">
@@ -190,7 +205,13 @@ export default function SignUpForm({
                   onChange={handleInputChange}
                   onInput={() => handleFocus("lastname")}
                 />
-                <span className="form-text">Last Name</span>
+                <span
+                  className={`${
+                    mode === "light" ? "bg-white" : "bg-black"
+                  }  form-text`}
+                >
+                  Last Name
+                </span>
               </div>
             </div>
 
@@ -205,7 +226,13 @@ export default function SignUpForm({
                 onChange={handleInputChange}
                 onInput={() => handleFocus("email")}
               />
-              <span className="form-text">Email Address</span>
+              <span
+                className={`${
+                  mode === "light" ? "bg-white" : "bg-black"
+                }  form-text`}
+              >
+                Email Address
+              </span>
             </div>
 
             <div className="relative pt-8">
@@ -222,13 +249,23 @@ export default function SignUpForm({
                 onChange={handleInputChange}
                 onInput={() => handleFocus("password")}
               />
-              <span className="form-text">Password</span>
+              <span
+                className={`${
+                  mode === "light" ? "bg-white" : "bg-black"
+                }  form-text`}
+              >
+                Password
+              </span>
               <span className="absolute bottom-3 right-2 cursor-pointer text-2xl text-gray-600">
                 <div onClick={() => setVisible(!visible)}>
                   {visible ? (
-                    <img src={eyeClosed} alt="" />
+                    <RiEyeLine
+                      color={`${mode === "light" ? "#333" : "#fff"}`}
+                    />
                   ) : (
-                    <img src={eyeOpen} alt="" />
+                    <RiEyeOffLine
+                      color={`${mode === "light" ? "#333" : "#fff"}`}
+                    />
                   )}
                 </div>
               </span>
@@ -237,38 +274,40 @@ export default function SignUpForm({
             <div className="flex flex-wrap gap-3 pt-3 transition duration-200 ease-in-out">
               <span
                 className={`${
-                  caseCondition ? "checker-style" : "bg-lightGraySec p-2"
+                  caseCondition ? "checker-style" : "bg-lightGraySec p-1"
                 }`}
               >
                 {caseCondition && <BsFillCheckSquareFill />}
-                <span>Upper & Lower case letter </span>
+                <span className="text-stone-600">
+                  Upper & Lower case letter{" "}
+                </span>
               </span>
               <span
                 className={`${
                   lengthCondition
                     ? "checker-style"
-                    : "rounded-sm bg-lightGraySec p-2"
+                    : "rounded-sm bg-lightGraySec p-1"
                 }`}
               >
                 {lengthCondition && <BsFillCheckSquareFill />}
-                <span>8 characters long</span>
+                <span className="text-stone-600">8 characters long</span>
               </span>
               <span
                 className={`${
-                  numberCondition ? "checker-style" : "bg-lightGraySec p-2"
+                  numberCondition ? "checker-style" : "bg-lightGraySec p-1"
                 }`}
               >
                 {numberCondition && <BsFillCheckSquareFill />}
-                <span>Number</span>
+                <span className="text-stone-600">Number</span>
               </span>
 
               <span
                 className={`${
-                  charCondition ? "checker-style" : "bg-lightGraySec p-2"
+                  charCondition ? "checker-style" : "bg-lightGraySec p-1"
                 }`}
               >
                 {charCondition && <BsFillCheckSquareFill />}
-                <span>Special character</span>
+                <span className="text-stone-600">Special character</span>
               </span>
             </div>
 
@@ -285,13 +324,23 @@ export default function SignUpForm({
                 onChange={handleInputChange}
                 onInput={() => handleFocus("confirmPassword")}
               />
-              <span className="form-text">Confirm Password</span>
+              <span
+                className={`${
+                  mode === "light" ? "bg-white" : "bg-black"
+                }  form-text`}
+              >
+                Confirm Password
+              </span>
               <span className="absolute bottom-3 right-2 cursor-pointer text-2xl text-gray-600">
                 <div onClick={() => setCPVisible(!cpVisible)}>
                   {cpVisible ? (
-                    <img src={eyeClosed} alt="" />
+                    <RiEyeLine
+                      color={`${mode === "light" ? "#333" : "#f0f0f0"}`}
+                    />
                   ) : (
-                    <img src={eyeOpen} alt="" />
+                    <RiEyeOffLine
+                      color={`${mode === "light" ? "#333" : "#f0f0f0"}`}
+                    />
                   )}
                 </div>
               </span>
@@ -305,7 +354,11 @@ export default function SignUpForm({
               Continue
             </Button>
 
-            <p className="mb-3 mt-4 text-right text-blackNeutral">
+            <p
+              className={`mb-3 mt-4 text-right ${
+                mode === "light" ? "text-blackNeutral" : "text-gray-300"
+              } `}
+            >
               Already have a Bytes account?{" "}
               <Link to="/auth/sign-in" className="font-semibold underline">
                 Sign In

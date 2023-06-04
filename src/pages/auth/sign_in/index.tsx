@@ -2,8 +2,8 @@ import Button from "@/components/button";
 import bytesLogo from "@/assets/bytesLogo.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
-import eyeOpen from "@/assets/eyeOpen.svg";
-import eyeClosed from "@/assets/eyeClosed.svg";
+// import eyeOpen from "@/assets/eyeOpen.svg";
+// import eyeClosed from "@/assets/eyeClosed.svg";
 import Input from "@/components/input";
 import { ChangeEvent, useState } from "react";
 import { validateEmail } from "@/utils/utils";
@@ -16,6 +16,8 @@ import { useDispatch } from "react-redux";
 import { auth, provider } from "@/lib/firebase";
 import { signInWithPopup } from "firebase/auth";
 import { ClipLoader } from "react-spinners";
+import { useTheme } from "@/context/useTheme";
+import { RiEyeLine, RiEyeOffLine } from "react-icons/ri";
 
 const initialValues: SIValues = {
   email: "",
@@ -29,9 +31,12 @@ export default function SignIn() {
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
   const navigate = useNavigate();
   const alertContext = useAlert();
+  const themeContext = useTheme();
   const dispatch = useDispatch();
   if (!alertContext) return null;
+  if (!themeContext) return null;
   const { revealAlert, closeAlert } = alertContext;
+  const { mode } = themeContext;
 
   const { email, password } = credentials;
 
@@ -110,9 +115,13 @@ export default function SignIn() {
   };
 
   return (
-    <section>
+    <section style={{ background: mode === "dark" ? "#000" : "" }}>
       <div className="flex h-screen items-center justify-center">
-        <div className="mx-4 my-8 w-full max-w-md rounded-lg bg-white p-0 sm:p-5 sm:shadow-lg">
+        <div
+          className={`mx-4 my-8 w-full max-w-md rounded-lg ${
+            mode === "dark" ? "bg-black" : "bg-white"
+          }  p-0 sm:p-5 sm:shadow-lg`}
+        >
           <Link to="/" className="mb-3 flex items-center justify-center pt-8">
             <img
               src={bytesLogo}
@@ -125,7 +134,7 @@ export default function SignIn() {
           </h1>
           <Button className="mb-4 mt-6 flex w-full items-center justify-center gap-3 rounded-lg border border-lightGray bg-white p-3 hover:bg-grayLight">
             <FcGoogle className="text-2xl" />
-            <span onClick={googleLogin} className="font-normal">
+            <span onClick={googleLogin} className="font-normal text-black">
               Continue With Google
             </span>
           </Button>
@@ -137,12 +146,18 @@ export default function SignIn() {
                 name="email"
                 className={`${
                   validationErrors.includes("email") ? "border-rose-500" : ""
-                } w-full p-2.5`}
+                } w-full bg-transparent p-2.5`}
                 value={email}
                 onChange={handleInputChange}
                 onInput={() => handleFocus("email")}
               />
-              <span className="form-text">Email Address</span>
+              <span
+                className={`${
+                  mode === "light" ? "bg-white" : "bg-black"
+                }  form-text`}
+              >
+                Email Address
+              </span>
             </div>
 
             <div className="relative pt-8">
@@ -151,25 +166,41 @@ export default function SignIn() {
                 name="password"
                 className={`${
                   validationErrors.includes("password") ? "border-rose-500" : ""
-                } w-full p-2.5`}
+                } w-full bg-transparent p-2.5`}
                 value={password}
                 onChange={handleInputChange}
                 onInput={() => handleFocus("password")}
               />
-              <span className="form-text">Password</span>
+              <span
+                className={`${
+                  mode === "light" ? "bg-white" : "bg-black"
+                }  form-text`}
+              >
+                Password
+              </span>
               <span className="absolute bottom-3 right-2 cursor-pointer text-2xl text-gray-600">
                 <div onClick={() => setVisible(!visible)}>
                   {visible ? (
-                    <img src={eyeClosed} alt="" />
+                    <RiEyeLine
+                      color={`${mode === "light" ? "#333" : "#f0f0f0"}`}
+                    />
                   ) : (
-                    <img src={eyeOpen} alt="" />
+                    <RiEyeOffLine
+                      color={`${mode === "light" ? "#333" : "#f0f0f0"}`}
+                    />
                   )}
                 </div>
               </span>
             </div>
 
             <Link to="/auth/forgot-password">
-              <p className="pt-1 text-right text-zinc-600">Forgot Password?</p>
+              <p
+                className={`pt-1 text-right  ${
+                  mode === "light" ? "text-zinc-600" : "text-gray-300"
+                } `}
+              >
+                Forgot Password?
+              </p>
             </Link>
 
             {loading ? (
@@ -189,7 +220,11 @@ export default function SignIn() {
               </Button>
             )}
 
-            <p className="mb-3 mt-4 text-right text-blackNeutral">
+            <p
+              className={`mb-3 mt-4 text-right ${
+                mode === "light" ? "text-blackNeutral" : "text-gray-300"
+              } `}
+            >
               Don't have a Bytes account?{" "}
               <Link
                 to="/auth/create-account"

@@ -33,7 +33,6 @@ export default {
           position: "absolute",
           bottom: "1.95rem",
           left: "1rem",
-          backgroundColor: "white",
           padding: "0.25rem",
           color: "var(--blackNeutral)",
         },

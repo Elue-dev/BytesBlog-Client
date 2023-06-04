@@ -6,6 +6,7 @@ import { useAlert } from "@/context/useAlert";
 
 import styles from "./post.details.module.scss";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { useTheme } from "@/context/useTheme";
 
 export default function CommentsSidebar({
   currentPost,
@@ -16,6 +17,7 @@ export default function CommentsSidebar({
   const [showInput, setShowInput] = useState(false);
   const commentInputRef = useRef<HTMLTextAreaElement>(null);
   const alertContext = useAlert();
+  const themeContext = useTheme();
 
   useEffect(() => {
     if (showInput) {
@@ -24,7 +26,9 @@ export default function CommentsSidebar({
   }, [showInput]);
 
   if (!alertContext) return null;
+  if (!themeContext) return null;
   const { revealAlert, closeAlert } = alertContext;
+  const { mode } = themeContext;
 
   if (!currentPost) return null;
 
@@ -48,18 +52,19 @@ export default function CommentsSidebar({
         />
       )}
       <div
+        style={{ background: mode === "light" ? "#fff" : "#111" }}
         className={
           showSidebar
             ? `${styles["menu__items"]} ${styles.show}`
             : `${styles["menu__items"]}`
         }
       >
-        <h1 className="mb-6 mt-8 bg-primaryColorLight p-3 text-center text-xl font-semibold sm:w-full">
+        <h1 className="mb-6 mt-8 bg-primaryColorLight p-3 text-center text-xl font-semibold text-black sm:w-full">
           Comments ({currentPost.comments})
         </h1>
 
         <div
-          className={`mt-2 rounded-lg bg-white p-2 shadow sm:shadow-lg ${
+          className={`mt-2 rounded-lg bg-transparent p-2 shadow sm:shadow-lg ${
             showInput && "border border-primaryColor"
           }`}
           onClick={() => setShowInput(true)}
@@ -83,7 +88,9 @@ export default function CommentsSidebar({
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
                 ref={commentInputRef}
-                className="w-full text-stone-700 outline-none"
+                className={`w-full bg-transparent ${
+                  mode === "dark" ? "text-white" : " text-stone-700"
+                }  outline-none`}
                 cols={30}
                 rows={2}
                 placeholder=" Type your comment here..."
