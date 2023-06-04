@@ -150,7 +150,7 @@ export default function Profile() {
               key={idx}
               onClick={() => setPostType(post)}
               className={`${
-                postType === post && "font-bold text-slate-950"
+                postType === post && "font-bold text-primaryColor"
               } cursor-pointer text-lg text-grayLight`}
             >
               {post}

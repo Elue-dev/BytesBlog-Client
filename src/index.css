@@ -69,7 +69,7 @@ body {
   background: transparent !important;
 }
 .theme {
-  transition: 1s all ease;
+  transition: 0.5s all ease;
 }
 .light {
   background-color: white;

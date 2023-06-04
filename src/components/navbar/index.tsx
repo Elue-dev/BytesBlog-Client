@@ -113,7 +113,11 @@ export default function Navbar() {
                 </div>
 
                 {showDropdown ? (
-                  <div className="absolute right-2 top-9 z-10 mx-4 my-8 w-60 rounded-sm bg-white p-5 shadow-lg sm:right-auto sm:top-12">
+                  <div
+                    className={`absolute right-2 top-9 z-10 mx-4 my-8 w-60 rounded-sm ${
+                      mode === "dark" ? "bg-black" : "bg-white"
+                    } p-5 shadow-lg sm:right-auto sm:top-12`}
+                  >
                     <div className="py-5 leading-10 text-gray500">
                       <div
                         onClick={() => {

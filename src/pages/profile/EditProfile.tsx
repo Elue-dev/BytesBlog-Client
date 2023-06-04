@@ -95,8 +95,8 @@ export default function EditProfile({
 
       <div
         className={`my-8 w-full max-w-md rounded-lg ${
-          mode === "dark" ? "border-stone-100 bg-black" : "bg-white"
-        }  p-0 sm:p-5 sm:shadow-lg`}
+          mode === "dark" ? "border-stone-100 bg-black" : "bg-white sm:p-5"
+        } p-0 sm:shadow-lg`}
       >
         <div className="p-3">
           <h2 className="text-xl font-semibold">Bio</h2>
@@ -104,7 +104,9 @@ export default function EditProfile({
             This will be shown when others view your profile
           </p>
           <textarea
-            className="mt-8 w-full rounded-lg border border-gray-400 bg-transparent p-1 text-stone-700 outline-none"
+            className={`mt-8 w-full rounded-lg border border-gray-400 bg-transparent p-1 ${
+              mode === "dark" ? "text-white" : "text-stone-700"
+            }  outline-none`}
             cols={30}
             rows={3}
           ></textarea>
