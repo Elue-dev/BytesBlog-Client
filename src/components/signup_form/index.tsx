@@ -146,7 +146,9 @@ export default function SignUpForm({
       <div className="flex h-screen items-center justify-center">
         <div
           className={`mx-4 my-8 w-full max-w-md rounded-lg ${
-            mode === "dark" ? "bg-zinc-900" : "bg-white"
+            mode === "dark"
+              ? "border border-neutral-900 bg-zinc-900"
+              : "bg-white"
           }  p-0 sm:p-5 sm:shadow-lg`}
         >
           {/* <Link to="/" className="mb-3 flex items-center justify-center pt-8">
@@ -278,9 +280,7 @@ export default function SignUpForm({
                 }`}
               >
                 {caseCondition && <BsFillCheckSquareFill />}
-                <span className="text-stone-600">
-                  Upper & Lower case letter{" "}
-                </span>
+                <span className="text-dark">Upper & Lower case letter </span>
               </span>
               <span
                 className={`${
@@ -290,15 +290,16 @@ export default function SignUpForm({
                 }`}
               >
                 {lengthCondition && <BsFillCheckSquareFill />}
-                <span className="text-stone-600">8 characters long</span>
+                <span className="text-dark">8 characters long</span>
               </span>
+
               <span
                 className={`${
                   numberCondition ? "checker-style" : "bg-lightGraySec p-1"
                 }`}
               >
                 {numberCondition && <BsFillCheckSquareFill />}
-                <span className="text-stone-600">Number</span>
+                <span className="text-dark">Number</span>
               </span>
 
               <span

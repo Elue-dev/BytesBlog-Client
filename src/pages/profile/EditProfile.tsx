@@ -26,11 +26,9 @@ export default function EditProfile({
     initials = getUserInitials(currentUser.firstName, currentUser.lastName);
   }
 
-  const [usernames, setUsernames] = useState(
-    `${currentUser?.firstName} ${currentUser?.lastName}`
-  );
-
   const [bio, setBio] = useState(currentUser?.bio);
+  const [firstName, setFirstName] = useState(currentUser?.firstName);
+  const [lastName, setLastName] = useState(currentUser?.lastName);
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState<any>(undefined);
   const [imagePreview, setImagePreview] = useState<string | undefined>(
@@ -74,13 +72,23 @@ export default function EditProfile({
 
   const updateUserProfile = async () => {
     closeAlert();
+    if (
+      firstName === currentUser?.firstName &&
+      lastName === currentUser?.lastName &&
+      bio === currentUser?.bio &&
+      !image
+    )
+      return revealAlert(
+        "You have not made any changes to your profile",
+        "error"
+      );
     try {
       setLoading(true);
       image && (await uploadAvatarToCloud());
 
       const credentials = {
-        firstName: currentUser?.firstName,
-        lastName: currentUser?.lastName,
+        firstName: firstName || currentUser?.firstName,
+        lastName: lastName || currentUser?.lastName,
         avatar: imageUrl || currentUser?.avatar,
         bio: bio || currentUser?.bio,
       };
@@ -164,11 +172,18 @@ export default function EditProfile({
       </div>
 
       <div className="pt-6">
-        <h1 className="font-semibold text-grayNeutral">Name</h1>
+        <h1 className="font-semibold text-grayNeutral">Names</h1>
         <input
           type="text"
-          value={usernames}
-          onChange={(e) => setUsernames(e.target.value)}
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+          className="w-full border-b-2 border-grayLight bg-transparent outline-none"
+        />
+
+        <input
+          type="text"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
           className="w-full border-b-2 border-grayLight bg-transparent outline-none"
         />
         <p className="text-grayNeutral">
@@ -179,7 +194,7 @@ export default function EditProfile({
       <div
         className={`my-8 w-full max-w-md rounded-lg ${
           mode === "dark"
-            ? "border-stone-100 bg-dark100"
+            ? "border-stone-100 bg-dark100 sm:p-2"
             : "bg-white sm:p-5 sm:shadow-lg"
         } p-0`}
       >
