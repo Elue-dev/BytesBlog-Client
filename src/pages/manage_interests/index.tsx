@@ -54,12 +54,16 @@ export default function ManageInterests() {
       return revealAlert("Interests must be at least 5", "error");
 
     const credentials = { interests };
+    const authHeaders = {
+      headers: { authorization: `Bearer ${currentUser?.token}` },
+    };
 
     try {
       setLoading(true);
       const response = await httpRequest.put(
-        `${SERVER_URL}/users/${currentUser?.id}`,
-        credentials
+        `${SERVER_URL}/users`,
+        credentials,
+        authHeaders
       );
       if (response) {
         dispatch(REMOVE_ACTIVE_USER());

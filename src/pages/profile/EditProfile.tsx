@@ -85,9 +85,14 @@ export default function EditProfile({
         bio: bio || currentUser?.bio,
       };
 
+      const authHeaders = {
+        headers: { authorization: `Bearer ${currentUser?.token}` },
+      };
+
       const response = await httpRequest.put(
-        `${SERVER_URL}/users/${currentUser?.id}`,
-        credentials
+        `${SERVER_URL}/users`,
+        credentials,
+        authHeaders
       );
       if (response) {
         dispatch(REMOVE_ACTIVE_USER());
