@@ -8,6 +8,13 @@ export interface Post {
   content: string;
 }
 
+export interface Author {
+  id: string;
+  avatar: string;
+  firstName: string;
+  lastName: string;
+}
+
 export interface PostData {
   id: string;
   image: string;
@@ -18,13 +25,17 @@ export interface PostData {
   createdAt: Date;
   updatedAt: Date;
   authorId: string;
-  comments?: [];
-  author: {
+  comments?: {
     id: string;
-    avatar: string;
-    firstName: string;
-    lastName: string;
+    message: string;
+    createdAt: string;
+    updatedAt: string;
+    authorId: string;
+    postId: string;
+    parentId: string | null;
+    author: Author;
   };
+  author: Author;
   likes: [];
 }
 
@@ -33,12 +44,8 @@ export interface RightDetailsProps {
 }
 
 export interface Comment {
-  id: number;
-  author: string;
-  image: string;
-  date: string;
-  comment: string;
-  isMine: boolean;
+  message: string;
+  postId: string;
 }
 
 export interface AddBPost {
@@ -77,7 +84,7 @@ export interface StepTwoProps {
 }
 
 export interface CommentsSBProps {
-  comments: any;
+  postId: string;
   showSidebar: boolean;
   setShowSidebar: Dispatch<SetStateAction<boolean>>;
 }
@@ -87,12 +94,7 @@ export interface CommentData {
   message: string;
   createdAt: Date;
   updatedAt: Date;
-  author: {
-    id: string;
-    avatar: string;
-    firstName: string;
-    lastName: string;
-  };
+  author: Author;
   authorId: string;
   post: Post;
   postId: string;

@@ -15,10 +15,12 @@ import { useQuery } from "@tanstack/react-query";
 import { PostData } from "@/types/posts";
 import moment from "moment";
 import PostContent from "@/helpers/format.content";
+import { useTheme } from "@/context/useTheme";
 
 export default function PostDetails() {
   const [showSidebar, setShowSidebar] = useState(false);
   const { postId } = useParams();
+  const themeContext = useTheme();
 
   const {
     isLoading,
@@ -45,6 +47,9 @@ export default function PostDetails() {
     }
   );
 
+  if (!themeContext) return null;
+  const { mode } = themeContext;
+
   if (isLoading || !post || loading) return <h1>loading...</h1>;
   if (error || err) return <h1>Something went wrong.</h1>;
 
@@ -56,23 +61,27 @@ export default function PostDetails() {
     <section className={styles["post__details"]}>
       <div className={styles.hero}></div>
 
-      {posts && (
+      {posts && postId && (
         <CommentsSidebar
-          comments={post?.comments}
+          postId={postId}
           showSidebar={showSidebar}
           setShowSidebar={setShowSidebar}
         />
       )}
 
       <div className="container flex flex-col pt-12 lg:flex-row">
-        <div className={styles["left__quarter"]}>
+        <div
+          className={`${styles["left__quarter"]} ${
+            mode === "dark" ? "border-r-gray-600" : "border-r-zinc-900"
+          }`}
+        >
           <div>
             <div>
               <div className="flex flex-col justify-between sm:flex-row md:flex-row">
                 <div className="flex items-center justify-between gap-8 sm:justify-start">
                   <div className="flex items-center justify-start gap-2">
                     <img
-                      src={post.author?.avatar}
+                      src={post?.author?.avatar}
                       alt={post.author?.firstName}
                       className="h-11 w-11 rounded-full object-cover"
                     />
@@ -134,7 +143,7 @@ export default function PostDetails() {
                   onClick={() => setShowSidebar(true)}
                 >
                   <img src={commentIcon} alt="comment on post" />
-                  <span>{post.comments?.length}</span>
+                  {/* <span>{post.comments}</span> */}
                 </div>
                 <div>
                   <img

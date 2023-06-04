@@ -14,7 +14,7 @@
   .left__quarter {
     width: 60%;
     padding-right: 1.5rem;
-    border-right: 0.5px solid #e5e7eb;
+    // border-right: 0.5px solid #e5e7eb;
     @include mQ(1000px) {
       width: 100%;
       padding-right: 0;
@@ -72,5 +72,17 @@
   }
   .menu__items.show {
     right: -1px;
+  }
+  .user__initials {
+    font-size: 1.6rem;
+    font-weight: 700;
+    height: 3.1rem;
+    width: 3.1rem;
+    border-radius: 50%;
+    @include flexBox(center, center);
+    @include mQ(600px) {
+      height: 2.6rem;
+      width: 2.6rem;
+    }
   }
 }

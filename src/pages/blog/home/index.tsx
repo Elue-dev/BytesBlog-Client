@@ -3,14 +3,14 @@ import styles from "./home.module.scss";
 import { categories } from "../categories";
 import { BiSearchAlt2 } from "react-icons/bi";
 import Posts from "./posts";
-import { getCurrentUser } from "@/redux/slices/auth.slice";
-import { useSelector } from "react-redux";
+// import { getCurrentUser } from "@/redux/slices/auth.slice";
+// import { useSelector } from "react-redux";
 
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const modifiedCategories = ["All", ...categories];
-  const currentUser = useSelector(getCurrentUser);
-  console.log(currentUser);
+  // const currentUser = useSelector(getCurrentUser);
+  // console.log(currentUser);
 
   return (
     <section className={styles["blog__home"]}>

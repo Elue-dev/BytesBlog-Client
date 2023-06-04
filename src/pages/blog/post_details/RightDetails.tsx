@@ -17,11 +17,11 @@ export default function RightDetails({ similarPosts }: RightDetailsProps) {
           <div>
             <div className="flex flex-row-reverse items-center justify-start gap-2 lg:flex-row">
               <img
-                src={post.author.avatar}
-                alt={post.author.firstName}
+                src={post.author?.avatar}
+                alt={post.author?.firstName}
                 className="h-11 w-11 rounded-full object-cover"
               />
-              <p>{post.author.firstName + " " + post.author.lastName}</p>
+              <p>{post.author?.firstName + " " + post?.author.lastName}</p>
             </div>
             <div>
               <h4 className="text-1xl max-w-xl pt-3 font-semibold lg:pt-0">

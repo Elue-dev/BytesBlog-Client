@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { CommentData, CommentsSBProps } from "@/types/posts";
+import { Comment, CommentData, CommentsSBProps } from "@/types/posts";
 import Button from "@/components/button";
 // import { dummyComments } from "./dummyComments";
 import { useAlert } from "@/context/useAlert";
-
 import styles from "./post.details.module.scss";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useTheme } from "@/context/useTheme";
@@ -11,14 +10,19 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { User } from "@/types/user";
 import moment from "moment";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { httpRequest } from "@/lib";
+import { getUserInitials } from "@/helpers/user.initials";
+import { ClipLoader } from "react-spinners";
 
 export default function CommentsSidebar({
-  comments,
+  postId,
   showSidebar,
   setShowSidebar,
 }: CommentsSBProps) {
   const [comment, setComment] = useState("");
   const [showInput, setShowInput] = useState(false);
+  const [loading, setLoading] = useState(false);
   const commentInputRef = useRef<HTMLTextAreaElement>(null);
   const alertContext = useAlert();
   const themeContext = useTheme();
@@ -32,6 +36,47 @@ export default function CommentsSidebar({
     }
   }, [showInput]);
 
+  const queryFn = async (): Promise<CommentData[]> => {
+    return httpRequest.get(`/comments/${postId}`).then((res) => {
+      return res.data.comments;
+    });
+  };
+
+  const {
+    isLoading,
+    error,
+    data: comments,
+  } = useQuery<CommentData[], Error>([`comments-${postId}`], queryFn, {
+    staleTime: 60000,
+  });
+
+  console.log({ comments });
+
+  const queryClient = useQueryClient();
+  const authHeaders = {
+    headers: { authorization: `Bearer ${currentUser?.token}` },
+  };
+
+  const mutation = useMutation(
+    (newComment: Comment) => {
+      return httpRequest.post("/comments", newComment, authHeaders);
+    },
+    {
+      onSuccess: (data) => {
+        console.log(data);
+        queryClient.invalidateQueries([`comments-${postId}`]);
+      },
+      onError: (err) => {
+        setLoading(false);
+        console.log({ err });
+      },
+    }
+  );
+
+  let initials: string | undefined;
+  if (currentUser)
+    initials = getUserInitials(currentUser.firstName, currentUser.lastName);
+
   if (!alertContext) return null;
   if (!themeContext) return null;
   const { revealAlert, closeAlert } = alertContext;
@@ -39,13 +84,25 @@ export default function CommentsSidebar({
 
   if (!comments) return null;
 
-  const addComment = () => {
+  const commentData = { message: comment, postId };
+
+  const addComment = async () => {
     closeAlert();
     if (!comment) return revealAlert("Please enter your comment", "error");
-    setShowInput(false);
-    setComment("");
-    revealAlert("Comment added", "success");
+    try {
+      const response = await mutation.mutateAsync(commentData);
+      if (response) {
+        setShowInput(false);
+        setComment("");
+        revealAlert("Comment added", "success");
+      }
+    } catch (error: any) {
+      return revealAlert(error.response.data.message, "error");
+    }
   };
+
+  if (isLoading) return <h1>loading...</h1>;
+  if (error) return <h1>Something went wrong.</h1>;
 
   return (
     <div>
@@ -70,8 +127,12 @@ export default function CommentsSidebar({
           Comments ({comments.length})
         </h1>
 
-        {comment.length == 0 && (
-          <p className="text-neutral-900">
+        {comments.length === 0 && (
+          <p
+            className={`${
+              mode === "light" ? "text-neutral-900" : "text-lightGraySec"
+            }`}
+          >
             Be the first to add a comment on this post.
           </p>
         )}
@@ -90,14 +151,33 @@ export default function CommentsSidebar({
           {showInput && (
             <>
               <div className="mb-2 flex items-center justify-start gap-2">
-                <img
-                  src={currentUser?.avatar}
-                  className="h-10 w-10 rounded-full object-cover"
-                  alt={currentUser?.firstName}
-                />
-                <p className="text-gray600">
-                  {currentUser?.firstName + " " + currentUser?.lastName}
-                </p>
+                {currentUser?.avatar === "" ? (
+                  <>
+                    <div
+                      className={styles["user__initials"]}
+                      style={{
+                        background: mode === "dark" ? "#f0f0f0" : "#000",
+                        color: mode === "dark" ? "#000" : "#f0f0f0",
+                      }}
+                    >
+                      {initials}
+                    </div>
+                    <p className="text-gray600">
+                      {currentUser?.firstName + " " + currentUser?.lastName}
+                    </p>
+                  </>
+                ) : (
+                  <a target="_blank" href={currentUser?.avatar}>
+                    <img
+                      src={currentUser?.avatar}
+                      alt={currentUser?.firstName}
+                      className="h-14 w-14 rounded-full object-cover"
+                    />
+                    <p className="text-gray600">
+                      {currentUser?.firstName + " " + currentUser?.lastName}
+                    </p>
+                  </a>
+                )}
               </div>
               <textarea
                 value={comment}
@@ -125,12 +205,18 @@ export default function CommentsSidebar({
             >
               Cancel
             </Button>
-            <Button
-              className="flex h-10 w-24 items-center justify-center border bg-primaryColor text-white hover:bg-primaryColorHover"
-              onClick={addComment}
-            >
-              Send
-            </Button>
+            {loading ? (
+              <Button className="flex h-10 w-24 items-center justify-center border bg-primaryColorHover text-white">
+                <ClipLoader loading={loading} size={20} color={"#fff"} />
+              </Button>
+            ) : (
+              <Button
+                className="flex h-10 w-24 items-center justify-center border bg-primaryColor text-white hover:bg-primaryColorHover"
+                onClick={addComment}
+              >
+                Send
+              </Button>
+            )}
           </div>
         )}
         <hr />
@@ -140,11 +226,28 @@ export default function CommentsSidebar({
             {comments?.map((comment: CommentData) => (
               <div key={comment?.id} className="mt-12 leading-6">
                 <div className="mb-2 flex gap-3">
-                  <img
-                    src={comment.author.avatar}
-                    className="h-11 w-11 rounded-full object-cover"
-                    alt={comment.author.firstName}
-                  />
+                  {comment.author.avatar === "" ? (
+                    <div
+                      className={styles["user__initials"]}
+                      style={{
+                        background: mode === "dark" ? "#f0f0f0" : "#000",
+                        color: mode === "dark" ? "#000" : "#f0f0f0",
+                      }}
+                    >
+                      {getUserInitials(
+                        comment.author?.firstName,
+                        comment.author?.lastName
+                      )}
+                    </div>
+                  ) : (
+                    <a target="_blank" href={comment.author.avatar}>
+                      <img
+                        src={comment.author.avatar}
+                        alt={comment.author.firstName}
+                        className="h-14 w-14 rounded-full object-cover"
+                      />
+                    </a>
+                  )}
                   <div>
                     <div className="flex gap-4">
                       <h4 className="font-semibold">

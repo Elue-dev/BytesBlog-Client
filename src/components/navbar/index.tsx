@@ -127,18 +127,14 @@ export default function Navbar() {
                         className="flex cursor-pointer items-center justify-start gap-3"
                       >
                         <img src={profileIcon} alt="profile" />
-                        <span> Profile</span>
+                        <span
+                          className={
+                            mode === "dark" ? "text-lightGray" : "text-dark"
+                          }
+                        >
+                          Profile
+                        </span>
                       </div>
-                      {/* <div
-                        onClick={() => {
-                          navigate("");
-                          setShowDropdown(false);
-                        }}
-                        className="flex cursor-pointer items-center justify-start gap-3"
-                      >
-                        <img src={savedPosts} alt="saved posts" />
-                        <span> Saved Posts</span>
-                      </div> */}
                       <div
                         onClick={() => {
                           navigate("/user/manage-interests");
@@ -147,12 +143,20 @@ export default function Navbar() {
                         className="mb-3 flex cursor-pointer items-center justify-start gap-3"
                       >
                         <img src={interestsIcon} alt="manage interests" />
-                        <span>Manage Interests</span>
+                        <span
+                          className={
+                            mode === "dark" ? "text-lightGray" : "text-dark"
+                          }
+                        >
+                          Manage Interests
+                        </span>
                       </div>
                       <hr />
                       <div
                         onClick={signOutUser}
-                        className="mt-4 flex cursor-pointer items-center justify-start gap-3"
+                        className={`${
+                          mode === "dark" ? "text-lightGray" : "text-dark"
+                        } mt-4 flex cursor-pointer items-center justify-start gap-3`}
                       >
                         Sign Out
                       </div>

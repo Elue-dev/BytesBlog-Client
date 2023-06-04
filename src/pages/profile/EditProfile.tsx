@@ -131,7 +131,23 @@ export default function EditProfile({
       <div className="flex items-center justify-start gap-2">
         {currentUser?.avatar === "" ? (
           <>
-            <div className={styles["user__initials"]}>{initials}</div>
+            {imagePreview ? (
+              <img
+                src={imagePreview}
+                alt="image"
+                className="h-14 w-14 rounded-full object-cover"
+              />
+            ) : (
+              <div
+                className={styles["user__initials"]}
+                style={{
+                  background: mode === "dark" ? "#f0f0f0" : "#000",
+                  color: mode === "dark" ? "#000" : "#f0f0f0",
+                }}
+              >
+                {initials}
+              </div>
+            )}
           </>
         ) : (
           <>
