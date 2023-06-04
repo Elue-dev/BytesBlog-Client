@@ -3,14 +3,14 @@ import { getUserInitials } from "@/helpers/user.initials";
 import { RootState } from "@/redux/store";
 import { EditProfProps } from "@/types/general";
 import { User } from "@/types/user";
-import { useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "@/context/useAlert";
 import styles from "./profile.module.scss";
 import { useTheme } from "@/context/useTheme";
 import { httpRequest } from "@/lib";
-import { SERVER_URL } from "@/utils/variables";
+import { SERVER_URL, CLOUD_NAME, UPLOAD_PRESET } from "@/utils/variables";
 import { REMOVE_ACTIVE_USER, SET_ACTIVE_USER } from "@/redux/slices/auth.slice";
 import { ClipLoader } from "react-spinners";
 
@@ -22,8 +22,6 @@ export default function EditProfile({
     (state) => state.auth.user
   );
   let initials;
-  console.log(currentUser);
-
   if (currentUser) {
     initials = getUserInitials(currentUser.firstName, currentUser.lastName);
   }
@@ -31,29 +29,62 @@ export default function EditProfile({
   const [usernames, setUsernames] = useState(
     `${currentUser?.firstName} ${currentUser?.lastName}`
   );
+
   const [bio, setBio] = useState(currentUser?.bio);
   const [loading, setLoading] = useState(false);
+  const [image, setImage] = useState<any>(undefined);
+  const [imagePreview, setImagePreview] = useState<string | undefined>(
+    undefined
+  );
   const alertContext = useAlert();
   const themeContext = useTheme();
   const dispatch = useDispatch();
+  const imageUploadRef = useRef<any | undefined>();
 
   if (!alertContext) return null;
   if (!themeContext) return null;
   const { revealAlert, closeAlert } = alertContext;
   const { mode } = themeContext;
 
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file && !["image/png", "image/jpeg"].includes(file.type))
+      return revealAlert("Only JPG and PNG images are acceptable", "error");
+
+    setImage(file);
+    file && setImagePreview(URL.createObjectURL(file));
+  };
+
+  let imageUrl: string;
+  const uploadAvatarToCloud = async () => {
+    const img = new FormData();
+    if (image) img.append("file", image);
+    img.append("cloud_name", CLOUD_NAME);
+    img.append("upload_preset", UPLOAD_PRESET);
+
+    const response = await fetch(
+      `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
+      { method: "post", body: img }
+    );
+    const imageData = await response.json();
+    imageUrl = imageData?.url?.toString();
+    setImage("");
+    setImagePreview(undefined);
+  };
+
   const updateUserProfile = async () => {
     closeAlert();
-
-    const credentials = {
-      firstName: currentUser?.firstName,
-      lastName: currentUser?.lastName,
-      avatar: currentUser?.avatar,
-      bio: bio || currentUser?.bio,
-    };
-
     try {
       setLoading(true);
+      image && (await uploadAvatarToCloud());
+
+      const credentials = {
+        firstName: currentUser?.firstName,
+        lastName: currentUser?.lastName,
+        avatar: imageUrl || currentUser?.avatar,
+        bio: bio || currentUser?.bio,
+      };
+
       const response = await httpRequest.put(
         `${SERVER_URL}/users/${currentUser?.id}`,
         credentials
@@ -91,24 +122,39 @@ export default function EditProfile({
           </>
         ) : (
           <>
-            <a href={currentUser?.avatar}>
+            {imagePreview ? (
               <img
-                src={currentUser?.avatar}
-                alt={currentUser?.firstName}
+                src={imagePreview}
+                alt="image"
                 className="h-14 w-14 rounded-full object-cover"
               />
-            </a>
+            ) : (
+              <a href={currentUser?.avatar}>
+                <img
+                  src={currentUser?.avatar}
+                  alt={currentUser?.firstName}
+                  className="h-14 w-14 rounded-full object-cover"
+                />
+              </a>
+            )}
           </>
         )}
 
         <div className="leading-6">
           <p
             className="cursor-pointer font-semibold text-primaryColor underline"
-            onClick={() => setShowSidebar(true)}
+            onClick={() => imageUploadRef.current.click()}
           >
             Replace Photo
           </p>
-          <p className="text-grayNeutral">JPG and PNG are recommended</p>
+          <input
+            type="file"
+            ref={imageUploadRef}
+            accept="image/*"
+            className="hidden bg-transparent"
+            onChange={(e) => handleImageChange(e)}
+          />
+          <p className="text-grayNeutral">JPG and PNG are acceptable</p>
         </div>
       </div>
 
@@ -127,8 +173,10 @@ export default function EditProfile({
 
       <div
         className={`my-8 w-full max-w-md rounded-lg ${
-          mode === "dark" ? "border-stone-100 bg-black" : "bg-white sm:p-5"
-        } p-0 sm:shadow-lg`}
+          mode === "dark"
+            ? "border-stone-100 bg-dark100"
+            : "bg-white sm:p-5 sm:shadow-lg"
+        } p-0`}
       >
         <div className="p-1">
           <h2 className="text-xl font-semibold">Bio</h2>
@@ -141,6 +189,7 @@ export default function EditProfile({
             className={`mt-8 w-full rounded-lg border border-gray-400 bg-transparent p-1 ${
               mode === "dark" ? "text-white" : "text-stone-700"
             }  leading-6 outline-none`}
+            rows={6}
           ></textarea>
           <p className="text-right leading-3 text-grayNeutral">0/200 words</p>
         </div>
@@ -155,9 +204,9 @@ export default function EditProfile({
           {loading ? (
             <Button
               type="button"
-              className="mt-5 w-full rounded-lg bg-primaryColorHover p-3 text-lg font-semibold text-white"
+              className="w-1/2 bg-primaryColorHover text-white"
             >
-              <ClipLoader loading={loading} size={25} color={"#fff"} />
+              <ClipLoader loading={loading} size={20} color={"#fff"} />
             </Button>
           ) : (
             <Button
