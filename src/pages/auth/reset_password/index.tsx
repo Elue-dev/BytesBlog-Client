@@ -240,13 +240,22 @@ export default function ResetPassword() {
               </span>
             </div>
 
-            <Button
-              type="button"
-              className="mt-5 w-full rounded-lg bg-primaryColor p-3 text-lg font-semibold text-white hover:bg-primaryColorHover"
-              onClick={resetUserPassword}
-            >
-              Reset Password
-            </Button>
+            {loading ? (
+              <Button
+                type="button"
+                className="mt-5 w-full rounded-lg bg-primaryColorHover p-3 text-lg font-semibold text-white"
+              >
+                Procesing...
+              </Button>
+            ) : (
+              <Button
+                type="button"
+                className="mt-5 w-full rounded-lg bg-primaryColor p-3 text-lg font-semibold text-white hover:bg-primaryColorHover"
+                onClick={resetUserPassword}
+              >
+                Reset Password
+              </Button>
+            )}
 
             <p className="mb-3 mt-4 text-right text-blackNeutral">
               <Link to="/" className="font-semibold underline">

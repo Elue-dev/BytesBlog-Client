@@ -12,7 +12,7 @@ import { useAlert } from "@/context/useAlert";
 import { useGoogleAuth } from "@/context/useGoogleAuth";
 import { CAProps } from "@/types/auth";
 import { auth, provider } from "@/lib/firebase";
-import { signInWithPopup } from "firebase/auth";
+import { signInWithPopup, UserCredential } from "firebase/auth";
 
 export default function SignUpForm({
   values,
@@ -80,16 +80,11 @@ export default function SignUpForm({
     closeAlert();
     setValidationErrors([]);
     const errors = [];
-    if (!firstname.trim()) errors.push("firstname");
-
-    if (!lastname.trim()) errors.push("lastname");
-
-    if (!email.trim()) errors.push("email");
-
-    if (!password.trim()) errors.push("password");
-
-    if (!confirmPassword.trim()) errors.push("confirmPassword");
-
+    !firstname.trim() && errors.push("firstname");
+    !lastname.trim() && errors.push("lastname");
+    !email.trim() && errors.push("email");
+    !password.trim() && errors.push("password");
+    !confirmPassword.trim() && errors.push("confirmPassword");
     setValidationErrors(errors);
 
     if (errors.length === 0) {
@@ -116,14 +111,21 @@ export default function SignUpForm({
 
   const signInWithGoogle = async () => {
     try {
-      const userCredentials: any = await signInWithPopup(auth, provider);
-      const lastName = userCredentials.user.displayName.split(" ")[0];
-      const firstName = userCredentials.user.displayName.split(" ")[1];
-      const email = userCredentials.user.email;
-      const avatar = userCredentials.user.photoURL;
+      const userCredentials: UserCredential | null = await signInWithPopup(
+        auth,
+        provider
+      );
+      console.log(userCredentials);
 
-      updateCredentials(firstName, lastName, email, avatar);
-      nextStep && nextStep();
+      if (userCredentials && userCredentials.user) {
+        const firstName = userCredentials.user.displayName!.split(" ")[0];
+        const lastName = userCredentials.user.displayName!.split(" ")[1];
+        const email = userCredentials.user!.email || "";
+        const avatar = userCredentials.user!.photoURL || "";
+
+        updateCredentials(firstName, lastName, email, avatar);
+        nextStep && nextStep();
+      }
     } catch (error) {
       console.log(error);
     }

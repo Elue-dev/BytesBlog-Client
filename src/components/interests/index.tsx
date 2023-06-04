@@ -90,12 +90,16 @@ export default function Interests({
     <div className="flex h-screen items-center justify-center">
       <div className="mx-4 my-8 w-full max-w-md rounded-lg bg-white p-0 sm:p-5 sm:shadow-lg">
         <div
-          onClick={previousStep}
+          onClick={() => {
+            previousStep;
+            clearCredentials();
+          }}
           className="flex cursor-pointer items-center justify-start gap-1 pb-2"
         >
           <IoChevronBackCircleOutline className="text-2xl" />
           <span>Back</span>
         </div>
+
         <h1 className="pt-3 text-center text-3xl font-semibold text-blackNeutral">
           Select Your Interests
         </h1>
