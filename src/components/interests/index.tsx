@@ -30,8 +30,6 @@ export default function Interests({
     googleAuthContext;
   const { firstname, lastname, email, password } = values;
 
-  console.log({ firstName, lastName, mail, avatar, isGoogle });
-
   const setUserInterest = (int: string) => {
     if (interests.includes(int)) {
       setInterests(interests.filter((cat) => cat !== int));

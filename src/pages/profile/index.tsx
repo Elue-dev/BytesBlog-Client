@@ -9,6 +9,8 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { User } from "@/types/user";
 import { getUserInitials } from "@/helpers/user.initials";
+import { formatDate } from "@/helpers/date.formatter";
+import { FcOvertime } from "react-icons/fc";
 
 export default function Profile() {
   const [postType, setPostType] = useState("My Posts");
@@ -72,7 +74,29 @@ export default function Profile() {
           <h3 className="py-4 text-xl font-medium text-lighterGray">
             {currentUser?.firstName} {currentUser?.lastName}
           </h3>
-          <h2 className="text-2xl font-semibold">About</h2>
+          <div>
+            <p className="flex items-center justify-start gap-2">
+              <span>
+                <FcOvertime />
+              </span>
+              Date Joined:{" "}
+              <span className="text-lightText">
+                {currentUser?.joinedAt && formatDate(currentUser?.joinedAt)}
+              </span>
+            </p>
+            <p className="flex items-center justify-start gap-2">
+              <span>
+                <FcOvertime />
+              </span>
+              Last Updated:{" "}
+              <span className="text-lightText">
+                {currentUser?.lastUpdated &&
+                  formatDate(currentUser?.lastUpdated)}
+              </span>
+            </p>
+          </div>
+          <hr />
+          <h2 className="mt-4 text-2xl font-semibold">About</h2>
           <p className="mb-6 pt-3 font-normal leading-7 tracking-wide text-gray600">
             {currentUser?.bio === ""
               ? "Your bio will appear here"
