@@ -8,6 +8,7 @@ import { useModal } from "@/context/useModal";
 import { useAlert } from "@/context/useAlert";
 import { SERVER_URL } from "@/utils/variables";
 import { httpRequest } from "@/lib";
+import { ClipLoader } from "react-spinners";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
@@ -95,7 +96,7 @@ export default function ForgotPassword() {
         </div>
         {loading ? (
           <Button className="mt-14 w-full rounded-lg bg-primaryColorHover p-3 text-white">
-            Processing...
+            <ClipLoader loading={loading} size={25} color={"#fff"} />
           </Button>
         ) : (
           <Button

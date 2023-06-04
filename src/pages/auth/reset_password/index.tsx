@@ -13,6 +13,7 @@ import { SERVER_URL } from "@/utils/variables";
 import { httpRequest } from "@/lib";
 import { REMOVE_ACTIVE_USER } from "@/redux/slices/auth.slice";
 import { useDispatch } from "react-redux";
+import { ClipLoader } from "react-spinners";
 
 const initialValues: RPValues = {
   password: "",
@@ -129,7 +130,7 @@ export default function ResetPassword() {
             "Something went wrong, Please try again",
           "error"
         );
-        setLoading(true);
+        setLoading(false);
       }
     }
   };
@@ -245,7 +246,7 @@ export default function ResetPassword() {
                 type="button"
                 className="mt-5 w-full rounded-lg bg-primaryColorHover p-3 text-lg font-semibold text-white"
               >
-                Procesing...
+                <ClipLoader loading={loading} size={25} color={"#fff"} />
               </Button>
             ) : (
               <Button

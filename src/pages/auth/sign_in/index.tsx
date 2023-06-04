@@ -15,6 +15,7 @@ import { SET_ACTIVE_USER } from "@/redux/slices/auth.slice";
 import { useDispatch } from "react-redux";
 import { auth, provider } from "@/lib/firebase";
 import { signInWithPopup } from "firebase/auth";
+import { ClipLoader } from "react-spinners";
 
 const initialValues: SIValues = {
   email: "",
@@ -176,7 +177,7 @@ export default function SignIn() {
                 type="button"
                 className="mt-5 w-full rounded-lg bg-primaryColorHover p-3 text-lg font-semibold text-white"
               >
-                Processing...
+                <ClipLoader loading={loading} size={25} color={"#fff"} />
               </Button>
             ) : (
               <Button

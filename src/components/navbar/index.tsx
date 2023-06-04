@@ -28,9 +28,8 @@ export default function Navbar() {
   const dispatch = useDispatch();
 
   let initials;
-  if (currentUser) {
+  if (currentUser)
     initials = getUserInitials(currentUser.firstName, currentUser.lastName);
-  }
 
   const { pathname } = useLocation();
   const navigate = useNavigate();

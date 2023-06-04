@@ -20,9 +20,8 @@ export default function Profile() {
   );
 
   let initials;
-  if (currentUser) {
+  if (currentUser)
     initials = getUserInitials(currentUser.firstName, currentUser.lastName);
-  }
 
   return (
     <section className={styles.profile}>
@@ -71,7 +70,7 @@ export default function Profile() {
             </p>
           </div>
 
-          <h3 className="py-4 text-xl font-medium text-lighterGray">
+          <h3 className="py-4 text-xl font-medium">
             {currentUser?.firstName} {currentUser?.lastName}
           </h3>
           <div>
@@ -95,6 +94,7 @@ export default function Profile() {
               </span>
             </p>
           </div>
+          <br />
           <hr />
           <h2 className="mt-4 text-2xl font-semibold">About</h2>
           <p className="mb-6 pt-3 font-normal leading-7 tracking-wide text-gray600">

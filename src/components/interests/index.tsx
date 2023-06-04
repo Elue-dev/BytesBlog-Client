@@ -8,6 +8,7 @@ import { useGoogleAuth } from "@/context/useGoogleAuth";
 import { InterestsProps } from "@/types/auth";
 import { httpRequest } from "../../lib/index";
 import { SERVER_URL } from "@/utils/variables";
+import { ClipLoader } from "react-spinners";
 
 export default function Interests({
   interests,
@@ -124,7 +125,7 @@ export default function Interests({
 
         {loading ? (
           <Button className="mt-14 w-full rounded-lg bg-primaryColorHover p-3 text-white">
-            Processing...
+            <ClipLoader loading={loading} size={25} color={"#fff"} />
           </Button>
         ) : (
           <Button

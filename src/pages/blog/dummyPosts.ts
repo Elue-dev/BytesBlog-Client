@@ -57,7 +57,7 @@ export const postData: Post[] = [
     user: {
       name: "Wisdom Elue",
       photo:
-        "http://res.cloudinary.com/dwdsjbetu/image/upload/v1682532984/gyi50klobm1wmm35dlux.jpg",
+        "https://res.cloudinary.com/dwdsjbetu/image/upload/v1681017664/pifon2zdkzrjrohpcfne.jpg",
     },
   },
 
