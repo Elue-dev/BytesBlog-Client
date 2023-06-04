@@ -6,12 +6,21 @@ import { postCategories } from "./data";
 import Button from "@/components/button";
 import { useModal } from "@/context/useModal";
 import { useAlert } from "@/context/useAlert";
-import { useEffect } from "react";
-import { StepTwoProps } from "@/types/posts";
+import { useEffect, useState } from "react";
+import { Post, StepTwoProps } from "@/types/posts";
+import { CLOUD_NAME, UPLOAD_PRESET } from "@/utils/variables";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { httpRequest } from "@/lib";
+import { User } from "@/types/user";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { ClipLoader } from "react-spinners";
 
 export default function StepTwo({
   values,
   setValues,
+  content,
+  image,
   initialValues,
   catNames,
   setCatNames,
@@ -20,7 +29,11 @@ export default function StepTwo({
   handleInputChange,
   previousStep,
 }: StepTwoProps) {
-  const { readTime } = values;
+  const [loading, setLoading] = useState(false);
+  const currentUser: User | null = useSelector<RootState, User | null>(
+    (state) => state.auth.user
+  );
+  const { readTime, title } = values;
   const context = useModal();
   const alertContext = useAlert();
 
@@ -34,12 +47,48 @@ export default function StepTwo({
     manageArray();
   }, [categories]);
 
+  let imageUrl: string;
+  const uploadAvatarToCloud = async () => {
+    const img = new FormData();
+    if (image) img.append("file", image);
+    img.append("cloud_name", CLOUD_NAME);
+    img.append("upload_preset", UPLOAD_PRESET);
+
+    const response = await fetch(
+      `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
+      { method: "post", body: img }
+    );
+    const imageData = await response.json();
+    imageUrl = imageData?.url?.toString();
+  };
+
+  const queryClient = useQueryClient();
+  const authHeaders = {
+    headers: { authorization: `Bearer ${currentUser?.token}` },
+  };
+
+  const mutation = useMutation(
+    (newPost: Post) => {
+      return httpRequest.post("/posts", newPost, authHeaders);
+    },
+    {
+      onSuccess: (data) => {
+        console.log(data);
+        queryClient.invalidateQueries(["posts"]);
+      },
+      onError: (err) => {
+        setLoading(false);
+        console.log({ err });
+      },
+    }
+  );
+
   if (!context) return null;
   if (!alertContext) return null;
   const { revealModal } = context;
   const { revealAlert, closeAlert } = alertContext;
 
-  const publishPost = () => {
+  const publishPost = async () => {
     closeAlert();
     const convertReadTime = parseInt(readTime);
 
@@ -55,12 +104,28 @@ export default function StepTwo({
         "error"
       );
 
-    revealModal(
-      `Your post has been published successfully`,
-      "/blog",
-      "success"
-    );
-    setValues(initialValues);
+    try {
+      setLoading(true);
+      await uploadAvatarToCloud();
+      const postData = {
+        title,
+        content,
+        image: imageUrl,
+        categories: catNames,
+        readTime: parseInt(readTime),
+      };
+      const response = await mutation.mutateAsync(postData);
+      if (response)
+        revealModal(
+          `Your post has been published successfully`,
+          "/blog",
+          "success"
+        );
+      setValues(initialValues);
+    } catch (error: any) {
+      setLoading(false);
+      return revealAlert(error.response.data.message, "error");
+    }
   };
 
   return (
@@ -131,14 +196,25 @@ export default function StepTwo({
           </div>
         </div>
 
-        <div className="px-normal flex flex-col items-end justify-end pt-8 sm:px-16">
-          <Button
-            className="flex h-12 w-28 items-center justify-center bg-primaryColor text-white hover:bg-primaryColorHover"
-            onClick={publishPost}
-          >
-            Publish
-          </Button>
-        </div>
+        {loading ? (
+          <div className="px-normal flex flex-col items-end justify-end pt-8 sm:px-16">
+            <Button
+              type="button"
+              className="flex h-12 w-28 items-center justify-center rounded-lg bg-primaryColorHover text-white"
+            >
+              <ClipLoader loading={loading} size={20} color={"#fff"} />
+            </Button>
+          </div>
+        ) : (
+          <div className="px-normal flex flex-col items-end justify-end pt-8 sm:px-16">
+            <Button
+              className="flex h-12 w-28 items-center justify-center bg-primaryColor text-white hover:bg-primaryColorHover"
+              onClick={publishPost}
+            >
+              Publish
+            </Button>
+          </div>
+        )}
       </section>
       <div className="footer mt-10 h-20 w-full bg-primaryColorLight"></div>
     </>

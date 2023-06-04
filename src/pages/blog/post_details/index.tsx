@@ -1,4 +1,3 @@
-import { postData } from "../dummyPosts";
 import { BiTimeFive } from "react-icons/bi";
 import likeInactive from "@/assets/likeInactive.svg";
 import commentIcon from "@/assets/commentIcon.svg";
@@ -10,31 +9,60 @@ import styles from "./post.details.module.scss";
 import { useParams } from "react-router-dom";
 import RightDetails from "./RightDetails";
 import { useState } from "react";
-import { Post } from "@/types/posts";
 import CommentsSidebar from "./CommentsSidebar";
+import { httpRequest } from "@/lib";
+import { useQuery } from "@tanstack/react-query";
+import { PostData } from "@/types/posts";
+import moment from "moment";
+import PostContent from "@/helpers/format.content";
 
 export default function PostDetails() {
   const [showSidebar, setShowSidebar] = useState(false);
   const { postId } = useParams();
 
-  let currentPost: Post | undefined;
-  if (postData) {
-    currentPost = postData.find((post) => post.id.toString() === postId);
-  }
+  const {
+    isLoading,
+    error,
+    data: post,
+  } = useQuery<PostData>([`post-${postId}`], () =>
+    httpRequest.get(`/posts/${postId}`).then((res) => {
+      return res.data.post[0];
+    })
+  );
 
-  if (!currentPost) return null;
+  const {
+    isLoading: loading,
+    error: err,
+    data: posts,
+  } = useQuery(
+    [`posts`],
+    () =>
+      httpRequest.get(`/posts`).then((res) => {
+        return res.data.posts;
+      }),
+    {
+      staleTime: 60000,
+    }
+  );
 
-  const similarPosts = postData.filter((post) => post.id.toString() !== postId);
+  if (isLoading || !post || loading) return <h1>loading...</h1>;
+  if (error || err) return <h1>Something went wrong.</h1>;
+
+  const similarPosts = posts.filter(
+    (p: PostData) => p.id.toString() !== postId
+  );
 
   return (
     <section className={styles["post__details"]}>
       <div className={styles.hero}></div>
 
-      <CommentsSidebar
-        currentPost={currentPost}
-        showSidebar={showSidebar}
-        setShowSidebar={setShowSidebar}
-      />
+      {posts && (
+        <CommentsSidebar
+          comments={post?.comments}
+          showSidebar={showSidebar}
+          setShowSidebar={setShowSidebar}
+        />
+      )}
 
       <div className="container flex flex-col pt-12 lg:flex-row">
         <div className={styles["left__quarter"]}>
@@ -42,22 +70,26 @@ export default function PostDetails() {
             <div>
               <div className="flex flex-col justify-between sm:flex-row md:flex-row">
                 <div className="flex items-center justify-between gap-8 sm:justify-start">
-                  <div className="flex  items-center justify-start gap-2">
+                  <div className="flex items-center justify-start gap-2">
                     <img
-                      src={currentPost.user.photo}
-                      alt={currentPost.user.name}
+                      src={post.author?.avatar}
+                      alt={post.author?.firstName}
                       className="h-11 w-11 rounded-full object-cover"
                     />
                     <div>
-                      <p className="text-lg">{currentPost.user.name}</p>
-                      <p className="text-grayLight">{currentPost.date}</p>
+                      <p className="text-lg">
+                        {post.author?.firstName + " " + post.author?.lastName}
+                      </p>
+                      <p className="text-grayLight">
+                        {String(moment(post?.createdAt).fromNow())}
+                      </p>
                     </div>
                   </div>
 
                   <div className="flex items-center justify-start gap-2">
                     <BiTimeFive />
                     <span className="text-lg">
-                      {currentPost.read_time} mins read
+                      {String(post?.readTime?.toString())} mins read
                     </span>
                   </div>
                 </div>
@@ -81,27 +113,28 @@ export default function PostDetails() {
               </div>
 
               <h1 className="pb-6 pt-10 text-2xl font-semibold sm:text-4xl">
-                {currentPost.title}
+                {post?.title}
               </h1>
               <img
-                src={currentPost.image}
-                alt={currentPost.title}
-                className="rounded-lg object-cover"
+                src={post?.image}
+                alt={post?.title}
+                className="h-auto w-full rounded-lg object-cover"
               />
               <article className="pt-8 leading-8 text-grayNeutral">
-                {currentPost.content}
+                <PostContent content={post?.content} />
               </article>
-              <div className="flex gap-6 pb-10 pt-2 lg:pb-0">
+
+              <div className="flex gap-6 pb-10 pt-4 lg:pb-0">
                 <div className="flex cursor-pointer items-center justify-start gap-2">
                   <img src={likeInactive} alt="like post" />
-                  <span>{currentPost.likes}</span>
+                  <span>{post.likes?.length}</span>
                 </div>
                 <div
                   className="flex cursor-pointer items-center justify-start gap-2"
                   onClick={() => setShowSidebar(true)}
                 >
                   <img src={commentIcon} alt="comment on post" />
-                  <span>{currentPost.comments}</span>
+                  <span>{post.comments?.length}</span>
                 </div>
                 <div>
                   <img

@@ -1,23 +1,35 @@
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 
 export interface Post {
-  id: number;
   image: string;
+  readTime: number;
+  categories: string[];
   title: string;
-  excerpt: string;
   content: string;
-  likes: number;
-  read_time: number;
-  date: string;
-  comments: number;
-  user: {
-    name: string;
-    photo: string;
+}
+
+export interface PostData {
+  id: string;
+  image: string;
+  readTime: number;
+  categories: string[];
+  title: string;
+  content: string;
+  createdAt: Date;
+  updatedAt: Date;
+  authorId: string;
+  comments?: [];
+  author: {
+    id: string;
+    avatar: string;
+    firstName: string;
+    lastName: string;
   };
+  likes: [];
 }
 
 export interface RightDetailsProps {
-  similarPosts: Post[];
+  similarPosts: PostData[];
 }
 
 export interface Comment {
@@ -31,11 +43,15 @@ export interface Comment {
 
 export interface AddBPost {
   title: string;
+  content: string;
   readTime: string;
+  image: string;
 }
 
+export type InitValues = Pick<AddBPost, "title" | "readTime">;
+
 export interface StepOneprops {
-  values: AddBPost;
+  values: InitValues;
   image: File | undefined;
   content: string;
   setContent: Dispatch<SetStateAction<string>>;
@@ -48,8 +64,10 @@ export interface StepOneprops {
 
 export interface StepTwoProps {
   categories: string[];
-  values: AddBPost;
-  initialValues: AddBPost;
+  values: InitValues;
+  initialValues: InitValues;
+  image: File | undefined;
+  content: string;
   catNames: string[];
   setCatNames: Dispatch<SetStateAction<StepTwoProps["catNames"]>>;
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -59,7 +77,27 @@ export interface StepTwoProps {
 }
 
 export interface CommentsSBProps {
-  currentPost: Post | undefined;
+  comments: any;
   showSidebar: boolean;
   setShowSidebar: Dispatch<SetStateAction<boolean>>;
+}
+
+export interface CommentData {
+  id: string;
+  message: string;
+  createdAt: Date;
+  updatedAt: Date;
+  author: {
+    id: string;
+    avatar: string;
+    firstName: string;
+    lastName: string;
+  };
+  authorId: string;
+  post: Post;
+  postId: string;
+  parent?: Comment;
+  children: Comment[];
+  parentId?: string;
+  likes: [];
 }

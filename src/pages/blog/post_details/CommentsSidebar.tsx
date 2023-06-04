@@ -1,15 +1,19 @@
 import { useEffect, useRef, useState } from "react";
-import { CommentsSBProps } from "@/types/posts";
+import { CommentData, CommentsSBProps } from "@/types/posts";
 import Button from "@/components/button";
-import { dummyComments } from "./dummyComments";
+// import { dummyComments } from "./dummyComments";
 import { useAlert } from "@/context/useAlert";
 
 import styles from "./post.details.module.scss";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useTheme } from "@/context/useTheme";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { User } from "@/types/user";
+import moment from "moment";
 
 export default function CommentsSidebar({
-  currentPost,
+  comments,
   showSidebar,
   setShowSidebar,
 }: CommentsSBProps) {
@@ -18,6 +22,9 @@ export default function CommentsSidebar({
   const commentInputRef = useRef<HTMLTextAreaElement>(null);
   const alertContext = useAlert();
   const themeContext = useTheme();
+  const currentUser: User | null = useSelector<RootState, User | null>(
+    (state) => state.auth.user
+  );
 
   useEffect(() => {
     if (showInput) {
@@ -30,7 +37,7 @@ export default function CommentsSidebar({
   const { revealAlert, closeAlert } = alertContext;
   const { mode } = themeContext;
 
-  if (!currentPost) return null;
+  if (!comments) return null;
 
   const addComment = () => {
     closeAlert();
@@ -60,8 +67,14 @@ export default function CommentsSidebar({
         }
       >
         <h1 className="mb-6 mt-8 bg-primaryColorLight p-3 text-center text-xl font-semibold text-black sm:w-full">
-          Comments ({currentPost.comments})
+          Comments ({comments.length})
         </h1>
+
+        {comment.length == 0 && (
+          <p className="text-neutral-900">
+            Be the first to add a comment on this post.
+          </p>
+        )}
 
         <div
           className={`mt-2 rounded-lg bg-transparent p-2 shadow sm:shadow-lg ${
@@ -78,11 +91,13 @@ export default function CommentsSidebar({
             <>
               <div className="mb-2 flex items-center justify-start gap-2">
                 <img
-                  src="https://media.licdn.com/dms/image/C4D03AQEJs8pt7dfmwA/profile-displayphoto-shrink_200_200/0/1656258962473?e=1688601600&v=beta&t=UudLiADbwrewUUl5diZf7p8TjFsmzXT0QCu01fmNJw8"
+                  src={currentUser?.avatar}
                   className="h-10 w-10 rounded-full object-cover"
-                  alt="username"
+                  alt={currentUser?.firstName}
                 />
-                <p className="text-gray600">Seun Akingboye</p>
+                <p className="text-gray600">
+                  {currentUser?.firstName + " " + currentUser?.lastName}
+                </p>
               </div>
               <textarea
                 value={comment}
@@ -98,6 +113,7 @@ export default function CommentsSidebar({
             </>
           )}
         </div>
+
         {showInput && (
           <div className="mb-4 mt-3 flex items-center justify-end gap-3">
             <Button
@@ -119,30 +135,40 @@ export default function CommentsSidebar({
         )}
         <hr />
 
-        {dummyComments.map((comment) => (
-          <div key={comment.id} className="mt-12 leading-6">
-            <div className="mb-2 flex gap-3">
-              <img
-                src={comment.image}
-                className="h-11 w-11 rounded-full object-cover"
-                alt={comment.author}
-              />
-              <div>
-                <div className="flex gap-4">
-                  <h4 className="font-semibold">{comment.author}</h4>
-                  {comment.isMine && (
-                    <span className=" flex h-6 w-12 items-center justify-center rounded-lg bg-lightTextColor font-semibold text-white">
-                      You
-                    </span>
-                  )}
+        {comments.length > 0 && (
+          <>
+            {comments?.map((comment: CommentData) => (
+              <div key={comment?.id} className="mt-12 leading-6">
+                <div className="mb-2 flex gap-3">
+                  <img
+                    src={comment.author.avatar}
+                    className="h-11 w-11 rounded-full object-cover"
+                    alt={comment.author.firstName}
+                  />
+                  <div>
+                    <div className="flex gap-4">
+                      <h4 className="font-semibold">
+                        {comment.author.firstName +
+                          " " +
+                          comment.author.lastName}
+                      </h4>
+                      {comment.authorId === currentUser?.id && (
+                        <span className=" flex h-6 w-12 items-center justify-center rounded-lg bg-lightTextColor font-semibold text-white">
+                          You
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-gray500">
+                      {moment(comment.createdAt).fromNow()}
+                    </p>
+                  </div>
                 </div>
-                <p className="text-gray500">{comment.date}</p>
-              </div>
-            </div>
 
-            <p className="text-lighterGray">{comment.comment}</p>
-          </div>
-        ))}
+                <p className="text-lighterGray">{comment.message}</p>
+              </div>
+            ))}
+          </>
+        )}
 
         {showSidebar && (
           <AiOutlineCloseCircle

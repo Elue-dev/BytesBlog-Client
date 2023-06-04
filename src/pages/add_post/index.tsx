@@ -1,9 +1,8 @@
 import StepOne from "@/components/add_post/step_one";
 import StepTwo from "@/components/add_post/step_two";
-import { AddBPost } from "@/types/posts";
 import { useState, ChangeEvent } from "react";
 
-const initialValues: AddBPost = {
+const initialValues: { title: string; readTime: string } = {
   title: "",
   readTime: "",
 };
@@ -53,6 +52,8 @@ export default function AddPost() {
         <StepTwo
           values={values}
           setValues={setValues}
+          image={image}
+          content={content}
           initialValues={initialValues}
           catNames={catNames}
           setCatNames={setCatNames}

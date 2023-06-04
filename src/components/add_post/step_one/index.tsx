@@ -20,14 +20,17 @@ export default function StepOne({
   nextStep,
 }: StepOneprops) {
   const imageUploadRef = useRef<any | undefined>();
+  const { title } = values;
   const context = useAlert();
 
   if (!context) return null;
   const { revealAlert, closeAlert } = context;
 
-  const { title } = values;
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    closeAlert();
     const file = e.target.files?.[0];
+    if (file && !["image/png", "image/jpeg"].includes(file.type))
+      return revealAlert("Only JPG and PNG images are acceptable", "error");
     setImage(file);
     file && setImagePreview(URL.createObjectURL(file));
   };
@@ -64,8 +67,8 @@ export default function StepOne({
       );
     }
 
-    if (title && !/^[A-Za-z0-9\s]+$/.test(title))
-      return revealAlert("Title contains unwanted characters", "error");
+    // if (title && !/^[A-Za-z0-9\s]+$/.test(title))
+    //   return revealAlert("Title contains unwanted characters", "error");
 
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     nextStep && nextStep();
