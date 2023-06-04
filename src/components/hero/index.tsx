@@ -11,12 +11,12 @@ export default function Hero() {
   return (
     <section className={`h-[75vh] ${styles.hero} mt-1`}>
       {!isLoggedIn && (
-        <div className="container">
+        <div className="container pt-3">
           <ThemeToggle />
         </div>
       )}
       <div className={`${styles.content} pt-16`}>
-        <h2 className="leading-12 text-5xl">
+        <h2 className="leading-12 text-5xl text-zinc-900">
           Unleash your thoughts and pen them down
         </h2>
         <p className="mt-4 font-normal text-grayNeutral sm:font-normal">
