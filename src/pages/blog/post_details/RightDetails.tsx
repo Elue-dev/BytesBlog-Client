@@ -3,9 +3,21 @@ import { Link } from "react-router-dom";
 import { BiTimeFive } from "react-icons/bi";
 import { RightDetailsProps } from "@/types/posts";
 import { useTheme } from "@/context/useTheme";
+import { User } from "@/types/user";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { getUserInitials } from "@/helpers/user.initials";
 
 export default function RightDetails({ similarPosts }: RightDetailsProps) {
   const themeContext = useTheme();
+  const currentUser: User | null = useSelector<RootState, User | null>(
+    (state) => state.auth.user
+  );
+
+  let initials: string | undefined;
+  if (currentUser)
+    initials = getUserInitials(currentUser.firstName, currentUser.lastName);
+
   if (!themeContext) return null;
   const { mode } = themeContext;
 
@@ -25,12 +37,31 @@ export default function RightDetails({ similarPosts }: RightDetailsProps) {
         >
           <div>
             <div className="flex flex-row-reverse items-center justify-start gap-2 lg:flex-row">
-              <img
-                src={post.author?.avatar}
-                alt={post.author?.firstName}
-                className="h-11 w-11 rounded-full object-cover"
-              />
-              <p>{post.author?.firstName + " " + post?.author.lastName}</p>
+              {post.author.avatar === "" ? (
+                <>
+                  <div
+                    className={styles["user__initials"]}
+                    style={{
+                      background: mode === "dark" ? "#f0f0f0" : "#000",
+                      color: mode === "dark" ? "#000" : "#f0f0f0",
+                    }}
+                  >
+                    {initials}
+                  </div>
+                  <p className="text-gray600">
+                    {currentUser?.firstName + " " + currentUser?.lastName}
+                  </p>
+                </>
+              ) : (
+                <>
+                  <img
+                    src={post.author?.avatar}
+                    alt={post.author?.firstName}
+                    className="h-11 w-11 rounded-full object-cover"
+                  />
+                  <p>{post.author?.firstName + " " + post?.author.lastName}</p>
+                </>
+              )}
             </div>
             <div>
               <h4 className="text-1xl max-w-xl pt-3 font-semibold lg:pt-0">

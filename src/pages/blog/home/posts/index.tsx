@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { postData } from "../../dummyPosts";
 import { BiTimeFive } from "react-icons/bi";
 // import bookmarkActive from "@/assets/bookmarkActive.svg";
@@ -15,9 +16,13 @@ import { User } from "@/types/user";
 import { RootState } from "@/redux/store";
 import { useSelector } from "react-redux";
 import { useAlert } from "@/context/useAlert";
+import { getUserInitials } from "@/helpers/user.initials";
+import { useTheme } from "@/context/useTheme";
 
 export default function Posts() {
+  const [isLiked, setIsLiked] = useState(false);
   const alertContext = useAlert();
+  const themeContext = useTheme();
   const currentUser: User | null = useSelector<RootState, User | null>(
     (state) => state.auth.user
   );
@@ -35,6 +40,10 @@ export default function Posts() {
   } = useQuery<PostData[], Error>(["posts"], queryFn, {
     staleTime: 60000,
   });
+
+  let initials: string | undefined;
+  if (currentUser)
+    initials = getUserInitials(currentUser.firstName, currentUser.lastName);
 
   const queryClient = useQueryClient();
   const authHeaders = {
@@ -56,6 +65,16 @@ export default function Posts() {
     }
   );
 
+  useEffect(() => {
+    if (isLiked) {
+      const timer = setTimeout(() => {
+        setIsLiked(false);
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isLiked]);
+
   if (!alertContext) return null;
   const { revealAlert } = alertContext;
 
@@ -63,9 +82,7 @@ export default function Posts() {
     try {
       const response = await mutation.mutateAsync(postId);
       if (response && response.data.message === "Post liked") {
-        revealAlert("Post Liked", "success");
-      } else {
-        revealAlert("Post Unliked", "warn");
+        setIsLiked(true);
       }
       console.log(response);
     } catch (error: any) {
@@ -77,6 +94,9 @@ export default function Posts() {
   const userHasLikedPost = (likes: Like[]): boolean => {
     return likes.some((like) => like.userId === currentUser?.id);
   };
+
+  if (!themeContext) return null;
+  const { mode } = themeContext;
 
   if (isLoading) return <h1>loading...</h1>;
   if (error) return <h1>Something went wrong.</h1>;
@@ -101,18 +121,43 @@ export default function Posts() {
             <div className="header">
               <div className="flex flex-col items-center justify-between pb-3 sm:flex-row">
                 <div className="flex items-center justify-start gap-2">
-                  <img
-                    src={post.author.avatar}
-                    alt={post.author.firstName}
-                    className="h-11 w-11 rounded-full object-cover"
-                  />
-                  <p>
-                    {post.author.firstName + post.author.lastName}{" "}
-                    <span className="text-grayLight">—</span>
-                    <span className="text-grayLight">
-                      {moment(post.createdAt).fromNow()}
-                    </span>
-                  </p>
+                  {post.author.avatar === "" ? (
+                    <>
+                      <div
+                        className="user__initials"
+                        style={{
+                          background: mode === "dark" ? "#f0f0f0" : "#000",
+                          color: mode === "dark" ? "#000" : "#f0f0f0",
+                        }}
+                      >
+                        {initials}
+                      </div>
+                      <p>
+                        {post.author.firstName + " " + post.author.lastName}{" "}
+                        <span className="text-grayLight">—</span>
+                        <span className="text-grayLight">
+                          {moment(post.createdAt).fromNow()}
+                        </span>
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <img
+                        src={post.author.avatar}
+                        alt={post.author.firstName}
+                        className="h-11 w-11 rounded-full object-cover"
+                      />
+                      <p>
+                        <span className="mr-2">
+                          {post.author.firstName + " " + post.author.lastName}
+                        </span>
+                        <span className="mr-1 text-grayLight">—</span>
+                        <span className="text-grayLight">
+                          {moment(post.createdAt).fromNow()}
+                        </span>
+                      </p>
+                    </>
+                  )}
                 </div>
                 <div className="flex items-center justify-start gap-2 text-slate-500">
                   <BiTimeFive />
@@ -141,7 +186,9 @@ export default function Posts() {
                       }
                       alt="like/dislike post"
                       onClick={() => likeDislikePost(post.id)}
-                      className="cursor-pointer text-gray500"
+                      className={`${
+                        isLiked ? "pop-in-animation" : ""
+                      } cursor-pointer text-gray500`}
                     />
                     <span>
                       {post.likes.length}{" "}

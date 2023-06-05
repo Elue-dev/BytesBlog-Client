@@ -7,9 +7,9 @@ import linkIcon from "@/assets/linkIcon.svg";
 import linkedin from "@/assets/linkedin.svg";
 import facebook from "@/assets/facebook.svg";
 import styles from "./post.details.module.scss";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import RightDetails from "./RightDetails";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CommentsSidebar from "./CommentsSidebar";
 import { httpRequest } from "@/lib";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -21,15 +21,22 @@ import { User } from "@/types/user";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { useAlert } from "@/context/useAlert";
+import { IoChevronBackCircleOutline } from "react-icons/io5";
+import { getUserInitials } from "@/helpers/user.initials";
 
 export default function PostDetails() {
   const [showSidebar, setShowSidebar] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
   const { postId } = useParams();
   const themeContext = useTheme();
   const alertContext = useAlert();
+  const navigate = useNavigate();
   const currentUser: User | null = useSelector<RootState, User | null>(
     (state) => state.auth.user
   );
+  let initials: string | undefined;
+  if (currentUser)
+    initials = getUserInitials(currentUser.firstName, currentUser.lastName);
 
   const {
     isLoading,
@@ -55,6 +62,16 @@ export default function PostDetails() {
       staleTime: 60000,
     }
   );
+
+  useEffect(() => {
+    if (isLiked) {
+      const timer = setTimeout(() => {
+        setIsLiked(false);
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isLiked]);
 
   const queryClient = useQueryClient();
   const authHeaders = {
@@ -86,13 +103,9 @@ export default function PostDetails() {
     try {
       const response = await mutation.mutateAsync(postId);
       if (response && response.data.message === "Post liked") {
-        revealAlert("Post Liked", "success");
-      } else {
-        revealAlert("Post Unliked", "warn");
+        setIsLiked(true);
       }
-      console.log(response);
     } catch (error: any) {
-      console.log(error);
       revealAlert(error.response.data.message, "error");
     }
   };
@@ -124,6 +137,18 @@ export default function PostDetails() {
         />
       )}
 
+      <div
+        onClick={() => navigate(-1)}
+        className="container flex cursor-pointer items-center justify-start gap-1 pb-2 pt-2"
+      >
+        {mode === "light" ? (
+          <IoChevronBackCircleOutline className="text-2xl text-slate-500" />
+        ) : (
+          <IoChevronBackCircleOutline className="text-2xl text-white" />
+        )}
+
+        <span className="text-slate-500">Back</span>
+      </div>
       <div className="container flex flex-col pt-12 lg:flex-row">
         <div
           className={`${styles["left__quarter"]} ${
@@ -135,11 +160,26 @@ export default function PostDetails() {
               <div className="flex flex-col justify-between sm:flex-row md:flex-row">
                 <div className="flex items-center justify-between gap-8 sm:justify-start">
                   <div className="flex items-center justify-start gap-2">
-                    <img
-                      src={post?.author?.avatar}
-                      alt={post.author?.firstName}
-                      className="h-11 w-11 rounded-full object-cover"
-                    />
+                    {currentUser?.avatar === "" ? (
+                      <>
+                        <div
+                          className={styles["user__initials"]}
+                          style={{
+                            background: mode === "dark" ? "#f0f0f0" : "#000",
+                            color: mode === "dark" ? "#000" : "#f0f0f0",
+                          }}
+                        >
+                          {initials}
+                        </div>
+                      </>
+                    ) : (
+                      <img
+                        src={post?.author?.avatar}
+                        alt={post.author?.firstName}
+                        className="h-11 w-11 rounded-full object-cover"
+                      />
+                    )}
+
                     <div>
                       <p className="text-lg">
                         {post.author?.firstName + " " + post.author?.lastName}
@@ -195,6 +235,7 @@ export default function PostDetails() {
                       userHasLikedPost(post.likes) ? likeActive : likeInactive
                     }
                     alt="like/dislike post"
+                    className={isLiked ? "pop-in-animation" : ""}
                     onClick={() => likeDislikePost(post.id)}
                   />
                   <span>{post.likes?.length}</span>

@@ -87,8 +87,40 @@ body {
   );
   height: 30vh;
 }
+
+@keyframes popIn {
+  0% {
+    transform: scale(1.3);
+  }
+  50% {
+    transform: scale(1.01);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.pop-in-animation {
+  animation-name: popIn;
+  animation-duration: 0.9s;
+  animation-timing-function: ease-in-out;
+}
+
+.user__initials {
+  font-size: 1.6rem;
+  font-weight: 700;
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 @media (max-width: 600px) {
   .container {
     width: 90%;
+  }
+  .user__initials {
+    height: 2.6rem;
+    width: 2.6rem;
   }
 }
