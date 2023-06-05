@@ -2,8 +2,13 @@ import styles from "./post.details.module.scss";
 import { Link } from "react-router-dom";
 import { BiTimeFive } from "react-icons/bi";
 import { RightDetailsProps } from "@/types/posts";
+import { useTheme } from "@/context/useTheme";
 
 export default function RightDetails({ similarPosts }: RightDetailsProps) {
+  const themeContext = useTheme();
+  if (!themeContext) return null;
+  const { mode } = themeContext;
+
   return (
     <div className={styles["right__quarter"]}>
       <h2 className="pb-8 pt-12 text-2xl font-semibold lg:pt-0">
@@ -13,6 +18,10 @@ export default function RightDetails({ similarPosts }: RightDetailsProps) {
         <div
           key={post.id}
           className="mb-4 flex flex-col-reverse items-center justify-center gap-4 lg:flex-row"
+          style={{
+            borderBottom:
+              mode === "dark" ? "0.5px solid #232323" : "0.5px solid #e5e7eb",
+          }}
         >
           <div>
             <div className="flex flex-row-reverse items-center justify-start gap-2 lg:flex-row">

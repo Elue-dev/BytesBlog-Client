@@ -12,7 +12,7 @@ import { useState } from "react";
 import CommentsSidebar from "./CommentsSidebar";
 import { httpRequest } from "@/lib";
 import { useQuery } from "@tanstack/react-query";
-import { PostData } from "@/types/posts";
+import { CommentData, PostData } from "@/types/posts";
 import moment from "moment";
 import PostContent from "@/helpers/format.content";
 import { useTheme } from "@/context/useTheme";
@@ -57,6 +57,10 @@ export default function PostDetails() {
     (p: PostData) => p.id.toString() !== postId
   );
 
+  const postComments = post.comments?.filter(
+    (com: CommentData) => com.parentId === null
+  );
+
   return (
     <section className={styles["post__details"]}>
       <div className={styles.hero}></div>
@@ -72,7 +76,7 @@ export default function PostDetails() {
       <div className="container flex flex-col pt-12 lg:flex-row">
         <div
           className={`${styles["left__quarter"]} ${
-            mode === "dark" ? "border-r-gray-600" : "border-r-zinc-900"
+            mode === "dark" ? "postBorderDark" : "postBorderLight"
           }`}
         >
           <div>
@@ -143,7 +147,7 @@ export default function PostDetails() {
                   onClick={() => setShowSidebar(true)}
                 >
                   <img src={commentIcon} alt="comment on post" />
-                  {/* <span>{post.comments}</span> */}
+                  <span>{postComments?.length}</span>
                 </div>
                 <div>
                   <img

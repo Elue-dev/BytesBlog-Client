@@ -25,16 +25,7 @@ export interface PostData {
   createdAt: Date;
   updatedAt: Date;
   authorId: string;
-  comments?: {
-    id: string;
-    message: string;
-    createdAt: string;
-    updatedAt: string;
-    authorId: string;
-    postId: string;
-    parentId: string | null;
-    author: Author;
-  };
+  comments?: CommentData[];
   author: Author;
   likes: [];
 }
@@ -99,7 +90,23 @@ export interface CommentData {
   post: Post;
   postId: string;
   parent?: Comment;
-  children: Comment[];
+  children?: CommentReplies[];
   parentId?: string;
   likes: [];
+}
+
+export interface CommentReplies {
+  author: {
+    id: string;
+    avatar: string;
+    firstName: string;
+    lastName: string;
+  };
+  authorId: string;
+  createdAt: string;
+  id: string;
+  message: string;
+  parentId: string;
+  postId: string;
+  updatedAt: string;
 }

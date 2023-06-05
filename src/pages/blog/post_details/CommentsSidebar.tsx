@@ -9,11 +9,11 @@ import { useTheme } from "@/context/useTheme";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { User } from "@/types/user";
-import moment from "moment";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { httpRequest } from "@/lib";
 import { getUserInitials } from "@/helpers/user.initials";
 import { ClipLoader } from "react-spinners";
+import PostComments from "@/components/post_comments";
 
 export default function CommentsSidebar({
   postId,
@@ -42,15 +42,13 @@ export default function CommentsSidebar({
     });
   };
 
-  const {
-    isLoading,
-    error,
-    data: comments,
-  } = useQuery<CommentData[], Error>([`comments-${postId}`], queryFn, {
-    staleTime: 60000,
-  });
-
-  console.log({ comments });
+  const { isLoading, error, data } = useQuery<CommentData[], Error>(
+    [`comments-${postId}`],
+    queryFn,
+    {
+      staleTime: 60000,
+    }
+  );
 
   const queryClient = useQueryClient();
   const authHeaders = {
@@ -65,6 +63,7 @@ export default function CommentsSidebar({
       onSuccess: (data) => {
         console.log(data);
         queryClient.invalidateQueries([`comments-${postId}`]);
+        queryClient.invalidateQueries([`post-${postId}`]);
       },
       onError: (err) => {
         setLoading(false);
@@ -72,6 +71,8 @@ export default function CommentsSidebar({
       },
     }
   );
+
+  const comments = data?.filter((comment) => comment.parentId === null);
 
   let initials: string | undefined;
   if (currentUser)
@@ -90,6 +91,7 @@ export default function CommentsSidebar({
     closeAlert();
     if (!comment) return revealAlert("Please enter your comment", "error");
     try {
+      setLoading(true);
       const response = await mutation.mutateAsync(commentData);
       if (response) {
         setShowInput(false);
@@ -97,6 +99,7 @@ export default function CommentsSidebar({
         revealAlert("Comment added", "success");
       }
     } catch (error: any) {
+      setShowInput(false);
       return revealAlert(error.response.data.message, "error");
     }
   };
@@ -220,58 +223,7 @@ export default function CommentsSidebar({
           </div>
         )}
         <hr />
-
-        {comments.length > 0 && (
-          <>
-            {comments?.map((comment: CommentData) => (
-              <div key={comment?.id} className="mt-12 leading-6">
-                <div className="mb-2 flex gap-3">
-                  {comment.author.avatar === "" ? (
-                    <div
-                      className={styles["user__initials"]}
-                      style={{
-                        background: mode === "dark" ? "#f0f0f0" : "#000",
-                        color: mode === "dark" ? "#000" : "#f0f0f0",
-                      }}
-                    >
-                      {getUserInitials(
-                        comment.author?.firstName,
-                        comment.author?.lastName
-                      )}
-                    </div>
-                  ) : (
-                    <a target="_blank" href={comment.author.avatar}>
-                      <img
-                        src={comment.author.avatar}
-                        alt={comment.author.firstName}
-                        className="h-14 w-14 rounded-full object-cover"
-                      />
-                    </a>
-                  )}
-                  <div>
-                    <div className="flex gap-4">
-                      <h4 className="font-semibold">
-                        {comment.author.firstName +
-                          " " +
-                          comment.author.lastName}
-                      </h4>
-                      {comment.authorId === currentUser?.id && (
-                        <span className=" flex h-6 w-12 items-center justify-center rounded-lg bg-lightTextColor font-semibold text-white">
-                          You
-                        </span>
-                      )}
-                    </div>
-                    <p className="text-gray500">
-                      {moment(comment.createdAt).fromNow()}
-                    </p>
-                  </div>
-                </div>
-
-                <p className="text-lighterGray">{comment.message}</p>
-              </div>
-            ))}
-          </>
-        )}
+        {comments.length > 0 && <PostComments comments={comments} />}
 
         {showSidebar && (
           <AiOutlineCloseCircle

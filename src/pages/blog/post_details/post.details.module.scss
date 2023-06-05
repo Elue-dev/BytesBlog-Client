@@ -14,7 +14,6 @@
   .left__quarter {
     width: 60%;
     padding-right: 1.5rem;
-    // border-right: 0.5px solid #e5e7eb;
     @include mQ(1000px) {
       width: 100%;
       padding-right: 0;
@@ -28,9 +27,6 @@
     @include mQ(1000px) {
       width: 100%;
       padding-left: 0;
-    }
-    & > div {
-      border-bottom: 0.5px solid #e5e7eb;
     }
   }
   .posts__footer {
@@ -76,8 +72,8 @@
   .user__initials {
     font-size: 1.6rem;
     font-weight: 700;
-    height: 3.1rem;
-    width: 3.1rem;
+    height: 2.5rem;
+    width: 2.5rem;
     border-radius: 50%;
     @include flexBox(center, center);
     @include mQ(600px) {

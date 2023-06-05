@@ -51,6 +51,12 @@ export default {
         ".hoverShadow": {
           boxShadow: " inset 0 0 0 0.15rem #d0edd8 !important",
         },
+        ".postBorderDark": {
+          borderRight: "0.5px solid #232323",
+        },
+        ".postBorderLight": {
+          borderRight: "0.5px solid #e5e7eb",
+        },
       });
     },
   ],
