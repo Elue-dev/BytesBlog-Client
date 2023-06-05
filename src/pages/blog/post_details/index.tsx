@@ -57,6 +57,8 @@ export default function PostDetails() {
     (p: PostData) => p.id.toString() !== postId
   );
 
+  console.log({ post });
+
   const postComments = post.comments?.filter(
     (com: CommentData) => com.parentId === null
   );

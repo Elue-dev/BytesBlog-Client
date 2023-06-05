@@ -96,6 +96,7 @@ export default function CommentsSidebar({
       if (response) {
         setShowInput(false);
         setComment("");
+        setLoading(false);
         revealAlert("Comment added", "success");
       }
     } catch (error: any) {
@@ -141,7 +142,7 @@ export default function CommentsSidebar({
         )}
 
         <div
-          className={`mt-2 rounded-lg bg-transparent p-2 shadow sm:shadow-lg ${
+          className={`rounded-lg bg-transparent p-2 shadow sm:shadow-lg ${
             showInput && "border border-primaryColor"
           }`}
           onClick={() => setShowInput(true)}
@@ -188,7 +189,7 @@ export default function CommentsSidebar({
                 ref={commentInputRef}
                 className={`w-full bg-transparent ${
                   mode === "dark" ? "text-white" : " text-stone-700"
-                }  outline-none`}
+                }  leading-6 outline-none`}
                 cols={30}
                 rows={2}
                 placeholder=" Type your comment here..."

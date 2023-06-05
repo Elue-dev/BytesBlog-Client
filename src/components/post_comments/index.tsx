@@ -20,10 +20,10 @@ export default function PostComments({
   const { mode } = themeContext;
 
   return (
-    <div>
+    <div className="mt-12">
       {comments?.map((comment: CommentData) => (
-        <div key={comment?.id} className="mt-12 leading-6">
-          <div className="mb-2 flex gap-3">
+        <div key={comment?.id} className="mt-6 leading-6">
+          <div className="mb-1 flex gap-3">
             {comment.author.avatar === "" ? (
               <div
                 className={styles["user__initials"]}

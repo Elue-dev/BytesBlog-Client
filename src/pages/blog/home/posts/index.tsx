@@ -5,13 +5,22 @@ import bookmarkInactive from "@/assets/bookmarkInactive.svg";
 import shareIcon from "@/assets/shareIcon.svg";
 import likeInactive from "@/assets/likeInactive.svg";
 import { Link } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { httpRequest } from "@/lib";
 import { PostData } from "@/types/posts";
 import moment from "moment";
 import { parseText } from "@/utils/utils";
+import { User } from "@/types/user";
+import { RootState } from "@/redux/store";
+import { useSelector } from "react-redux";
+import { useAlert } from "@/context/useAlert";
 
 export default function Posts() {
+  const alertContext = useAlert();
+  const currentUser: User | null = useSelector<RootState, User | null>(
+    (state) => state.auth.user
+  );
+
   const queryFn = async (): Promise<PostData[]> => {
     return httpRequest.get("/posts").then((res) => {
       return res.data.posts;
@@ -25,6 +34,44 @@ export default function Posts() {
   } = useQuery<PostData[], Error>(["posts"], queryFn, {
     staleTime: 60000,
   });
+
+  const queryClient = useQueryClient();
+  const authHeaders = {
+    headers: { authorization: `Bearer ${currentUser?.token}` },
+  };
+
+  const mutation = useMutation(
+    (postId: string) => {
+      return httpRequest.post(`/likeDislike/${postId}`, "", authHeaders);
+    },
+    {
+      onSuccess: (data) => {
+        console.log(data);
+        queryClient.invalidateQueries([`posts`]);
+      },
+      onError: (err) => {
+        console.log({ err });
+      },
+    }
+  );
+
+  if (!alertContext) return null;
+  const { revealAlert } = alertContext;
+
+  const likePost = async (postId: string) => {
+    try {
+      const response = await mutation.mutateAsync(postId);
+      if (response && response.data.message === "Post liked") {
+        revealAlert("Post Liked", "success");
+      } else {
+        revealAlert("Post Unliked", "warn");
+      }
+      console.log(response);
+    } catch (error: any) {
+      console.log(error);
+      revealAlert(error.response.data.message, "error");
+    }
+  };
 
   if (isLoading) return <h1>loading...</h1>;
   if (error) return <h1>Something went wrong.</h1>;
@@ -86,9 +133,17 @@ export default function Posts() {
                     <img
                       src={likeInactive}
                       alt="likes"
+                      onClick={() => likePost(post.id)}
                       className="cursor-pointer text-gray500"
                     />
-                    <span>{post.likes.length} likes</span>
+                    <span>
+                      {post.likes.length}{" "}
+                      {post.likes.length > 1
+                        ? "likes"
+                        : post.likes.length === 0
+                        ? "likes"
+                        : "like"}
+                    </span>
                   </div>
                   <div className="flex gap-2">
                     <img
