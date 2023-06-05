@@ -1,5 +1,6 @@
 import { BiTimeFive } from "react-icons/bi";
 import likeInactive from "@/assets/likeInactive.svg";
+import likeActive from "@/assets/likeActive.svg";
 import commentIcon from "@/assets/commentIcon.svg";
 import bookmarkInactive from "@/assets/bookmarkInactive.svg";
 import linkIcon from "@/assets/linkIcon.svg";
@@ -11,16 +12,24 @@ import RightDetails from "./RightDetails";
 import { useState } from "react";
 import CommentsSidebar from "./CommentsSidebar";
 import { httpRequest } from "@/lib";
-import { useQuery } from "@tanstack/react-query";
-import { CommentData, PostData } from "@/types/posts";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { CommentData, Like, PostData } from "@/types/posts";
 import moment from "moment";
 import PostContent from "@/helpers/format.content";
 import { useTheme } from "@/context/useTheme";
+import { User } from "@/types/user";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { useAlert } from "@/context/useAlert";
 
 export default function PostDetails() {
   const [showSidebar, setShowSidebar] = useState(false);
   const { postId } = useParams();
   const themeContext = useTheme();
+  const alertContext = useAlert();
+  const currentUser: User | null = useSelector<RootState, User | null>(
+    (state) => state.auth.user
+  );
 
   const {
     isLoading,
@@ -47,8 +56,50 @@ export default function PostDetails() {
     }
   );
 
+  const queryClient = useQueryClient();
+  const authHeaders = {
+    headers: { authorization: `Bearer ${currentUser?.token}` },
+  };
+
+  const mutation = useMutation(
+    (postId: string) => {
+      return httpRequest.post(`/likeDislike/${postId}`, "", authHeaders);
+    },
+    {
+      onSuccess: (data) => {
+        console.log(data);
+        queryClient.invalidateQueries([`posts`]);
+        queryClient.invalidateQueries([`post-${postId}`]);
+      },
+      onError: (err) => {
+        console.log({ err });
+      },
+    }
+  );
+
   if (!themeContext) return null;
+  if (!alertContext) return null;
   const { mode } = themeContext;
+  const { revealAlert } = alertContext;
+
+  const likeDislikePost = async (postId: string) => {
+    try {
+      const response = await mutation.mutateAsync(postId);
+      if (response && response.data.message === "Post liked") {
+        revealAlert("Post Liked", "success");
+      } else {
+        revealAlert("Post Unliked", "warn");
+      }
+      console.log(response);
+    } catch (error: any) {
+      console.log(error);
+      revealAlert(error.response.data.message, "error");
+    }
+  };
+
+  const userHasLikedPost = (likes: Like[]): boolean => {
+    return likes.some((like) => like.userId === currentUser?.id);
+  };
 
   if (isLoading || !post || loading) return <h1>loading...</h1>;
   if (error || err) return <h1>Something went wrong.</h1>;
@@ -56,8 +107,6 @@ export default function PostDetails() {
   const similarPosts = posts.filter(
     (p: PostData) => p.id.toString() !== postId
   );
-
-  console.log({ post });
 
   const postComments = post.comments?.filter(
     (com: CommentData) => com.parentId === null
@@ -141,7 +190,13 @@ export default function PostDetails() {
 
               <div className="flex gap-6 pb-10 pt-4 lg:pb-0">
                 <div className="flex cursor-pointer items-center justify-start gap-2">
-                  <img src={likeInactive} alt="like post" />
+                  <img
+                    src={
+                      userHasLikedPost(post.likes) ? likeActive : likeInactive
+                    }
+                    alt="like/dislike post"
+                    onClick={() => likeDislikePost(post.id)}
+                  />
                   <span>{post.likes?.length}</span>
                 </div>
                 <div

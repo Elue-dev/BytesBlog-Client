@@ -4,10 +4,11 @@ import { BiTimeFive } from "react-icons/bi";
 import bookmarkInactive from "@/assets/bookmarkInactive.svg";
 import shareIcon from "@/assets/shareIcon.svg";
 import likeInactive from "@/assets/likeInactive.svg";
+import likeActive from "@/assets/likeActive.svg";
 import { Link } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { httpRequest } from "@/lib";
-import { PostData } from "@/types/posts";
+import { Like, PostData } from "@/types/posts";
 import moment from "moment";
 import { parseText } from "@/utils/utils";
 import { User } from "@/types/user";
@@ -58,7 +59,7 @@ export default function Posts() {
   if (!alertContext) return null;
   const { revealAlert } = alertContext;
 
-  const likePost = async (postId: string) => {
+  const likeDislikePost = async (postId: string) => {
     try {
       const response = await mutation.mutateAsync(postId);
       if (response && response.data.message === "Post liked") {
@@ -71,6 +72,10 @@ export default function Posts() {
       console.log(error);
       revealAlert(error.response.data.message, "error");
     }
+  };
+
+  const userHasLikedPost = (likes: Like[]): boolean => {
+    return likes.some((like) => like.userId === currentUser?.id);
   };
 
   if (isLoading) return <h1>loading...</h1>;
@@ -131,9 +136,11 @@ export default function Posts() {
                 <div className="flex items-center justify-between py-3">
                   <div className="flex items-center justify-start gap-2 text-gray500">
                     <img
-                      src={likeInactive}
-                      alt="likes"
-                      onClick={() => likePost(post.id)}
+                      src={
+                        userHasLikedPost(post.likes) ? likeActive : likeInactive
+                      }
+                      alt="like/dislike post"
+                      onClick={() => likeDislikePost(post.id)}
                       className="cursor-pointer text-gray500"
                     />
                     <span>

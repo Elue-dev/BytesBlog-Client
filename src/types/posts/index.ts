@@ -27,7 +27,12 @@ export interface PostData {
   authorId: string;
   comments?: CommentData[];
   author: Author;
-  likes: [];
+  likes: Like[];
+}
+
+export interface Like {
+  userId: string;
+  // Add other properties related to a like if needed
 }
 
 export interface RightDetailsProps {
