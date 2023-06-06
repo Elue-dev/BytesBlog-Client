@@ -7,7 +7,7 @@ import linkIcon from "@/assets/linkIcon.svg";
 import linkedin from "@/assets/linkedin.svg";
 import facebook from "@/assets/facebook.svg";
 import styles from "./post.details.module.scss";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import RightDetails from "./RightDetails";
 import { useEffect, useState } from "react";
 import CommentsSidebar from "./CommentsSidebar";
@@ -115,7 +115,10 @@ export default function PostDetails() {
   if (error || err) return <h1>Something went wrong.</h1>;
 
   const similarPosts = posts.filter(
-    (p: PostData) => p.id.toString() !== postId
+    (p: PostData) =>
+      p.categories.some((category: string) =>
+        post.categories.includes(category)
+      ) && p.id !== postId
   );
 
   const postComments = post.comments?.filter(
@@ -134,18 +137,21 @@ export default function PostDetails() {
         />
       )}
 
-      <div
-        onClick={() => navigate(-1)}
-        className="container flex cursor-pointer items-center justify-start gap-1 pb-2 pt-2"
-      >
-        {mode === "light" ? (
-          <IoChevronBackCircleOutline className="text-2xl text-slate-500" />
-        ) : (
-          <IoChevronBackCircleOutline className="text-2xl text-white" />
-        )}
-
-        <span className="text-slate-500">Back</span>
+      <div className="container flex cursor-pointer items-center justify-start gap-1 pb-2 pt-2">
+        <Link to="/blog" className="underline">
+          Blog
+        </Link>{" "}
+        &nbsp; |
+        <div className="flex items-center" onClick={() => navigate(-1)}>
+          {mode === "light" ? (
+            <IoChevronBackCircleOutline className="text-xl text-slate-500" />
+          ) : (
+            <IoChevronBackCircleOutline className="text-xl text-white" />
+          )}
+          <span className="text-slate-500">Back</span>
+        </div>
       </div>
+
       <div className="container flex flex-col pt-12 lg:flex-row">
         <div
           className={`${styles["left__quarter"]} ${
@@ -227,6 +233,20 @@ export default function PostDetails() {
               <article className="pt-8 leading-8 text-grayNeutral">
                 <PostContent content={post?.content} />
               </article>
+
+              <div className="mb-8 mt-4 flex flex-wrap items-center justify-start gap-4">
+                <span className="text-xl font-semibold text-gray-500">
+                  Categories:
+                </span>
+                {post.categories.map((category, idx) => (
+                  <div
+                    key={idx}
+                    className="rounded-lg border-2 border-borderPrimary bg-primaryColorLight p-1 font-semibold text-blackNeutralSec"
+                  >
+                    {category}
+                  </div>
+                ))}
+              </div>
 
               <div className="flex gap-6 pb-10 pt-4 lg:pb-0">
                 <div className="flex cursor-pointer items-center justify-start gap-2">

@@ -68,6 +68,18 @@ export default function RightDetails({ similarPosts }: RightDetailsProps) {
                 {post.title}
               </h4>
             </div>
+
+            <div className="mb-6 mt-4 flex flex-wrap gap-1">
+              {post.categories.map((category, idx) => (
+                <div
+                  key={idx}
+                  className="mr-2 font-semibold leading-6 text-lightTextColor"
+                >
+                  #{category}
+                </div>
+              ))}
+            </div>
+
             <div className="flex items-center justify-between gap-2 pb-4 pt-4 text-right text-grayNeutral">
               <Link
                 to={`/blog/post/${post.id}`}

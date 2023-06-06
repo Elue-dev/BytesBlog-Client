@@ -41,6 +41,8 @@ export default function Posts() {
     staleTime: 60000,
   });
 
+  console.log(posts);
+
   const queryClient = useQueryClient();
   const authHeaders = {
     headers: { authorization: `Bearer ${currentUser?.token}` },
