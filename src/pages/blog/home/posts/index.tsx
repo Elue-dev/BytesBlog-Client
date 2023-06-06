@@ -41,10 +41,6 @@ export default function Posts() {
     staleTime: 60000,
   });
 
-  let initials: string | undefined;
-  if (currentUser)
-    initials = getUserInitials(currentUser.firstName, currentUser.lastName);
-
   const queryClient = useQueryClient();
   const authHeaders = {
     headers: { authorization: `Bearer ${currentUser?.token}` },
@@ -130,7 +126,10 @@ export default function Posts() {
                           color: mode === "dark" ? "#000" : "#f0f0f0",
                         }}
                       >
-                        {initials}
+                        {getUserInitials(
+                          post.author.firstName,
+                          post.author.lastName
+                        )}
                       </div>
                       <p>
                         {post.author.firstName + " " + post.author.lastName}{" "}
