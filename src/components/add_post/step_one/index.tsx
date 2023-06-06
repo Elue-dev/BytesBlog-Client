@@ -8,6 +8,41 @@ import Button from "@/components/button";
 import { useAlert } from "@/context/useAlert";
 import { StepOneprops } from "@/types/posts";
 
+// const toolbarOptions = [
+//   ["bold", "italic", "underline", "strike"],
+//   [{ header: [1, 2, 3, 4, 5, 6] }],
+//   ["link"],
+//   ["clean"],
+// ];
+
+const handleCustomToolbar = () => {
+  // Custom toolbar template without the image option
+  return (
+    <div className="ql-toolbar">
+      <span className="ql-formats">
+        <button className="ql-bold" />
+        <button className="ql-italic" />
+        <button className="ql-underline" />
+        <button className="ql-strike" />
+      </span>
+      <span className="ql-formats">
+        <button className="ql-header" value="1" />
+        <button className="ql-header" value="2" />
+        <button className="ql-header" value="3" />
+        <button className="ql-header" value="4" />
+        <button className="ql-header" value="5" />
+        <button className="ql-header" value="6" />
+      </span>
+      <span className="ql-formats">
+        <button className="ql-link" />
+      </span>
+      <span className="ql-formats">
+        <button className="ql-clean" />
+      </span>
+    </div>
+  );
+};
+
 export default function StepOne({
   values,
   image,
@@ -137,6 +172,7 @@ export default function StepOne({
             placeholder={"Write your story....."}
             onTextChange={(e) => setContent(e.htmlValue!)}
             style={{ height: "280px" }}
+            // toolbarTemplate={handleCustomToolbar}
           />
         </div>
 

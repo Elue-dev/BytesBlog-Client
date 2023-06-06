@@ -68,6 +68,10 @@ body {
 .p-editor-container .p-editor-toolbar {
   background: transparent !important;
 }
+.ql-image {
+  display: none !important;
+}
+
 .theme {
   transition: 0.5s all ease;
 }
