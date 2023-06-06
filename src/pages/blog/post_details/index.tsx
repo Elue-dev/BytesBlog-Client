@@ -34,9 +34,6 @@ export default function PostDetails() {
   const currentUser: User | null = useSelector<RootState, User | null>(
     (state) => state.auth.user
   );
-  let initials: string | undefined;
-  if (currentUser)
-    initials = getUserInitials(currentUser.firstName, currentUser.lastName);
 
   const {
     isLoading,
@@ -160,7 +157,7 @@ export default function PostDetails() {
               <div className="flex flex-col justify-between sm:flex-row md:flex-row">
                 <div className="flex items-center justify-between gap-8 sm:justify-start">
                   <div className="flex items-center justify-start gap-2">
-                    {currentUser?.avatar === "" ? (
+                    {post.author?.avatar === "" ? (
                       <>
                         <div
                           className={styles["user__initials"]}
@@ -169,7 +166,10 @@ export default function PostDetails() {
                             color: mode === "dark" ? "#000" : "#f0f0f0",
                           }}
                         >
-                          {initials}
+                          {getUserInitials(
+                            post.author?.firstName,
+                            post.author?.lastName
+                          )}
                         </div>
                       </>
                     ) : (
