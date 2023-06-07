@@ -62,7 +62,9 @@ export default function PostComments({
               </p>
             </div>
           </div>
-          <p className="text-lighterGray">{comment.message}</p>
+          <p style={{ wordWrap: "break-word" }} className="text-lighterGray">
+            {comment.message}
+          </p>
         </div>
       ))}
     </div>
