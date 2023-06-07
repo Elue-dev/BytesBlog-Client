@@ -24,7 +24,7 @@ export default function RightDetails({ similarPosts }: RightDetailsProps) {
   return (
     <div className={styles["right__quarter"]}>
       <h2 className="pb-8 pt-12 text-2xl font-semibold lg:pt-0">
-        Similar Posts
+        Related Posts
       </h2>
       {similarPosts.map((post) => (
         <div
@@ -36,7 +36,7 @@ export default function RightDetails({ similarPosts }: RightDetailsProps) {
           }}
         >
           <div>
-            <div className="flex flex-row-reverse items-center justify-start gap-2 lg:flex-row">
+            <div className="mb-3 flex flex-row-reverse items-center justify-start gap-2 lg:flex-row">
               {post.author.avatar === "" ? (
                 <>
                   <div
@@ -64,7 +64,7 @@ export default function RightDetails({ similarPosts }: RightDetailsProps) {
               )}
             </div>
             <div>
-              <h4 className="text-1xl max-w-xl pt-3 font-semibold lg:pt-0">
+              <h4 className="text-1xl max-w-xs pt-3 font-semibold lg:pt-0">
                 {post.title}
               </h4>
             </div>

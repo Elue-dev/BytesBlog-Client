@@ -28,11 +28,29 @@ export interface PostData {
   comments?: CommentData[];
   author: Author;
   likes: Like[];
+  bookmarks: Bookmark[];
 }
 
 export interface Like {
+  commentId: string | null;
+  createdAt: string;
+  id: string;
+  postId: string;
+  type: string;
+  updatedAt: string;
   userId: string;
-  // Add other properties related to a like if needed
+  user: Author;
+}
+
+export interface Bookmark {
+  commentId: string | null;
+  createdAt: string;
+  id: string;
+  postId: string;
+  type: string;
+  updatedAt: string;
+  userId: string;
+  user: Author;
 }
 
 export interface RightDetailsProps {

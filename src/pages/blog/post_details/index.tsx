@@ -3,6 +3,7 @@ import likeInactive from "@/assets/likeInactive.svg";
 import likeActive from "@/assets/likeActive.svg";
 import commentIcon from "@/assets/commentIcon.svg";
 import bookmarkInactive from "@/assets/bookmarkInactive.svg";
+import bookmarkActive from "@/assets/bookmarkActive.svg";
 import linkIcon from "@/assets/linkIcon.svg";
 import linkedin from "@/assets/linkedin.svg";
 import facebook from "@/assets/facebook.svg";
@@ -13,7 +14,7 @@ import { useEffect, useState } from "react";
 import CommentsSidebar from "./CommentsSidebar";
 import { httpRequest } from "@/lib";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { CommentData, Like, PostData } from "@/types/posts";
+import { Bookmark, CommentData, Like, PostData } from "@/types/posts";
 import moment from "moment";
 import PostContent from "@/helpers/format.content";
 import { useTheme } from "@/context/useTheme";
@@ -27,6 +28,7 @@ import { getUserInitials } from "@/helpers/user.initials";
 export default function PostDetails() {
   const [showSidebar, setShowSidebar] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
+  const [isBookmarked, setIsBookmarked] = useState(false);
   const { postId } = useParams();
   const themeContext = useTheme();
   const alertContext = useAlert();
@@ -68,16 +70,40 @@ export default function PostDetails() {
 
       return () => clearTimeout(timer);
     }
-  }, [isLiked]);
+
+    if (isBookmarked) {
+      const timer = setTimeout(() => {
+        setIsBookmarked(false);
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isLiked, isBookmarked]);
 
   const queryClient = useQueryClient();
   const authHeaders = {
     headers: { authorization: `Bearer ${currentUser?.token}` },
   };
 
-  const mutation = useMutation(
+  const likesMutation = useMutation(
     (postId: string) => {
       return httpRequest.post(`/likeDislike/${postId}`, "", authHeaders);
+    },
+    {
+      onSuccess: (data) => {
+        console.log(data);
+        queryClient.invalidateQueries([`posts`]);
+        queryClient.invalidateQueries([`post-${postId}`]);
+      },
+      onError: (err) => {
+        console.log({ err });
+      },
+    }
+  );
+
+  const bookmarksMutation = useMutation(
+    (postId: string) => {
+      return httpRequest.post(`/addRemoveBookmark/${postId}`, "", authHeaders);
     },
     {
       onSuccess: (data) => {
@@ -98,7 +124,7 @@ export default function PostDetails() {
 
   const likeDislikePost = async (postId: string) => {
     try {
-      const response = await mutation.mutateAsync(postId);
+      const response = await likesMutation.mutateAsync(postId);
       if (response && response.data.message === "Post liked") {
         setIsLiked(true);
       }
@@ -107,8 +133,26 @@ export default function PostDetails() {
     }
   };
 
+  const addRemoveBookmark = async (postId: string) => {
+    try {
+      const response = await bookmarksMutation.mutateAsync(postId);
+      if (response && response.data.message === "Post added to bookmarks") {
+        revealAlert("Post added to saved", "success");
+        setIsBookmarked(true);
+      } else {
+        revealAlert("Post removed from saved", "info");
+      }
+    } catch (error: any) {
+      revealAlert(error.response.data.message, "error");
+    }
+  };
+
   const userHasLikedPost = (likes: Like[]): boolean => {
     return likes.some((like) => like.userId === currentUser?.id);
+  };
+
+  const userHasBookmarkedPost = (bookmarks: Bookmark[]): boolean => {
+    return bookmarks.some((bookmark) => bookmark.userId === currentUser?.id);
   };
 
   if (isLoading || !post || loading) return <h1>loading...</h1>;
@@ -234,18 +278,20 @@ export default function PostDetails() {
                 <PostContent content={post?.content} />
               </article>
 
-              <div className="mb-8 mt-4 flex flex-wrap items-center justify-start gap-4">
+              <div className="mb-8 mt-4 flex flex-col flex-wrap items-start justify-start gap-4 sm:flex-row sm:items-center">
                 <span className="text-xl font-semibold text-gray-500">
                   Categories:
                 </span>
-                {post.categories.map((category, idx) => (
-                  <div
-                    key={idx}
-                    className="rounded-lg border-2 border-borderPrimary bg-primaryColorLight p-1 font-semibold text-blackNeutralSec"
-                  >
-                    {category}
-                  </div>
-                ))}
+                <div className="flex flex-row flex-wrap items-start justify-start gap-1">
+                  {post.categories.map((category, idx) => (
+                    <div
+                      key={idx}
+                      className="rounded-lg border-2 border-borderPrimary bg-primaryColorLight p-1 font-semibold text-blackNeutralSec"
+                    >
+                      {category}
+                    </div>
+                  ))}
+                </div>
               </div>
 
               <div className="flex gap-6 pb-10 pt-4 lg:pb-0">
@@ -255,7 +301,9 @@ export default function PostDetails() {
                       userHasLikedPost(post.likes) ? likeActive : likeInactive
                     }
                     alt="like/dislike post"
-                    className={isLiked ? "pop-in-animation" : ""}
+                    className={`${
+                      isLiked ? "pop-in-animation" : ""
+                    } cursor-pointer text-gray500`}
                     onClick={() => likeDislikePost(post.id)}
                   />
                   <span>{post.likes?.length}</span>
@@ -267,12 +315,20 @@ export default function PostDetails() {
                   <img src={commentIcon} alt="comment on post" />
                   <span>{postComments?.length}</span>
                 </div>
-                <div>
+                <div className="flex cursor-pointer items-center justify-start gap-2">
                   <img
-                    src={bookmarkInactive}
+                    src={
+                      userHasBookmarkedPost(post.bookmarks)
+                        ? bookmarkActive
+                        : bookmarkInactive
+                    }
                     alt="bookmark post"
-                    className="cursor-pointer"
+                    className={`${
+                      isBookmarked ? "pop-in-animation" : ""
+                    } cursor-pointer text-gray500`}
+                    onClick={() => addRemoveBookmark(post.id)}
                   />
+                  <span>{post.bookmarks.length}</span>
                 </div>
               </div>
             </div>
