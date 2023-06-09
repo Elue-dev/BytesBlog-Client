@@ -57,7 +57,7 @@ export default function Home() {
                   </Button>
                 </Link>
               ) : (
-                <Link to="/auth/sign-in">
+                <Link to="/auth/create-account">
                   <Button className=" mt-6 flex w-24 items-center justify-center whitespace-nowrap bg-primaryColor p-4 text-white hover:bg-primaryColorHover">
                     Get Started
                   </Button>

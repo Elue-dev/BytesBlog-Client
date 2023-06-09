@@ -133,3 +133,10 @@ export interface CommentReplies {
   postId: string;
   updatedAt: string;
 }
+
+export interface PostComentsProps {
+  comment: CommentData;
+  replies?: CommentData[];
+  parentId: string | null;
+  setShowInput?: Dispatch<SetStateAction<boolean>> | undefined;
+}

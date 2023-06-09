@@ -26,7 +26,7 @@ export default function Interests({
   if (!alertContext) return null;
   if (!googleAuthContext) return null;
   const { revealModal } = modalContext;
-  const { revealAlert, closeAlert } = alertContext;
+  const { revealAlert } = alertContext;
   const { firstName, lastName, mail, avatar, isGoogle, clearCredentials } =
     googleAuthContext;
   const { firstname, lastname, email, password } = values;
@@ -40,7 +40,6 @@ export default function Interests({
   };
 
   const createUserAccount = async () => {
-    closeAlert();
     if (interests.length < 5)
       return revealAlert("Interests must be at least 5", "error");
 

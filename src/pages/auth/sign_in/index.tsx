@@ -35,7 +35,7 @@ export default function SignIn() {
   const dispatch = useDispatch();
   if (!alertContext) return null;
   if (!themeContext) return null;
-  const { revealAlert, closeAlert } = alertContext;
+  const { revealAlert } = alertContext;
   const { mode } = themeContext;
 
   const { email, password } = credentials;
@@ -46,7 +46,6 @@ export default function SignIn() {
   };
 
   const signinUser = async () => {
-    closeAlert();
     setValidationErrors([]);
     const errors = [];
     if (!email.trim()) errors.push("email");
@@ -101,6 +100,7 @@ export default function SignIn() {
         navigate("/");
       }
     } catch (error: any) {
+      console.log({ error });
       revealAlert(
         error.response.data.message || "Something went wrong",
         "error"

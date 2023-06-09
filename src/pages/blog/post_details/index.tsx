@@ -274,7 +274,7 @@ export default function PostDetails() {
                 alt={post?.title}
                 className="h-auto w-full rounded-lg object-cover"
               />
-              <article className="pt-8 leading-8 text-grayNeutral">
+              <article className="text-break pt-8 leading-8 text-grayNeutral">
                 <PostContent content={post?.content} />
               </article>
 

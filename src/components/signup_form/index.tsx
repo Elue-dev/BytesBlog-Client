@@ -78,11 +78,10 @@ export default function SignUpForm({
   if (!googleAuthContext) return null;
   if (!themeContext) return null;
   const { mode } = themeContext;
-  const { revealAlert, closeAlert } = alertContext;
+  const { revealAlert } = alertContext;
   const { updateCredentials } = googleAuthContext;
 
   const proceed = () => {
-    closeAlert();
     setValidationErrors([]);
     const errors = [];
     !firstname.trim() && errors.push("firstname");
@@ -123,8 +122,8 @@ export default function SignUpForm({
       console.log(userCredentials);
 
       if (userCredentials && userCredentials.user) {
-        const firstName = userCredentials.user.displayName!.split(" ")[0];
-        const lastName = userCredentials.user.displayName!.split(" ")[1];
+        const lastName = userCredentials.user.displayName!.split(" ")[0];
+        const firstName = userCredentials.user.displayName!.split(" ")[1];
         const email = userCredentials.user!.email || "";
         const avatar = userCredentials.user!.photoURL || "";
 

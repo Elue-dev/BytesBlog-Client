@@ -6,7 +6,11 @@ import interestsIcon from "@/assets/interestsIcon.svg";
 import Button from "../button";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { BsVectorPen } from "react-icons/bs";
-import { RiArrowDownSLine, RiArrowUpSLine } from "react-icons/ri";
+import {
+  RiArrowDownSLine,
+  RiArrowUpSLine,
+  RiArticleLine,
+} from "react-icons/ri";
 import { useState } from "react";
 import {
   REMOVE_ACTIVE_USER,
@@ -119,22 +123,42 @@ export default function Navbar() {
                     } p-5 shadow-lg sm:right-auto sm:top-12`}
                   >
                     <div className="py-5 leading-10 text-gray500">
-                      <div
-                        onClick={() => {
-                          navigate("/user/profile");
-                          setShowDropdown(false);
-                        }}
-                        className="flex cursor-pointer items-center justify-start gap-3"
-                      >
-                        <img src={profileIcon} alt="profile" />
-                        <span
-                          className={
-                            mode === "dark" ? "text-lightGray" : "text-dark"
-                          }
+                      {pathname.includes("profile") ? (
+                        <div
+                          onClick={() => {
+                            navigate("/blog");
+                            setShowDropdown(false);
+                          }}
+                          className="flex cursor-pointer items-center justify-start gap-3"
                         >
-                          Profile
-                        </span>
-                      </div>
+                          <RiArticleLine size={20} />
+                          <span
+                            className={
+                              mode === "dark" ? "text-lightGray" : "text-dark"
+                            }
+                          >
+                            Blog
+                          </span>
+                        </div>
+                      ) : (
+                        <div
+                          onClick={() => {
+                            navigate("/user/profile");
+                            setShowDropdown(false);
+                          }}
+                          className="flex cursor-pointer items-center justify-start gap-3"
+                        >
+                          <img src={profileIcon} alt="profile" />
+                          <span
+                            className={
+                              mode === "dark" ? "text-lightGray" : "text-dark"
+                            }
+                          >
+                            Profile
+                          </span>
+                        </div>
+                      )}
+
                       <div
                         onClick={() => {
                           navigate("/user/manage-interests");

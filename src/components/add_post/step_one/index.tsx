@@ -136,7 +136,11 @@ export default function StepOne({
             value={content}
             placeholder={"Write your story....."}
             onTextChange={(e) => setContent(e.htmlValue!)}
-            style={{ height: "280px" }}
+            style={{
+              height: "280px",
+              wordWrap: "break-word",
+              overflowWrap: "break-word",
+            }}
           />
         </div>
 

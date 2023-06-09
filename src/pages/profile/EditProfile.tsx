@@ -72,6 +72,10 @@ export default function EditProfile({
 
   const updateUserProfile = async () => {
     closeAlert();
+
+    if (!firstName || !lastName) {
+      return revealAlert("First Name and Last Name are both required", "error");
+    }
     if (
       firstName === currentUser?.firstName &&
       lastName === currentUser?.lastName &&
@@ -193,6 +197,7 @@ export default function EditProfile({
           type="text"
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
+          placeholder="First Name"
           className="w-full border-b-2 border-grayLight bg-transparent outline-none"
         />
 
@@ -200,6 +205,7 @@ export default function EditProfile({
           type="text"
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
+          placeholder="Last Name"
           className="w-full border-b-2 border-grayLight bg-transparent outline-none"
         />
         <p className="text-grayNeutral">
