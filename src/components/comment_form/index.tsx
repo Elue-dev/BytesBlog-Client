@@ -94,7 +94,10 @@ export default function CommentForm({
   };
 
   return (
-    <section>
+    <section
+      className={`rounded-lg border border-primaryColor bg-transparent 
+      p-2 shadow sm:shadow-lg`}
+    >
       <div className="mb-2 flex items-center justify-start gap-2">
         {currentUser?.avatar === "" ? (
           <>

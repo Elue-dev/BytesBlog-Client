@@ -105,19 +105,13 @@ export default function CommentsSidebar({
           </div>
         )}
 
-        <div
-          className={`rounded-lg bg-transparent p-2 shadow sm:shadow-lg ${
-            showInput && "border border-primaryColor"
-          }`}
-        >
-          {showInput && (
-            <CommentForm
-              mode={mode}
-              commentId={null}
-              setShowInput={setShowInput}
-            />
-          )}
-        </div>
+        {showInput && (
+          <CommentForm
+            mode={mode}
+            commentId={null}
+            setShowInput={setShowInput}
+          />
+        )}
 
         <hr />
         {rootComments?.map((comment) => (

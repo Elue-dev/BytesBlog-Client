@@ -114,19 +114,21 @@ export default function PostComments({
               className="cursor-pointer text-sm text-lighterGray"
               onClick={() => setShowReplies(!showReplies)}
             >
-              Show replies ({replies?.length})
+              {showReplies ? (
+                <span> Hide replies</span>
+              ) : (
+                <span> Show replies ({replies?.length})</span>
+              )}
             </span>
           )}
         </div>
 
         {isReplying && (
-          <div className="mt-2 rounded-lg border border-primaryColor bg-transparent p-2 shadow sm:shadow-lg">
-            <CommentForm
-              commentId={replyId}
-              mode={""}
-              setIsReplying={setIsReplying}
-            />
-          </div>
+          <CommentForm
+            commentId={replyId}
+            mode={""}
+            setIsReplying={setIsReplying}
+          />
         )}
 
         {isLoading ? (
