@@ -81,7 +81,7 @@ export default function PostComments({
                 {comment.author.firstName + " " + comment.author.lastName}
               </h4>
               {comment.authorId === currentUser?.id && (
-                <span className=" flex h-5 w-10 items-center justify-center rounded-lg bg-lightTextColor font-semibold text-white">
+                <span className="flex h-5 w-7 items-center justify-center rounded-lg bg-lightTextColor text-sm font-semibold text-white">
                   You
                 </span>
               )}
@@ -96,19 +96,22 @@ export default function PostComments({
         </p>
 
         <div className="flex items-center gap-2">
-          <p
-            className="flex cursor-pointer items-center justify-start text-sm text-lighterGray"
-            onClick={() => {
-              setIsReplying(false);
-              setShowInput && setShowInput(false);
-              setIsReplying(true);
-            }}
-          >
-            <span>
-              <MdOutlineReply />
-            </span>
-            <span>Reply</span>
-          </p>
+          {comment?.authorId !== currentUser?.id && (
+            <p
+              className="flex cursor-pointer items-center justify-start text-sm text-lighterGray"
+              onClick={() => {
+                setIsReplying(false);
+                setShowInput && setShowInput(false);
+                setIsReplying(true);
+              }}
+            >
+              <span>
+                <MdOutlineReply />
+              </span>
+              <span>Reply</span>
+            </p>
+          )}
+
           {getReplies(comment.id)?.length !== 0 && (
             <span
               className="cursor-pointer text-sm text-lighterGray"

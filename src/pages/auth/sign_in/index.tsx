@@ -62,6 +62,8 @@ export default function SignIn() {
           `${SERVER_URL}/auth/login`,
           credentials
         );
+        console.log({ response });
+
         if (response) {
           setLoading(false);
           dispatch(SET_ACTIVE_USER(response.data.user));

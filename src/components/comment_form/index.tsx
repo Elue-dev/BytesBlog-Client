@@ -95,8 +95,8 @@ export default function CommentForm({
 
   return (
     <section
-      className={`rounded-lg border border-primaryColor bg-transparent 
-      p-2 shadow sm:shadow-lg`}
+      className="mt-2 rounded-lg border border-primaryColor 
+      bg-transparent p-2 shadow sm:shadow-lg"
     >
       <div className="mb-2 flex items-center justify-start gap-2">
         {currentUser?.avatar === "" ? (
@@ -115,7 +115,11 @@ export default function CommentForm({
             </p>
           </>
         ) : (
-          <a target="_blank" href={currentUser?.avatar}>
+          <a
+            target="_blank"
+            href={currentUser?.avatar}
+            className="mt-2 flex items-center justify-start"
+          >
             <img
               src={currentUser?.avatar}
               alt={currentUser?.firstName}
@@ -139,7 +143,7 @@ export default function CommentForm({
         placeholder=" Type your comment here..."
       ></textarea>
 
-      <div className="mb-4 mt-3 flex items-center justify-end gap-3">
+      <div className="mt-3 flex items-center justify-end gap-3">
         <Button
           className="rounded-md p-1 text-primaryColor"
           onClick={cancelComment}
