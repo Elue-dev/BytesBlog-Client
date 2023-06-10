@@ -3,8 +3,7 @@ import styles from "./theme.toggle.module.scss";
 
 export default function ThemeToggle() {
   const themeContext = useTheme();
-  if (!themeContext) return null;
-  const { toggle, mode } = themeContext;
+  const { toggle, mode } = themeContext!;
 
   return (
     <div className={styles.container} onClick={toggle}>

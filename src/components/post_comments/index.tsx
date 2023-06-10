@@ -44,8 +44,7 @@ export default function PostComments({
   const currentUser: User | null = useSelector<RootState, User | null>(
     (state) => state.auth.user
   );
-  if (!themeContext) return null;
-  const { mode } = themeContext;
+  const { mode } = themeContext!;
 
   const getReplies = (commentId: string) => {
     return allComments?.filter((comment) => comment.parentId === commentId);
@@ -95,7 +94,9 @@ export default function PostComments({
         </div>
         <p
           style={{ wordWrap: "break-word" }}
-          className="text-base text-gray-700"
+          className={`${
+            mode === "dark" ? "text-stone-100" : "text-gray-700"
+          } text-base `}
         >
           {comment.message}
         </p>

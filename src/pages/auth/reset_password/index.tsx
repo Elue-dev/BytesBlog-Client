@@ -77,12 +77,9 @@ export default function ResetPassword() {
     passwordComplete,
   ]);
 
-  if (!modalContext) return null;
-  if (!alertContext) return null;
-  if (!themeContext) return null;
-  const { revealModal } = modalContext;
-  const { revealAlert, closeAlert } = alertContext;
-  const { mode } = themeContext;
+  const { revealModal } = modalContext!;
+  const { revealAlert, closeAlert } = alertContext!;
+  const { mode } = themeContext!;
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

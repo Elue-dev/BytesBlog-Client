@@ -7,8 +7,7 @@ import { RiErrorWarningLine } from "react-icons/ri";
 export default function Modal() {
   const navigate = useNavigate();
   const modalContext = useModal();
-  if (!modalContext) return null;
-  const { showModal, modalIcon, route, closeModal, message } = modalContext;
+  const { showModal, modalIcon, route, closeModal, message } = modalContext!;
 
   const closeModalAndNavigate = () => {
     closeModal();

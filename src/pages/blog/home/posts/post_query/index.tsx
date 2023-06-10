@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useTheme } from "@/context/useTheme";
 import { IoChevronBackCircleOutline } from "react-icons/io5";
 import PostLayout from "@/components/posts_layout";
+import Spinner from "@/components/spinners";
 
 export default function PostSearch() {
   const queryString = useLocation().search;
@@ -28,10 +29,9 @@ export default function PostSearch() {
     staleTime: 60000,
   });
 
-  if (!themeContext) return null;
-  const { mode } = themeContext;
+  const { mode } = themeContext!;
 
-  if (isLoading) return <h1>loading...</h1>;
+  if (isLoading) return <Spinner />;
   if (error) return <h1>Something went wrong.</h1>;
 
   const postResults = posts?.filter(

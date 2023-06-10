@@ -32,10 +32,9 @@ export default function SignIn() {
   const alertContext = useAlert();
   const themeContext = useTheme();
   const dispatch = useDispatch();
-  if (!alertContext) return null;
-  if (!themeContext) return null;
-  const { revealAlert } = alertContext;
-  const { mode } = themeContext;
+
+  const { revealAlert } = alertContext!;
+  const { mode } = themeContext!;
 
   const { email, password } = credentials;
 

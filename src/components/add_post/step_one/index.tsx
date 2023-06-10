@@ -25,7 +25,6 @@ export default function StepOne({
 }: StepOneprops) {
   const imageUploadRef = useRef<any | undefined>();
   const state = useLocation().state;
-  // console.log({ state });
 
   const { title } = values;
   const context = useAlert();
@@ -47,17 +46,12 @@ export default function StepOne({
         setImagePreview(state.image);
         state.content && setContent(parseText(state.content) || "");
         break;
-      // setTitle(state?.title);
-      // setDescription(state?.description);
-      // setPrice(state?.price);
-      // setSelectedGenre(state?.category);
       default:
         "";
     }
   }, [action, state]);
 
-  if (!context) return null;
-  const { revealAlert, closeAlert } = context;
+  const { revealAlert, closeAlert } = context!;
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     closeAlert();

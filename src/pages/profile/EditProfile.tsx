@@ -41,10 +41,8 @@ export default function EditProfile({
   const queryClient = useQueryClient();
   const imageUploadRef = useRef<any | undefined>();
 
-  if (!alertContext) return null;
-  if (!themeContext) return null;
-  const { revealAlert, closeAlert } = alertContext;
-  const { mode } = themeContext;
+  const { revealAlert, closeAlert } = alertContext!;
+  const { mode } = themeContext!;
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];

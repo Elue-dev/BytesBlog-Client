@@ -7,9 +7,7 @@ import { getUserInitials } from "@/helpers/user.initials";
 
 export default function RightDetails({ similarPosts }: RightDetailsProps) {
   const themeContext = useTheme();
-
-  if (!themeContext) return null;
-  const { mode } = themeContext;
+  const { mode } = themeContext!;
 
   return (
     <div className={styles["right__quarter"]}>

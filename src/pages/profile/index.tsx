@@ -22,8 +22,7 @@ export default function Profile() {
     (state) => state.auth.user
   );
 
-  if (!themeContext) return null;
-  const { mode } = themeContext;
+  const { mode } = themeContext!;
 
   let initials;
   if (currentUser)
@@ -113,7 +112,7 @@ export default function Profile() {
             </p>
           </div>
           <br />
-          <hr />
+          <hr className={`${mode === "dark" && "border border-zinc-900"} `} />
           <h2 className="mt-4 text-2xl font-semibold">About</h2>
           <p className="mb-6 pt-3 font-normal leading-7 tracking-wide text-gray600">
             {currentUser?.bio === ""
@@ -122,7 +121,7 @@ export default function Profile() {
           </p>
         </div>
       </div>
-      <hr />
+      <hr className={`${mode === "dark" && "border border-zinc-900"} `} />
 
       <div className="mt-4 flex items-center justify-between">
         <h2 className="text-2xl font-semibold">Interests</h2>
@@ -144,7 +143,7 @@ export default function Profile() {
           </div>
         ))}
       </div>
-      <hr />
+      <hr className={`${mode === "dark" && "border border-zinc-900"} `} />
 
       <div>
         <div className="flex items-center justify-start gap-6 border-b-4 pt-10">

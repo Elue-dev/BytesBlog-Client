@@ -24,15 +24,11 @@ export default function Interests({
   const alertContext = useAlert();
   const themeContext = useTheme();
   const googleAuthContext = useGoogleAuth();
-  if (!modalContext) return null;
-  if (!alertContext) return null;
-  if (!googleAuthContext) return null;
-  if (!themeContext) return null;
-  const { mode } = themeContext;
-  const { revealModal } = modalContext;
-  const { revealAlert } = alertContext;
+  const { mode } = themeContext!;
+  const { revealModal } = modalContext!;
+  const { revealAlert } = alertContext!;
   const { firstName, lastName, mail, avatar, isGoogle, clearCredentials } =
-    googleAuthContext;
+    googleAuthContext!;
   const { firstname, lastname, email, password } = values;
 
   const setUserInterest = (int: string) => {

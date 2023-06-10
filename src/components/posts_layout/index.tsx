@@ -86,10 +86,8 @@ export default function PostLayout({ filteredPosts, post }: PostsLayout) {
     }
   }, [isLiked, isBookmarked]);
 
-  if (!alertContext) return null;
-  if (!themeContext) return null;
-  const { revealAlert } = alertContext;
-  const { mode } = themeContext;
+  const { revealAlert } = alertContext!;
+  const { mode } = themeContext!;
 
   const likeDislikePost = async (postId: string) => {
     try {

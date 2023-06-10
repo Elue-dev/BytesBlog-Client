@@ -110,10 +110,8 @@ export default function StepTwo({
     }
   );
 
-  if (!context) return null;
-  if (!alertContext) return null;
-  const { revealModal } = context;
-  const { revealAlert } = alertContext;
+  const { revealModal } = context!;
+  const { revealAlert } = alertContext!;
 
   const publishPost = async () => {
     const convertReadTime = parseInt(readTime);

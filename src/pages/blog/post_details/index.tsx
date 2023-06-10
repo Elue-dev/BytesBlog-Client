@@ -123,10 +123,8 @@ export default function PostDetails() {
     }
   );
 
-  if (!themeContext) return null;
-  if (!alertContext) return null;
-  const { mode } = themeContext;
-  const { revealAlert } = alertContext;
+  const { mode } = themeContext!;
+  const { revealAlert } = alertContext!;
 
   const likeDislikePost = async (postId: string) => {
     try {

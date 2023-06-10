@@ -33,12 +33,9 @@ export default function ManageInterests() {
     setInterests(filteredUserInterests);
   }, []);
 
-  if (!modalContext) return null;
-  if (!alertContext) return null;
-  if (!themeContext) return null;
-  const { revealModal } = modalContext;
-  const { revealAlert, closeAlert } = alertContext;
-  const { mode } = themeContext;
+  const { revealModal } = modalContext!;
+  const { revealAlert, closeAlert } = alertContext!;
+  const { mode } = themeContext!;
 
   const setUserInterest = (interest: string) => {
     if (interests.includes(interest)) {

@@ -1,10 +1,7 @@
 import Button from "../button";
-// import bytesLogo from "@/assets/bytesLogo.svg";
 import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { BsFillCheckSquareFill } from "react-icons/bs";
-// import eyeOpen from "@/assets/eyeOpen.svg";
-// import eyeClosed from "@/assets/eyeClosed.svg";
 import Input from "../input";
 import { KeyboardEvent, useEffect, useState } from "react";
 import { validateEmail } from "@/utils/utils";
@@ -76,12 +73,9 @@ export default function SignUpForm({
   const themeContext = useTheme();
   const googleAuthContext = useGoogleAuth();
 
-  if (!alertContext) return null;
-  if (!googleAuthContext) return null;
-  if (!themeContext) return null;
-  const { mode } = themeContext;
-  const { revealAlert } = alertContext;
-  const { updateCredentials } = googleAuthContext;
+  const { mode } = themeContext!;
+  const { revealAlert } = alertContext!;
+  const { updateCredentials } = googleAuthContext!;
 
   const proceed = () => {
     setValidationErrors([]);

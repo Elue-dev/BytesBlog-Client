@@ -20,12 +20,10 @@ export default function ForgotPassword() {
   const modalContext = useModal();
   const alertContext = useAlert();
   const themeContext = useTheme();
-  if (!modalContext) return null;
-  if (!alertContext) return null;
-  if (!themeContext) return null;
-  const { revealModal } = modalContext;
-  const { revealAlert, closeAlert } = alertContext;
-  const { mode } = themeContext;
+
+  const { revealModal } = modalContext!;
+  const { revealAlert, closeAlert } = alertContext!;
+  const { mode } = themeContext!;
 
   const sendResetEmail = async () => {
     closeAlert();

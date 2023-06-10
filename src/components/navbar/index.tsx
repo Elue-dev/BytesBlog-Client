@@ -55,8 +55,7 @@ export default function Navbar() {
   };
 
   const themeContext = useTheme();
-  if (!themeContext) return null;
-  const { mode } = themeContext;
+  const { mode } = themeContext!;
 
   if (pathname.includes("auth")) return null;
 
