@@ -3,7 +3,7 @@ import { useTheme } from "@/context/useTheme";
 import { getUserInitials } from "@/helpers/user.initials";
 import { httpRequest } from "@/lib";
 import { RootState } from "@/redux/store";
-import { Bookmark, Like, PostData } from "@/types/posts";
+import { Bookmark, Like, PostData, PostsLayout } from "@/types/posts";
 import { User } from "@/types/user";
 import { parseText } from "@/utils/utils";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -18,13 +18,9 @@ import shareIcon from "@/assets/shareIcon.svg";
 import likeInactive from "@/assets/likeInactive.svg";
 import likeActive from "@/assets/likeActive.svg";
 
-export default function PostLayout({
-  filteredPosts,
-  post,
-}: {
-  filteredPosts: PostData[];
-  post: PostData;
-}) {
+export default function PostLayout({ filteredPosts, post }: PostsLayout) {
+  const postsToUse = filteredPosts ? filteredPosts : ([post] as PostData[]);
+
   const [isLiked, setIsLiked] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
   const alertContext = useAlert();
@@ -131,8 +127,7 @@ export default function PostLayout({
     <div>
       <div
         className={`flex flex-col items-center gap-8 pb-8 pt-10 sm:flex-col md:flex-col lg:flex-row  ${
-          filteredPosts.indexOf(post) + 1 !== filteredPosts.length &&
-          "border-b-2"
+          postsToUse.indexOf(post) + 1 !== postsToUse.length && "border-b-2"
         }`}
       >
         <div className="w-full sm:w-1/2 md:w-full">

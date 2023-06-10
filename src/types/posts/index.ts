@@ -32,6 +32,11 @@ export interface PostData {
   bookmarks: Bookmark[];
 }
 
+export interface PostsLayout {
+  filteredPosts?: PostData[] | null;
+  post: PostData;
+}
+
 export interface Like {
   commentId: string | null;
   createdAt: string;

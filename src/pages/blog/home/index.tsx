@@ -3,8 +3,8 @@ import styles from "./home.module.scss";
 import { categories } from "../categories";
 import { BiSearchAlt2 } from "react-icons/bi";
 import Posts from "./posts";
-import { useDispatch } from "react-redux";
-import { FILTER_POSTS } from "@/redux/slices/filter.slice";
+import { useDispatch, useSelector } from "react-redux";
+import { FILTER_POSTS, selectFilteredPosts } from "@/redux/slices/filter.slice";
 import { useQuery } from "@tanstack/react-query";
 import { httpRequest } from "@/lib";
 import { PostData } from "@/types/posts";
@@ -14,6 +14,7 @@ export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [postQuery, setPostQuery] = useState("");
   const modifiedCategories = ["All", ...categories];
+  const filteredPosts = useSelector(selectFilteredPosts);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -84,13 +85,25 @@ export default function Blog() {
         </div>
 
         {selectedCategory !== "All" && (
-          <div className="mt-2 text-center">
-            <p className="text-lg">
+          <div
+            className={`mt-6 text-center ${
+              filteredPosts.length !== 0 && "border-b border-gray-100"
+            }`}
+          >
+            <h2 className="font-mediun block pt-4 text-center text-2xl">
               Post(s) with category{" "}
-              <span className="font-semibold italic text-primaryColor">
+              <span className="font-mediun italic text-primaryColor">
                 '{selectedCategory}'
               </span>
-            </p>
+            </h2>
+
+            {filteredPosts.length !== 0 && (
+              <span className="mb-3 mt-2 block text-xl font-thin italic">
+                {" "}
+                {filteredPosts.length}{" "}
+                {filteredPosts.length === 1 ? "post" : "posts"} found
+              </span>
+            )}
           </div>
         )}
 
