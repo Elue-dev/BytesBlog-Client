@@ -10,8 +10,9 @@ import { RootState } from "@/redux/store";
 import { httpRequest } from "@/lib";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { MdOutlineReply } from "react-icons/md";
+import { TbMessageCircle2 } from "react-icons/tb";
 import styles from "@/pages/blog/post_details/post.details.module.scss";
+import { BsReply } from "react-icons/bs";
 
 export default function PostComments({
   comment,
@@ -91,14 +92,17 @@ export default function PostComments({
             </p>
           </div>
         </div>
-        <p style={{ wordWrap: "break-word" }} className="text-lg text-gray-700">
+        <p
+          style={{ wordWrap: "break-word" }}
+          className="text-base text-gray-700"
+        >
           {comment.message}
         </p>
 
         <div className="flex items-center gap-2">
           {comment?.authorId !== currentUser?.id && (
             <p
-              className="flex cursor-pointer items-center justify-start text-sm text-lighterGray"
+              className="flex cursor-pointer items-center justify-start gap-1 text-sm text-lighterGray"
               onClick={() => {
                 setIsReplying(false);
                 setShowInput && setShowInput(false);
@@ -106,7 +110,7 @@ export default function PostComments({
               }}
             >
               <span>
-                <MdOutlineReply />
+                <BsReply />
               </span>
               <span>Reply</span>
             </p>
@@ -118,9 +122,15 @@ export default function PostComments({
               onClick={() => setShowReplies(!showReplies)}
             >
               {showReplies ? (
-                <span> Hide replies</span>
+                <div className="flex items-center justify-start gap-1">
+                  <TbMessageCircle2 />
+                  <span> Hide replies</span>
+                </div>
               ) : (
-                <span> Show replies ({replies?.length})</span>
+                <div className="flex items-center justify-start gap-1">
+                  <TbMessageCircle2 />
+                  <span> Show replies ({replies?.length})</span>
+                </div>
               )}
             </span>
           )}

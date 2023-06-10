@@ -118,7 +118,7 @@ export default function CommentForm({
           <a
             target="_blank"
             href={currentUser?.avatar}
-            className="mt-2 flex items-center justify-start"
+            className="mt-2 flex items-center justify-start gap-2"
           >
             <img
               src={currentUser?.avatar}

@@ -115,13 +115,15 @@ export default function CommentsSidebar({
 
         <hr />
         {rootComments?.map((comment) => (
-          <PostComments
-            key={comment.id}
-            comment={comment}
-            replies={getReplies(comment.id)}
-            parentId={null}
-            setShowInput={setShowInput}
-          />
+          <div className="border-b border-gray-100">
+            <PostComments
+              key={comment.id}
+              comment={comment}
+              replies={getReplies(comment.id)}
+              parentId={null}
+              setShowInput={setShowInput}
+            />
+          </div>
         ))}
 
         {showSidebar && (
