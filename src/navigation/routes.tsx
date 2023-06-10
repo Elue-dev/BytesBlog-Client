@@ -37,7 +37,9 @@ export const Layout = () => {
           <Outlet />
           <ScrollToTop />
           <Modal />
-          <Alert />
+          <Suspense fallback={null}>
+            <Alert />
+          </Suspense>
         </Suspense>
       )}
     </div>
