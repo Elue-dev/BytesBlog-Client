@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/useTheme";
 import { InputProps } from "@/types/ui";
 import { forwardRef } from "react";
 
@@ -6,7 +7,12 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     { type, name, className, onInput, value, onChange, onKeyDown, onFocus },
     ref
   ) => {
-    const inputClasses = `rounded bg-transparent border border-lightGray outline-none focus:border-primaryColor transition ease-in text-lightText	duration-300 ${className}`;
+    const themeContext = useTheme();
+    const { mode } = themeContext!;
+
+    const inputClasses = `rounded bg-transparent border border-lightGray outline-none focus:border-primaryColor transition ease-in ${
+      mode === "dark" ? "text-light" : "text-lightText	"
+    }duration-300 ${className}`;
 
     return (
       <input

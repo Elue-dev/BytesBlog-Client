@@ -26,6 +26,7 @@ import { FiEdit } from "react-icons/fi";
 import { getUserInitials } from "@/helpers/user.initials";
 import styles from "./post.details.module.scss";
 import Spinner from "@/components/spinners";
+import { parseText } from "@/utils/utils";
 
 export default function PostDetails() {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -92,10 +93,9 @@ export default function PostDetails() {
       return httpRequest.post(`/likeDislike/${postId}`, "", authHeaders);
     },
     {
-      onSuccess: (data) => {
-        console.log(data);
+      onSuccess: () => {
         queryClient.invalidateQueries([`posts`]);
-        queryClient.invalidateQueries([`post-${postId}`]);
+        queryClient.invalidateQueries([`post-${slug}`]);
       },
       onError: (err) => {
         console.log({ err });
@@ -112,11 +112,10 @@ export default function PostDetails() {
       );
     },
     {
-      onSuccess: (data) => {
-        console.log(data);
+      onSuccess: () => {
         queryClient.invalidateQueries([`posts`]);
+        queryClient.invalidateQueries([`post-${slug}`]);
         queryClient.invalidateQueries([`bookmarks`]);
-        queryClient.invalidateQueries([`post-${postId}`]);
       },
       onError: (err) => {
         console.log({ err });
@@ -180,7 +179,19 @@ export default function PostDetails() {
     const currentURL = window.location.href;
     try {
       await navigator.clipboard.writeText(currentURL);
-      revealAlert("Link copied to clipboard", "success");
+      revealAlert("Post link copied to clipboard", "success");
+    } catch (error) {
+      console.error("Failed to copy URL to clipboard:", error);
+    }
+  };
+
+  const copyContentToClipboard = async (postContent: string) => {
+    try {
+      await navigator.clipboard.writeText(parseText(postContent) || "");
+      revealAlert(
+        "Post content copied to clipboard, paste in the editor",
+        "info"
+      );
     } catch (error) {
       console.error("Failed to copy URL to clipboard:", error);
     }
@@ -265,9 +276,11 @@ export default function PostDetails() {
                   </div>
                 </div>
                 <div className="flex items-center justify-center gap-6 pt-4 sm:justify-start sm:gap-3 sm:pt-0">
-                  <Link to="/blog/write?action=edit" state={post}>
-                    <FiEdit size={23} color="#666" />
-                  </Link>
+                  <div onClick={() => copyContentToClipboard(post.content)}>
+                    <Link to="/blog/write?action=edit" state={post}>
+                      <FiEdit size={23} color="#666" />
+                    </Link>
+                  </div>
 
                   <img
                     src={linkedin}

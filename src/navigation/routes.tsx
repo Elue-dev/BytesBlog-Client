@@ -43,7 +43,7 @@ const router = createBrowserRouter([
         path: "/auth/create-account",
         element: (
           <Unauthenticated>
-            <CreateAccount />,
+            <CreateAccount />
           </Unauthenticated>
         ),
       },
@@ -51,7 +51,7 @@ const router = createBrowserRouter([
         path: "/auth/sign-in",
         element: (
           <Unauthenticated>
-            <SignIn />,
+            <SignIn />
           </Unauthenticated>
         ),
       },
@@ -59,7 +59,7 @@ const router = createBrowserRouter([
         path: "/auth/forgot-password",
         element: (
           <Unauthenticated>
-            <ForgotPassword />,
+            <ForgotPassword />
           </Unauthenticated>
         ),
       },
@@ -67,7 +67,7 @@ const router = createBrowserRouter([
         path: "/auth/reset-password/:token",
         element: (
           <Unauthenticated>
-            <ResetPassword />,
+            <ResetPassword />
           </Unauthenticated>
         ),
       },
@@ -75,7 +75,7 @@ const router = createBrowserRouter([
         path: "/blog",
         element: (
           <Authenticated>
-            <Blog />,
+            <Blog />
           </Authenticated>
         ),
       },
@@ -83,7 +83,7 @@ const router = createBrowserRouter([
         path: "/blog/post/:slug/:postId",
         element: (
           <Authenticated>
-            <PostDetails />,
+            <PostDetails />
           </Authenticated>
         ),
       },
@@ -91,7 +91,7 @@ const router = createBrowserRouter([
         path: "/blog/posts_search",
         element: (
           <Authenticated>
-            <PostSearch />,
+            <PostSearch />
           </Authenticated>
         ),
       },
@@ -99,7 +99,7 @@ const router = createBrowserRouter([
         path: "/user/profile",
         element: (
           <Authenticated>
-            <Profile />,
+            <Profile />
           </Authenticated>
         ),
       },
@@ -107,7 +107,7 @@ const router = createBrowserRouter([
         path: "/user/manage-interests",
         element: (
           <Authenticated>
-            <ManageInterests />,
+            <ManageInterests />
           </Authenticated>
         ),
       },
@@ -115,7 +115,7 @@ const router = createBrowserRouter([
         path: "/blog/write",
         element: (
           <Authenticated>
-            <AddPost />,
+            <AddPost />
           </Authenticated>
         ),
       },
