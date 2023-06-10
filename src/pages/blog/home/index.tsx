@@ -1,16 +1,40 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./home.module.scss";
 import { categories } from "../categories";
 import { BiSearchAlt2 } from "react-icons/bi";
 import Posts from "./posts";
-// import { getCurrentUser } from "@/redux/slices/auth.slice";
-// import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { FILTER_POSTS } from "@/redux/slices/filter.slice";
+import { useQuery } from "@tanstack/react-query";
+import { httpRequest } from "@/lib";
+import { PostData } from "@/types/posts";
 
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState("All");
+  // const [isFiltering, setIsFiltering] = useState(false);
   const modifiedCategories = ["All", ...categories];
-  // const currentUser = useSelector(getCurrentUser);
-  // console.log(currentUser);
+  const dispatch = useDispatch();
+
+  const queryFn = async (): Promise<PostData[]> => {
+    return httpRequest.get("/posts").then((res) => {
+      return res.data.posts;
+    });
+  };
+
+  const {
+    isLoading,
+    error,
+    data: posts,
+  } = useQuery<PostData[], Error>(["posts"], queryFn, {
+    staleTime: 60000,
+  });
+
+  useEffect(() => {
+    dispatch(FILTER_POSTS({ keyword: selectedCategory, posts }));
+  }, [dispatch, posts, selectedCategory]);
+
+  if (isLoading) return <h1>loading...</h1>;
+  if (error) return <h1>Something went wrong.</h1>;
 
   return (
     <section className={styles["blog__home"]}>
@@ -49,6 +73,17 @@ export default function Blog() {
             </div>
           ))}
         </div>
+
+        {selectedCategory !== "All" && (
+          <div className="mt-2 text-center">
+            <p className="text-lg">
+              Post(s) with category{" "}
+              <span className="font-semibold italic text-primaryColor">
+                '{selectedCategory}'
+              </span>
+            </p>
+          </div>
+        )}
 
         <Posts />
       </div>
