@@ -20,6 +20,7 @@ export default defineConfig({
       "@/redux": path.resolve(__dirname, "src/redux"),
       "@/helpers": path.resolve(__dirname, "src/helpers"),
       "@/lib": path.resolve(__dirname, "src/lib"),
+      "@/hooks": path.resolve(__dirname, "src/hooks"),
     },
   },
 });

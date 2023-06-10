@@ -17,15 +17,25 @@ import Alert from "@/components/alert";
 import Authenticated from "@/helpers/authenticated";
 import Unauthenticated from "@/helpers/unauthenticated";
 import PostSearch from "@/pages/blog/home/posts/post_query";
+import useNetworkStatus from "@/hooks/useNetworkStatus";
+import OfflinePage from "@/pages/offline_page";
 
 export const Layout = () => {
+  const status = useNetworkStatus();
+
   return (
     <div className="app">
-      <Navbar />
-      <Outlet />
-      <ScrollToTop />
-      <Modal />
-      <Alert />
+      {status ? (
+        <OfflinePage />
+      ) : (
+        <>
+          <Navbar />
+          <Outlet />
+          <ScrollToTop />
+          <Modal />
+          <Alert />
+        </>
+      )}
     </div>
   );
 };
