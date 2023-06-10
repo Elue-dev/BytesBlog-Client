@@ -90,7 +90,7 @@ export default function RightDetails({ similarPosts }: RightDetailsProps) {
             <img
               src={post.image}
               alt={post.title}
-              className="mb-4 h-full w-full rounded-lg object-cover lg:h-36 lg:w-32"
+              className="mb-4 max-h-56 w-screen rounded-lg object-cover lg:h-36 lg:w-32"
             />
           </div>
         </div>

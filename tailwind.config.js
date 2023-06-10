@@ -57,6 +57,9 @@ export default {
         ".postBorderLight": {
           borderRight: "0.5px solid #e5e7eb",
         },
+        ".mWidth": {
+          maxWidth: "200px",
+        },
       });
     },
   ],

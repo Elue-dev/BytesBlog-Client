@@ -13,6 +13,7 @@ import { httpRequest } from "@/lib";
 import { SERVER_URL, CLOUD_NAME, UPLOAD_PRESET } from "@/utils/variables";
 import { REMOVE_ACTIVE_USER, SET_ACTIVE_USER } from "@/redux/slices/auth.slice";
 import { ClipLoader } from "react-spinners";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function EditProfile({
   setShowSidebar,
@@ -37,6 +38,7 @@ export default function EditProfile({
   const alertContext = useAlert();
   const themeContext = useTheme();
   const dispatch = useDispatch();
+  const queryClient = useQueryClient();
   const imageUploadRef = useRef<any | undefined>();
 
   if (!alertContext) return null;
@@ -111,6 +113,7 @@ export default function EditProfile({
         dispatch(SET_ACTIVE_USER(response.data.updatedUser));
         setLoading(false);
         setShowSidebar(false);
+        queryClient.invalidateQueries([`posts`]);
         revealAlert("Profile updated", "success");
       }
     } catch (error: any) {

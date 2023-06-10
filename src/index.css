@@ -97,7 +97,6 @@ body {
   );
   height: 30vh;
 }
-
 @keyframes popIn {
   0% {
     transform: scale(1.3);

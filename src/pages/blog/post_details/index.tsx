@@ -103,12 +103,17 @@ export default function PostDetails() {
 
   const bookmarksMutation = useMutation(
     (postId: string) => {
-      return httpRequest.post(`/addRemoveBookmark/${postId}`, "", authHeaders);
+      return httpRequest.post(
+        `/bookmarks/addRemoveBookmark/${postId}`,
+        "",
+        authHeaders
+      );
     },
     {
       onSuccess: (data) => {
         console.log(data);
         queryClient.invalidateQueries([`posts`]);
+        queryClient.invalidateQueries([`bookmarks`]);
         queryClient.invalidateQueries([`post-${postId}`]);
       },
       onError: (err) => {
@@ -148,11 +153,11 @@ export default function PostDetails() {
   };
 
   const userHasLikedPost = (likes: Like[]): boolean => {
-    return likes.some((like) => like.userId === currentUser?.id);
+    return likes?.some((like) => like.userId === currentUser?.id);
   };
 
   const userHasBookmarkedPost = (bookmarks: Bookmark[]): boolean => {
-    return bookmarks.some((bookmark) => bookmark.userId === currentUser?.id);
+    return bookmarks?.some((bookmark) => bookmark.userId === currentUser?.id);
   };
 
   if (isLoading || !post || loading) return <h1>loading...</h1>;
@@ -168,6 +173,18 @@ export default function PostDetails() {
   const postComments = post.comments?.filter(
     (com: CommentData) => com.parentId === null
   );
+
+  const copyURLToClipboard = () => {
+    const currentURL = window.location.href;
+    navigator.clipboard
+      .writeText(currentURL)
+      .then(() => {
+        revealAlert("Link copied to clipboard", "success");
+      })
+      .catch((error) => {
+        console.error("Failed to copy URL to clipboard:", error);
+      });
+  };
 
   return (
     <section className={styles["post__details"]}>
@@ -260,6 +277,7 @@ export default function PostDetails() {
                   />
                   <img
                     src={linkIcon}
+                    onClick={copyURLToClipboard}
                     alt="copy link"
                     className="h-8 cursor-pointer lg:h-8"
                   />

@@ -1,14 +1,19 @@
 import { httpRequest } from "@/lib";
 import { RootState } from "@/redux/store";
-import { BookmarkData, User } from "@/types/user";
+import { BookmarkedPosts, User } from "@/types/user";
 import { parseText } from "@/utils/utils";
 import { useQuery } from "@tanstack/react-query";
 import moment from "moment";
+import { useEffect, useState } from "react";
 import { BiTimeFive } from "react-icons/bi";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 export default function SavedPosts() {
+  const [bookmarksToUse, setBookmarksToUse] = useState<
+    BookmarkedPosts[] | undefined
+  >([]);
+
   const currentUser: User | null = useSelector<RootState, User | null>(
     (state) => state.auth.user
   );
@@ -16,45 +21,51 @@ export default function SavedPosts() {
     headers: { authorization: `Bearer ${currentUser?.token}` },
   };
 
-  const queryFn = async (): Promise<BookmarkData[]> => {
-    return httpRequest
-      .get("/bookmarks/userBookmarks", authHeaders)
-      .then((res) => {
-        return res.data.bookmarks;
-      });
+  const queryFn = async (): Promise<BookmarkedPosts[]> => {
+    return httpRequest.get("/bookmarks", authHeaders).then((res) => {
+      return res.data.bookmarks;
+    });
   };
 
   const {
     isLoading,
     error,
     data: bookmarks,
-  } = useQuery<BookmarkData[], Error>(["posts"], queryFn, {
+  } = useQuery<BookmarkedPosts[], Error>(["bookmarks"], queryFn, {
     staleTime: 60000,
   });
 
-  console.log(bookmarks);
+  useEffect(() => {
+    setBookmarksToUse(
+      bookmarks?.filter((bookmark) => bookmark.userId === currentUser?.id)
+    );
+  }, [bookmarks, currentUser?.id]);
 
   if (isLoading) return <h1>loading...</h1>;
   if (error) return <h1>Something went wrong.</h1>;
 
   return (
     <div>
-      {bookmarks?.length === 0 ? (
+      <h2 className="pb-3 text-xl font-thin italic">
+        You have {bookmarksToUse?.length} saved{" "}
+        {bookmarksToUse?.length === 1 ? "post" : "posts"}
+      </h2>
+      {bookmarksToUse?.length === 0 ? (
         <div>
           <h3>You have no saved posts yet</h3>
         </div>
       ) : (
         <>
-          {bookmarks?.map((bookmark) => (
+          {bookmarksToUse?.map((bookmark) => (
             <Link
-              key={bookmark.post?.id}
-              to={`/blog/post/${bookmark?.post?.slug}/${bookmark?.post?.id}`}
+              key={bookmark?.post?.id}
+              to={`/blog/post/${bookmark.post?.slug}/${bookmark.post?.id}`}
               className="mb-6 flex flex-col items-center justify-start gap-6 lg:flex-row"
             >
               <img
                 src={bookmark.post?.image}
                 alt=""
-                className="h-48 w-full rounded-lg object-cover lg:w-48"
+                className="h-48 w-full rounded-lg object-cover lg:mWidth"
               />
               <div>
                 <h2 className="text-xl font-semibold">

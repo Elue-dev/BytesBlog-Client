@@ -1,5 +1,3 @@
-import { PostData } from "../posts";
-
 export interface User {
   id: string;
   firstName: string;
@@ -13,10 +11,27 @@ export interface User {
   lastUpdated: string;
 }
 
-export interface BookmarkData {
+export interface BookmarkedPosts {
+  createdAt: string;
   id: string;
+  post: {
+    author: {
+      avatar: string;
+      firstName: string;
+      id: string;
+      lastName: string;
+    };
+    authorId: string;
+    categories: string[];
+    content: string;
+    createdAt: string;
+    id: string;
+    image: string;
+    readTime: number;
+    slug: string;
+    title: string;
+    updatedAt: string;
+  };
   postId: string;
   userId: string;
-  createdAt: Date;
-  post: PostData;
 }
