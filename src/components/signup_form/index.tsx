@@ -168,10 +168,8 @@ export default function SignUpForm({
       <div className="flex h-screen items-center justify-center">
         <div
           className={`mx-4 my-8 w-full max-w-md rounded-lg ${
-            mode === "dark"
-              ? "border border-neutral-950 bg-zinc-900 p-4"
-              : "bg-white p-0"
-          }   sm:p-5 sm:shadow-lg`}
+            mode === "dark" ? "bg-zinc-900" : "bg-white"
+          }  p-0 sm:p-5 sm:shadow-lg`}
         >
           <h1 className="mb-3 flex items-center justify-center text-3xl font-medium">
             Create Account
