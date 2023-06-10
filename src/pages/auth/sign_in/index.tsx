@@ -137,7 +137,7 @@ export default function SignIn() {
             mode === "dark"
               ? "border border-neutral-950 bg-zinc-900"
               : "bg-white"
-          }  p-0 sm:p-5 sm:shadow-lg`}
+          }  p-4 sm:p-5 sm:shadow-lg`}
         >
           <Link to="/" className="mb-3 flex items-center justify-center pt-8">
             <img

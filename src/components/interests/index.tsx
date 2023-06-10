@@ -97,7 +97,7 @@ export default function Interests({
             mode === "dark"
               ? "border border-neutral-900 bg-zinc-950"
               : "bg-white"
-          }  p-0 sm:p-5 sm:shadow-lg`}
+          }  p-4 sm:p-5 sm:shadow-lg`}
         >
           <div
             onClick={handleNavigate}

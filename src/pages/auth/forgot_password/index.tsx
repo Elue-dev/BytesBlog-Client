@@ -75,13 +75,13 @@ export default function ForgotPassword() {
 
   return (
     <section className={`${mode === "dark" && "bg-zinc-900"}`}>
-      <div className="flex h-screen items-center justify-center">
+      <div className="justify-cente flex h-screen items-center p-4">
         <div
           className={`mx-4 my-8 w-full max-w-md rounded-lg ${
             mode === "dark"
               ? "border border-neutral-950 bg-zinc-900"
               : "bg-white"
-          }  p-0 sm:p-5 sm:shadow-lg`}
+          }  p-4 sm:p-5 sm:shadow-lg`}
         >
           <div
             onClick={() => navigate(-1)}
