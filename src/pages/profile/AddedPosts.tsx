@@ -1,11 +1,10 @@
 import { BiTimeFive } from "react-icons/bi";
 import { Link } from "react-router-dom";
-import { postData } from "../blog/dummyPosts";
 
 export default function AddedPosts() {
   return (
     <div>
-      {postData.slice(0, 2).map((post) => (
+      {/* {postData.slice(0, 2).map((post) => (
         <Link
           key={post.id}
           to={`/blog/post/${post.id}`}
@@ -30,7 +29,7 @@ export default function AddedPosts() {
             </div>
           </div>
         </Link>
-      ))}
+      ))} */}
     </div>
   );
 }

@@ -40,8 +40,7 @@ export default function PostLayout({ filteredPosts, post }: PostsLayout) {
       return httpRequest.post(`/likeDislike/${postId}`, "", authHeaders);
     },
     {
-      onSuccess: (data) => {
-        console.log(data);
+      onSuccess: () => {
         queryClient.invalidateQueries([`posts`]);
       },
       onError: (err) => {
@@ -52,11 +51,14 @@ export default function PostLayout({ filteredPosts, post }: PostsLayout) {
 
   const bookmarksMutation = useMutation(
     (postId: string) => {
-      return httpRequest.post(`/addRemoveBookmark/${postId}`, "", authHeaders);
+      return httpRequest.post(
+        `/bookmarks/addRemoveBookmark/${postId}`,
+        "",
+        authHeaders
+      );
     },
     {
-      onSuccess: (data) => {
-        console.log(data);
+      onSuccess: () => {
         queryClient.invalidateQueries([`posts`]);
       },
       onError: (err) => {
@@ -94,7 +96,6 @@ export default function PostLayout({ filteredPosts, post }: PostsLayout) {
       if (response && response.data.message === "Post liked") {
         setIsLiked(true);
       }
-      console.log(response);
     } catch (error: any) {
       console.log(error);
       revealAlert(error.response.data.message, "error");
@@ -141,7 +142,7 @@ export default function PostLayout({ filteredPosts, post }: PostsLayout) {
           <div className="header">
             <div className="flex flex-col items-center justify-between pb-3 sm:flex-row">
               <div className="flex items-center justify-start gap-2">
-                {post.author.avatar === "" ? (
+                {post.author?.avatar === "" ? (
                   <>
                     <div
                       className="user__initials"

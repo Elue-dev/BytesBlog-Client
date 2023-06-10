@@ -13,7 +13,7 @@ const filter_slice = createSlice({
     FILTER_POSTS: (state, action) => {
       const { posts, keyword } = action.payload;
       const tempPosts = posts?.filter((post: PostData) =>
-        post.categories.includes(keyword)
+        post.categories?.includes(keyword)
       );
       keyword === "All"
         ? (state.filteredPosts = posts)

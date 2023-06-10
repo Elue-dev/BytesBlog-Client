@@ -34,20 +34,18 @@ export default function PostSearch() {
   if (isLoading) return <h1>loading...</h1>;
   if (error) return <h1>Something went wrong.</h1>;
 
-  const postResults = posts.filter(
+  const postResults = posts?.filter(
     (post) =>
-      post.title.toLowerCase().includes(postQuery!.toLowerCase()) ||
-      post.author.firstName.toLowerCase().includes(postQuery!.toLowerCase()) ||
-      post.author.lastName.toLowerCase().includes(postQuery!.toLowerCase()) ||
+      post.title.toLowerCase()?.includes(postQuery!.toLowerCase()) ||
+      post.author.firstName.toLowerCase()?.includes(postQuery!.toLowerCase()) ||
+      post.author.lastName.toLowerCase()?.includes(postQuery!.toLowerCase()) ||
       (post.author.firstName + " " + post.author.lastName)
         .toLowerCase()
-        .includes(postQuery!.toLowerCase()) ||
+        ?.includes(postQuery!.toLowerCase()) ||
       (post.author.lastName + " " + post.author.firstName)
         .toLowerCase()
-        .includes(postQuery!.toLowerCase())
+        ?.includes(postQuery!.toLowerCase())
   );
-
-  console.log({ postResults });
 
   return (
     <section className={styles["post__details"]}>

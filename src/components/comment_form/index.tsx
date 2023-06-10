@@ -123,7 +123,7 @@ export default function CommentForm({
             <img
               src={currentUser?.avatar}
               alt={currentUser?.firstName}
-              className="h-14 w-14 rounded-full object-cover"
+              className="h-10 w-10 rounded-full object-cover"
             />
             <p className="text-gray600">
               {currentUser?.firstName + " " + currentUser?.lastName}

@@ -1,3 +1,5 @@
+import { PostData } from "../posts";
+
 export interface User {
   id: string;
   firstName: string;
@@ -9,4 +11,12 @@ export interface User {
   token: string;
   joinedAt: string;
   lastUpdated: string;
+}
+
+export interface BookmarkData {
+  id: string;
+  postId: string;
+  userId: string;
+  createdAt: Date;
+  post: PostData;
 }
