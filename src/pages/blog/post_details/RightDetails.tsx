@@ -75,7 +75,7 @@ export default function RightDetails({ similarPosts }: RightDetailsProps) {
 
             <div className="flex items-center justify-between gap-2 pb-4 pt-4 text-right text-grayNeutral">
               <Link
-                to={`/blog/post/${post.id}`}
+                to={`/blog/post/${post.slug}/${post.id}`}
                 className="font-semibold text-primaryColor"
               >
                 Read More

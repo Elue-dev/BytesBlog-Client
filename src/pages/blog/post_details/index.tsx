@@ -29,7 +29,7 @@ export default function PostDetails() {
   const [showSidebar, setShowSidebar] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
-  const { postId } = useParams();
+  const { postId, slug } = useParams();
   const themeContext = useTheme();
   const alertContext = useAlert();
   const navigate = useNavigate();
@@ -41,8 +41,8 @@ export default function PostDetails() {
     isLoading,
     error,
     data: post,
-  } = useQuery<PostData>([`post-${postId}`], () =>
-    httpRequest.get(`/posts/${postId}`).then((res) => {
+  } = useQuery<PostData>([`post-${slug}`], () =>
+    httpRequest.get(`/posts/${slug}`).then((res) => {
       return res.data.post[0];
     })
   );

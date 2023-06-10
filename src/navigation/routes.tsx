@@ -79,7 +79,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/blog/post/:postId",
+        path: "/blog/post/:slug/:postId",
         element: (
           <Authenticated>
             <PostDetails />,

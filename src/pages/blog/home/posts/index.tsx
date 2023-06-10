@@ -213,7 +213,7 @@ export default function Posts() {
                 </article>
 
                 <Link
-                  to={`/blog/post/${post.id}`}
+                  to={`/blog/post/${post.slug}/${post.id}`}
                   className="font-semibold text-primaryColor"
                 >
                   Read More

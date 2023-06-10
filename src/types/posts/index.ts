@@ -18,6 +18,7 @@ export interface Author {
 export interface PostData {
   id: string;
   image: string;
+  slug: string;
   readTime: number;
   categories: string[];
   title: string;
