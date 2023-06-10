@@ -7,7 +7,6 @@ import bookmarkActive from "@/assets/bookmarkActive.svg";
 import linkIcon from "@/assets/linkIcon.svg";
 import linkedin from "@/assets/linkedin.svg";
 import facebook from "@/assets/facebook.svg";
-import styles from "./post.details.module.scss";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import RightDetails from "./RightDetails";
 import { useEffect, useState } from "react";
@@ -24,6 +23,7 @@ import { RootState } from "@/redux/store";
 import { useAlert } from "@/context/useAlert";
 import { IoChevronBackCircleOutline } from "react-icons/io5";
 import { getUserInitials } from "@/helpers/user.initials";
+import styles from "./post.details.module.scss";
 
 export default function PostDetails() {
   const [showSidebar, setShowSidebar] = useState(false);

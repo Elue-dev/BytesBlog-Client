@@ -16,6 +16,7 @@ import AddPost from "@/pages/add_post";
 import Alert from "@/components/alert";
 import Authenticated from "@/helpers/authenticated";
 import Unauthenticated from "@/helpers/unauthenticated";
+import PostSearch from "@/pages/blog/home/posts/post_query";
 
 export const Layout = () => {
   return (
@@ -83,6 +84,14 @@ const router = createBrowserRouter([
         element: (
           <Authenticated>
             <PostDetails />,
+          </Authenticated>
+        ),
+      },
+      {
+        path: "/blog/posts_search",
+        element: (
+          <Authenticated>
+            <PostSearch />,
           </Authenticated>
         ),
       },

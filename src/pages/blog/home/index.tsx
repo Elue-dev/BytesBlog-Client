@@ -8,12 +8,14 @@ import { FILTER_POSTS } from "@/redux/slices/filter.slice";
 import { useQuery } from "@tanstack/react-query";
 import { httpRequest } from "@/lib";
 import { PostData } from "@/types/posts";
+import { useNavigate } from "react-router-dom";
 
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState("All");
-  // const [isFiltering, setIsFiltering] = useState(false);
+  const [postQuery, setPostQuery] = useState("");
   const modifiedCategories = ["All", ...categories];
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const queryFn = async (): Promise<PostData[]> => {
     return httpRequest.get("/posts").then((res) => {
@@ -48,10 +50,17 @@ export default function Blog() {
         >
           <input
             type="text"
-            placeholder="Search posts by title or category"
+            value={postQuery}
+            onChange={(e) => setPostQuery(e.target.value)}
+            placeholder="Search posts by title, authors"
             className="border text-stone-700 outline-none"
           />
-          <button className="bg-black text-xl font-bold text-white">
+          <button
+            onClick={() =>
+              navigate(`/blog/posts_search?post_query=${postQuery}`)
+            }
+            className="bg-black text-xl font-bold text-white"
+          >
             <BiSearchAlt2 />
           </button>
         </div>
