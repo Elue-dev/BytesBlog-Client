@@ -15,7 +15,6 @@ const PostDetails = lazy(() => import("@/pages/blog/post_details"));
 const Profile = lazy(() => import("@/pages/profile"));
 const ManageInterests = lazy(() => import("@/pages/manage_interests"));
 const AddPost = lazy(() => import("@/pages/add_post"));
-const Alert = lazy(() => import("@/components/alert"));
 const Authenticated = lazy(() => import("@/helpers/authenticated"));
 const Unauthenticated = lazy(() => import("@/helpers/unauthenticated"));
 const PostSearch = lazy(() => import("@/pages/blog/home/posts/post_query"));
@@ -23,6 +22,7 @@ const OfflinePage = lazy(() => import("@/pages/offline_page"));
 import { createBrowserRouter, Outlet } from "react-router-dom";
 import useNetworkStatus from "@/hooks/useNetworkStatus";
 import Spinner from "@/components/spinners";
+import Alert from "@/components/alert";
 
 export const Layout = () => {
   const status = useNetworkStatus();
@@ -32,15 +32,15 @@ export const Layout = () => {
       {!status ? (
         <OfflinePage />
       ) : (
-        <Suspense fallback={<Spinner />}>
-          <Navbar />
-          <Outlet />
-          <ScrollToTop />
-          <Modal />
-          <Suspense fallback={null}>
-            <Alert />
+        <>
+          <Suspense fallback={<Spinner />}>
+            <Navbar />
+            <Outlet />
+            <ScrollToTop />
+            <Modal />
           </Suspense>
-        </Suspense>
+          <Alert />
+        </>
       )}
     </div>
   );
