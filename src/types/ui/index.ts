@@ -1,6 +1,7 @@
 import {
   ChangeEvent,
   FocusEventHandler,
+  KeyboardEventHandler,
   MutableRefObject,
   ReactNode,
 } from "react";
@@ -17,6 +18,8 @@ export interface InputProps {
   name?: string;
   ref?: MutableRefObject<any>;
   onInput?: FocusEventHandler<HTMLInputElement>;
+  onKeyDown?: KeyboardEventHandler<HTMLInputElement>;
+  onFocus?: FocusEventHandler<HTMLInputElement>;
   className: string;
   value: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;

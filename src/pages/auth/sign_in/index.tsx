@@ -2,10 +2,8 @@ import Button from "@/components/button";
 import bytesLogo from "@/assets/bytesLogo.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
-// import eyeOpen from "@/assets/eyeOpen.svg";
-// import eyeClosed from "@/assets/eyeClosed.svg";
 import Input from "@/components/input";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, KeyboardEvent, useState } from "react";
 import { validateEmail } from "@/utils/utils";
 import { useAlert } from "@/context/useAlert";
 import { SIValues } from "@/types/auth";
@@ -28,6 +26,7 @@ export default function SignIn() {
   const [credentials, setCredentials] = useState(initialValues);
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [capsLockIsOn, setCapsLockIsOn] = useState(false);
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
   const navigate = useNavigate();
   const alertContext = useAlert();
@@ -116,6 +115,21 @@ export default function SignIn() {
     setValidationErrors(updatedErrors);
   };
 
+  const checkCapsLockState: React.KeyboardEventHandler<HTMLInputElement> = (
+    event
+  ) => {
+    const keyboardEvent = event as KeyboardEvent<HTMLInputElement>;
+    handleFocus("password");
+    if (
+      keyboardEvent.getModifierState &&
+      keyboardEvent.getModifierState("CapsLock")
+    ) {
+      setCapsLockIsOn(true);
+    } else {
+      setCapsLockIsOn(false);
+    }
+  };
+
   return (
     <section className={`${mode === "dark" && "bg-zinc-900"}`}>
       <div className="flex h-screen items-center justify-center">
@@ -165,6 +179,11 @@ export default function SignIn() {
             </div>
 
             <div className="relative pt-8">
+              {capsLockIsOn && (
+                <p className="mb-3 font-semibold text-yellow-500">
+                  Caps Lock is on
+                </p>
+              )}
               <Input
                 type={visible ? "text" : "password"}
                 name="password"
@@ -173,7 +192,7 @@ export default function SignIn() {
                 } w-full bg-transparent p-2.5`}
                 value={password}
                 onChange={handleInputChange}
-                onInput={() => handleFocus("password")}
+                onKeyDown={checkCapsLockState}
               />
               <span
                 className={`${

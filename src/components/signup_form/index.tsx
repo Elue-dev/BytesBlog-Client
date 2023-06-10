@@ -6,7 +6,7 @@ import { BsFillCheckSquareFill } from "react-icons/bs";
 // import eyeOpen from "@/assets/eyeOpen.svg";
 // import eyeClosed from "@/assets/eyeClosed.svg";
 import Input from "../input";
-import { useEffect, useState } from "react";
+import { KeyboardEvent, useEffect, useState } from "react";
 import { validateEmail } from "@/utils/utils";
 import { useAlert } from "@/context/useAlert";
 import { useGoogleAuth } from "@/context/useGoogleAuth";
@@ -25,6 +25,8 @@ export default function SignUpForm({
 
   const [visible, setVisible] = useState(false);
   const [cpVisible, setCPVisible] = useState(false);
+  const [capsLockIsOn, setCapsLockIsOn] = useState(false);
+  const [capsLockIsOnSec, setCapsLockIsOnSec] = useState(false);
   const [numberCondition, setNumberCondition] = useState(false);
   const [charCondition, setCharCondition] = useState(false);
   const [lengthCondition, setLengthCondition] = useState(false);
@@ -140,6 +142,33 @@ export default function SignUpForm({
     setValidationErrors(updatedErrors);
   };
 
+  const checkCapsLockState: React.KeyboardEventHandler<HTMLInputElement> = (
+    event
+  ) => {
+    const keyboardEvent = event as KeyboardEvent<HTMLInputElement>;
+    if (
+      keyboardEvent.getModifierState &&
+      keyboardEvent.getModifierState("CapsLock")
+    ) {
+      setCapsLockIsOn(true);
+    } else {
+      setCapsLockIsOn(false);
+    }
+  };
+
+  const checkCapsLockStateSec: React.KeyboardEventHandler<HTMLInputElement> = (
+    event
+  ) => {
+    const keyboardEvent = event as KeyboardEvent<HTMLInputElement>;
+    if (
+      keyboardEvent.getModifierState &&
+      keyboardEvent.getModifierState("CapsLock")
+    ) {
+      setCapsLockIsOnSec(true);
+    } else {
+      setCapsLockIsOnSec(false);
+    }
+  };
   return (
     <section className={`${mode === "dark" && "bg-zinc-900"}`}>
       <div className="flex h-screen items-center justify-center">
@@ -237,6 +266,11 @@ export default function SignUpForm({
             </div>
 
             <div className="relative pt-8">
+              {capsLockIsOn && (
+                <p className="mb-3 font-semibold text-yellow-500">
+                  Caps Lock is on
+                </p>
+              )}
               <Input
                 type={visible ? "text" : "password"}
                 name="password"
@@ -249,6 +283,7 @@ export default function SignUpForm({
                 value={password}
                 onChange={handleInputChange}
                 onInput={() => handleFocus("password")}
+                onKeyDown={checkCapsLockState}
               />
               <span
                 className={`${
@@ -312,6 +347,11 @@ export default function SignUpForm({
             </div>
 
             <div className="relative pt-8">
+              {capsLockIsOnSec && (
+                <p className="mb-3 font-semibold text-yellow-500">
+                  Caps Lock is on
+                </p>
+              )}
               <Input
                 type={cpVisible ? "text" : "password"}
                 name="confirmPassword"
@@ -323,6 +363,7 @@ export default function SignUpForm({
                 value={confirmPassword}
                 onChange={handleInputChange}
                 onInput={() => handleFocus("confirmPassword")}
+                onKeyDown={checkCapsLockStateSec}
               />
               <span
                 className={`${
