@@ -9,7 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import { httpRequest } from "@/lib";
 import { PostData } from "@/types/posts";
 import { useNavigate } from "react-router-dom";
-import Spinner from "@/components/spinner";
+import Spinner from "@/components/spinners";
 
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState("All");

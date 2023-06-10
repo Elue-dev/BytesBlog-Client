@@ -79,6 +79,8 @@ export type InitValues = Pick<AddBPost, "title" | "readTime">;
 
 export interface StepOneprops {
   values: InitValues;
+  initialValues: InitValues;
+  setValues: Dispatch<SetStateAction<InitValues>>;
   image: File | undefined;
   content: string;
   setContent: Dispatch<SetStateAction<string>>;
@@ -94,6 +96,7 @@ export interface StepTwoProps {
   values: InitValues;
   initialValues: InitValues;
   image: File | undefined;
+  imagePreview: string | undefined;
   content: string;
   catNames: string[];
   setCatNames: Dispatch<SetStateAction<StepTwoProps["catNames"]>>;

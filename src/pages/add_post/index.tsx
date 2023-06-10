@@ -37,6 +37,8 @@ export default function AddPost() {
       return (
         <StepOne
           values={values}
+          setValues={setValues}
+          initialValues={initialValues}
           image={image}
           content={content}
           setContent={setContent}
@@ -53,6 +55,7 @@ export default function AddPost() {
           values={values}
           setValues={setValues}
           image={image}
+          imagePreview={imagePreview}
           content={content}
           initialValues={initialValues}
           catNames={catNames}

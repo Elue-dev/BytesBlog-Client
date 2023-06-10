@@ -22,9 +22,10 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { useAlert } from "@/context/useAlert";
 import { IoChevronBackCircleOutline } from "react-icons/io5";
+import { FiEdit } from "react-icons/fi";
 import { getUserInitials } from "@/helpers/user.initials";
 import styles from "./post.details.module.scss";
-import Spinner from "@/components/spinner";
+import Spinner from "@/components/spinners";
 
 export default function PostDetails() {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -154,26 +155,26 @@ export default function PostDetails() {
   };
 
   const userHasLikedPost = (likes: Like[]): boolean => {
-    return likes?.some((like) => like.userId === currentUser?.id);
+    return likes?.some((like) => like?.userId === currentUser?.id);
   };
 
   const userHasBookmarkedPost = (bookmarks: Bookmark[]): boolean => {
-    return bookmarks?.some((bookmark) => bookmark.userId === currentUser?.id);
+    return bookmarks?.some((bookmark) => bookmark?.userId === currentUser?.id);
   };
 
-  if (isLoading || !post || loading) return <Spinner />;
-  if (error || err) return <h1>Something went wrong.</h1>;
-
-  const similarPosts = posts.filter(
+  const similarPosts = posts?.filter(
     (p: PostData) =>
       p.categories.some((category: string) =>
-        post.categories.includes(category)
+        post?.categories.includes(category)
       ) && p.id !== postId
   );
 
-  const postComments = post.comments?.filter(
-    (com: CommentData) => com.parentId === null
+  const postComments = post?.comments?.filter(
+    (com: CommentData) => com?.parentId === null
   );
+
+  if (isLoading || !post || loading) return <Spinner />;
+  if (error || err) return <h1>Something went wrong.</h1>;
 
   const copyURLToClipboard = async () => {
     const currentURL = window.location.href;
@@ -264,6 +265,10 @@ export default function PostDetails() {
                   </div>
                 </div>
                 <div className="flex items-center justify-center gap-6 pt-4 sm:justify-start sm:gap-3 sm:pt-0">
+                  <Link to="/blog/write?action=edit" state={post}>
+                    <FiEdit size={23} color="#666" />
+                  </Link>
+
                   <img
                     src={linkedin}
                     alt="share on linkedin"

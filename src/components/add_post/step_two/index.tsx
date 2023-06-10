@@ -15,12 +15,14 @@ import { User } from "@/types/user";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { ClipLoader } from "react-spinners";
+import { useLocation } from "react-router-dom";
 
 export default function StepTwo({
   values,
   setValues,
   content,
   image,
+  imagePreview,
   initialValues,
   catNames,
   setCatNames,
@@ -30,6 +32,9 @@ export default function StepTwo({
   previousStep,
 }: StepTwoProps) {
   const [loading, setLoading] = useState(false);
+  const state = useLocation().state;
+  // console.log(state);
+
   const currentUser: User | null = useSelector<RootState, User | null>(
     (state) => state.auth.user
   );
@@ -38,6 +43,11 @@ export default function StepTwo({
   const alertContext = useAlert();
 
   const manageArray = () => {
+    if (state) {
+      const cNames: string[] = [];
+      state.categories.map((cat: any) => cNames.push(cat.name));
+      setCatNames(cNames);
+    }
     const cNames: string[] = [];
     categories.map((cat: any) => cNames.push(cat.name));
     setCatNames(cNames);
@@ -83,14 +93,31 @@ export default function StepTwo({
     }
   );
 
+  const editMutation = useMutation(
+    (editedPost: Post) => {
+      return httpRequest.put(`/posts/${state.slug}`, editedPost, authHeaders);
+    },
+    {
+      onSuccess: (data) => {
+        console.log(data);
+        queryClient.invalidateQueries(["posts"]);
+        queryClient.invalidateQueries([`posts-${state.id}`]);
+      },
+      onError: (err) => {
+        setLoading(false);
+        console.log({ err });
+      },
+    }
+  );
+
   if (!context) return null;
   if (!alertContext) return null;
   const { revealModal } = context;
-  const { revealAlert, closeAlert } = alertContext;
+  const { revealAlert } = alertContext;
 
   const publishPost = async () => {
-    closeAlert();
     const convertReadTime = parseInt(readTime);
+    console.log(catNames);
 
     if (isNaN(convertReadTime))
       return revealAlert("Read time must be a number eg 1, 2, 3", "error");
@@ -118,6 +145,41 @@ export default function StepTwo({
       if (response)
         revealModal(
           `Your post has been published successfully`,
+          "/blog",
+          "success"
+        );
+      setValues(initialValues);
+    } catch (error: any) {
+      setLoading(false);
+      return revealAlert(error.response.data.message, "error");
+    }
+  };
+
+  const editPost = async () => {
+    const convertReadTime = parseInt(readTime);
+
+    !imagePreview?.includes("cloudinary") && (await uploadAvatarToCloud());
+
+    if (isNaN(convertReadTime))
+      return revealAlert("Read time must be a number eg 1, 2, 3", "error");
+
+    if (convertReadTime === 0 || convertReadTime < 1)
+      return revealAlert("Read time must be 1 and above", "error");
+
+    try {
+      setLoading(true);
+      await uploadAvatarToCloud();
+      const postData = {
+        title,
+        content,
+        image: imageUrl,
+        categories: state.categories,
+        readTime: parseInt(readTime),
+      };
+      const response = await editMutation.mutateAsync(postData);
+      if (response)
+        revealModal(
+          `Your post has been updated successfully`,
           "/blog",
           "success"
         );
@@ -166,24 +228,47 @@ export default function StepTwo({
             <h2 className="text-2xl font-semibold text-blackNeutral">
               Category
             </h2>
-            <p className="pb-6 text-grayNeutral">
-              Select the category/categories that best describe this post.{" "}
-              <span className="font-semibold">Maximum of 3.</span>
-            </p>
+            {state ? (
+              <p className="pb-4 pt-2 text-grayNeutral">
+                Categories cannot be changed
+              </p>
+            ) : (
+              <p className="pb-6 text-grayNeutral">
+                Select the category/categories that best describe this post.{" "}
+                <span className="font-semibold">Maximum of 3.</span>
+              </p>
+            )}
+
             <div className="flex flex-wrap gap-3">
-              {catNames.map((catName, idx) => (
-                <div
-                  key={idx}
-                  className="rounded-lg border-2 border-borderPrimary bg-primaryColorLight p-1 font-semibold text-blackNeutralSec"
-                >
-                  {catName}
-                </div>
-              ))}
+              {state ? (
+                <>
+                  {state.categories.map((cat: string, idx: number) => (
+                    <div
+                      key={idx}
+                      className="rounded-lg border-2 border-borderPrimary bg-primaryColorLight p-1 font-semibold text-blackNeutralSec"
+                    >
+                      {cat}
+                    </div>
+                  ))}
+                </>
+              ) : (
+                <>
+                  {catNames.map((catName, idx) => (
+                    <div
+                      key={idx}
+                      className="rounded-lg border-2 border-borderPrimary bg-primaryColorLight p-1 font-semibold text-blackNeutralSec"
+                    >
+                      {catName}
+                    </div>
+                  ))}
+                </>
+              )}
             </div>
             <MultiSelect
               value={categories}
               onChange={(e) => setCategories(e.value)}
               onBlur={manageArray}
+              disabled={state ? true : false}
               options={postCategories}
               optionLabel="name"
               placeholder="Select Categories"
@@ -209,9 +294,9 @@ export default function StepTwo({
           <div className="px-normal flex flex-col items-end justify-end pt-8 sm:px-16">
             <Button
               className="flex h-12 w-28 items-center justify-center bg-primaryColor text-white hover:bg-primaryColorHover"
-              onClick={publishPost}
+              onClick={state ? editPost : publishPost}
             >
-              Publish
+              {state ? "Edit Post" : "  Publish"}
             </Button>
           </div>
         )}

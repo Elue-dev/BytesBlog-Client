@@ -1,15 +1,19 @@
 import plusIcon from "@/assets/plusIcon.svg";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
-import { ChangeEvent, useRef } from "react";
+import { ChangeEvent, useEffect, useRef } from "react";
 import { Editor } from "primereact/editor";
 import styles from "./step.one.module.scss";
 import Button from "@/components/button";
 import { useAlert } from "@/context/useAlert";
 import { StepOneprops } from "@/types/posts";
+import { useLocation } from "react-router-dom";
+import { parseText } from "@/utils/utils";
 
 export default function StepOne({
   values,
+  setValues,
+  initialValues,
   image,
   content,
   setContent,
@@ -20,8 +24,37 @@ export default function StepOne({
   nextStep,
 }: StepOneprops) {
   const imageUploadRef = useRef<any | undefined>();
+  const state = useLocation().state;
+  // console.log({ state });
+
   const { title } = values;
   const context = useAlert();
+  const queryString = useLocation().search;
+  const queryParams = new URLSearchParams(queryString);
+  const action = queryParams.get("action");
+
+  useEffect(() => {
+    switch (action) {
+      case "new":
+        setValues(initialValues);
+        break;
+      case "edit":
+        setValues({
+          title: state.title,
+          readTime: state.readTime,
+        });
+        setImage(state.image);
+        setImagePreview(state.image);
+        state.content && setContent(parseText(state.content) || "");
+        break;
+      // setTitle(state?.title);
+      // setDescription(state?.description);
+      // setPrice(state?.price);
+      // setSelectedGenre(state?.category);
+      default:
+        "";
+    }
+  }, [action, state]);
 
   if (!context) return null;
   const { revealAlert, closeAlert } = context;

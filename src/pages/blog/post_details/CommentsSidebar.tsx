@@ -9,6 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import { httpRequest } from "@/lib";
 import PostComments from "@/components/post_comments";
 import CommentForm from "@/components/comment_form";
+import CommentsSpinner from "@/components/spinners/ComentsSpinner";
 
 export default function CommentsSidebar({
   postId,
@@ -54,7 +55,7 @@ export default function CommentsSidebar({
 
   if (!rootComments) return null;
 
-  if (isLoading) return <h1>loading...</h1>;
+  if (isLoading) return <CommentsSpinner />;
   if (error) return <h1>Something went wrong.</h1>;
 
   return (
@@ -115,9 +116,8 @@ export default function CommentsSidebar({
 
         <hr />
         {rootComments?.map((comment) => (
-          <div className="border-b border-gray-100">
+          <div key={comment.id} className="border-b border-gray-100">
             <PostComments
-              key={comment.id}
               comment={comment}
               replies={getReplies(comment.id)}
               parentId={null}

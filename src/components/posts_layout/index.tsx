@@ -137,7 +137,7 @@ export default function PostLayout({ filteredPosts, post }: PostsLayout) {
             <img
               src={post.image}
               alt={post.title}
-              className="h-96 w-full rounded-md object-cover"
+              className="h-96 w-full rounded-md bg-primaryColorLight object-cover"
             />
           </div>
           <div className="w-full sm:w-1/2 md:w-full">
@@ -171,7 +171,7 @@ export default function PostLayout({ filteredPosts, post }: PostsLayout) {
                       <img
                         src={post.author.avatar}
                         alt={post.author.firstName}
-                        className="h-11 w-11 rounded-full object-cover"
+                        className="h-9 w-9 rounded-full object-cover sm:h-11 sm:w-11"
                       />
                       <p>
                         <span className="mr-2">

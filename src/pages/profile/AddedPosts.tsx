@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { BiTimeFive } from "react-icons/bi";
+import { ProgressBar } from "react-loader-spinner";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -37,7 +38,18 @@ export default function AddedPosts() {
     setPostsToUse(posts?.filter((post) => post.authorId === currentUser?.id));
   }, [posts, currentUser?.id]);
 
-  if (isLoading) return <h1>loading...</h1>;
+  if (isLoading)
+    return (
+      <ProgressBar
+        height="150"
+        width="150"
+        ariaLabel="progress-bar-loading"
+        wrapperStyle={{}}
+        wrapperClass="progress-bar-wrapper"
+        borderColor="#03ac13"
+        barColor="#03c04a"
+      />
+    );
   if (error) return <h1>Something went wrong.</h1>;
 
   return (

@@ -78,7 +78,7 @@ export default function Navbar() {
             {isLoggedIn ? (
               <div className="flex items-center justify-start gap-0 sm:gap-1">
                 {!pathname.includes("write") && (
-                  <Link to="/blog/write">
+                  <Link to="/blog/write?action=new">
                     <Button
                       className={`${styles.write} flex items-center justify-start gap-1 whitespace-nowrap bg-primaryColor p-2.5 text-white hover:bg-primaryColorHover sm:p-3`}
                     >
@@ -88,7 +88,7 @@ export default function Navbar() {
                   </Link>
                 )}
                 <div
-                  style={{ zIndex: 999999999 }}
+                  style={{ zIndex: 999999999999999 }}
                   className="relative flex cursor-pointer items-center justify-start gap-0 sm:gap-1"
                   onClick={() => setShowDropdown(!showDropdown)}
                 >
