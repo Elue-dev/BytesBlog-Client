@@ -1,6 +1,6 @@
 import Button from "@/components/button";
 import bytesLogo from "@/assets/bytesLogo.svg";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import eyeOpen from "@/assets/eyeOpen.svg";
 import eyeClosed from "@/assets/eyeClosed.svg";
 import Input from "@/components/input";
@@ -32,11 +32,16 @@ export default function ResetPassword() {
   const [lengthCondition, setLengthCondition] = useState(false);
   const [caseCondition, setCaseCondition] = useState(false);
   const [passwordComplete, setPasswordComplete] = useState(false);
+  const queryString = useLocation().search;
+  const queryParams = new URLSearchParams(queryString);
+  const withGoogle = queryParams.get("withGoogle");
   const modalContext = useModal();
   const alertContext = useAlert();
   const themeContext = useTheme();
   const dispatch = useDispatch();
   const { token } = useParams();
+
+  console.log(typeof withGoogle);
 
   const { password, confirmPassword } = credentials;
 
@@ -120,7 +125,11 @@ export default function ResetPassword() {
           setLoading(false);
           dispatch(REMOVE_ACTIVE_USER());
           revealModal(
-            "Password successfully reset. Please sign in again",
+            `${
+              withGoogle === "true"
+                ? "Password successfully created"
+                : "Password successfully reset"
+            }. Please sign in again`,
             "/auth/sign-in",
             "success"
           );
@@ -147,7 +156,7 @@ export default function ResetPassword() {
         <div
           className={`mx-4 my-8 w-full max-w-md rounded-lg ${
             mode === "dark"
-              ? "border border-neutral-900 bg-zinc-900"
+              ? "border border-neutral-950 bg-zinc-900"
               : "bg-white"
           }  p-0 sm:p-5 sm:shadow-lg`}
         >
@@ -159,7 +168,7 @@ export default function ResetPassword() {
             />
           </Link>
           <h1 className="mb-3 flex items-center justify-center text-3xl font-medium">
-            Reset Password
+            {withGoogle === "true" ? "Create Password" : "Reset Password"}
           </h1>
           <section>
             <div className="relative pt-8">
@@ -275,7 +284,7 @@ export default function ResetPassword() {
                 className="mt-5 w-full rounded-lg bg-primaryColor p-3 text-lg font-semibold text-white hover:bg-primaryColorHover"
                 onClick={resetUserPassword}
               >
-                Reset Password
+                {withGoogle === "true" ? "Create Password" : "Reset Password"}
               </Button>
             )}
 

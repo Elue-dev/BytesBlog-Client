@@ -135,7 +135,7 @@ export default function SignIn() {
         <div
           className={`mx-4 my-8 w-full max-w-md rounded-lg ${
             mode === "dark"
-              ? "border border-neutral-900 bg-zinc-900"
+              ? "border border-neutral-950 bg-zinc-900"
               : "bg-white"
           }  p-0 sm:p-5 sm:shadow-lg`}
         >

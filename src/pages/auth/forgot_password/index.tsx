@@ -45,7 +45,13 @@ export default function ForgotPassword() {
         if (response) {
           setLoading(false);
           setEmail("");
-          revealModal(response.data.message, "/auth/sign-in", "warning");
+          response.data.withGoogle
+            ? revealModal(
+                "You registered this account with google, Proceed create a password",
+                "/auth/sign-in",
+                "warning"
+              )
+            : revealModal(response.data.message, "/auth/sign-in", "warning");
         }
       } catch (error: any) {
         revealAlert(
@@ -73,7 +79,7 @@ export default function ForgotPassword() {
         <div
           className={`mx-4 my-8 w-full max-w-md rounded-lg ${
             mode === "dark"
-              ? "border border-neutral-900 bg-zinc-900"
+              ? "border border-neutral-950 bg-zinc-900"
               : "bg-white"
           }  p-0 sm:p-5 sm:shadow-lg`}
         >
@@ -96,7 +102,12 @@ export default function ForgotPassword() {
           >
             Forgot Password
           </h1>
-          <p className="text-md mb-4 mt-1 text-center text-gray-700">
+
+          <p
+            className={`text-md mb-4 mt-1 text-center ${
+              mode === "dark" ? "text-zinc-400" : "text-gray-700"
+            } `}
+          >
             Kindly enter the email address you registered with
           </p>
           <div className="pt-6">
