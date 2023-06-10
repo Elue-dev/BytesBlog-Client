@@ -174,16 +174,14 @@ export default function PostDetails() {
     (com: CommentData) => com.parentId === null
   );
 
-  const copyURLToClipboard = () => {
+  const copyURLToClipboard = async () => {
     const currentURL = window.location.href;
-    navigator.clipboard
-      .writeText(currentURL)
-      .then(() => {
-        revealAlert("Link copied to clipboard", "success");
-      })
-      .catch((error) => {
-        console.error("Failed to copy URL to clipboard:", error);
-      });
+    try {
+      await navigator.clipboard.writeText(currentURL);
+      revealAlert("Link copied to clipboard", "success");
+    } catch (error) {
+      console.error("Failed to copy URL to clipboard:", error);
+    }
   };
 
   return (
