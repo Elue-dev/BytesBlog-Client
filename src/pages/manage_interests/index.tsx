@@ -86,9 +86,9 @@ export default function ManageInterests() {
         <div
           className={`mx-4 my-8 w-full max-w-md rounded-lg ${
             mode === "dark"
-              ? "border border-neutral-900 bg-zinc-950 "
-              : "bg-white"
-          }  p-4 sm:p-5 sm:shadow-lg`}
+              ? "border border-neutral-900 bg-zinc-950 p-4"
+              : "bg-white p-0"
+          } sm:p-5 sm:shadow-lg`}
         >
           <div
             onClick={() => navigate(-1)}
