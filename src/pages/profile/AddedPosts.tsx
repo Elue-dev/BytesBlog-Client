@@ -42,10 +42,12 @@ export default function AddedPosts() {
 
   return (
     <div>
-      <h2 className="pb-3 text-xl font-thin italic">
-        You have added {postsToUse?.length}{" "}
-        {postsToUse?.length === 1 ? "post" : "posts"} to BytesBlog
-      </h2>
+      {postsToUse?.length !== 0 && (
+        <h2 className="pb-3 text-base font-thin italic">
+          You have added {postsToUse?.length}{" "}
+          {postsToUse?.length === 1 ? "post" : "posts"} to BytesBlog
+        </h2>
+      )}
       {postsToUse?.map((post) => (
         <Link
           key={post?.id}

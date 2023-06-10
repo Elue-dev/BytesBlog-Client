@@ -140,6 +140,7 @@ export default function PostComments({
           <CommentForm
             commentId={replyId}
             mode={""}
+            isReplying={isReplying}
             setIsReplying={setIsReplying}
           />
         )}

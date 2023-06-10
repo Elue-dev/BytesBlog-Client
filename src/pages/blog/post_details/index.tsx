@@ -24,6 +24,7 @@ import { useAlert } from "@/context/useAlert";
 import { IoChevronBackCircleOutline } from "react-icons/io5";
 import { getUserInitials } from "@/helpers/user.initials";
 import styles from "./post.details.module.scss";
+import Spinner from "@/components/spinner";
 
 export default function PostDetails() {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -160,7 +161,7 @@ export default function PostDetails() {
     return bookmarks?.some((bookmark) => bookmark.userId === currentUser?.id);
   };
 
-  if (isLoading || !post || loading) return <h1>loading...</h1>;
+  if (isLoading || !post || loading) return <Spinner />;
   if (error || err) return <h1>Something went wrong.</h1>;
 
   const similarPosts = posts.filter(

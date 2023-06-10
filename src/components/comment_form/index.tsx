@@ -3,26 +3,22 @@ import { User } from "@/types/user";
 import { useSelector } from "react-redux";
 import styles from "@/pages/blog/post_details/post.details.module.scss";
 import { getUserInitials } from "@/helpers/user.initials";
-import { Dispatch, SetStateAction, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useAlert } from "@/context/useAlert";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { httpRequest } from "@/lib";
 import { useParams } from "react-router-dom";
-import { Comment } from "@/types/posts";
+import { Comment, CommentFormProps } from "@/types/posts";
 import Button from "../button";
 import { ClipLoader } from "react-spinners";
 
 export default function CommentForm({
   mode,
+  isReplying,
   setShowInput,
   setIsReplying,
   commentId,
-}: {
-  mode: string;
-  setShowInput?: Dispatch<SetStateAction<boolean>> | undefined;
-  setIsReplying?: Dispatch<SetStateAction<boolean>> | undefined;
-  commentId: string | null;
-}) {
+}: CommentFormProps) {
   const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -78,7 +74,9 @@ export default function CommentForm({
         setIsReplying && setIsReplying(false);
         setComment("");
         setLoading(false);
-        revealAlert("Comment added", "success");
+        isReplying
+          ? revealAlert("Reply added", "success")
+          : revealAlert("Comment added", "success");
       }
     } catch (error: any) {
       setShowInput && setShowInput(false);

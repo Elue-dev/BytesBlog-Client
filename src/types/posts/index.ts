@@ -146,3 +146,11 @@ export interface PostComentsProps {
   parentId: string | null;
   setShowInput?: Dispatch<SetStateAction<boolean>> | undefined;
 }
+
+export interface CommentFormProps {
+  mode: string;
+  isReplying?: boolean;
+  setShowInput?: Dispatch<SetStateAction<boolean>> | undefined;
+  setIsReplying?: Dispatch<SetStateAction<boolean>> | undefined;
+  commentId: string | null;
+}

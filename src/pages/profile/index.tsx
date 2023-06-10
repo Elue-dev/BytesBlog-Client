@@ -43,7 +43,10 @@ export default function Profile() {
         )}
 
         <div
-          style={{ background: mode === "light" ? "#fff" : "#111" }}
+          style={{
+            background: mode === "light" ? "#fff" : "#111",
+            zIndex: 9999999999999,
+          }}
           className={
             showSidebar
               ? `${styles["menu__items"]} ${styles.show}`

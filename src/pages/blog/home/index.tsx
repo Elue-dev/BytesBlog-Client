@@ -9,6 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import { httpRequest } from "@/lib";
 import { PostData } from "@/types/posts";
 import { useNavigate } from "react-router-dom";
+import Spinner from "@/components/spinner";
 
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -36,8 +37,8 @@ export default function Blog() {
     dispatch(FILTER_POSTS({ keyword: selectedCategory, posts }));
   }, [dispatch, posts, selectedCategory]);
 
-  if (isLoading) return <h1>loading...</h1>;
-  if (error) return <h1>Something went wrong.</h1>;
+  if (isLoading) return <Spinner />;
+  if (error) return <h1>Something went wrong. Try logging in again</h1>;
 
   return (
     <section className={styles["blog__home"]}>

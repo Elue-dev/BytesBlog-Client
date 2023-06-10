@@ -46,10 +46,12 @@ export default function SavedPosts() {
 
   return (
     <div>
-      <h2 className="pb-3 text-xl font-thin italic">
-        You have {bookmarksToUse?.length} saved{" "}
-        {bookmarksToUse?.length === 1 ? "post" : "posts"}
-      </h2>
+      {bookmarksToUse?.length !== 0 && (
+        <h2 className="pb-3 text-base font-thin italic">
+          You have {bookmarksToUse?.length} saved{" "}
+          {bookmarksToUse?.length === 1 ? "post" : "posts"}
+        </h2>
+      )}
       {bookmarksToUse?.length === 0 ? (
         <div>
           <h3>You have no saved posts yet</h3>
