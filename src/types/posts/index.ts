@@ -6,10 +6,14 @@ export interface Post {
   categories: string[];
   title: string;
   content: string;
+  author?: {
+    email: string;
+  };
 }
 
 export interface Author {
   id: string;
+  email?: string;
   avatar: string;
   firstName: string;
   lastName: string;
@@ -152,7 +156,8 @@ export interface PostComentsProps {
 
 export interface CommentFormProps {
   mode: string;
-  isReplying?: boolean;
+  authorEmail?: string;
+  isReplying: boolean;
   setShowInput?: Dispatch<SetStateAction<boolean>> | undefined;
   setIsReplying?: Dispatch<SetStateAction<boolean>> | undefined;
   commentId: string | null;

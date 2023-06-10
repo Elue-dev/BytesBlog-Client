@@ -10,6 +10,7 @@ import { httpRequest } from "@/lib";
 import { PostData } from "@/types/posts";
 import { useNavigate } from "react-router-dom";
 import Spinner from "@/components/spinners";
+import { useAlert } from "@/context/useAlert";
 
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -18,6 +19,8 @@ export default function Blog() {
   const filteredPosts = useSelector(selectFilteredPosts);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const alertContext = useAlert();
+  const { revealAlert } = alertContext!;
 
   const queryFn = async (): Promise<PostData[]> => {
     return httpRequest.get("/posts").then((res) => {
@@ -36,6 +39,12 @@ export default function Blog() {
   useEffect(() => {
     dispatch(FILTER_POSTS({ keyword: selectedCategory, posts }));
   }, [dispatch, posts, selectedCategory]);
+
+  const initiateSearchAction = () => {
+    if (!postQuery)
+      return revealAlert("Please enter a keyword to search", "error");
+    navigate(`/blog/posts_search?post_query=${postQuery}`);
+  };
 
   if (isLoading) return <Spinner />;
   if (error) return <h1>Something went wrong. Try logging in again</h1>;
@@ -58,9 +67,7 @@ export default function Blog() {
             className="border text-stone-700 outline-none"
           />
           <button
-            onClick={() =>
-              navigate(`/blog/posts_search?post_query=${postQuery}`)
-            }
+            onClick={initiateSearchAction}
             className="bg-black text-xl font-bold text-white"
           >
             <BiSearchAlt2 />

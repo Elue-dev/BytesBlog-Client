@@ -1,3 +1,4 @@
+import Button from "@/components/button";
 import { Radio } from "react-loader-spinner";
 import styles from "./offline.page.module.scss";
 
@@ -23,6 +24,12 @@ export default function OfflinePage() {
           restored.
         </b>
       </p>
+      <Button
+        className="text-semibold mt-4 h-12 w-20 cursor-pointer border bg-borderPrimary text-white"
+        onClick={() => location.reload()}
+      >
+        Retry
+      </Button>
     </div>
   );
 }

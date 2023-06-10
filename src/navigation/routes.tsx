@@ -25,7 +25,7 @@ export const Layout = () => {
 
   return (
     <div className="app">
-      {status ? (
+      {!status ? (
         <OfflinePage />
       ) : (
         <>

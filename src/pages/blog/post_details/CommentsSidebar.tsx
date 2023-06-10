@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { CommentData, CommentsSBProps } from "@/types/posts";
 // import { dummyComments } from "./dummyComments";
-import { useAlert } from "@/context/useAlert";
 import styles from "./post.details.module.scss";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useTheme } from "@/context/useTheme";
@@ -18,7 +17,6 @@ export default function CommentsSidebar({
 }: CommentsSBProps) {
   const [showInput, setShowInput] = useState(false);
   const commentInputRef = useRef<HTMLTextAreaElement>(null);
-  const alertContext = useAlert();
   const themeContext = useTheme();
 
   useEffect(() => {
@@ -41,6 +39,8 @@ export default function CommentsSidebar({
     staleTime: 60000,
   });
 
+  const authorEmail = allComments && allComments[0]?.post.author?.email;
+
   const rootComments = allComments?.filter(
     (comment) => comment.parentId === null
   );
@@ -49,9 +49,7 @@ export default function CommentsSidebar({
     return allComments?.filter((comment) => comment.parentId === commentId);
   };
 
-  if (!alertContext) return null;
-  if (!themeContext) return null;
-  const { mode } = themeContext;
+  const { mode } = themeContext!;
 
   if (!rootComments) return null;
 
@@ -111,6 +109,8 @@ export default function CommentsSidebar({
             mode={mode}
             commentId={null}
             setShowInput={setShowInput}
+            isReplying={false}
+            authorEmail={authorEmail}
           />
         )}
 

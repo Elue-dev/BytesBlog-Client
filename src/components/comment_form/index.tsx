@@ -14,10 +14,11 @@ import { ClipLoader } from "react-spinners";
 
 export default function CommentForm({
   mode,
+  commentId,
+  authorEmail,
   isReplying,
   setShowInput,
   setIsReplying,
-  commentId,
 }: CommentFormProps) {
   const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(false);
@@ -44,8 +45,7 @@ export default function CommentForm({
       return httpRequest.post("/comments", newComment, authHeaders);
     },
     {
-      onSuccess: (data) => {
-        console.log(data);
+      onSuccess: () => {
         queryClient.invalidateQueries([`comments-${postId}`]);
         queryClient.invalidateQueries([`post-${postId}`]);
       },
@@ -56,15 +56,18 @@ export default function CommentForm({
     }
   );
 
-  if (!alertContext) return null;
-  const { revealAlert } = alertContext;
+  const { revealAlert } = alertContext!;
 
   const addComment = async (id: string | null) => {
     if (!comment) return revealAlert("Please enter your comment", "error");
+
     const commentData = {
       message: comment,
       postId: postId || "",
       parentId: id,
+      authorEmail,
+      path: window.location.href,
+      isReplying: isReplying,
     };
     try {
       setLoading(true);

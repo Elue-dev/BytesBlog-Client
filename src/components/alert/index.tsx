@@ -15,7 +15,6 @@ export default function Alert() {
             severity={severity || undefined}
             text={message}
             style={{
-              border: "2px solid rgb(239, 239, 239)",
               boxShadow: "inset 0 0 0 0.15rem #d0edd8 !important",
             }}
           />

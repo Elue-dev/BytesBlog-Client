@@ -30,6 +30,7 @@ export default function PostComments({
   };
 
   const replyId = parentId ? parentId : comment.id;
+  const authorEmail = comment.author.email;
 
   const {
     isLoading,
@@ -139,8 +140,9 @@ export default function PostComments({
         {isReplying && (
           <CommentForm
             commentId={replyId}
+            authorEmail={authorEmail}
             mode={""}
-            isReplying={isReplying}
+            isReplying={true}
             setIsReplying={setIsReplying}
           />
         )}
