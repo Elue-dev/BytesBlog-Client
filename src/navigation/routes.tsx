@@ -1,24 +1,28 @@
-import Home from "@/pages/landing_page";
-import Navbar from "@/components/navbar";
-import CreateAccount from "@/pages/auth/create_account/account_details";
+import { lazy, Suspense } from "react";
+const Home = lazy(() => import("@/pages/landing_page"));
+const Navbar = lazy(() => import("@/components/navbar"));
+const CreateAccount = lazy(
+  () => import("@/pages/auth/create_account/account_details")
+);
+const NotFound = lazy(() => import("@/components/not_found"));
+const ScrollToTop = lazy(() => import("@/utils/scrollToTop"));
+const SignIn = lazy(() => import("@/pages/auth/sign_in"));
+const ForgotPassword = lazy(() => import("@/pages/auth/forgot_password"));
+const ResetPassword = lazy(() => import("@/pages/auth/reset_password"));
+const Modal = lazy(() => import("@/components/modal"));
+const Blog = lazy(() => import("@/pages/blog/home"));
+const PostDetails = lazy(() => import("@/pages/blog/post_details"));
+const Profile = lazy(() => import("@/pages/profile"));
+const ManageInterests = lazy(() => import("@/pages/manage_interests"));
+const AddPost = lazy(() => import("@/pages/add_post"));
+const Alert = lazy(() => import("@/components/alert"));
+const Authenticated = lazy(() => import("@/helpers/authenticated"));
+const Unauthenticated = lazy(() => import("@/helpers/unauthenticated"));
+const PostSearch = lazy(() => import("@/pages/blog/home/posts/post_query"));
+const OfflinePage = lazy(() => import("@/pages/offline_page"));
 import { createBrowserRouter, Outlet } from "react-router-dom";
-import NotFound from "@/components/not_found";
-import ScrollToTop from "@/utils/scrollToTop";
-import SignIn from "@/pages/auth/sign_in";
-import ForgotPassword from "@/pages/auth/forgot_password";
-import ResetPassword from "@/pages/auth/reset_password";
-import Modal from "@/components/modal";
-import Blog from "@/pages/blog/home";
-import PostDetails from "@/pages/blog/post_details";
-import Profile from "@/pages/profile";
-import ManageInterests from "@/pages/manage_interests";
-import AddPost from "@/pages/add_post";
-import Alert from "@/components/alert";
-import Authenticated from "@/helpers/authenticated";
-import Unauthenticated from "@/helpers/unauthenticated";
-import PostSearch from "@/pages/blog/home/posts/post_query";
 import useNetworkStatus from "@/hooks/useNetworkStatus";
-import OfflinePage from "@/pages/offline_page";
+import Spinner from "@/components/spinners";
 
 export const Layout = () => {
   const status = useNetworkStatus();
@@ -29,11 +33,13 @@ export const Layout = () => {
         <OfflinePage />
       ) : (
         <>
-          <Navbar />
-          <Outlet />
-          <ScrollToTop />
-          <Modal />
-          <Alert />
+          <Suspense fallback={<Spinner />}>
+            <Navbar />
+            <Outlet />
+            <ScrollToTop />
+            <Modal />
+            <Alert />
+          </Suspense>
         </>
       )}
     </div>
