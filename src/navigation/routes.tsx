@@ -32,15 +32,13 @@ export const Layout = () => {
       {!status ? (
         <OfflinePage />
       ) : (
-        <>
-          <Suspense fallback={<Spinner />}>
-            <Navbar />
-            <Outlet />
-            <ScrollToTop />
-            <Modal />
-            <Alert />
-          </Suspense>
-        </>
+        <Suspense fallback={<Spinner />}>
+          <Navbar />
+          <Outlet />
+          <ScrollToTop />
+          <Modal />
+          <Alert />
+        </Suspense>
       )}
     </div>
   );
