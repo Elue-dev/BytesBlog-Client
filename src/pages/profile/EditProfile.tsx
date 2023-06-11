@@ -35,14 +35,12 @@ export default function EditProfile({
   const [imagePreview, setImagePreview] = useState<string | undefined>(
     undefined
   );
-  const alertContext = useAlert();
-  const themeContext = useTheme();
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
   const imageUploadRef = useRef<any | undefined>();
 
-  const { revealAlert } = alertContext!;
-  const { mode } = themeContext!;
+  const { revealAlert } = useAlert()!;
+  const { mode } = useTheme()!;
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];

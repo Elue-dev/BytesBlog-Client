@@ -35,13 +35,11 @@ export default function ResetPassword() {
   const queryString = useLocation().search;
   const queryParams = new URLSearchParams(queryString);
   const withGoogle = queryParams.get("withGoogle");
-  const modalContext = useModal();
-  const alertContext = useAlert();
-  const themeContext = useTheme();
   const dispatch = useDispatch();
   const { token } = useParams();
-
-  console.log(typeof withGoogle);
+  const { revealModal } = useModal()!;
+  const { revealAlert } = useAlert()!;
+  const { mode } = useTheme()!;
 
   const { password, confirmPassword } = credentials;
 
@@ -82,17 +80,12 @@ export default function ResetPassword() {
     passwordComplete,
   ]);
 
-  const { revealModal } = modalContext!;
-  const { revealAlert, closeAlert } = alertContext!;
-  const { mode } = themeContext!;
-
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setCredentials({ ...credentials, [name]: value });
   };
 
   const resetUserPassword = async () => {
-    closeAlert();
     setValidationErrors([]);
     const errors = [];
     if (!password.trim()) errors.push("password");

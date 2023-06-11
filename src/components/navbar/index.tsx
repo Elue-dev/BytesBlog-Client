@@ -60,8 +60,7 @@ export default function Navbar() {
     setShowDropdown(false);
   };
 
-  const themeContext = useTheme();
-  const { mode } = themeContext!;
+  const { mode } = useTheme()!;
 
   if (pathname.includes("auth")) return null;
 

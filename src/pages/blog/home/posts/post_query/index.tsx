@@ -13,7 +13,7 @@ export default function PostSearch() {
   const queryParams = new URLSearchParams(queryString);
   const postQuery = queryParams.get("post_query");
   const navigate = useNavigate();
-  const themeContext = useTheme();
+  const { mode } = useTheme()!;
 
   const queryFn = async (): Promise<PostData[]> => {
     return httpRequest.get("/posts").then((res) => {
@@ -28,8 +28,6 @@ export default function PostSearch() {
   } = useQuery<PostData[], Error>(["posts"], queryFn, {
     staleTime: 60000,
   });
-
-  const { mode } = themeContext!;
 
   if (isLoading) return <Spinner />;
   if (error) return <h1>Something went wrong.</h1>;
@@ -66,7 +64,11 @@ export default function PostSearch() {
       </div>
 
       <div
-        className={`${postResults.length !== 0 && "border-b border-gray-100"} `}
+        className={`${
+          postResults.length !== 0 && mode === "dark"
+            ? "postBorderBDark"
+            : "postBorderBLight"
+        } `}
       >
         <h2 className="mb-3 block pt-4 text-center text-xl font-medium">
           Post result(s) for keyword:{" "}

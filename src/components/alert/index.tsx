@@ -5,10 +5,7 @@ import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 
 export default function Alert() {
-  const alertContext = useAlert();
-  if (!alertContext) return null;
-
-  const { showAlert, message, severity } = alertContext;
+  const { showAlert, message, severity } = useAlert()!;
 
   return (
     <section>

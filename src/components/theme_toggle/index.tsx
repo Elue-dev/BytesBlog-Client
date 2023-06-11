@@ -2,8 +2,7 @@ import { useTheme } from "@/context/useTheme";
 import styles from "./theme.toggle.module.scss";
 
 export default function ThemeToggle() {
-  const themeContext = useTheme();
-  const { toggle, mode } = themeContext!;
+  const { toggle, mode } = useTheme()!;
 
   return (
     <div className={styles.container} onClick={toggle}>

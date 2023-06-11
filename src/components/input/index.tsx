@@ -7,8 +7,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     { type, name, className, onInput, value, onChange, onKeyDown, onFocus },
     ref
   ) => {
-    const themeContext = useTheme();
-    const { mode } = themeContext!;
+    const { mode } = useTheme()!;
 
     const inputClasses = `rounded bg-transparent border border-lightGray outline-none focus:border-primaryColor transition ease-in ${
       mode === "dark" ? "text-light" : "text-lightText	"

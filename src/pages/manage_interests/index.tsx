@@ -18,9 +18,9 @@ export default function ManageInterests() {
   const [interests, setInterests] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const modalContext = useModal();
-  const alertContext = useAlert();
-  const themeContext = useTheme();
+  const { revealModal } = useModal()!;
+  const { revealAlert } = useAlert()!;
+  const { mode } = useTheme()!;
   const dispatch = useDispatch();
   const currentUser: User | null = useSelector<RootState, User | null>(
     (state) => state.auth.user
@@ -31,11 +31,7 @@ export default function ManageInterests() {
       currentUser?.interests.includes(interest)
     );
     setInterests(filteredUserInterests);
-  }, []);
-
-  const { revealModal } = modalContext!;
-  const { revealAlert, closeAlert } = alertContext!;
-  const { mode } = themeContext!;
+  }, [currentUser?.interests]);
 
   const setUserInterest = (interest: string) => {
     if (interests.includes(interest)) {
@@ -46,7 +42,6 @@ export default function ManageInterests() {
   };
 
   const updateInterests = async () => {
-    closeAlert();
     if (interests.length < 5)
       return revealAlert("Interests must be at least 5", "error");
 

@@ -14,14 +14,12 @@ import { BiTimeFive } from "react-icons/bi";
 
 export default function UserProfile() {
   const [showSidebar, setShowSidebar] = useState(false);
-  const themeContext = useTheme();
+  const { mode } = useTheme()!;
   const user = useLocation().state;
 
   const currentUser: User | null = useSelector<RootState, User | null>(
     (state) => state.auth.user
   );
-
-  const { mode } = themeContext!;
 
   return (
     <section className={styles.profile}>

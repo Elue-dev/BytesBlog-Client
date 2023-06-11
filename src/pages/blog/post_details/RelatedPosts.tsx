@@ -6,8 +6,7 @@ import { useTheme } from "@/context/useTheme";
 import { getUserInitials } from "@/helpers/user.initials";
 
 export default function RelatedPosts({ similarPosts }: RelatedPostsProps) {
-  const themeContext = useTheme();
-  const { mode } = themeContext!;
+  const { mode } = useTheme()!;
 
   return (
     <div className={styles["right__quarter"]}>

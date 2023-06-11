@@ -69,13 +69,9 @@ export default function SignUpForm({
     passwordCheckPassed,
   ]);
 
-  const alertContext = useAlert();
-  const themeContext = useTheme();
-  const googleAuthContext = useGoogleAuth();
-
-  const { mode } = themeContext!;
-  const { revealAlert } = alertContext!;
-  const { updateCredentials } = googleAuthContext!;
+  const { mode } = useTheme()!;
+  const { revealAlert } = useAlert()!;
+  const { updateCredentials } = useGoogleAuth()!;
 
   const proceed = () => {
     setValidationErrors([]);

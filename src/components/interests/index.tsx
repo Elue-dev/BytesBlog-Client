@@ -20,15 +20,11 @@ export default function Interests({
   setValues,
 }: InterestsProps) {
   const [loading, setLoading] = useState(false);
-  const modalContext = useModal();
-  const alertContext = useAlert();
-  const themeContext = useTheme();
-  const googleAuthContext = useGoogleAuth();
-  const { mode } = themeContext!;
-  const { revealModal } = modalContext!;
-  const { revealAlert } = alertContext!;
+  const { mode } = useTheme()!;
+  const { revealModal } = useModal()!;
+  const { revealAlert } = useAlert()!;
   const { firstName, lastName, mail, avatar, isGoogle, clearCredentials } =
-    googleAuthContext!;
+    useGoogleAuth()!;
   const { firstname, lastname, email, password } = values;
 
   const setUserInterest = (int: string) => {

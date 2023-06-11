@@ -17,16 +17,11 @@ export default function ForgotPassword() {
   const [loading, setLoading] = useState(false);
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
   const navigate = useNavigate();
-  const modalContext = useModal();
-  const alertContext = useAlert();
-  const themeContext = useTheme();
-
-  const { revealModal } = modalContext!;
-  const { revealAlert, closeAlert } = alertContext!;
-  const { mode } = themeContext!;
+  const { revealModal } = useModal()!;
+  const { revealAlert } = useAlert()!;
+  const { mode } = useTheme()!;
 
   const sendResetEmail = async () => {
-    closeAlert();
     setValidationErrors([]);
     const errors = [];
     if (!email.trim()) errors.push("email");

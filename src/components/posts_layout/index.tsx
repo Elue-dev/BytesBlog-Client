@@ -23,8 +23,8 @@ export default function PostLayout({ filteredPosts, post }: PostsLayout) {
 
   const [isLiked, setIsLiked] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
-  const alertContext = useAlert();
-  const themeContext = useTheme();
+  const { revealAlert } = useAlert()!;
+  const { mode } = useTheme()!;
 
   const currentUser: User | null = useSelector<RootState, User | null>(
     (state) => state.auth.user
@@ -85,9 +85,6 @@ export default function PostLayout({ filteredPosts, post }: PostsLayout) {
       return () => clearTimeout(timer);
     }
   }, [isLiked, isBookmarked]);
-
-  const { revealAlert } = alertContext!;
-  const { mode } = themeContext!;
 
   const likeDislikePost = async (postId: string) => {
     try {

@@ -1,6 +1,5 @@
 import { ProgressBar } from "react-loader-spinner";
 import byteslogo from "@/assets/bytesLogo.svg";
-
 import styles from "@/pages/blog/post_details/post.details.module.scss";
 
 export default function Spinner() {

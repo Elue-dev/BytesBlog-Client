@@ -18,7 +18,7 @@ export default function CommentsSidebar({
 }: CommentsSBProps) {
   const [showInput, setShowInput] = useState(false);
   const commentInputRef = useRef<HTMLTextAreaElement>(null);
-  const themeContext = useTheme();
+  const { mode } = useTheme()!;
 
   useEffect(() => {
     if (showInput) {
@@ -47,8 +47,6 @@ export default function CommentsSidebar({
   const getReplies = (commentId: string) => {
     return allComments?.filter((comment) => comment.parentId === commentId);
   };
-
-  const { mode } = themeContext!;
 
   if (!rootComments) return null;
 
@@ -117,7 +115,9 @@ export default function CommentsSidebar({
         {rootComments?.map((comment) => (
           <div
             key={comment.id}
-            className="mb-10 mt-10 border-b border-gray-100"
+            className={`mb-10 mt-10  ${
+              mode === "dark" ? "postBorderBDark" : "postBorderBLight"
+            }`}
           >
             <PostComments
               comment={comment}

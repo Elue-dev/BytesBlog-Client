@@ -34,12 +34,10 @@ export default function SignIn() {
   const [capsLockIsOn, setCapsLockIsOn] = useState(false);
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
   const navigate = useNavigate();
-  const alertContext = useAlert();
-  const themeContext = useTheme();
   const dispatch = useDispatch();
 
-  const { revealAlert } = alertContext!;
-  const { mode } = themeContext!;
+  const { revealAlert } = useAlert()!;
+  const { mode } = useTheme()!;
 
   const { email, password } = credentials;
 

@@ -27,8 +27,7 @@ export default function Blog() {
   );
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const alertContext = useAlert();
-  const { revealAlert } = alertContext!;
+  const { revealAlert } = useAlert()!;
 
   const queryFn = async (): Promise<PostData[]> => {
     return httpRequest.get("/posts").then((res) => {

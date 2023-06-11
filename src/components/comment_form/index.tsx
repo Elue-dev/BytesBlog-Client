@@ -24,7 +24,7 @@ export default function CommentForm({
   const [loading, setLoading] = useState(false);
 
   const commentInputRef = useRef<HTMLTextAreaElement>(null);
-  const alertContext = useAlert();
+  const { revealAlert } = useAlert()!;
   const { postId, slug } = useParams();
 
   const currentUser: User | null = useSelector<RootState, User | null>(
@@ -56,8 +56,6 @@ export default function CommentForm({
       },
     }
   );
-
-  const { revealAlert } = alertContext!;
 
   const addComment = async (id: string | null) => {
     if (!comment) return revealAlert("Please enter your comment", "error");

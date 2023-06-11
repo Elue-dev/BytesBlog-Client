@@ -36,8 +36,8 @@ export default function PostDetails() {
   const [isLiked, setIsLiked] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
   const { postId, slug } = useParams();
-  const themeContext = useTheme();
-  const alertContext = useAlert();
+  const { mode } = useTheme()!;
+  const { revealAlert } = useAlert()!;
   const navigate = useNavigate();
   const currentUser: User | null = useSelector<RootState, User | null>(
     (state) => state.auth.user
@@ -126,9 +126,6 @@ export default function PostDetails() {
       },
     }
   );
-
-  const { mode } = themeContext!;
-  const { revealAlert } = alertContext!;
 
   const likeDislikePost = async (postId: string) => {
     try {

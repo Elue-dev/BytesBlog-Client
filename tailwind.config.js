@@ -57,6 +57,12 @@ export default {
         ".postBorderLight": {
           borderRight: "0.5px solid #e5e7eb",
         },
+        ".postBorderBDark": {
+          borderBottom: "0.5px solid #232323",
+        },
+        ".postBorderBLight": {
+          borderBottom: "0.5px solid #e5e7eb",
+        },
         ".mWidth": {
           maxWidth: "200px",
         },

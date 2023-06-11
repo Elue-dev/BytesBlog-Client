@@ -40,11 +40,10 @@ export default function PostComments({
     staleTime: 60000,
   });
 
-  const themeContext = useTheme();
+  const { mode } = useTheme()!;
   const currentUser: User | null = useSelector<RootState, User | null>(
     (state) => state.auth.user
   );
-  const { mode } = themeContext!;
 
   const getReplies = (commentId: string) => {
     return allComments?.filter((comment) => comment.parentId === commentId);
