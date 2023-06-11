@@ -57,7 +57,6 @@ export default function Interests({
         `${SERVER_URL}/auth/signup`,
         credentials
       );
-      console.log(response);
       if (response) {
         setLoading(false);
         revealModal(
@@ -77,7 +76,6 @@ export default function Interests({
         "error"
       );
       setLoading(false);
-      console.log(error);
     }
   };
 

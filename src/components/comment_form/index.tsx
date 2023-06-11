@@ -46,8 +46,6 @@ export default function CommentForm({
     },
     {
       onSuccess: () => {
-        console.log({ postId });
-
         queryClient.invalidateQueries([`comments-${postId}`]);
         queryClient.invalidateQueries([`post-${slug}`]);
       },

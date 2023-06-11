@@ -43,9 +43,6 @@ export default function PostLayout({ filteredPosts, post }: PostsLayout) {
       onSuccess: () => {
         queryClient.invalidateQueries([`posts`]);
       },
-      onError: (err) => {
-        console.log({ err });
-      },
     }
   );
 
@@ -61,9 +58,6 @@ export default function PostLayout({ filteredPosts, post }: PostsLayout) {
       onSuccess: () => {
         queryClient.invalidateQueries([`posts`]);
         queryClient.invalidateQueries([`bookmarks`]);
-      },
-      onError: (err) => {
-        console.log({ err });
       },
     }
   );
@@ -93,7 +87,6 @@ export default function PostLayout({ filteredPosts, post }: PostsLayout) {
         setIsLiked(true);
       }
     } catch (error: any) {
-      console.log(error);
       revealAlert(error.response.data.message, "error");
     }
   };

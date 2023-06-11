@@ -121,7 +121,6 @@ export default function StepTwo({
     try {
       setLoading(true);
       await uploadAvatarToCloud();
-      console.log({ imageUrl });
 
       const postData = {
         title,

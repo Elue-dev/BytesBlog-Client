@@ -111,7 +111,6 @@ export default function SignUpForm({
         auth,
         provider
       );
-      console.log(userCredentials);
 
       if (userCredentials && userCredentials.user) {
         const lastName = userCredentials.user.displayName!.split(" ")[0];
@@ -123,7 +122,7 @@ export default function SignUpForm({
         nextStep && nextStep();
       }
     } catch (error) {
-      console.log(error);
+      revealAlert("Something went wrong", "error");
     }
   };
 

@@ -56,9 +56,6 @@ export default function SavedPosts() {
         queryClient.invalidateQueries([`posts`]);
         queryClient.invalidateQueries([`bookmarks`]);
       },
-      onError: (err) => {
-        console.log({ err });
-      },
     }
   );
 

@@ -36,7 +36,6 @@ export default function ForgotPassword() {
           `${SERVER_URL}/auth/forgot-password`,
           credentials
         );
-        console.log(response);
         if (response) {
           setLoading(false);
           setEmail("");
@@ -55,7 +54,6 @@ export default function ForgotPassword() {
           "error"
         );
         setLoading(false);
-        console.log(error);
       }
     } else {
       if (errors.length === 0 && !emailFormatValid)
