@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./home.module.scss";
 import { categories } from "../categories";
 import { BiSearchAlt2 } from "react-icons/bi";
@@ -11,12 +11,19 @@ import { PostData } from "@/types/posts";
 import { useNavigate } from "react-router-dom";
 import Spinner from "@/components/spinners";
 import { useAlert } from "@/context/useAlert";
+import { User } from "@/types/user";
+import { RootState } from "@/redux/store";
 
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [postQuery, setPostQuery] = useState("");
   const modifiedCategories = ["All", ...categories];
   const filteredPosts = useSelector(selectFilteredPosts);
+  const userSpecificPosts = useRef<PostData[] | undefined>();
+
+  const currentUser: User | null = useSelector<RootState, User | null>(
+    (state) => state.auth.user
+  );
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const alertContext = useAlert();
@@ -37,8 +44,24 @@ export default function Blog() {
   });
 
   useEffect(() => {
-    dispatch(FILTER_POSTS({ keyword: selectedCategory, posts }));
-  }, [dispatch, posts, selectedCategory]);
+    dispatch(
+      FILTER_POSTS({ keyword: "All", posts: userSpecificPosts.current })
+    );
+  }, [dispatch, posts]);
+
+  useEffect(() => {
+    userSpecificPosts.current = (posts ?? []).filter((p: PostData) =>
+      p.categories.some((category: string) =>
+        currentUser?.interests.includes(category)
+      )
+    );
+    dispatch(
+      FILTER_POSTS({
+        keyword: selectedCategory,
+        posts: userSpecificPosts.current,
+      })
+    );
+  }, [dispatch, posts, currentUser, selectedCategory]);
 
   const initiateSearchAction = () => {
     if (!postQuery)

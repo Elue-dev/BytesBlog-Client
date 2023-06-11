@@ -68,7 +68,7 @@ export default function ManageInterests() {
         setLoading(false);
         revealModal(
           `Your interests have been updated successfully`,
-          "/blog",
+          "/user/profile",
           "success"
         );
       }

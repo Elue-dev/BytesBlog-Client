@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-// import AddedPosts from "./AddedPosts";
-import { CiEdit } from "react-icons/ci";
 import styles from "@/pages/profile/profile.module.scss";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
@@ -15,11 +13,9 @@ import moment from "moment";
 import { BiTimeFive } from "react-icons/bi";
 
 export default function UserProfile() {
-  const [postType, setPostType] = useState("My Posts");
   const [showSidebar, setShowSidebar] = useState(false);
   const themeContext = useTheme();
   const user = useLocation().state;
-  console.log({ user });
 
   const currentUser: User | null = useSelector<RootState, User | null>(
     (state) => state.auth.user
@@ -63,10 +59,25 @@ export default function UserProfile() {
             )}
           </div>
 
-          <h3 className="py-4 text-xl font-medium">
-            {user?.firstName} {user?.lastName}
+          <h3 className="flex gap-2 pt-4 text-xl font-medium">
+            <span>
+              {" "}
+              {user?.firstName} {user?.lastName}
+            </span>
+            {user.id === currentUser?.id && (
+              <span className="flex h-5 w-7 items-center justify-center rounded-lg bg-lightTextColor text-sm font-semibold text-white">
+                You
+              </span>
+            )}
           </h3>
-          <div>
+          <Link
+            to="/user/profile"
+            className="cursor-pointer font-semibold text-primaryColor underline"
+          >
+            Maanage your Profile
+          </Link>
+
+          <div className="pt-4">
             <p className="flex items-center justify-start gap-2">
               <span>
                 <FcOvertime />
@@ -81,14 +92,14 @@ export default function UserProfile() {
           <hr className={`${mode === "dark" && "border border-zinc-900"} `} />
           <h2 className="mt-4 text-2xl font-semibold">About</h2>
           <p className="mb-6 pt-3 font-normal leading-7 tracking-wide text-gray600">
-            {user?.bio === "" ? "No bio yet." : user?.bio}
+            {user?.bio === "" ? "No bio yet" : user?.bio}
           </p>
         </div>
       </div>
       <hr className={`${mode === "dark" && "border border-zinc-900"} `} />
 
       <div className="mt-4 flex items-center justify-between">
-        <h2 className="text-2xl font-semibold">Interests</h2>
+        <h2 className="text-2xl font-semibold">{user.firstName}'s Interests</h2>
       </div>
       <div className="mb-8 mt-4 flex flex-wrap gap-3">
         {user?.interests?.map((interest: string, idx: number) => (

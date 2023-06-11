@@ -41,7 +41,7 @@ export default function EditProfile({
   const queryClient = useQueryClient();
   const imageUploadRef = useRef<any | undefined>();
 
-  const { revealAlert, closeAlert } = alertContext!;
+  const { revealAlert } = alertContext!;
   const { mode } = themeContext!;
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -71,8 +71,6 @@ export default function EditProfile({
   };
 
   const updateUserProfile = async () => {
-    closeAlert();
-
     if (!firstName || !lastName) {
       return revealAlert("First Name and Last Name are both required", "error");
     }
@@ -107,11 +105,14 @@ export default function EditProfile({
         authHeaders
       );
       if (response) {
+        queryClient.invalidateQueries(["posts"]);
+        queryClient.invalidateQueries(["likes"]);
+        queryClient.invalidateQueries(["bookmarks"]);
+        queryClient.invalidateQueries(["comments"]);
         dispatch(REMOVE_ACTIVE_USER());
         dispatch(SET_ACTIVE_USER(response.data.updatedUser));
         setLoading(false);
         setShowSidebar(false);
-        queryClient.invalidateQueries([`posts`]);
         revealAlert("Profile updated", "success");
       }
     } catch (error: any) {
