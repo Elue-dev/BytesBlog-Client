@@ -1,15 +1,19 @@
+import { Link, useNavigate } from "react-router-dom";
 import { httpRequest } from "@/lib";
 import { RootState } from "@/redux/store";
 import { BookmarkedPosts, User } from "@/types/user";
 import { parseText } from "@/utils/utils";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { BiTimeFive } from "react-icons/bi";
+import { HiBookmarkSlash } from "react-icons/hi2";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useAlert } from "@/context/useAlert";
 
 export default function SavedPosts() {
+  const navigate = useNavigate();
+  const { revealAlert } = useAlert()!;
   const [bookmarksToUse, setBookmarksToUse] = useState<
     BookmarkedPosts[] | undefined
   >([]);
@@ -41,6 +45,34 @@ export default function SavedPosts() {
     );
   }, [bookmarks, currentUser?.id]);
 
+  const queryClient = useQueryClient();
+
+  const bookmarksMutation = useMutation(
+    (bookmarkId: string) => {
+      return httpRequest.delete(`/bookmarks/remove/${bookmarkId}`, authHeaders);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries([`posts`]);
+        queryClient.invalidateQueries([`bookmarks`]);
+      },
+      onError: (err) => {
+        console.log({ err });
+      },
+    }
+  );
+
+  const removeFromBookmarks = async (bookmarkId: string) => {
+    try {
+      const response = await bookmarksMutation.mutateAsync(bookmarkId);
+      if (response) {
+        revealAlert("Post removed from saved", "success");
+      }
+    } catch (error: any) {
+      revealAlert(error.response.data.message, "error");
+    }
+  };
+
   if (isLoading) return <h1>Loading Posts...</h1>;
   if (error) return <h1>Something went wrong.</h1>;
 
@@ -59,32 +91,48 @@ export default function SavedPosts() {
       ) : (
         <>
           {bookmarksToUse?.map((bookmark) => (
-            <Link
+            <div
               key={bookmark?.post?.id}
-              to={`/blog/post/${bookmark.post?.slug}/${bookmark.post?.id}`}
               className="mb-6 flex flex-col items-center justify-start gap-6 lg:flex-row"
             >
               <img
                 src={bookmark.post?.image}
                 alt=""
-                className="h-48 w-full rounded-lg object-cover lg:mWidth"
+                className="h-40 w-full cursor-pointer rounded-lg object-cover lg:mWidth"
+                onClick={() =>
+                  navigate(
+                    `/blog/post/${bookmark.post?.slug}/${bookmark.post?.id}`
+                  )
+                }
               />
               <div>
-                <h2 className="text-xl font-semibold">
-                  {bookmark.post?.title}
-                </h2>
-                <p className="text-grayNeutral">
-                  {parseText(bookmark.post?.content?.slice(0, 130))}...
-                </p>
+                <Link
+                  to={`/blog/post/${bookmark.post?.slug}/${bookmark.post?.id}`}
+                >
+                  <h2 className="text-xl font-semibold">
+                    {bookmark.post?.title}
+                  </h2>
+                  <p className="text-grayNeutral">
+                    {parseText(bookmark.post?.content?.slice(0, 80))}...
+                  </p>
+                </Link>
                 <div className="flex items-center justify-between pt-2 text-gray600">
-                  <p>{moment(bookmark.post?.createdAt).fromNow()}</p>
+                  <div className="flex items-center justify-start gap-2">
+                    <p>{moment(bookmark.post?.createdAt).fromNow()}</p>
+                    <span
+                      onClick={() => removeFromBookmarks(bookmark.id)}
+                      className="cursor-pointer"
+                    >
+                      <HiBookmarkSlash />
+                    </span>
+                  </div>
                   <p className="flex items-center justify-start gap-1">
                     <BiTimeFive />
                     <span> {bookmark.post?.readTime} mins read</span>
                   </p>
                 </div>
               </div>
-            </Link>
+            </div>
           ))}
         </>
       )}

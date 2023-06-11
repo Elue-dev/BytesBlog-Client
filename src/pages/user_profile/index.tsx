@@ -70,12 +70,14 @@ export default function UserProfile() {
               </span>
             )}
           </h3>
-          <Link
-            to="/user/profile"
-            className="cursor-pointer font-semibold text-primaryColor underline"
-          >
-            Maanage your Profile
-          </Link>
+          {user.id === currentUser?.id && (
+            <Link
+              to="/user/profile"
+              className="cursor-pointer font-semibold text-primaryColor underline"
+            >
+              Manage your Profile
+            </Link>
+          )}
 
           <div className="pt-4">
             <p className="flex items-center justify-start gap-2">
@@ -117,32 +119,38 @@ export default function UserProfile() {
         <h2 className="my-3 text-2xl font-semibold">
           Posts added by {user.firstName} ({user.posts?.length})
         </h2>
-        {user.posts?.map((post: any) => (
-          <Link
-            key={post?.id}
-            to={`/blog/post/${post?.slug}/${post?.id}`}
-            className="mb-6 flex flex-col items-center justify-start gap-6 lg:flex-row"
-          >
-            <img
-              src={post?.image}
-              alt=""
-              className="h-48 w-full rounded-lg object-cover lg:mWidth"
-            />
-            <div>
-              <h2 className="text-xl font-semibold">{post.title}</h2>
-              <p className="pt-2 text-grayNeutral">
-                {parseText(post.content?.slice(0, 130))}...
-              </p>
-              <div className="flex items-center justify-between pt-2 text-gray600">
-                <p>{moment(post?.createdAt).fromNow()}</p>
-                <p className="flex items-center justify-start gap-1">
-                  <BiTimeFive />
-                  <span> {post?.readTime} mins read</span>
-                </p>
-              </div>
-            </div>
-          </Link>
-        ))}
+        {user.posts.length === 0 ? (
+          <p> {user.firstName} has not added any posts to BytesBlog yet</p>
+        ) : (
+          <>
+            {user.posts?.map((post: any) => (
+              <Link
+                key={post?.id}
+                to={`/blog/post/${post?.slug}/${post?.id}`}
+                className="mb-6 flex flex-col items-center justify-start gap-6 lg:flex-row"
+              >
+                <img
+                  src={post?.image}
+                  alt=""
+                  className="h-48 w-full rounded-lg object-cover lg:mWidth"
+                />
+                <div>
+                  <h2 className="text-xl font-semibold">{post.title}</h2>
+                  <p className="pt-2 text-grayNeutral">
+                    {parseText(post.content?.slice(0, 130))}...
+                  </p>
+                  <div className="flex items-center justify-between pt-2 text-gray600">
+                    <p>{moment(post?.createdAt).fromNow()}</p>
+                    <p className="flex items-center justify-start gap-1">
+                      <BiTimeFive />
+                      <span> {post?.readTime} mins read</span>
+                    </p>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </>
+        )}
       </div>
     </section>
   );

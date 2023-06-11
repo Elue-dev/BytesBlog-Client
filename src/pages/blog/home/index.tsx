@@ -139,6 +139,10 @@ export default function Blog() {
           </div>
         )}
 
+        <p className="pt-1 text-right text-slate-400">
+          Blog posts are based on your interests
+        </p>
+
         <Posts />
       </div>
       <div

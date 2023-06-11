@@ -6,7 +6,7 @@ import { postCategories } from "./data";
 import Button from "@/components/button";
 import { useModal } from "@/context/useModal";
 import { useAlert } from "@/context/useAlert";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Post, StepTwoProps } from "@/types/posts";
 import { CLOUD_NAME, UPLOAD_PRESET } from "@/utils/variables";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -41,20 +41,15 @@ export default function StepTwo({
   const context = useModal();
   const alertContext = useAlert();
 
-  const manageArray = () => {
-    if (state) {
-      const cNames: string[] = [];
-      state.categories.map((cat: any) => cNames.push(cat.name));
-      setCatNames(cNames);
-    }
+  const manageArray = useCallback(() => {
     const cNames: string[] = [];
     categories.map((cat: any) => cNames.push(cat.name));
     setCatNames(cNames);
-  };
+  }, [categories, setCatNames]);
 
   useEffect(() => {
     manageArray();
-  }, [categories]);
+  }, [categories, manageArray]);
 
   let imageUrl: string;
   const uploadAvatarToCloud = async () => {
@@ -267,7 +262,9 @@ export default function StepTwo({
               disabled={state ? true : false}
               options={postCategories}
               optionLabel="name"
-              placeholder="Select Categories"
+              placeholder={
+                state ? state.categories.join(",") : "Select Categories"
+              }
               maxSelectedLabels={3}
               selectAll={false}
               selectionLimit={3}

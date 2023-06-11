@@ -35,7 +35,7 @@ export default function RelatedPosts({ similarPosts }: RelatedPostsProps) {
               }}
             >
               <div>
-                <div className="mb-3 flex flex-row-reverse items-center justify-start gap-2 lg:flex-row">
+                <div className="mb-2 flex flex-row-reverse items-center justify-start gap-2 lg:flex-row">
                   {post.author.avatar === "" ? (
                     <>
                       <div
@@ -68,12 +68,12 @@ export default function RelatedPosts({ similarPosts }: RelatedPostsProps) {
                   )}
                 </div>
                 <div>
-                  <h4 className="text-1xl max-w-xs pt-3 font-semibold lg:pt-0">
+                  <h4 className="text-1xl max-w-xs pt-1 font-semibold lg:pt-0">
                     {post.title}
                   </h4>
                 </div>
 
-                <div className="mb-6 mt-4 flex flex-wrap gap-1">
+                <div className="mb-0 mt-2 flex flex-wrap gap-1">
                   {post.categories.map((category, idx) => (
                     <div
                       key={idx}

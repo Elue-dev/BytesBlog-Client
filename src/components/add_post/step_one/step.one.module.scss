@@ -5,10 +5,10 @@
   width: 100%;
 
   @include mQ(500px) {
-    font-size: 1.8rem;
+    font-size: 1.1rem;
   }
 }
 .title::placeholder {
   font-weight: 600;
-  font-size: 1.6rem;
+  font-size: 1.3rem;
 }

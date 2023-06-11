@@ -8,7 +8,6 @@ import Button from "@/components/button";
 import { useAlert } from "@/context/useAlert";
 import { StepOneprops } from "@/types/posts";
 import { useLocation } from "react-router-dom";
-import { parseText } from "@/utils/utils";
 
 export default function StepOne({
   values,
@@ -42,12 +41,12 @@ export default function StepOne({
         });
         setImage(state.image);
         setImagePreview(state.image);
-        state.content && setContent(parseText(state.content) || "");
+        setContent(state.content || "");
         break;
       default:
         "";
     }
-  }, [action, state]);
+  }, [action, state, setImage, setContent, setImagePreview, setValues]);
 
   const { revealAlert, closeAlert } = context!;
 
@@ -91,9 +90,6 @@ export default function StepOne({
         "error"
       );
     }
-
-    // if (title && !/^[A-Za-z0-9\s]+$/.test(title))
-    //   return revealAlert("Title contains unwanted characters", "error");
 
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     nextStep && nextStep();

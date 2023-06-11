@@ -127,7 +127,7 @@ export default function ResetPassword() {
           revealModal(
             `${
               withGoogle === "true"
-                ? "Password successfully created"
+                ? "Password successfully created. You can now sign in with your new password or sign in with google"
                 : "Password successfully reset"
             }. Please sign in again`,
             "/auth/sign-in",

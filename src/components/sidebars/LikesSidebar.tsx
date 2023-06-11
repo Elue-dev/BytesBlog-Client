@@ -11,8 +11,7 @@ export default function LikesSidebar({
   showLikes,
   setShowLikes,
 }: LikesSBProps) {
-  const themeContext = useTheme();
-  const { mode } = themeContext!;
+  const { mode } = useTheme()!;
 
   return (
     <div>

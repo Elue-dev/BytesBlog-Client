@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { CommentData, CommentsSBProps } from "@/types/posts";
 // import { dummyComments } from "./dummyComments";
-import styles from "./post.details.module.scss";
+import styles from "@/pages/blog/post_details/post.details.module.scss";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useTheme } from "@/context/useTheme";
 import { useQuery } from "@tanstack/react-query";
@@ -115,7 +115,10 @@ export default function CommentsSidebar({
 
         <hr />
         {rootComments?.map((comment) => (
-          <div key={comment.id} className="border-b border-gray-100">
+          <div
+            key={comment.id}
+            className="mb-10 mt-10 border-b border-gray-100"
+          >
             <PostComments
               comment={comment}
               replies={getReplies(comment.id)}

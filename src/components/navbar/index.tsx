@@ -93,7 +93,6 @@ export default function Navbar() {
                   </Link>
                 )}
                 <div
-                  style={{ zIndex: 999999999999999 }}
                   className="relative flex cursor-pointer items-center justify-start gap-0 sm:gap-1"
                   onClick={() => setShowDropdown(!showDropdown)}
                 >

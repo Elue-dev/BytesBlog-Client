@@ -51,7 +51,7 @@ export default function PostComments({
   };
 
   return (
-    <div className="mb-6 mt-12">
+    <div className="mb-4 mt-2">
       <div key={comment?.id} className="mt-6 leading-6">
         <div className="mb-1 flex gap-3">
           {comment.author.avatar === "" ? (

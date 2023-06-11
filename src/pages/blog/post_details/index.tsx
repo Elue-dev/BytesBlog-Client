@@ -10,7 +10,7 @@ import facebook from "@/assets/facebook.svg";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import RelatedPosts from "./RelatedPosts";
 import { useEffect, useState } from "react";
-import CommentsSidebar from "./CommentsSidebar";
+import CommentsSidebar from "../../../components/sidebars/CommentsSidebar";
 import { httpRequest } from "@/lib";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Bookmark, CommentData, Like, PostData } from "@/types/posts";
@@ -294,18 +294,18 @@ export default function PostDetails() {
                   <img
                     src={linkedin}
                     alt="share on linkedin"
-                    className="h-8 cursor-pointer lg:h-6"
+                    className="h-6 cursor-pointer"
                   />
                   <img
                     src={facebook}
                     alt="share on facebook"
-                    className="h-8 cursor-pointer lg:h-6"
+                    className="h-6 cursor-pointer"
                   />
                   <img
                     src={linkIcon}
                     onClick={copyURLToClipboard}
                     alt="copy link"
-                    className="h-8 cursor-pointer lg:h-8"
+                    className="h-8 cursor-pointer"
                   />
                 </div>
               </div>
