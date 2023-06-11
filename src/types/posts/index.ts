@@ -112,6 +112,7 @@ export interface StepTwoProps {
 
 export interface CommentsSBProps {
   postId: string;
+  authorEmail: string | undefined;
   showSidebar: boolean;
   setShowSidebar: Dispatch<SetStateAction<boolean>>;
 }

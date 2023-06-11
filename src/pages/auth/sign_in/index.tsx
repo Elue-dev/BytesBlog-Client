@@ -43,9 +43,6 @@ export default function SignIn() {
     setCredentials({ ...credentials, [name]: value });
   };
 
-  console.log("vite", import.meta.env.VITE_SERVER_URL);
-  // console.log("process", process.env.VITE_SERVER_URL);
-
   const signinUser = async () => {
     setValidationErrors([]);
     const errors = [];

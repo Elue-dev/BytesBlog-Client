@@ -115,7 +115,6 @@ export default function StepTwo({
 
   const publishPost = async () => {
     const convertReadTime = parseInt(readTime);
-    console.log(catNames);
 
     if (isNaN(convertReadTime))
       return revealAlert("Read time must be a number eg 1, 2, 3", "error");
@@ -132,6 +131,8 @@ export default function StepTwo({
     try {
       setLoading(true);
       await uploadAvatarToCloud();
+      console.log({ imageUrl });
+
       const postData = {
         title,
         content,
@@ -140,12 +141,14 @@ export default function StepTwo({
         readTime: parseInt(readTime),
       };
       const response = await mutation.mutateAsync(postData);
-      if (response)
+      if (response) {
+        setLoading(false);
         revealModal(
           `Your post has been published successfully`,
           "/blog",
           "success"
         );
+      }
       setValues(initialValues);
     } catch (error: any) {
       setLoading(false);

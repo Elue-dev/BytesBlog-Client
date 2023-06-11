@@ -204,6 +204,7 @@ export default function PostDetails() {
       {posts && postId && (
         <CommentsSidebar
           postId={postId}
+          authorEmail={post.author.email || undefined}
           showSidebar={showSidebar}
           setShowSidebar={setShowSidebar}
         />

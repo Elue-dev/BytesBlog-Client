@@ -12,6 +12,7 @@ import CommentsSpinner from "@/components/spinners/ComentsSpinner";
 
 export default function CommentsSidebar({
   postId,
+  authorEmail,
   showSidebar,
   setShowSidebar,
 }: CommentsSBProps) {
@@ -39,7 +40,9 @@ export default function CommentsSidebar({
     staleTime: 60000,
   });
 
-  const authorEmail = allComments && allComments[0]?.post.author?.email;
+  console.log({ allComments });
+
+  console.log({ authorEmailSB: authorEmail });
 
   const rootComments = allComments?.filter(
     (comment) => comment.parentId === null

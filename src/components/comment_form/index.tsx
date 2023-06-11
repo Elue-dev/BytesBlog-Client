@@ -49,9 +49,8 @@ export default function CommentForm({
         queryClient.invalidateQueries([`comments-${postId}`]);
         queryClient.invalidateQueries([`post-${postId}`]);
       },
-      onError: (err) => {
+      onError: () => {
         setLoading(false);
-        console.log({ err });
       },
     }
   );
