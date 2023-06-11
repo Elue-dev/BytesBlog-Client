@@ -40,10 +40,6 @@ export default function CommentsSidebar({
     staleTime: 60000,
   });
 
-  console.log({ allComments });
-
-  console.log({ authorEmailSB: authorEmail });
-
   const rootComments = allComments?.filter(
     (comment) => comment.parentId === null
   );

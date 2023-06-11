@@ -41,7 +41,7 @@ export default function SavedPosts() {
     );
   }, [bookmarks, currentUser?.id]);
 
-  if (isLoading) return <h1>loading...</h1>;
+  if (isLoading) return <h1>Loading Posts...</h1>;
   if (error) return <h1>Something went wrong.</h1>;
 
   return (

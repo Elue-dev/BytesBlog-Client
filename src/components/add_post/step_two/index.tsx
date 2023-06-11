@@ -81,13 +81,11 @@ export default function StepTwo({
       return httpRequest.post("/posts", newPost, authHeaders);
     },
     {
-      onSuccess: (data) => {
-        console.log(data);
+      onSuccess: () => {
         queryClient.invalidateQueries(["posts"]);
       },
-      onError: (err) => {
+      onError: () => {
         setLoading(false);
-        console.log({ err });
       },
     }
   );
@@ -97,14 +95,12 @@ export default function StepTwo({
       return httpRequest.put(`/posts/${state.slug}`, editedPost, authHeaders);
     },
     {
-      onSuccess: (data) => {
-        console.log(data);
+      onSuccess: () => {
         queryClient.invalidateQueries(["posts"]);
         queryClient.invalidateQueries([`posts-${state.id}`]);
       },
-      onError: (err) => {
+      onError: () => {
         setLoading(false);
-        console.log({ err });
       },
     }
   );

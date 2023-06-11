@@ -160,7 +160,7 @@ export default function Profile() {
           ))}
         </div>
 
-        <div className="pt-4">
+        <div className="pb-8 pt-4">
           {postType === "My Posts" ? <AddedPosts /> : <SavedPosts />}
         </div>
       </div>

@@ -180,7 +180,7 @@ export default function EditProfile({
             className="cursor-pointer font-semibold text-primaryColor underline"
             onClick={() => imageUploadRef.current.click()}
           >
-            Replace Photo
+            {currentUser?.avatar === "" ? "Add Photo" : " Replace Photo"}
           </p>
           <input
             type="file"

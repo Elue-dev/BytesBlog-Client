@@ -7,7 +7,6 @@ import { useQuery } from "@tanstack/react-query";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { BiTimeFive } from "react-icons/bi";
-import { ProgressBar } from "react-loader-spinner";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -38,18 +37,7 @@ export default function AddedPosts() {
     setPostsToUse(posts?.filter((post) => post.authorId === currentUser?.id));
   }, [posts, currentUser?.id]);
 
-  if (isLoading)
-    return (
-      <ProgressBar
-        height="150"
-        width="150"
-        ariaLabel="progress-bar-loading"
-        wrapperStyle={{}}
-        wrapperClass="progress-bar-wrapper"
-        borderColor="#03ac13"
-        barColor="#03c04a"
-      />
-    );
+  if (isLoading) return <h1>Loading Posts...</h1>;
   if (error) return <h1>Something went wrong.</h1>;
 
   return (
@@ -60,32 +48,40 @@ export default function AddedPosts() {
           {postsToUse?.length === 1 ? "post" : "posts"} to BytesBlog
         </h2>
       )}
-      {postsToUse?.map((post) => (
-        <Link
-          key={post?.id}
-          to={`/blog/post/${post?.slug}/${post?.id}`}
-          className="mb-6 flex flex-col items-center justify-start gap-6 lg:flex-row"
-        >
-          <img
-            src={post?.image}
-            alt=""
-            className="h-48 w-full rounded-lg object-cover lg:mWidth"
-          />
-          <div>
-            <h2 className="text-xl font-semibold">{post.title}</h2>
-            <p className="pt-2 text-grayNeutral">
-              {parseText(post.content?.slice(0, 130))}...
-            </p>
-            <div className="flex items-center justify-between pt-2 text-gray600">
-              <p>{moment(post?.createdAt).fromNow()}</p>
-              <p className="flex items-center justify-start gap-1">
-                <BiTimeFive />
-                <span> {post?.readTime} mins read</span>
-              </p>
-            </div>
-          </div>
-        </Link>
-      ))}
+      {postsToUse?.length === 0 ? (
+        <div>
+          <h3>You have not added any posts to BytesBlog</h3>
+        </div>
+      ) : (
+        <>
+          {postsToUse?.map((post) => (
+            <Link
+              key={post?.id}
+              to={`/blog/post/${post?.slug}/${post?.id}`}
+              className="mb-6 flex flex-col items-center justify-start gap-6 lg:flex-row"
+            >
+              <img
+                src={post?.image}
+                alt=""
+                className="h-48 w-full rounded-lg object-cover lg:mWidth"
+              />
+              <div>
+                <h2 className="text-xl font-semibold">{post.title}</h2>
+                <p className="pt-2 text-grayNeutral">
+                  {parseText(post.content?.slice(0, 130))}...
+                </p>
+                <div className="flex items-center justify-between pt-2 text-gray600">
+                  <p>{moment(post?.createdAt).fromNow()}</p>
+                  <p className="flex items-center justify-start gap-1">
+                    <BiTimeFive />
+                    <span> {post?.readTime} mins read</span>
+                  </p>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </>
+      )}
     </div>
   );
 }

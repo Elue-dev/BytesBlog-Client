@@ -34,7 +34,6 @@ export default function StepOne({
   useEffect(() => {
     switch (action) {
       case "new":
-        // setValues(initialValues);
         break;
       case "edit":
         setValues({
