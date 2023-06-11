@@ -1,8 +1,9 @@
 import { PostData } from "@/types/posts";
 import { useSelector } from "react-redux";
 import { selectFilteredPosts } from "@/redux/slices/filter.slice";
-import { TbArticleOff } from "react-icons/tb";
 import PostLayout from "@/components/posts_layout";
+import { Link } from "react-router-dom";
+import Button from "@/components/button";
 
 export default function Posts() {
   const filteredPosts: PostData[] = useSelector(selectFilteredPosts);
@@ -11,11 +12,19 @@ export default function Posts() {
     <>
       <section className="py-10">
         {filteredPosts?.length === 0 ? (
-          <div className="flex items-center justify-center gap-2">
-            <span>
-              <TbArticleOff color="#000" size={30} />
-            </span>
-            <span className="text-2xl">NO POSTS FOUND</span>
+          <div>
+            <p className="text-xl text-gray-500">
+              No posts found. if there are blog posts in this category, they
+              would appear here if they are among your interests.
+            </p>
+            <Link
+              to="/user/manage-interests"
+              className="mt-3 flex items-center justify-center"
+            >
+              <Button className="bg-primaryColorLighter p-4 text-xl text-primaryColor">
+                Manage Interests
+              </Button>
+            </Link>
           </div>
         ) : (
           <>

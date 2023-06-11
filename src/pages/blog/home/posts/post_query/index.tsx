@@ -72,7 +72,7 @@ export default function PostSearch() {
           Post result(s) for keyword:{" "}
           <span className="text-primaryColor">'{postQuery}'</span>
           {postResults.length === 0 ? (
-            <span className="mt-2 block  font-semibold">
+            <span className="mt-2 block font-semibold">
               No posts found. Try searching something else.
             </span>
           ) : (
