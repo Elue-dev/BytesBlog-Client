@@ -11,7 +11,7 @@ import {
   RiArrowUpSLine,
   RiArticleLine,
 } from "react-icons/ri";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   REMOVE_ACTIVE_USER,
   selectIsLoggedIn,
@@ -39,15 +39,21 @@ export default function Navbar() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
-  const fixNavbar = () => {
-    if (window.scrollY > 80) {
-      setScrollpage(true);
-    } else {
-      setScrollpage(false);
-    }
-  };
+  useEffect(() => {
+    const fixNavbar = () => {
+      if (window.scrollY > 80) {
+        setScrollpage(true);
+      } else {
+        setScrollpage(false);
+      }
+    };
 
-  window.addEventListener("scroll", fixNavbar);
+    window.addEventListener("scroll", fixNavbar);
+
+    return () => {
+      window.removeEventListener("scroll", fixNavbar);
+    };
+  }, []); // Empty dependency array ensures the effect runs only once (on mount)
 
   const signOutUser = () => {
     dispatch(REMOVE_ACTIVE_USER());
