@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import { User } from "@/types/user";
 import { RootState } from "@/redux/store";
 import { httpRequest } from "@/lib";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { TbMessageCircle2 } from "react-icons/tb";
 import styles from "@/pages/blog/post_details/post.details.module.scss";
@@ -76,7 +76,7 @@ export default function PostComments({
               />
             </a>
           )}
-          <div>
+          <Link to={`/user_profile/${comment.authorId}`} state={comment.author}>
             <div className="flex gap-4">
               <h4 className="text-sm font-semibold">
                 {comment.author.firstName + " " + comment.author.lastName}
@@ -90,7 +90,7 @@ export default function PostComments({
             <p className="text-sm text-gray500">
               {moment(comment.createdAt).fromNow()}
             </p>
-          </div>
+          </Link>
         </div>
         <p
           style={{ wordWrap: "break-word" }}

@@ -91,7 +91,7 @@ export default function UserProfile() {
         <h2 className="text-2xl font-semibold">Interests</h2>
       </div>
       <div className="mb-8 mt-4 flex flex-wrap gap-3">
-        {user?.interests.map((interest: string, idx: number) => (
+        {user?.interests?.map((interest: string, idx: number) => (
           <div
             key={idx}
             className="rounded-lg border-2 border-borderPrimary bg-primaryColorLight p-1 font-semibold text-blackNeutralSec"
