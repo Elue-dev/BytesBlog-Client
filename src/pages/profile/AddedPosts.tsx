@@ -48,7 +48,7 @@ export default function AddedPosts() {
           {postsToUse?.length === 1 ? "post" : "posts"} to BytesBlog
         </h2>
       )}
-      {postsToUse?.length === 0 ? (
+      {!isLoading && postsToUse?.length === 0 ? (
         <div>
           <h3>You have not added any posts to BytesBlog</h3>
         </div>

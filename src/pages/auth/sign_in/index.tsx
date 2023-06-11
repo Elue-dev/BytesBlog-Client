@@ -3,7 +3,12 @@ import bytesLogo from "@/assets/bytesLogo.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import Input from "@/components/input";
-import { ChangeEvent, KeyboardEvent, useState } from "react";
+import {
+  ChangeEvent,
+  KeyboardEvent,
+  KeyboardEventHandler,
+  useState,
+} from "react";
 import { validateEmail } from "@/utils/utils";
 import { useAlert } from "@/context/useAlert";
 import { SIValues } from "@/types/auth";
@@ -113,7 +118,7 @@ export default function SignIn() {
     setValidationErrors(updatedErrors);
   };
 
-  const checkCapsLockState: React.KeyboardEventHandler<HTMLInputElement> = (
+  const checkCapsLockState: KeyboardEventHandler<HTMLInputElement> = (
     event
   ) => {
     const keyboardEvent = event as KeyboardEvent<HTMLInputElement>;

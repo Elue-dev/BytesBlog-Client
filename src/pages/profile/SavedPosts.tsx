@@ -52,7 +52,7 @@ export default function SavedPosts() {
           {bookmarksToUse?.length === 1 ? "post" : "posts"}
         </h2>
       )}
-      {bookmarksToUse?.length === 0 ? (
+      {!isLoading && bookmarksToUse?.length === 0 ? (
         <div>
           <h3>You have no saved posts yet</h3>
         </div>

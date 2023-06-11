@@ -189,7 +189,7 @@ export default function PostDetails() {
     try {
       await navigator.clipboard.writeText(parseText(postContent) || "");
       revealAlert(
-        "Post content copied to clipboard, paste in the editor",
+        "Post content copied to clipboard, paste in editor and format properly",
         "info"
       );
     } catch (error) {

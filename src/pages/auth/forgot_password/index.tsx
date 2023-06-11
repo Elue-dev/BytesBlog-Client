@@ -75,7 +75,7 @@ export default function ForgotPassword() {
 
   return (
     <section className={`${mode === "dark" && "bg-zinc-900"}`}>
-      <div className="justify-cente flex h-screen items-center p-4">
+      <div className="flex h-screen items-center justify-center">
         <div
           className={`mx-4 my-8 w-full max-w-md rounded-lg ${
             mode === "dark" ? "bg-zinc-900" : "bg-white"
