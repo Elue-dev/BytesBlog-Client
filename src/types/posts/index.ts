@@ -83,7 +83,7 @@ export type InitValues = Pick<AddBPost, "title" | "readTime">;
 
 export interface StepOneprops {
   values: InitValues;
-  initialValues: InitValues;
+  initialValues?: InitValues;
   setValues: Dispatch<SetStateAction<InitValues>>;
   image: File | undefined;
   content: string;

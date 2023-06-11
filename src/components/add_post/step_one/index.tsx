@@ -13,7 +13,6 @@ import { parseText } from "@/utils/utils";
 export default function StepOne({
   values,
   setValues,
-  initialValues,
   image,
   content,
   setContent,

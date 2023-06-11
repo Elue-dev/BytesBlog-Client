@@ -33,7 +33,6 @@ export default function StepTwo({
 }: StepTwoProps) {
   const [loading, setLoading] = useState(false);
   const state = useLocation().state;
-  // console.log(state);
 
   const currentUser: User | null = useSelector<RootState, User | null>(
     (state) => state.auth.user
