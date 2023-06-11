@@ -67,7 +67,9 @@ export default function Navbar() {
   return (
     <section
       className={scrollPage ? `${styles.main}` : ""}
-      style={{ background: mode === "light" ? "#fff" : "#000" }}
+      style={{
+        background: mode === "light" ? "#fff" : "rgb(8, 8, 8)",
+      }}
     >
       <div className={styles.navbar}>
         <div className="flex items-center justify-between">

@@ -4,7 +4,7 @@ import styles from "@/pages/blog/post_details/post.details.module.scss";
 
 export default function Spinner() {
   return (
-    <div>
+    <div className="bg-dark">
       <div className={styles["hero_sec"]}></div>
       <div className="hd absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
         <img

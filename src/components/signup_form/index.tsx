@@ -86,19 +86,15 @@ export default function SignUpForm({
     if (errors.length === 0) {
       if (!validateEmail(email))
         return revealAlert("Please enter a valid email format", "error");
-
       if (password !== confirmPassword)
         return revealAlert("Passwords do not match", "error");
-
       if (!passwordCheckPassed)
         return revealAlert(
           "Your password has not met the necessary strength requirements",
           "error"
         );
-
       if (firstname && !/^[A-Za-z0-9\s]+$/.test(firstname))
         return revealAlert("First Name contains unwanted characters", "error");
-
       if (lastname && !/^[A-Za-z0-9\s]+$/.test(lastname))
         return revealAlert("Last Name contains unwanted characters", "error");
       nextStep && nextStep();
@@ -117,7 +113,6 @@ export default function SignUpForm({
         const firstName = userCredentials.user.displayName!.split(" ")[1];
         const email = userCredentials.user!.email || "";
         const avatar = userCredentials.user!.photoURL || "";
-
         updateCredentials(firstName, lastName, email, avatar);
         nextStep && nextStep();
       }
