@@ -93,3 +93,15 @@
   height: 100px;
   margin-top: 1rem;
 }
+.user__initials__sec {
+  font-size: 1.6rem;
+  font-weight: 700;
+  height: 4rem;
+  width: 4rem;
+  border-radius: 50%;
+  @include flexBox(center, center);
+  @include mQ(600px) {
+    height: 2.6rem;
+    width: 2.6rem;
+  }
+}

@@ -27,9 +27,11 @@ import { getUserInitials } from "@/helpers/user.initials";
 import styles from "./post.details.module.scss";
 import Spinner from "@/components/spinners";
 import { parseText } from "@/utils/utils";
+import LikesSidebar from "@/components/sidebars/LikesSidebar";
 
 export default function PostDetails() {
   const [showSidebar, setShowSidebar] = useState(false);
+  const [showLikes, setShowLikes] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
   const { postId, slug } = useParams();
@@ -49,6 +51,8 @@ export default function PostDetails() {
       return res.data.post[0];
     })
   );
+
+  console.log({ post });
 
   const {
     isLoading: loading,
@@ -207,6 +211,14 @@ export default function PostDetails() {
         />
       )}
 
+      {posts && postId && (
+        <LikesSidebar
+          likes={post.likes}
+          showLikes={showLikes}
+          setShowLikes={setShowLikes}
+        />
+      )}
+
       <div className="container flex cursor-pointer items-center justify-start gap-1 pb-2 pt-2">
         <Link to="/blog" className="underline">
           Blog
@@ -339,7 +351,9 @@ export default function PostDetails() {
                     } cursor-pointer text-gray500`}
                     onClick={() => likeDislikePost(post.id)}
                   />
-                  <span>{post.likes?.length}</span>
+                  <span onClick={() => setShowLikes(true)}>
+                    {post.likes?.length}
+                  </span>
                 </div>
                 <div
                   className="flex cursor-pointer items-center justify-start gap-2"

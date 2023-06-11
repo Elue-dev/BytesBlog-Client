@@ -115,6 +115,11 @@ export interface CommentsSBProps {
   showSidebar: boolean;
   setShowSidebar: Dispatch<SetStateAction<boolean>>;
 }
+export interface LikesSBProps {
+  likes: any;
+  showLikes: boolean;
+  setShowLikes: Dispatch<SetStateAction<boolean>>;
+}
 
 export interface CommentData {
   id: string;
@@ -161,4 +166,24 @@ export interface CommentFormProps {
   setShowInput?: Dispatch<SetStateAction<boolean>> | undefined;
   setIsReplying?: Dispatch<SetStateAction<boolean>> | undefined;
   commentId: string | null;
+}
+
+interface User {
+  avatar: string;
+  bio: string;
+  firstName: string;
+  id: string;
+  lastName: string;
+  joinedAt: Date;
+}
+
+export interface Likes {
+  commentId: string | null;
+  createdAt: Date;
+  id: string;
+  postId: string;
+  type: string;
+  updatedAt: Date;
+  user: User;
+  userId: string;
 }

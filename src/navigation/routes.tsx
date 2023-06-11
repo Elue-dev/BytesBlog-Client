@@ -23,6 +23,7 @@ import { createBrowserRouter, Outlet } from "react-router-dom";
 import useNetworkStatus from "@/hooks/useNetworkStatus";
 import Spinner from "@/components/spinners";
 import Alert from "@/components/alert";
+import ErrorBoundary from "@/helpers/ErrorBoundary";
 
 export const Layout = () => {
   const status = useNetworkStatus();
@@ -33,13 +34,15 @@ export const Layout = () => {
         <OfflinePage />
       ) : (
         <>
-          <Suspense fallback={<Spinner />}>
-            <Navbar />
-            <Outlet />
-            <ScrollToTop />
-            <Modal />
-          </Suspense>
-          <Alert />
+          <ErrorBoundary>
+            <Suspense fallback={<Spinner />}>
+              <Navbar />
+              <Outlet />
+              <ScrollToTop />
+              <Modal />
+            </Suspense>
+            <Alert />
+          </ErrorBoundary>
         </>
       )}
     </div>
