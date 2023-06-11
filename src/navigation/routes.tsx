@@ -19,6 +19,7 @@ const Authenticated = lazy(() => import("@/helpers/authenticated"));
 const Unauthenticated = lazy(() => import("@/helpers/unauthenticated"));
 const PostSearch = lazy(() => import("@/pages/blog/home/posts/post_query"));
 const OfflinePage = lazy(() => import("@/pages/offline_page"));
+const UserProfile = lazy(() => import("@/pages/user_profile"));
 import { createBrowserRouter, Outlet } from "react-router-dom";
 import useNetworkStatus from "@/hooks/useNetworkStatus";
 import Spinner from "@/components/spinners";
@@ -119,6 +120,14 @@ const router = createBrowserRouter([
         element: (
           <Authenticated>
             <Profile />
+          </Authenticated>
+        ),
+      },
+      {
+        path: "/user_profile/:userId",
+        element: (
+          <Authenticated>
+            <UserProfile />
           </Authenticated>
         ),
       },

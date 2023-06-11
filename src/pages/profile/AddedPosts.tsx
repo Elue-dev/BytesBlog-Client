@@ -69,7 +69,7 @@ export default function AddedPosts() {
           <img
             src={post?.image}
             alt=""
-            className="h-48 w-full rounded-lg object-cover lg:w-48"
+            className="h-48 w-full rounded-lg object-cover lg:mWidth"
           />
           <div>
             <h2 className="text-xl font-semibold">{post.title}</h2>

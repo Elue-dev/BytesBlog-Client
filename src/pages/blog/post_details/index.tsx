@@ -52,8 +52,6 @@ export default function PostDetails() {
     })
   );
 
-  console.log({ post });
-
   const {
     isLoading: loading,
     error: err,
@@ -351,7 +349,10 @@ export default function PostDetails() {
                     } cursor-pointer text-gray500`}
                     onClick={() => likeDislikePost(post.id)}
                   />
-                  <span onClick={() => setShowLikes(true)}>
+                  <span
+                    className="underline"
+                    onClick={() => setShowLikes(true)}
+                  >
                     {post.likes?.length}
                   </span>
                 </div>

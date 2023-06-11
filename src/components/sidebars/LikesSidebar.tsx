@@ -4,6 +4,7 @@ import styles from "@/pages/blog/post_details/post.details.module.scss";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useTheme } from "@/context/useTheme";
 import { getUserInitials } from "@/helpers/user.initials";
+import { Link } from "react-router-dom";
 
 export default function LikesSidebar({
   likes,
@@ -46,7 +47,9 @@ export default function LikesSidebar({
         )}
 
         {likes.map((like: Likes) => (
-          <div
+          <Link
+            to={`/user_profile/${like.userId}`}
+            state={like.user}
             key={like.id}
             className="mb-4 flex items-center justify-start gap-2"
           >
@@ -62,19 +65,12 @@ export default function LikesSidebar({
                   {getUserInitials(like.user?.firstName, like.user?.lastName)}
                 </div>
               ) : (
-                <a target="_blank" href={like.user.avatar}>
-                  <img
-                    src={like.user.avatar}
-                    alt={like.user.firstName}
-                    className="h-16 w-16 rounded-full object-cover"
-                  />
-                </a>
+                <img
+                  src={like.user.avatar}
+                  alt={like.user.firstName}
+                  className="h-16 w-16 rounded-full object-cover"
+                />
               )}
-              {/* <img
-                src={like.user.avatar}
-                alt={like.user.firstName}
-                className="h-16 w-16 rounded-full object-cover"
-              /> */}
             </div>
             <div className="leading-6">
               <p className="text-semibold text-base">
@@ -91,7 +87,7 @@ export default function LikesSidebar({
                 </span>
               </p>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

@@ -1,10 +1,9 @@
 import styles from "./navbar.module.scss";
 import byteslogo from "@/assets/bytesLogo.svg";
 import profileIcon from "@/assets/profileIcon.svg";
-// import savedPosts from "@/assets/savedPosts.svg";
 import interestsIcon from "@/assets/interestsIcon.svg";
 import Button from "../button";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { BsVectorPen } from "react-icons/bs";
 import {
   RiArrowDownSLine,
@@ -31,6 +30,7 @@ export default function Navbar() {
     (state) => state.auth.user
   );
   const dispatch = useDispatch();
+  const { userId } = useParams();
 
   let initials;
   if (currentUser)
@@ -53,7 +53,7 @@ export default function Navbar() {
     return () => {
       window.removeEventListener("scroll", fixNavbar);
     };
-  }, []); // Empty dependency array ensures the effect runs only once (on mount)
+  }, []);
 
   const signOutUser = () => {
     dispatch(REMOVE_ACTIVE_USER());
@@ -129,7 +129,7 @@ export default function Navbar() {
                     } p-5 shadow-lg sm:right-auto sm:top-12`}
                   >
                     <div className="py-5 leading-10 text-gray500">
-                      {pathname.includes("profile") ? (
+                      {pathname.includes("user") && !userId ? (
                         <div
                           onClick={() => {
                             navigate("/blog");
