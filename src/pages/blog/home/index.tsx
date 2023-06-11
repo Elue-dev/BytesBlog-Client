@@ -13,6 +13,7 @@ import Spinner from "@/components/spinners";
 import { useAlert } from "@/context/useAlert";
 import { User } from "@/types/user";
 import { RootState } from "@/redux/store";
+import ServerError from "@/components/server_error";
 
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -70,7 +71,7 @@ export default function Blog() {
   };
 
   if (isLoading) return <Spinner />;
-  if (error) return <h1>Something went wrong. Try logging in again</h1>;
+  if (error) return <ServerError />;
 
   return (
     <section className={styles["blog__home"]}>

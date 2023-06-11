@@ -82,7 +82,7 @@ export default function CommentsSidebar({
           <p
             className={`${
               mode === "light" ? "text-neutral-900" : "text-lightGraySec"
-            }`}
+            } text-center`}
           >
             Be the first to add a comment on this post.
           </p>
