@@ -28,6 +28,7 @@ import styles from "./post.details.module.scss";
 import Spinner from "@/components/spinners";
 import { parseText } from "@/utils/utils";
 import LikesSidebar from "@/components/sidebars/LikesSidebar";
+import { FacebookButton, LinkedInButton } from "react-social";
 
 export default function PostDetails() {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -41,6 +42,7 @@ export default function PostDetails() {
   const currentUser: User | null = useSelector<RootState, User | null>(
     (state) => state.auth.user
   );
+  const socialURL = `https://bytes-blog-client.vercel.app/${slug}/${postId}`;
 
   const {
     isLoading,
@@ -290,17 +292,23 @@ export default function PostDetails() {
                       <FiEdit size={23} color="#666" />
                     </Link>
                   </div>
-
-                  <img
-                    src={linkedin}
-                    alt="share on linkedin"
-                    className="h-6 cursor-pointer"
-                  />
-                  <img
-                    src={facebook}
-                    alt="share on facebook"
-                    className="h-6 cursor-pointer"
-                  />
+                  <LinkedInButton url={socialURL} title={post.title}>
+                    <img
+                      src={linkedin}
+                      alt="share on linkedin"
+                      className="h-6 cursor-pointer"
+                    />
+                  </LinkedInButton>
+                  <FacebookButton
+                    url={socialURL}
+                    appId={import.meta.env.VITE_FACEBOOK_APP_ID}
+                  >
+                    <img
+                      src={facebook}
+                      alt="share on facebook"
+                      className="h-6 cursor-pointer"
+                    />
+                  </FacebookButton>
                   <img
                     src={linkIcon}
                     onClick={copyURLToClipboard}
