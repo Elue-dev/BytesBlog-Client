@@ -68,11 +68,11 @@ export default function PostSearch() {
       <div
         className={`${postResults.length !== 0 && "border-b border-gray-100"} `}
       >
-        <h2 className="mb-3 block pt-4 text-center text-2xl font-medium">
+        <h2 className="mb-3 block pt-4 text-center text-xl font-medium">
           Post result(s) for keyword:{" "}
           <span className="text-primaryColor">'{postQuery}'</span>
           {postResults.length === 0 ? (
-            <span className="mt-2 block font-semibold">
+            <span className="mt-2 block text-base font-semibold">
               No posts found. Try searching something else.
             </span>
           ) : (

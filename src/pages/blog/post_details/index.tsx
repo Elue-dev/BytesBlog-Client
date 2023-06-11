@@ -8,7 +8,7 @@ import linkIcon from "@/assets/linkIcon.svg";
 import linkedin from "@/assets/linkedin.svg";
 import facebook from "@/assets/facebook.svg";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import RightDetails from "./RightDetails";
+import RelatedPosts from "./RelatedPosts";
 import { useEffect, useState } from "react";
 import CommentsSidebar from "./CommentsSidebar";
 import { httpRequest } from "@/lib";
@@ -384,7 +384,7 @@ export default function PostDetails() {
           </div>
         </div>
 
-        <RightDetails similarPosts={similarPosts} />
+        <RelatedPosts similarPosts={similarPosts} />
       </div>
       <div
         className={`${styles["posts__footer"]} mt-10 h-20 w-full bg-primaryColorLight`}

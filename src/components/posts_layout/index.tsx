@@ -135,7 +135,7 @@ export default function PostLayout({ filteredPosts, post }: PostsLayout) {
             <img
               src={post.image}
               alt={post.title}
-              className="h-96 w-full rounded-md bg-primaryColorLight object-cover"
+              className="h-72 w-full rounded-md bg-primaryColorLight object-cover"
             />
           </div>
           <div className="w-full sm:w-1/2 md:w-full">

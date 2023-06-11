@@ -63,7 +63,7 @@ export interface Bookmark {
   user: Author;
 }
 
-export interface RightDetailsProps {
+export interface RelatedPostsProps {
   similarPosts: PostData[];
 }
 
