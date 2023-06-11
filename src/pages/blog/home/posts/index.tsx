@@ -10,10 +10,10 @@ export default function Posts() {
 
   return (
     <>
-      <section className="py-10">
+      <section className="pb-10 pt-5">
         {filteredPosts?.length === 0 ? (
           <div>
-            <p className="text-xl text-gray-500">
+            <p className="mb-4 text-center text-base text-gray-500 sm:text-xl">
               No posts found. if there are blog posts in this category, they
               would appear here if they are among your interests.
             </p>
@@ -21,7 +21,7 @@ export default function Posts() {
               to="/user/manage-interests"
               className="mt-3 flex items-center justify-center"
             >
-              <Button className="bg-primaryColorLighter p-4 text-xl text-primaryColor">
+              <Button className="bg-primaryColorLighter p-3 text-base text-primaryColor">
                 Manage Interests
               </Button>
             </Link>

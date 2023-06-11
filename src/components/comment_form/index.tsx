@@ -25,7 +25,7 @@ export default function CommentForm({
 
   const commentInputRef = useRef<HTMLTextAreaElement>(null);
   const alertContext = useAlert();
-  const { postId } = useParams();
+  const { postId, slug } = useParams();
 
   const currentUser: User | null = useSelector<RootState, User | null>(
     (state) => state.auth.user
@@ -46,8 +46,10 @@ export default function CommentForm({
     },
     {
       onSuccess: () => {
+        console.log({ postId });
+
         queryClient.invalidateQueries([`comments-${postId}`]);
-        queryClient.invalidateQueries([`post-${postId}`]);
+        queryClient.invalidateQueries([`post-${slug}`]);
       },
       onError: () => {
         setLoading(false);

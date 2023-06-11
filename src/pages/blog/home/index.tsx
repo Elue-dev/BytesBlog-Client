@@ -118,16 +118,16 @@ export default function Blog() {
 
         {selectedCategory !== "All" && (
           <div
-            className={`mt-6 text-center ${
+            className={`mt-4 text-center ${
               filteredPosts.length !== 0 && "border-b border-gray-100"
             }`}
           >
-            <h2 className="font-mediun block pt-4 text-center text-2xl">
+            <p className="font-mediun block pt-4 text-xl sm:text-2xl">
               Post(s) with category{" "}
               <span className="font-mediun italic text-primaryColor">
                 '{selectedCategory}'
               </span>
-            </h2>
+            </p>
 
             {filteredPosts.length !== 0 && (
               <span className="mb-3 mt-2 block text-xl font-thin italic">
