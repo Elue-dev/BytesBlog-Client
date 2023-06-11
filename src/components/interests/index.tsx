@@ -51,8 +51,9 @@ export default function Interests({
           avatar: avatar,
           password: Date.now().toString(),
           interests,
+          withGoogle: true,
         }
-      : { firstname, lastname, email, password, interests };
+      : { firstname, lastname, email, password, interests, withGoogle: false };
 
     try {
       setLoading(true);
