@@ -4,6 +4,9 @@ import { selectFilteredPosts } from "@/redux/slices/filter.slice";
 import PostLayout from "@/components/posts_layout";
 import { Link } from "react-router-dom";
 import Button from "@/components/button";
+import { useEffect, useState } from "react";
+import ReactPaginate from "react-paginate";
+import styles from "@/pages/blog/home/home.module.scss";
 
 export default function Posts({
   selectedCategory,
@@ -11,6 +14,26 @@ export default function Posts({
   selectedCategory: string;
 }) {
   const filteredPosts: PostData[] = useSelector(selectFilteredPosts);
+  const [currentItems, setCurrentItems] = useState<PostData[]>([]);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
+  const itemsPerPage = 6;
+
+  console.log({ currentItems: currentItems.length });
+  console.log({ itemsPerPage });
+
+  const handlePageClick = (event: any) => {
+    const newOffset = (event.selected * itemsPerPage) % filteredPosts?.length;
+    setItemOffset(newOffset);
+    window.scrollTo({ top: 180, left: 0, behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    const endOffset = itemOffset + itemsPerPage;
+
+    setCurrentItems(filteredPosts?.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(filteredPosts?.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage, filteredPosts]);
 
   return (
     <>
@@ -41,13 +64,29 @@ export default function Posts({
           </div>
         ) : (
           <>
-            {filteredPosts?.map((post) => (
+            {currentItems?.map((post) => (
               <PostLayout
                 key={post.id}
                 filteredPosts={filteredPosts}
                 post={post}
               />
             ))}
+            {filteredPosts.length ? (
+              <ReactPaginate
+                breakLabel="..."
+                nextLabel="Next"
+                onPageChange={handlePageClick}
+                pageRangeDisplayed={3}
+                pageCount={pageCount}
+                previousLabel="Prev"
+                renderOnZeroPageCount={null}
+                containerClassName={styles["pagination"]}
+                pageLinkClassName={styles["page-num"]}
+                previousLinkClassName={styles["page-num"]}
+                nextLinkClassName={styles["page-num"]}
+                activeLinkClassName={styles.activePage}
+              />
+            ) : null}
           </>
         )}
       </section>

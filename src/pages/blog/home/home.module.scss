@@ -75,7 +75,45 @@
       }
     }
   }
-
+  .pagination {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 0;
+    font-size: 1rem;
+  }
+  .pagination .page-num {
+    padding: 10px 21px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-weight: normal;
+    color: #333;
+    border: 1px solid $color-primary-hover;
+    margin: 2px;
+  }
+  .pagination .page-num:hover {
+    color: #fff;
+    background-color: $color-primary-hover;
+  }
+  .activePage {
+    color: #fff;
+    background-color: $color-primary-hover;
+    height: 100%;
+  }
+  .active {
+    position: relative;
+    padding-left: 1rem;
+    .active::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 2px;
+      height: 100%;
+      background-color: $color-primary-hover;
+    }
+  }
   .posts__footer {
     width: 100%;
     background: linear-gradient(
