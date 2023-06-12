@@ -5,7 +5,11 @@ import PostLayout from "@/components/posts_layout";
 import { Link } from "react-router-dom";
 import Button from "@/components/button";
 
-export default function Posts() {
+export default function Posts({
+  selectedCategory,
+}: {
+  selectedCategory: string;
+}) {
   const filteredPosts: PostData[] = useSelector(selectFilteredPosts);
 
   return (
@@ -14,8 +18,17 @@ export default function Posts() {
         {filteredPosts?.length === 0 ? (
           <div>
             <p className="mb-4 text-center text-base text-gray-500 sm:text-xl">
-              No posts found. if there are blog posts in this category, they
-              would appear here if they are among your interests.
+              {selectedCategory === "All" ? (
+                <span>
+                  No posts found. Blog posts would be shown here based on your
+                  interests.
+                </span>
+              ) : (
+                <span>
+                  No posts found. if there are blog posts in this category, they
+                  would appear here if they are among your interests.
+                </span>
+              )}
             </p>
             <Link
               to="/user/manage-interests"
