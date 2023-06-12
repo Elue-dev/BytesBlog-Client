@@ -196,6 +196,8 @@ export default function PostDetails() {
     }
   };
 
+  console.log({ post });
+
   return (
     <section className={styles["post__details"]}>
       <div className={styles.hero}></div>
@@ -243,33 +245,43 @@ export default function PostDetails() {
               <div className="flex flex-col justify-between sm:flex-row md:flex-row">
                 <div className="flex items-center justify-between gap-8 sm:justify-start">
                   <div className="flex items-center justify-start gap-2">
-                    {post.author?.avatar === "" ? (
-                      <>
-                        <div
-                          className={styles["user__initials"]}
-                          style={{
-                            background: mode === "dark" ? "#f0f0f0" : "#000",
-                            color: mode === "dark" ? "#000" : "#f0f0f0",
-                          }}
-                        >
-                          {getUserInitials(
-                            post.author?.firstName,
-                            post.author?.lastName
-                          )}
-                        </div>
-                      </>
-                    ) : (
-                      <img
-                        src={post?.author?.avatar}
-                        alt={post.author?.firstName}
-                        className="h-11 w-11 rounded-full object-cover"
-                      />
-                    )}
+                    <Link
+                      to={`/user_profile/${post.authorId}`}
+                      state={post.author}
+                    >
+                      {post.author?.avatar === "" ? (
+                        <>
+                          <div
+                            className={styles["user__initials"]}
+                            style={{
+                              background: mode === "dark" ? "#f0f0f0" : "#000",
+                              color: mode === "dark" ? "#000" : "#f0f0f0",
+                            }}
+                          >
+                            {getUserInitials(
+                              post.author?.firstName,
+                              post.author?.lastName
+                            )}
+                          </div>
+                        </>
+                      ) : (
+                        <img
+                          src={post?.author?.avatar}
+                          alt={post.author?.firstName}
+                          className="h-11 w-11 rounded-full object-cover"
+                        />
+                      )}
+                    </Link>
 
                     <div>
-                      <p className="text-lg">
-                        {post.author?.firstName + " " + post.author?.lastName}
-                      </p>
+                      <Link
+                        to={`/user_profile/${post.authorId}`}
+                        state={post.author}
+                      >
+                        <p className="text-lg">
+                          {post.author?.firstName + " " + post.author?.lastName}
+                        </p>
+                      </Link>
                       <p className="text-grayLight">
                         {String(moment(post?.createdAt).fromNow())}
                       </p>

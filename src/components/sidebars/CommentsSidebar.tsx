@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { CommentData, CommentsSBProps } from "@/types/posts";
-// import { dummyComments } from "./dummyComments";
 import styles from "@/pages/blog/post_details/post.details.module.scss";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useTheme } from "@/context/useTheme";

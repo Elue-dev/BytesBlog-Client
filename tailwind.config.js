@@ -63,6 +63,12 @@ export default {
         ".postBorderBLight": {
           borderBottom: "0.5px solid #e5e7eb",
         },
+        ".postBorderLDark": {
+          color: "0.5px solid #232323",
+        },
+        ".postBorderLLight": {
+          color: "0.5px solid #e5e7eb",
+        },
         ".mWidth": {
           maxWidth: "200px",
         },

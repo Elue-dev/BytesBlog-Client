@@ -49,6 +49,8 @@ export default function Blog() {
     );
   }, [dispatch, posts]);
 
+  console.log({ posts });
+
   useEffect(() => {
     userSpecificPosts.current = (posts ?? []).filter((p: PostData) =>
       p.categories.some((category: string) =>
@@ -129,18 +131,20 @@ export default function Blog() {
             </p>
 
             {filteredPosts.length !== 0 && (
-              <span className="mb-3 mt-2 block text-xl font-thin italic">
-                {" "}
-                {filteredPosts.length}{" "}
-                {filteredPosts.length === 1 ? "post" : "posts"} found
-              </span>
+              <>
+                <span className="mb-3 mt-2 block text-xl font-thin italic">
+                  {" "}
+                  {filteredPosts.length}{" "}
+                  {filteredPosts.length === 1 ? "post" : "posts"} found
+                </span>
+
+                <p className="pt-1 text-right text-slate-400">
+                  Blog posts are based on your interests
+                </p>
+              </>
             )}
           </div>
         )}
-
-        <p className="pt-1 text-right text-slate-400">
-          Blog posts are based on your interests
-        </p>
 
         <Posts />
       </div>

@@ -154,7 +154,11 @@ export default function PostComments({
         ) : (
           <div style={{ marginTop: " -1rem" }}>
             {showReplies && (
-              <div className="ml-4 border-l-2">
+              <div
+                className={`ml-4 border-l-2  ${
+                  mode === "dark" ? "border-l-stone-800" : ""
+                }`}
+              >
                 <div className="ml-3">
                   {replies?.map((reply) => (
                     <PostComments
