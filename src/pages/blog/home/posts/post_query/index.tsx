@@ -9,6 +9,9 @@ import PostLayout from "@/components/posts_layout";
 import Spinner from "@/components/spinners";
 import { getRelevantPosts } from "@/helpers/search.algorithm";
 import ServerError from "@/components/server_error";
+import { User } from "@/types/user";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 export default function PostSearch() {
   const queryString = useLocation().search;
@@ -16,6 +19,9 @@ export default function PostSearch() {
   const postQuery = queryParams.get("post_query");
   const navigate = useNavigate();
   const { mode } = useTheme()!;
+  const currentUser: User | null = useSelector<RootState, User | null>(
+    (state) => state.auth.user
+  );
 
   const queryFn = async (): Promise<PostData[]> => {
     return httpRequest.get("/posts").then((res) => {
@@ -34,7 +40,13 @@ export default function PostSearch() {
   if (isLoading) return <Spinner />;
   if (error) return <ServerError />;
 
-  const postSearchResults = getRelevantPosts(posts, postQuery);
+  const userSpecificPosts = (posts ?? []).filter((p: PostData) =>
+    p.categories.some((category: string) =>
+      currentUser?.interests.includes(category)
+    )
+  );
+
+  const postSearchResults = getRelevantPosts(userSpecificPosts, postQuery);
 
   return (
     <section className={styles["post__details"]}>
@@ -59,7 +71,7 @@ export default function PostSearch() {
           postSearchResults.length !== 0 && mode === "dark"
             ? "postBorderBDark"
             : "postBorderBLight"
-        } `}
+        } h-[100vh] `}
       >
         <h2 className="mb-3 block pt-4 text-center text-xl font-medium">
           Post result(s) for keyword:{" "}

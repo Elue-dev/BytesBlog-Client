@@ -10,19 +10,19 @@ export default function RelatedPosts({ similarPosts }: RelatedPostsProps) {
 
   return (
     <div className={styles["right__quarter"]}>
-      <h2 className="pb-8 pt-12 text-2xl font-semibold lg:pt-0">
-        Related Posts
+      <h2 className="pb-8 pt-12 text-2xl font-semibold underline lg:pt-0">
+        Some Related Posts
       </h2>
       {similarPosts.length === 0 ? (
         <p>
-          No similar posts found.{" "}
+          No related posts found.{" "}
           <Link to="/blog" className="underline">
             View All Posts
           </Link>
         </p>
       ) : (
         <>
-          {similarPosts.map((post) => (
+          {similarPosts.slice(0, 3).map((post) => (
             <div
               key={post.id}
               className="mb-4 flex flex-col-reverse items-center justify-center gap-4 lg:flex-row"
@@ -60,14 +60,14 @@ export default function RelatedPosts({ similarPosts }: RelatedPostsProps) {
                         alt={post.author?.firstName}
                         className="h-11 w-11 rounded-full object-cover"
                       />
-                      <p>
+                      <p className="text-gray-600">
                         {post.author?.firstName + " " + post?.author.lastName}
                       </p>
                     </>
                   )}
                 </div>
                 <div>
-                  <h4 className="text-1xl max-w-xs pt-1 font-semibold lg:pt-0">
+                  <h4 className="text-1xl max-w-xs pt-1 font-semibold text-gray-800 lg:pt-0">
                     {post.title}
                   </h4>
                 </div>
