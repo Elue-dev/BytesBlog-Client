@@ -292,11 +292,13 @@ export default function PostDetails() {
                   </div>
                 </div>
                 <div className="flex items-center justify-center gap-6 pt-4 sm:justify-start sm:gap-3 sm:pt-0">
-                  <div>
-                    <Link to="/blog/write?action=edit" state={post}>
-                      <FiEdit size={23} color="#666" />
-                    </Link>
-                  </div>
+                  {currentUser?.id === post.authorId && (
+                    <div>
+                      <Link to="/blog/write?action=edit" state={post}>
+                        <FiEdit size={23} color="#666" />
+                      </Link>
+                    </div>
+                  )}
                   <LinkedInButton url={socialURL} title={post.title}>
                     <img
                       src={linkedin}

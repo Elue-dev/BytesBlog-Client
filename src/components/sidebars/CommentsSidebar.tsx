@@ -19,8 +19,6 @@ export default function CommentsSidebar({
   const commentInputRef = useRef<HTMLTextAreaElement>(null);
   const { mode } = useTheme()!;
 
-  console.log({ SB: authorEmail });
-
   useEffect(() => {
     if (showInput) {
       commentInputRef.current?.focus();
