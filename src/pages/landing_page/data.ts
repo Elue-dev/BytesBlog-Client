@@ -13,13 +13,13 @@ export const offers: Offers[] = [
     icon: "discussion.svg",
     heading: "Interactive Discussions",
     description:
-      "Engage in lively and interactive discussions on our BytesBlog. Share your thoughts, exchange ideas, and connect with like-minded individuals",
+      "Engage in lively and interactive discussions on BytesBlog. Share your thoughts, exchange ideas, and connect with like-minded individuals",
   },
   {
     id: 3,
     icon: "sConn.svg",
     heading: "Social Connectivity",
     description:
-      "Experience a new level of social connectivity on our BytesBlog. Connect with fellow users, build meaningful relationships, and expand your network",
+      "Experience a new level of social connectivity on BytesBlog. Connect with fellow users, build meaningful relationships, and expand your network",
   },
 ];
