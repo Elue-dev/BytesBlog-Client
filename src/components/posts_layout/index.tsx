@@ -136,7 +136,11 @@ export default function PostLayout({ filteredPosts, post }: PostsLayout) {
           <div className="w-full sm:w-1/2 md:w-full">
             <div className="header">
               <div className="flex flex-col items-center justify-between pb-3 sm:flex-row">
-                <div className="flex items-center justify-start gap-2">
+                <Link
+                  to={`/user_profile/${post.authorId}`}
+                  state={post.author}
+                  className="flex items-center justify-start gap-2"
+                >
                   {post.author?.avatar === "" ? (
                     <>
                       <div
@@ -177,7 +181,7 @@ export default function PostLayout({ filteredPosts, post }: PostsLayout) {
                       </p>
                     </>
                   )}
-                </div>
+                </Link>
                 <div className="flex items-center justify-start gap-2 text-slate-500">
                   <BiTimeFive />
                   <span> {post.readTime} mins read</span>

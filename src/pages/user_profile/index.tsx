@@ -113,14 +113,15 @@ export default function UserProfile() {
       </div>
       <hr className={`${mode === "dark" && "border border-zinc-900"} `} />
 
-      <div>
-        <h2 className="my-3 text-2xl font-semibold">
+      <div className="pb-6">
+        <h2 className="mb-3 mt-6 text-2xl font-semibold">
           Posts added by {user.firstName} ({user.posts?.length})
         </h2>
+        <hr className={`${mode === "dark" && "border border-zinc-900"} `} />
         {user.posts.length === 0 ? (
           <p> {user.firstName} has not added any posts to BytesBlog yet</p>
         ) : (
-          <>
+          <div className="mt-3">
             {user.posts?.map((post: any) => (
               <Link
                 key={post?.id}
@@ -133,9 +134,11 @@ export default function UserProfile() {
                   className="h-48 w-full rounded-lg object-cover lg:mWidth"
                 />
                 <div>
-                  <h2 className="text-xl font-semibold">{post.title}</h2>
+                  <h2 className="text-base font-semibold text-gray-700">
+                    {post.title}
+                  </h2>
                   <p className="pt-2 text-grayNeutral">
-                    {parseText(post.content?.slice(0, 130))}...
+                    {parseText(post.content?.slice(0, 50))}...
                   </p>
                   <div className="flex items-center justify-between pt-2 text-gray600">
                     <p>{moment(post?.createdAt).fromNow()}</p>
@@ -147,7 +150,7 @@ export default function UserProfile() {
                 </div>
               </Link>
             ))}
-          </>
+          </div>
         )}
       </div>
     </section>

@@ -14,6 +14,7 @@ import { useAlert } from "@/context/useAlert";
 import { User } from "@/types/user";
 import { RootState } from "@/redux/store";
 import ServerError from "@/components/server_error";
+import { useTheme } from "@/context/useTheme";
 
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -21,6 +22,7 @@ export default function Blog() {
   const modifiedCategories = ["All", ...categories];
   const filteredPosts = useSelector(selectFilteredPosts);
   const userSpecificPosts = useRef<PostData[] | undefined>();
+  const { mode } = useTheme()!;
 
   const currentUser: User | null = useSelector<RootState, User | null>(
     (state) => state.auth.user
@@ -91,7 +93,9 @@ export default function Blog() {
           />
           <button
             onClick={initiateSearchAction}
-            className="bg-black text-xl font-bold text-white"
+            className={`text-xl font-bold text-white ${
+              mode === "dark" ? "bg-primaryColorHover" : "bg-black"
+            }`}
           >
             <BiSearchAlt2 />
           </button>

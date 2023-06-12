@@ -68,10 +68,12 @@ export default function PostSearch() {
 
       <div
         className={`${
-          postSearchResults.length !== 0 && mode === "dark"
+          postSearchResults.length === 0
+            ? "h-[100vh]"
+            : postSearchResults.length !== 0 && mode === "dark"
             ? "postBorderBDark"
-            : "postBorderBLight"
-        } h-[100vh] `}
+            : " postBorderBLight"
+        }  `}
       >
         <h2 className="mb-3 block pt-4 text-center text-xl font-medium">
           Post result(s) for keyword:{" "}
