@@ -6,20 +6,20 @@ export const offers: Offers[] = [
     icon: "iContent.svg",
     heading: "Informative Content",
     description:
-      "Connect with curious minds, tell your story and share your knowledge even just the way you want",
+      "From expert advice to insightful articles, expand your knowledge and stay informed. Join our community and dive into a world of valuable information",
   },
   {
     id: 2,
     icon: "discussion.svg",
     heading: "Interactive Discussions",
     description:
-      "Connect with curious minds, tell your story and share your knowledge even just the way you want",
+      "Engage in lively and interactive discussions on our blog application. Share your thoughts, exchange ideas, and connect with like-minded individuals",
   },
   {
     id: 3,
     icon: "sConn.svg",
     heading: "Social Connectivity",
     description:
-      "Connect with curious minds, tell your story and share your knowledge even just the way you want",
+      "Experience a new level of social connectivity on our blog application. Connect with fellow users, build meaningful relationships, and expand your network",
   },
 ];
