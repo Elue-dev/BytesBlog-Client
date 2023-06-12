@@ -329,11 +329,13 @@ export default function PostDetails() {
               <h1 className="pb-6 pt-10 text-2xl font-semibold sm:text-4xl">
                 {post?.title}
               </h1>
-              <img
-                src={post?.image}
-                alt={post?.title}
-                className="h-auto w-full rounded-lg object-cover"
-              />
+              <a href={post.image}>
+                <img
+                  src={post?.image}
+                  alt={post?.title}
+                  className="h-auto w-full rounded-lg object-cover"
+                />
+              </a>
               <article className="text-break pt-8 leading-8 text-grayNeutral">
                 <PostContent content={post?.content} />
               </article>

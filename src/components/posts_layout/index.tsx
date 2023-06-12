@@ -125,11 +125,13 @@ export default function PostLayout({ filteredPosts, post }: PostsLayout) {
           }`}
         >
           <div className="w-full sm:w-1/2 md:w-full">
-            <img
-              src={post.image}
-              alt={post.title}
-              className="h-72 w-full rounded-md bg-primaryColorLight object-cover sm:h-96"
-            />
+            <a href={post.image}>
+              <img
+                src={post.image}
+                alt={post.title}
+                className="h-72 w-full rounded-md bg-primaryColorLight object-cover sm:h-96"
+              />
+            </a>
           </div>
           <div className="w-full sm:w-1/2 md:w-full">
             <div className="header">
