@@ -14,7 +14,8 @@ import { Link } from "react-router-dom";
 import { BiTimeFive } from "react-icons/bi";
 import bookmarkActive from "@/assets/bookmarkActive.svg";
 import bookmarkInactive from "@/assets/bookmarkInactive.svg";
-import likeDark from "@/assets/likeDark.svg";
+import likeDarkInactive from "@/assets/likeDarkInactive.svg";
+import likedarkLatest from "@/assets/likedarkLatest.svg";
 import bookmarkActiveDark from "@/assets/bookmarkActiveDark.svg";
 import bookmarkInactiveDark from "@/assets/bookmarkInactiveDark.svg";
 import likeInactive from "@/assets/likeInactive.svg";
@@ -184,7 +185,7 @@ export default function PostLayout({ filteredPosts, post }: PostsLayout) {
               <div className="content">
                 <h1 className="pb-2 pt-3 text-3xl font-bold">{post.title}</h1>
                 <article className="leading-8 text-grayNeutral">
-                  {parseText(post.content.substring(0, 300))}...
+                  {parseText(post.content.substring(0, 170))}...
                 </article>
 
                 <Link
@@ -198,7 +199,11 @@ export default function PostLayout({ filteredPosts, post }: PostsLayout) {
                   <div className="flex items-center justify-start gap-2 text-gray500">
                     {mode === "dark" ? (
                       <img
-                        src={likeDark}
+                        src={
+                          userHasLikedPost(post.likes)
+                            ? likeDarkInactive
+                            : likedarkLatest
+                        }
                         alt="like/dislike post"
                         className={`${
                           isLiked ? "pop-in-animation" : ""

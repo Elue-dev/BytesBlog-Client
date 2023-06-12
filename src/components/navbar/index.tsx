@@ -4,6 +4,7 @@ import bytesLogoDark from "@/assets/bytesLogoDark.svg";
 import profileIcon from "@/assets/profileIcon.svg";
 import profileDark from "@/assets/profileDark.svg";
 import interestsIcon from "@/assets/interestsIcon.svg";
+import interestsDark from "@/assets/interestsDark.svg";
 import Button from "../button";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { BsVectorPen } from "react-icons/bs";
@@ -33,6 +34,7 @@ export default function Navbar() {
   );
   const dispatch = useDispatch();
   const { userId } = useParams();
+  const { mode } = useTheme()!;
 
   let initials;
   if (currentUser)
@@ -61,8 +63,6 @@ export default function Navbar() {
     dispatch(REMOVE_ACTIVE_USER());
     setShowDropdown(false);
   };
-
-  const { mode } = useTheme()!;
 
   if (pathname.includes("auth")) return null;
 
@@ -194,7 +194,10 @@ export default function Navbar() {
                         }}
                         className="mb-3 flex cursor-pointer items-center justify-start gap-3"
                       >
-                        <img src={interestsIcon} alt="manage interests" />
+                        <img
+                          src={mode === "dark" ? interestsDark : interestsIcon}
+                          alt="manage interests"
+                        />
                         <span
                           className={
                             mode === "dark" ? "text-lightGray" : "text-dark"

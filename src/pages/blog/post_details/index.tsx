@@ -1,7 +1,8 @@
 import { BiTimeFive } from "react-icons/bi";
 import likeInactive from "@/assets/likeInactive.svg";
 import likeActive from "@/assets/likeActive.svg";
-import likeDark from "@/assets/likeDark.svg";
+import likeDarkInactive from "@/assets/likeDarkInactive.svg";
+import likedarkLatest from "@/assets/likedarkLatest.svg";
 import commentIcon from "@/assets/commentIcon.svg";
 import commentDark from "@/assets/commentDark.svg";
 import bookmarkInactive from "@/assets/bookmarkInactive.svg";
@@ -354,7 +355,11 @@ export default function PostDetails() {
                 <div className="flex cursor-pointer items-center justify-start gap-2">
                   {mode === "dark" ? (
                     <img
-                      src={likeDark}
+                      src={
+                        userHasLikedPost(post.likes)
+                          ? likeDarkInactive
+                          : likedarkLatest
+                      }
                       alt="like/dislike post"
                       className={`${
                         isLiked ? "pop-in-animation" : ""
