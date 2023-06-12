@@ -34,12 +34,12 @@ export default function StepOne({
   const { done, setDone } = useAlert()!;
 
   useEffect(() => {
-    if (!content) {
+    if (!content && action === "edit")
       revealAlert(
         "If post content fails to show, click on 'next' button  and return back",
         "warning"
       );
-    }
+
     switch (action) {
       case "new":
         break;

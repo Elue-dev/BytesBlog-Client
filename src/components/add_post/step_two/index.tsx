@@ -77,6 +77,7 @@ export default function StepTwo({
     },
     {
       onSuccess: () => {
+        setLoading(false);
         queryClient.invalidateQueries(["posts"]);
       },
       onError: () => {
