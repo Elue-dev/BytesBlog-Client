@@ -45,6 +45,8 @@ export default function PostComments({
     (state) => state.auth.user
   );
 
+  console.log({ authorEmail });
+
   const getReplies = (commentId: string) => {
     return allComments?.filter((comment) => comment.parentId === commentId);
   };

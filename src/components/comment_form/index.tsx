@@ -23,6 +23,8 @@ export default function CommentForm({
   const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(false);
 
+  console.log({ authorEmail });
+
   const commentInputRef = useRef<HTMLTextAreaElement>(null);
   const { revealAlert } = useAlert()!;
   const { postId, slug } = useParams();

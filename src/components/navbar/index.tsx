@@ -1,6 +1,8 @@
 import styles from "./navbar.module.scss";
 import byteslogo from "@/assets/bytesLogo.svg";
+import bytesLogoDark from "@/assets/bytesLogoDark.svg";
 import profileIcon from "@/assets/profileIcon.svg";
+import profileDark from "@/assets/profileDark.svg";
 import interestsIcon from "@/assets/interestsIcon.svg";
 import Button from "../button";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
@@ -73,13 +75,24 @@ export default function Navbar() {
     >
       <div className={styles.navbar}>
         <div className="flex items-center justify-between">
-          <Link to="/">
-            <img
-              src={byteslogo}
-              alt="BytesBlog Logo"
-              className="h-9 sm:h-auto"
-            />
-          </Link>
+          {mode === "dark" ? (
+            <Link to="/">
+              <img
+                src={bytesLogoDark}
+                alt="BytesBlog Logo"
+                className="h-9 sm:h-auto"
+              />
+            </Link>
+          ) : (
+            <Link to="/">
+              <img
+                src={byteslogo}
+                alt="BytesBlog Logo"
+                className="h-9 sm:h-auto"
+              />
+            </Link>
+          )}
+
           <div>
             {isLoggedIn ? (
               <div className="flex items-center justify-start gap-0 sm:gap-1">
@@ -125,7 +138,7 @@ export default function Navbar() {
                 {showDropdown ? (
                   <div
                     className={`absolute right-2 top-9 z-10 mx-4 my-8 w-60 rounded-sm ${
-                      mode === "dark" ? "bg-black" : "bg-white"
+                      mode === "dark" ? "bg-blackNeutral" : "bg-white"
                     } p-5 shadow-lg sm:right-auto sm:top-12`}
                   >
                     <div className="py-5 leading-10 text-gray500">
@@ -154,7 +167,16 @@ export default function Navbar() {
                           }}
                           className="flex cursor-pointer items-center justify-start gap-3"
                         >
-                          <img src={profileIcon} alt="profile" />
+                          {mode === "dark" ? (
+                            <img
+                              src={profileDark}
+                              alt="profile"
+                              className="h-6"
+                            />
+                          ) : (
+                            <img src={profileIcon} alt="profile" />
+                          )}
+
                           <span
                             className={
                               mode === "dark" ? "text-lightGray" : "text-dark"

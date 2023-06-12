@@ -1,9 +1,13 @@
 import { BiTimeFive } from "react-icons/bi";
 import likeInactive from "@/assets/likeInactive.svg";
 import likeActive from "@/assets/likeActive.svg";
+import likeDark from "@/assets/likeDark.svg";
 import commentIcon from "@/assets/commentIcon.svg";
+import commentDark from "@/assets/commentDark.svg";
 import bookmarkInactive from "@/assets/bookmarkInactive.svg";
 import bookmarkActive from "@/assets/bookmarkActive.svg";
+import bookmarkActiveDark from "@/assets/bookmarkActiveDark.svg";
+import bookmarkInactiveDark from "@/assets/bookmarkInactiveDark.svg";
 import linkIcon from "@/assets/linkIcon.svg";
 import linkedin from "@/assets/linkedin.svg";
 import facebook from "@/assets/facebook.svg";
@@ -348,16 +352,28 @@ export default function PostDetails() {
 
               <div className="flex gap-6 pb-10 pt-4 lg:pb-0">
                 <div className="flex cursor-pointer items-center justify-start gap-2">
-                  <img
-                    src={
-                      userHasLikedPost(post.likes) ? likeActive : likeInactive
-                    }
-                    alt="like/dislike post"
-                    className={`${
-                      isLiked ? "pop-in-animation" : ""
-                    } cursor-pointer text-gray500`}
-                    onClick={() => likeDislikePost(post.id)}
-                  />
+                  {mode === "dark" ? (
+                    <img
+                      src={likeDark}
+                      alt="like/dislike post"
+                      className={`${
+                        isLiked ? "pop-in-animation" : ""
+                      } cursor-pointer text-gray500`}
+                      onClick={() => likeDislikePost(post.id)}
+                    />
+                  ) : (
+                    <img
+                      src={
+                        userHasLikedPost(post.likes) ? likeActive : likeInactive
+                      }
+                      alt="like/dislike post"
+                      className={`${
+                        isLiked ? "pop-in-animation" : ""
+                      } cursor-pointer text-gray500`}
+                      onClick={() => likeDislikePost(post.id)}
+                    />
+                  )}
+
                   <span
                     className="underline"
                     onClick={() => setShowLikes(true)}
@@ -369,22 +385,41 @@ export default function PostDetails() {
                   className="flex cursor-pointer items-center justify-start gap-2"
                   onClick={() => setShowSidebar(true)}
                 >
-                  <img src={commentIcon} alt="comment on post" />
+                  <img
+                    src={mode === "dark" ? commentDark : commentIcon}
+                    alt="comment on post"
+                  />
                   <span>{postComments?.length}</span>
                 </div>
                 <div className="flex cursor-pointer items-center justify-start gap-2">
-                  <img
-                    src={
-                      userHasBookmarkedPost(post.bookmarks)
-                        ? bookmarkActive
-                        : bookmarkInactive
-                    }
-                    alt="bookmark post"
-                    className={`${
-                      isBookmarked ? "pop-in-animation" : ""
-                    } cursor-pointer text-gray500`}
-                    onClick={() => addRemoveBookmark(post.id)}
-                  />
+                  {mode === "dark" ? (
+                    <img
+                      src={
+                        userHasBookmarkedPost(post.bookmarks)
+                          ? bookmarkActiveDark
+                          : bookmarkInactiveDark
+                      }
+                      alt="bookmark post"
+                      className={`${
+                        isBookmarked ? "pop-in-animation" : ""
+                      } cursor-pointer text-gray500`}
+                      onClick={() => addRemoveBookmark(post.id)}
+                    />
+                  ) : (
+                    <img
+                      src={
+                        userHasBookmarkedPost(post.bookmarks)
+                          ? bookmarkActive
+                          : bookmarkInactive
+                      }
+                      alt="bookmark post"
+                      className={`${
+                        isBookmarked ? "pop-in-animation" : ""
+                      } cursor-pointer text-gray500`}
+                      onClick={() => addRemoveBookmark(post.id)}
+                    />
+                  )}
+
                   <span>{post.bookmarks.length}</span>
                 </div>
               </div>

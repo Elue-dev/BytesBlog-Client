@@ -41,7 +41,7 @@ export default function ForgotPassword() {
           setEmail("");
           response.data.withGoogle
             ? revealModal(
-                "You registered this account with google, An email has been sent to create a password",
+                "You registered this account with google, An email has been sent to create a password. Please ensure to check your spam folder, Click on 'Report as not spam' so you can keep get our emails in your inbox",
                 "/auth/sign-in",
                 "warning"
               )

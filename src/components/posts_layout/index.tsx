@@ -14,7 +14,9 @@ import { Link } from "react-router-dom";
 import { BiTimeFive } from "react-icons/bi";
 import bookmarkActive from "@/assets/bookmarkActive.svg";
 import bookmarkInactive from "@/assets/bookmarkInactive.svg";
-import shareIcon from "@/assets/shareIcon.svg";
+import likeDark from "@/assets/likeDark.svg";
+import bookmarkActiveDark from "@/assets/bookmarkActiveDark.svg";
+import bookmarkInactiveDark from "@/assets/bookmarkInactiveDark.svg";
 import likeInactive from "@/assets/likeInactive.svg";
 import likeActive from "@/assets/likeActive.svg";
 
@@ -125,7 +127,7 @@ export default function PostLayout({ filteredPosts, post }: PostsLayout) {
             <img
               src={post.image}
               alt={post.title}
-              className="h-72 w-full rounded-md bg-primaryColorLight object-cover"
+              className="h-72 w-full rounded-md bg-primaryColorLight object-cover sm:h-96"
             />
           </div>
           <div className="w-full sm:w-1/2 md:w-full">
@@ -194,17 +196,34 @@ export default function PostLayout({ filteredPosts, post }: PostsLayout) {
 
                 <div className="flex items-center justify-between py-3">
                   <div className="flex items-center justify-start gap-2 text-gray500">
-                    <img
-                      src={
-                        userHasLikedPost(post.likes) ? likeActive : likeInactive
+                    {mode === "dark" ? (
+                      <img
+                        src={likeDark}
+                        alt="like/dislike post"
+                        className={`${
+                          isLiked ? "pop-in-animation" : ""
+                        } cursor-pointer text-gray500`}
+                        onClick={() => likeDislikePost(post.id)}
+                      />
+                    ) : (
+                      <img
+                        src={
+                          userHasLikedPost(post.likes)
+                            ? likeActive
+                            : likeInactive
+                        }
+                        alt="like/dislike post"
+                        className={`${
+                          isLiked ? "pop-in-animation" : ""
+                        } cursor-pointer text-gray500`}
+                        onClick={() => likeDislikePost(post.id)}
+                      />
+                    )}
+                    <span
+                      className={
+                        mode === "dark" ? "text-slate-200" : "text-dark"
                       }
-                      alt="like/dislike post"
-                      onClick={() => likeDislikePost(post.id)}
-                      className={`${
-                        isLiked ? "pop-in-animation" : ""
-                      } cursor-pointer text-gray500`}
-                    />
-                    <span>
+                    >
                       {post.likes?.length}{" "}
                       {post.likes?.length > 1
                         ? "likes"
@@ -214,19 +233,45 @@ export default function PostLayout({ filteredPosts, post }: PostsLayout) {
                     </span>
                   </div>
                   <div className="flex gap-2">
-                    <img
-                      src={
-                        userHasBookmarkedPost(post.bookmarks)
-                          ? bookmarkActive
-                          : bookmarkInactive
+                    {mode === "dark" ? (
+                      <img
+                        src={
+                          userHasBookmarkedPost(post.bookmarks)
+                            ? bookmarkActiveDark
+                            : bookmarkInactiveDark
+                        }
+                        alt="bookmark post"
+                        className={`${
+                          isBookmarked ? "pop-in-animation" : ""
+                        } cursor-pointer text-gray500`}
+                        onClick={() => addRemoveBookmark(post.id)}
+                      />
+                    ) : (
+                      <img
+                        src={
+                          userHasBookmarkedPost(post.bookmarks)
+                            ? bookmarkActive
+                            : bookmarkInactive
+                        }
+                        alt="bookmark post"
+                        className={`${
+                          isBookmarked ? "pop-in-animation" : ""
+                        } cursor-pointer text-gray500`}
+                        onClick={() => addRemoveBookmark(post.id)}
+                      />
+                    )}
+                    <span
+                      className={
+                        mode === "dark" ? "text-slate-200" : "text-dark"
                       }
-                      alt="bookmark"
-                      className={`${
-                        isBookmarked ? "pop-in-animation" : ""
-                      } cursor-pointer text-gray500`}
-                      onClick={() => addRemoveBookmark(post.id)}
-                    />
-                    <img src={shareIcon} alt="share" />
+                    >
+                      {post.bookmarks?.length}{" "}
+                      {post.bookmarks?.length > 1
+                        ? "bookmarks"
+                        : post.bookmarks?.length === 0
+                        ? "bookmarks"
+                        : "bookmark"}
+                    </span>
                   </div>
                 </div>
               </div>

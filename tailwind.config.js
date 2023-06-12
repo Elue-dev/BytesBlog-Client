@@ -58,10 +58,10 @@ export default {
           borderRight: "0.5px solid #e5e7eb",
         },
         ".postBorderBDark": {
-          borderBottom: "0.5px solid #232323",
+          borderBottom: "0.1px solid #232323",
         },
         ".postBorderBLight": {
-          borderBottom: "0.5px solid #e5e7eb",
+          borderBottom: "0.1px solid #e5e7eb",
         },
         ".postBorderLDark": {
           color: "0.5px solid #232323",

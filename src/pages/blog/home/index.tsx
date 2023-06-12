@@ -144,7 +144,7 @@ export default function Blog() {
           </div>
         )}
 
-        <Posts />
+        <Posts selectedCategory={selectedCategory} />
       </div>
       <div
         className={`${styles["posts__footer"]} mt-10 h-20 w-full bg-primaryColorLight`}

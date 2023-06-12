@@ -16,6 +16,17 @@
       height: 229px;
     }
 
+    // &::after {
+    //   position: absolute;
+    //   content: "";
+    //   top: 0;
+    //   left: 0;
+    //   width: 100%;
+    //   height: 100%;
+    //   background: #000;
+    //   opacity: 0.1;
+    // }
+
     h2 {
       @include centerItem();
       font-size: 56px;
