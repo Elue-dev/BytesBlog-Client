@@ -165,9 +165,9 @@ export default function SignUpForm({
             Create Account
           </h1>
 
-          <Button className="mb-4 mt-6 flex w-full items-center justify-center gap-3 rounded-lg border border-lightGray bg-white p-3 hover:bg-grayLight">
+          <Button onClick={signInWithGoogle} className="mb-4 mt-6 flex w-full items-center justify-center gap-3 rounded-lg border border-lightGray bg-white p-3 hover:bg-grayLight">
             <FcGoogle className="text-2xl" />
-            <span onClick={signInWithGoogle} className="font-normal text-black">
+            <span className="font-normal text-black">
               Continue With Google
             </span>
           </Button>
