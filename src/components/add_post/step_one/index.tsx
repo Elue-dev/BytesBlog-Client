@@ -8,6 +8,8 @@ import Button from "@/components/button";
 import { useAlert } from "@/context/useAlert";
 import { StepOneprops } from "@/types/posts";
 import { useLocation } from "react-router-dom";
+import "primereact/resources/themes/lara-light-indigo/theme.css";
+import "primereact/resources/primereact.min.css";
 
 export default function StepOne({
   values,
@@ -25,33 +27,50 @@ export default function StepOne({
   const state = useLocation().state;
 
   const { title } = values;
-  const context = useAlert();
+  const { revealAlert } = useAlert()!;
   const queryString = useLocation().search;
   const queryParams = new URLSearchParams(queryString);
   const action = queryParams.get("action");
+  const { done, setDone } = useAlert()!;
 
   useEffect(() => {
+    if (!content) {
+      revealAlert(
+        "If post content fails to show, click on 'next' button  and return back",
+        "warning"
+      );
+    }
     switch (action) {
       case "new":
         break;
       case "edit":
-        setValues({
-          title: state.title,
-          readTime: state.readTime,
-        });
-        setImage(state.image);
-        setImagePreview(state.image);
-        setContent(state.content || "");
+        !done &&
+          setValues({
+            title: state.title,
+            readTime: state.readTime,
+          });
+        !done && setImage(state.image);
+        !done && setImagePreview(state.image);
+        !done && setContent(state.content || "");
+        !done && setDone(true);
         break;
       default:
         "";
     }
-  }, [action, state, setImage, setContent, setImagePreview, setValues]);
-
-  const { revealAlert, closeAlert } = context!;
+  }, [
+    action,
+    state,
+    content,
+    setImage,
+    setContent,
+    setImagePreview,
+    setValues,
+    revealAlert,
+    done,
+    setDone,
+  ]);
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    closeAlert();
     const file = e.target.files?.[0];
     if (file && !["image/png", "image/jpeg"].includes(file.type))
       return revealAlert("Only JPG and PNG images are acceptable", "error");
@@ -60,7 +79,6 @@ export default function StepOne({
   };
 
   const handleNextStep = () => {
-    closeAlert();
     const fields: { [key: string]: string | File | undefined } = {
       title,
       image,

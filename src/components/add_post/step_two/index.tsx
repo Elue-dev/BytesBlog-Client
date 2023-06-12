@@ -38,8 +38,8 @@ export default function StepTwo({
     (state) => state.auth.user
   );
   const { readTime, title } = values;
-  const context = useModal();
-  const alertContext = useAlert();
+  const { revealModal } = useModal()!;
+  const { revealAlert, setDone } = useAlert()!;
 
   const manageArray = useCallback(() => {
     const cNames: string[] = [];
@@ -99,9 +99,6 @@ export default function StepTwo({
       },
     }
   );
-
-  const { revealModal } = context!;
-  const { revealAlert } = alertContext!;
 
   const publishPost = async () => {
     const convertReadTime = parseInt(readTime);
@@ -167,12 +164,12 @@ export default function StepTwo({
         readTime: parseInt(readTime),
       };
       const response = await editMutation.mutateAsync(postData);
-      if (response)
-        revealModal(
-          `Your post has been updated successfully`,
-          "/blog",
-          "success"
-        );
+      if (response) setDone(false);
+      revealModal(
+        `Your post has been updated successfully`,
+        `/blog/post/${state.slug}/${state.id}`,
+        "success"
+      );
       setValues(initialValues);
     } catch (error: any) {
       setLoading(false);

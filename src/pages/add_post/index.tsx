@@ -47,6 +47,7 @@ export default function AddPost() {
           setImagePreview={setImagePreview}
           handleInputChange={handleInputChange}
           nextStep={nextStep}
+          previousStep={previousStep}
         />
       );
     case 2:

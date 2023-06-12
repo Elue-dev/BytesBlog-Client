@@ -26,7 +26,6 @@ import { FiEdit } from "react-icons/fi";
 import { getUserInitials } from "@/helpers/user.initials";
 import styles from "./post.details.module.scss";
 import Spinner from "@/components/spinners";
-import { parseText } from "@/utils/utils";
 import LikesSidebar from "@/components/sidebars/LikesSidebar";
 import { FacebookButton, LinkedInButton } from "react-social";
 
@@ -101,9 +100,6 @@ export default function PostDetails() {
         queryClient.invalidateQueries([`posts`]);
         queryClient.invalidateQueries([`post-${slug}`]);
       },
-      onError: (err) => {
-        console.log({ err });
-      },
     }
   );
 
@@ -120,9 +116,6 @@ export default function PostDetails() {
         queryClient.invalidateQueries([`posts`]);
         queryClient.invalidateQueries([`post-${slug}`]);
         queryClient.invalidateQueries([`bookmarks`]);
-      },
-      onError: (err) => {
-        console.log({ err });
       },
     }
   );
@@ -184,19 +177,17 @@ export default function PostDetails() {
     }
   };
 
-  const copyContentToClipboard = async (postContent: string) => {
-    try {
-      await navigator.clipboard.writeText(parseText(postContent) || "");
-      revealAlert(
-        "Post content copied to clipboard, paste in editor and format properly",
-        "info"
-      );
-    } catch (error) {
-      console.error("Failed to copy URL to clipboard:", error);
-    }
-  };
-
-  console.log({ post });
+  // const copyContentToClipboard = async (postContent: string) => {
+  //   try {
+  //     await navigator.clipboard.writeText(parseText(postContent) || "");
+  //     revealAlert(
+  //       "Post content copied to clipboard, paste in editor and format properly",
+  //       "info"
+  //     );
+  //   } catch (error) {
+  //     console.error("Failed to copy URL to clipboard:", error);
+  //   }
+  // };
 
   return (
     <section className={styles["post__details"]}>
@@ -296,7 +287,7 @@ export default function PostDetails() {
                   </div>
                 </div>
                 <div className="flex items-center justify-center gap-6 pt-4 sm:justify-start sm:gap-3 sm:pt-0">
-                  <div onClick={() => copyContentToClipboard(post.content)}>
+                  <div>
                     <Link to="/blog/write?action=edit" state={post}>
                       <FiEdit size={23} color="#666" />
                     </Link>

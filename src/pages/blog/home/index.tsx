@@ -49,8 +49,6 @@ export default function Blog() {
     );
   }, [dispatch, posts]);
 
-  console.log({ posts });
-
   useEffect(() => {
     userSpecificPosts.current = (posts ?? []).filter((p: PostData) =>
       p.categories.some((category: string) =>

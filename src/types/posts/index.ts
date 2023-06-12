@@ -93,6 +93,7 @@ export interface StepOneprops {
   setImagePreview: Dispatch<SetStateAction<string | undefined>>;
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
   nextStep?: () => void;
+  previousStep?: () => void;
 }
 
 export interface StepTwoProps {

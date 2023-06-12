@@ -6,6 +6,8 @@ export interface AlertProviderProps {
 
 export interface AlertContextProps {
   showAlert: boolean;
+  done: boolean;
+  setDone: Dispatch<SetStateAction<boolean>>;
   severity: "success" | "info" | "warn" | "error" | undefined;
   setSeverity: Dispatch<SetStateAction<AlertContextProps["severity"]>>;
   setShowAlert: Dispatch<SetStateAction<boolean>>;

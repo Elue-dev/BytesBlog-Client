@@ -20,7 +20,6 @@ export default function UserProfile() {
   const currentUser: User | null = useSelector<RootState, User | null>(
     (state) => state.auth.user
   );
-  console.log({ user });
 
   return (
     <section className={styles.profile}>

@@ -9,6 +9,7 @@ export const AlertProvider = ({ children }: AlertProviderProps) => {
     "success" | "info" | "warn" | "error" | undefined
   >("success");
   const [message, setMessage] = useState("");
+  const [done, setDone] = useState(false);
 
   const revealAlert = (
     message: string,
@@ -28,6 +29,8 @@ export const AlertProvider = ({ children }: AlertProviderProps) => {
   };
 
   const values = {
+    done,
+    setDone,
     showAlert,
     setShowAlert,
     closeAlert,
