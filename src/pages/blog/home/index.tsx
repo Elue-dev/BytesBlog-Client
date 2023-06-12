@@ -135,15 +135,13 @@ export default function Blog() {
                   {filteredPosts.length}{" "}
                   {filteredPosts.length === 1 ? "post" : "posts"} found
                 </span>
-
-                <p className="pt-1 text-right text-slate-400">
-                  Blog posts are based on your interests
-                </p>
               </>
             )}
           </div>
         )}
-
+        <p className="pt-1 text-right text-slate-400">
+          Blog posts are based on your interests
+        </p>
         <Posts selectedCategory={selectedCategory} />
       </div>
       <div

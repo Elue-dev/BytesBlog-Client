@@ -15,10 +15,14 @@ export const getRelevantPosts = (
       (post.author?.lastName + " " + post.author?.firstName)
         .toLowerCase()
         ?.includes(query!.toLowerCase()) ||
-      post.title
+      post?.title
         ?.toLowerCase()
         ?.includes(query!.split(" ")[0]?.toLowerCase()) ||
-      post.title?.toLowerCase()?.includes(query!.split(" ")[1]?.toLowerCase())
+      post?.title
+        ?.toLowerCase()
+        ?.includes(query!.split(" ")[1]?.toLowerCase()) ||
+      post?.categories?.includes(query!) ||
+      query!.split(" ").includes(post?.title)
   );
 
   return relevantPosts;

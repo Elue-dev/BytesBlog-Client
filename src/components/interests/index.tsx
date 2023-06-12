@@ -10,6 +10,7 @@ import { httpRequest } from "../../lib/index";
 import { SERVER_URL } from "@/utils/variables";
 import { ClipLoader } from "react-spinners";
 import { useTheme } from "@/context/useTheme";
+import { useNavigate } from "react-router-dom";
 
 export default function Interests({
   interests,
@@ -20,6 +21,7 @@ export default function Interests({
   setValues,
 }: InterestsProps) {
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const { mode } = useTheme()!;
   const { revealModal } = useModal()!;
   const { revealAlert } = useAlert()!;
@@ -36,8 +38,8 @@ export default function Interests({
   };
 
   const createUserAccount = async () => {
-    if (interests.length < 5)
-      return revealAlert("Interests must be at least 5", "error");
+    if (interests.length < 7)
+      return revealAlert("Interests must be at least 7", "error");
 
     const credentials = isGoogle
       ? {
@@ -71,11 +73,24 @@ export default function Interests({
         setInterests([]);
       }
     } catch (error: any) {
-      revealAlert(
-        error.response.data.message || "Something went wrong, Please try again",
-        "error"
-      );
       setLoading(false);
+      if (
+        error.response.data.message ===
+        "Account has been signed up with google, sign in instead"
+      ) {
+        revealAlert(
+          error.response.data.message ||
+            "Something went wrong, Please try again",
+          "error"
+        );
+        navigate("/auth/sign-in");
+      } else {
+        revealAlert(
+          error.response.data.message ||
+            "Something went wrong, Please try again",
+          "error"
+        );
+      }
     }
   };
 

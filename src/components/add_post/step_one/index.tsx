@@ -1,7 +1,7 @@
 import plusIcon from "@/assets/plusIcon.svg";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
-import { ChangeEvent, useEffect, useRef } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { Editor } from "primereact/editor";
 import styles from "./step.one.module.scss";
 import Button from "@/components/button";
@@ -29,30 +29,30 @@ export default function StepOne({
   const { title } = values;
   const { revealAlert } = useAlert()!;
   const queryString = useLocation().search;
+  const [showAlert, setShowAlert] = useState(false);
   const queryParams = new URLSearchParams(queryString);
   const action = queryParams.get("action");
   const { done, setDone } = useAlert()!;
+  const { pathname } = useLocation();
 
   useEffect(() => {
-    if (!content && action === "edit")
-      revealAlert(
-        "If post content fails to show, click on 'next' button  and return back",
-        "warning"
-      );
+    if (!content && action === "edit") setShowAlert(true);
 
     switch (action) {
       case "new":
         break;
       case "edit":
-        !done &&
+        if (!done) {
           setValues({
             title: state.title,
             readTime: state.readTime,
           });
-        !done && setImage(state.image);
-        !done && setImagePreview(state.image);
-        !done && setContent(state.content || "");
-        !done && setDone(true);
+          setImage(state.image);
+          setImagePreview(state.image);
+          setContent(state.content || "");
+          setDone(true);
+        }
+
         break;
       default:
         "";
@@ -69,6 +69,10 @@ export default function StepOne({
     done,
     setDone,
   ]);
+
+  useEffect(() => {
+    setDone(false);
+  }, [pathname, setDone]);
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -115,6 +119,11 @@ export default function StepOne({
 
   return (
     <>
+      {showAlert && (
+        <p className="text-center font-semibold text-red-500">
+          If post content fails to show, click on 'Next' button and return back
+        </p>
+      )}
       <section className="container max-w-lg p-0 pt-12 sm:pt-20">
         <div className="flex items-center justify-start gap-2">
           <img src={plusIcon} alt="title" className="h-6" />

@@ -33,6 +33,7 @@ import styles from "./post.details.module.scss";
 import Spinner from "@/components/spinners";
 import LikesSidebar from "@/components/sidebars/LikesSidebar";
 import { FacebookButton, LinkedInButton } from "react-social";
+import ServerError from "@/components/server_error";
 
 export default function PostDetails() {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -170,7 +171,7 @@ export default function PostDetails() {
   );
 
   if (isLoading || !post || loading) return <Spinner />;
-  if (error || err) return <h1>Something went wrong.</h1>;
+  if (error || err) return <ServerError />;
 
   const copyURLToClipboard = async () => {
     const currentURL = window.location.href;
