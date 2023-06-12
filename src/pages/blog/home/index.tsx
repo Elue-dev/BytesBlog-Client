@@ -130,7 +130,7 @@ export default function Blog() {
 
             {filteredPosts.length !== 0 && (
               <>
-                <span className="mb-3 mt-2 block text-xl font-thin italic">
+                <span className="mb-3 mt-2 block text-xl font-thin">
                   {" "}
                   {filteredPosts.length}{" "}
                   {filteredPosts.length === 1 ? "post" : "posts"} found
