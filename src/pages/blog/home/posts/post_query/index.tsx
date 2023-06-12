@@ -7,6 +7,8 @@ import { useTheme } from "@/context/useTheme";
 import { IoChevronBackCircleOutline } from "react-icons/io5";
 import PostLayout from "@/components/posts_layout";
 import Spinner from "@/components/spinners";
+import { getRelevantPosts } from "@/helpers/search.algorithm";
+import ServerError from "@/components/server_error";
 
 export default function PostSearch() {
   const queryString = useLocation().search;
@@ -30,20 +32,9 @@ export default function PostSearch() {
   });
 
   if (isLoading) return <Spinner />;
-  if (error) return <h1>Something went wrong.</h1>;
+  if (error) return <ServerError />;
 
-  const postResults = posts?.filter(
-    (post) =>
-      post.title.toLowerCase()?.includes(postQuery!.toLowerCase()) ||
-      post.author.firstName.toLowerCase()?.includes(postQuery!.toLowerCase()) ||
-      post.author.lastName.toLowerCase()?.includes(postQuery!.toLowerCase()) ||
-      (post.author.firstName + " " + post.author.lastName)
-        .toLowerCase()
-        ?.includes(postQuery!.toLowerCase()) ||
-      (post.author.lastName + " " + post.author.firstName)
-        .toLowerCase()
-        ?.includes(postQuery!.toLowerCase())
-  );
+  const postSearchResults = getRelevantPosts(posts, postQuery);
 
   return (
     <section className={styles["post__details"]}>
@@ -65,7 +56,7 @@ export default function PostSearch() {
 
       <div
         className={`${
-          postResults.length !== 0 && mode === "dark"
+          postSearchResults.length !== 0 && mode === "dark"
             ? "postBorderBDark"
             : "postBorderBLight"
         } `}
@@ -73,22 +64,22 @@ export default function PostSearch() {
         <h2 className="mb-3 block pt-4 text-center text-xl font-medium">
           Post result(s) for keyword:{" "}
           <span className="text-primaryColor">'{postQuery}'</span>
-          {postResults.length === 0 ? (
+          {postSearchResults.length === 0 ? (
             <span className="mt-2 block text-lg font-semibold">
               No posts found. Try searching something else.
             </span>
           ) : (
             <span className="mt-2 block text-xl font-thin">
               {" "}
-              {postResults.length} {postResults.length === 1 ? "post" : "posts"}{" "}
-              found
+              {postSearchResults.length}{" "}
+              {postSearchResults.length === 1 ? "post" : "posts"} found
             </span>
           )}
         </h2>
       </div>
 
       <div className="container">
-        {postResults?.map((post) => (
+        {postSearchResults?.map((post) => (
           <PostLayout key={post.id} post={post} />
         ))}
       </div>
