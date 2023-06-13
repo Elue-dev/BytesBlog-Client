@@ -64,7 +64,7 @@ export default function Posts({
             {currentItems?.map((post) => (
               <PostLayout key={post.id} post={post} />
             ))}
-            {filteredPosts.length ? (
+            {filteredPosts?.length ? (
               <ReactPaginate
                 breakLabel="..."
                 nextLabel="Next"

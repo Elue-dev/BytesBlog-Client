@@ -126,7 +126,7 @@ export default function Blog() {
         {selectedCategory !== "All" && (
           <div
             className={`mt-4 text-center ${
-              filteredPosts.length !== 0 && "border-b border-gray-100"
+              filteredPosts?.length !== 0 && "border-b border-gray-100"
             }`}
           >
             <p className="font-mediun block pt-4 text-xl sm:text-2xl">
@@ -136,12 +136,12 @@ export default function Blog() {
               </span>
             </p>
 
-            {filteredPosts.length !== 0 && (
+            {filteredPosts?.length !== 0 && (
               <>
                 <span className="mb-3 mt-2 block text-xl font-thin">
                   {" "}
-                  {filteredPosts.length}{" "}
-                  {filteredPosts.length === 1 ? "post" : "posts"} found
+                  {filteredPosts?.length}{" "}
+                  {filteredPosts?.length === 1 ? "post" : "posts"} found
                 </span>
               </>
             )}
