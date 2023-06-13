@@ -14,8 +14,6 @@ import { Link } from "react-router-dom";
 import { BiTimeFive } from "react-icons/bi";
 import bookmarkActive from "@/assets/bookmarkActive.svg";
 import bookmarkInactive from "@/assets/bookmarkInactive.svg";
-import commentIcon from "@/assets/commentIcon.svg";
-import commentDark from "@/assets/commentDark.svg";
 import likeDarkInactive from "@/assets/likeDarkInactive.svg";
 import likedarkLatest from "@/assets/likedarkLatest.svg";
 import bookmarkActiveDark from "@/assets/bookmarkActiveDark.svg";
@@ -185,7 +183,7 @@ export default function PostLayout({ post }: PostsLayout) {
               </div>
 
               <div className="content">
-                <h1 className="pb-2 pt-3 text-2xl font-bold sm:text-3xl">
+                <h1 className="sm:3xl pb-2 pt-3 text-2xl font-bold">
                   {post.title}
                 </h1>
                 <article className="leading-8 text-grayNeutral">
@@ -242,10 +240,6 @@ export default function PostLayout({ post }: PostsLayout) {
                     </span>
                   </div>
                   <div className="flex gap-2">
-                    <img
-                      src={mode === "dark" ? commentIcon : commentDark}
-                      alt=""
-                    />
                     {mode === "dark" ? (
                       <img
                         src={
@@ -278,11 +272,11 @@ export default function PostLayout({ post }: PostsLayout) {
                         mode === "dark" ? "text-slate-200" : "text-dark"
                       }
                     >
-                      {post.comments?.length}{" "}
-                      {post.comments!.length > 1
-                        ? "comments"
-                        : post.comments?.length === 0
-                        ? "comments"
+                      {post.bookmarks?.length}{" "}
+                      {post.bookmarks?.length > 1
+                        ? "bookmarks"
+                        : post.bookmarks?.length === 0
+                        ? "bookmarks"
                         : "bookmark"}
                     </span>
                   </div>
