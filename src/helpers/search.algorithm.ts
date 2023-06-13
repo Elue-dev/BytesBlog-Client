@@ -23,7 +23,7 @@ export const getRelevantPosts = (
         ?.includes(query!.split(" ")[1]?.toLowerCase()) ||
       post?.categories?.includes(query!) ||
       query!.split(" ").includes(post?.title) ||
-     (post.author?.firstName + " " + post.author?.lastName).replace(/\s/g, "").includes(query);
+     (post.author?.firstName + " " + post.author?.lastName).replace(/\s/g, "").includes(query));
 
   return relevantPosts;
 };
