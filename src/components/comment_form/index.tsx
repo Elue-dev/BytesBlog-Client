@@ -23,8 +23,6 @@ export default function CommentForm({
   const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(false);
 
-  console.log({ authorEmail });
-
   const commentInputRef = useRef<HTMLTextAreaElement>(null);
   const { revealAlert } = useAlert()!;
   const { postId, slug } = useParams();
@@ -92,6 +90,10 @@ export default function CommentForm({
     setIsReplying && setIsReplying(false);
     setComment("");
   };
+
+  // const userHasLikedPost = (likes: Like[]): boolean => {
+  //   return likes?.some((like) => like?.userId === currentUser?.id);
+  // };
 
   return (
     <section

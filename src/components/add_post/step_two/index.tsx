@@ -2,7 +2,6 @@ import { IoChevronBackCircleOutline } from "react-icons/io5";
 import { MultiSelect } from "primereact/multiselect";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
-import { postCategories } from "./data";
 import Button from "@/components/button";
 import { useModal } from "@/context/useModal";
 import { useAlert } from "@/context/useAlert";
@@ -11,7 +10,7 @@ import { Post, StepTwoProps } from "@/types/posts";
 import { CLOUD_NAME, UPLOAD_PRESET } from "@/utils/variables";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { httpRequest } from "@/lib";
-import { User } from "@/types/user";
+import { User, UserCategories } from "@/types/user";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { ClipLoader } from "react-spinners";
@@ -84,6 +83,11 @@ export default function StepTwo({
         setLoading(false);
       },
     }
+  );
+
+  const categoriesByUserInterests: UserCategories[] = [];
+  currentUser?.interests.map((int) =>
+    categoriesByUserInterests.push({ name: int })
   );
 
   const editMutation = useMutation(
@@ -222,8 +226,14 @@ export default function StepTwo({
               </p>
             ) : (
               <p className="pb-6 text-grayNeutral">
-                Select the category/categories that best describe this post.{" "}
-                <span className="font-semibold">Maximum of 3.</span>
+                Select the category/categories that best describe this post.
+                &nbsp;
+                <span className="font-semibold">
+                  Maximum of 3 (cannot be changed later).
+                </span>
+                <br />
+                <b>Note</b>: Only categories in your interests are populated
+                here.{" "}
               </p>
             )}
 
@@ -257,7 +267,7 @@ export default function StepTwo({
               onChange={(e) => setCategories(e.value)}
               onBlur={manageArray}
               disabled={state ? true : false}
-              options={postCategories}
+              options={categoriesByUserInterests}
               optionLabel="name"
               placeholder={
                 state ? state.categories.join(",") : "Select Categories"

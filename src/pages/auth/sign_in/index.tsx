@@ -149,11 +149,12 @@ export default function SignIn() {
           <h1 className="mb-3 flex items-center justify-center text-3xl font-medium">
             Welcome back
           </h1>
-          <Button onClick={googleLogin} className="mb-4 mt-6 flex w-full items-center justify-center gap-3 rounded-lg border border-lightGray bg-white p-3 hover:bg-grayLight">
+          <Button
+            onClick={googleLogin}
+            className="mb-4 mt-6 flex w-full items-center justify-center gap-3 rounded-lg border border-lightGray bg-white p-3 hover:bg-grayLight"
+          >
             <FcGoogle className="text-2xl" />
-            <span className="font-normal text-black">
-              Continue With Google
-            </span>
+            <span className="font-normal text-black">Continue With Google</span>
           </Button>
           <span className="mb-4 block text-center">Or</span>
           <section>
@@ -215,15 +216,17 @@ export default function SignIn() {
               </span>
             </div>
 
-            <Link to="/auth/forgot-password">
-              <p
-                className={`pt-1 text-right  ${
-                  mode === "light" ? "text-zinc-600" : "text-gray-300"
-                } `}
-              >
-                Forgot Password?
-              </p>
-            </Link>
+            <div className="flex justify-end">
+              <Link to="/auth/forgot-password">
+                <p
+                  className={`pt-1 ${
+                    mode === "light" ? "text-zinc-600" : "text-gray-300"
+                  }`}
+                >
+                  Forgot Password?
+                </p>
+              </Link>
+            </div>
 
             {loading ? (
               <Button

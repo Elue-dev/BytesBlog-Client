@@ -1,6 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CommentForm from "../comment_form";
-import { CommentData, PostComentsProps } from "@/types/posts";
+import { CommentData, Like, PostComentsProps } from "@/types/posts";
+import likeInactive from "@/assets/likeInactive.svg";
+import likeActive from "@/assets/likeActive.svg";
+import likeDarkInactive from "@/assets/likeDarkInactive.svg";
+import likedarkLatest from "@/assets/likedarkLatest.svg";
 import moment from "moment";
 import { useTheme } from "@/context/useTheme";
 import { getUserInitials } from "@/helpers/user.initials";
@@ -9,10 +13,13 @@ import { User } from "@/types/user";
 import { RootState } from "@/redux/store";
 import { httpRequest } from "@/lib";
 import { Link, useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { TbMessageCircle2 } from "react-icons/tb";
 import styles from "@/pages/blog/post_details/post.details.module.scss";
 import { BsReply } from "react-icons/bs";
+import { useAlert } from "@/context/useAlert";
+import { BiLike } from "react-icons/bi";
+import { AiFillLike } from "react-icons/ai";
 
 export default function PostComments({
   comment,
@@ -20,14 +27,26 @@ export default function PostComments({
   parentId,
   setShowInput,
 }: PostComentsProps) {
-  const { postId } = useParams();
+  const { postId, slug } = useParams();
   const [showReplies, setShowReplies] = useState(false);
   const [isReplying, setIsReplying] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+  const { revealAlert } = useAlert()!;
   const queryFn = async (): Promise<CommentData[]> => {
     return httpRequest.get(`/comments/${postId}`).then((res) => {
       return res.data.comments;
     });
   };
+
+  useEffect(() => {
+    if (isLiked) {
+      const timer = setTimeout(() => {
+        setIsLiked(false);
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isLiked]);
 
   const replyId = parentId ? parentId : comment.id;
   const authorEmail = comment.author.email;
@@ -45,10 +64,46 @@ export default function PostComments({
     (state) => state.auth.user
   );
 
-  console.log({ authorEmail });
-
   const getReplies = (commentId: string) => {
     return allComments?.filter((comment) => comment.parentId === commentId);
+  };
+
+  const queryClient = useQueryClient();
+  const authHeaders = {
+    headers: { authorization: `Bearer ${currentUser?.token}` },
+  };
+
+  const likesMutation = useMutation(
+    (commentId: string) => {
+      return httpRequest.post(
+        `/likeDislike/comment/${commentId}`,
+        "",
+        authHeaders
+      );
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries([`posts`]);
+        queryClient.invalidateQueries([`comments`]);
+        queryClient.invalidateQueries([`comments-${postId}`]);
+        queryClient.invalidateQueries([`post-${slug}`]);
+      },
+    }
+  );
+
+  const likeDislikeComment = async (postId: string) => {
+    try {
+      const response = await likesMutation.mutateAsync(postId);
+      if (response && response.data.message === "Post liked") {
+        setIsLiked(true);
+      }
+    } catch (error: any) {
+      revealAlert(error.response.data.message, "error");
+    }
+  };
+
+  const userHasLikedPost = (likes: Like[]): boolean => {
+    return likes?.some((like) => like?.userId === currentUser?.id);
   };
 
   return (
@@ -102,7 +157,7 @@ export default function PostComments({
           {comment.message}
         </p>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           {comment?.authorId !== currentUser?.id && (
             <p
               className="flex cursor-pointer items-center justify-start gap-1 text-sm text-lighterGray"
@@ -118,6 +173,17 @@ export default function PostComments({
               <span>Reply</span>
             </p>
           )}
+
+          <span className="flex cursor-pointer items-center gap-1">
+            <span onClick={() => likeDislikeComment(comment.id)}>
+              {userHasLikedPost(comment.likes) ? (
+                <AiFillLike color="#767D8D" />
+              ) : (
+                <BiLike color="#767D8D" />
+              )}
+            </span>
+            <span className="text-lighterGray">{comment.likes?.length}</span>
+          </span>
 
           {getReplies(comment.id)?.length !== 0 && (
             <span

@@ -35,3 +35,7 @@ export interface BookmarkedPosts {
   postId: string;
   userId: string;
 }
+
+export interface UserCategories {
+  name: string;
+}

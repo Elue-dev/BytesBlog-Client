@@ -72,7 +72,6 @@ export default function SignUpForm({
   const { mode } = useTheme()!;
   const { revealAlert } = useAlert()!;
   const { updateCredentials } = useGoogleAuth()!;
-
   const proceed = () => {
     setValidationErrors([]);
     const errors = [];
@@ -165,11 +164,12 @@ export default function SignUpForm({
             Create Account
           </h1>
 
-          <Button onClick={signInWithGoogle} className="mb-4 mt-6 flex w-full items-center justify-center gap-3 rounded-lg border border-lightGray bg-white p-3 hover:bg-grayLight">
+          <Button
+            onClick={signInWithGoogle}
+            className="mb-4 mt-6 flex w-full items-center justify-center gap-3 rounded-lg border border-lightGray bg-white p-3 hover:bg-grayLight"
+          >
             <FcGoogle className="text-2xl" />
-            <span className="font-normal text-black">
-              Continue With Google
-            </span>
+            <span className="font-normal text-black">Continue With Google</span>
           </Button>
 
           <span className="mb-4 block text-center">Or</span>
