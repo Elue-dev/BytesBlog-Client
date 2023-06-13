@@ -82,6 +82,8 @@ export default function PostLayout({ post }: PostsLayout) {
     (comment) => comment.parentId === null
   );
 
+  console.log({ rootComments });
+
   return (
     <>
       <div>

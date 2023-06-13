@@ -89,7 +89,7 @@ export default function Blog() {
             value={postQuery}
             onChange={(e) => setPostQuery(e.target.value)}
             placeholder="Search posts by title, authors"
-            className={`border bg-transparent  outline-none ${
+            className={`border bg-transparent outline-none ${
               mode === "dark" ? "text-gray-200" : "text-stone-700"
             }`}
           />
