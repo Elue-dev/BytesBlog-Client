@@ -183,7 +183,7 @@ export default function PostLayout({ post }: PostsLayout) {
               </div>
 
               <div className="content">
-                <h1 className="sm:3xl pb-2 pt-3 text-2xl font-bold">
+                <h1 className="pb-2 pt-3 text-2xl font-bold sm:text-3xl">
                   {post.title}
                 </h1>
                 <article className="leading-8 text-grayNeutral">
