@@ -171,7 +171,10 @@ export default function PostComments({
           )}
 
           <span className="flex cursor-pointer items-center gap-1">
-            <span onClick={() => likeDislikeComment(comment.id)}>
+            <span
+              onClick={() => likeDislikeComment(comment.id)}
+              className={`${isLiked ? "pop-in-animation" : ""}`}
+            >
               {userHasLikedPost(comment.likes) ? (
                 <AiFillLike color="#767D8D" />
               ) : (

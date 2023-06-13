@@ -63,9 +63,10 @@ export default function ManageInterests() {
         setLoading(false);
         revealModal(
           `Your interests have been updated successfully`,
-          "/user/profile",
+          "",
           "success"
         );
+        navigate(-1);
       }
     } catch (error: any) {
       revealAlert(error.response.data.message, "error");

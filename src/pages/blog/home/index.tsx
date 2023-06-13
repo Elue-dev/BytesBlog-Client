@@ -89,13 +89,17 @@ export default function Blog() {
             value={postQuery}
             onChange={(e) => setPostQuery(e.target.value)}
             placeholder="Search posts by title, authors"
-            className="border text-stone-700 outline-none"
+            className={`border bg-transparent  outline-none ${
+              mode === "dark" ? "text-gray-200" : "text-stone-700"
+            }`}
           />
           <button
             onClick={initiateSearchAction}
-            className={`text-xl font-bold text-white ${
-              mode === "dark" ? "bg-primaryColorHover" : "bg-black"
-            }`}
+            style={{
+              background: mode === "dark" ? "#f0f0f0" : "#000",
+              color: mode === "dark" ? "#000" : "#f0f0f0",
+            }}
+            className={`text-xl font-bold text-white`}
           >
             <BiSearchAlt2 />
           </button>
