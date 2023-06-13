@@ -1,5 +1,6 @@
 import Button from "@/components/button";
 import bytesLogo from "@/assets/bytesLogo.svg";
+import bytesLogoDark from "@/assets/bytesLogoDark.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import Input from "@/components/input";
@@ -141,7 +142,7 @@ export default function SignIn() {
         >
           <Link to="/" className="mb-3 flex items-center justify-center pt-8">
             <img
-              src={bytesLogo}
+              src={mode === "dark" ? bytesLogoDark : bytesLogo}
               alt="BytesBlog Logo"
               className="pt-8 sm:pt-4"
             />

@@ -1,5 +1,6 @@
 import Button from "@/components/button";
 import bytesLogo from "@/assets/bytesLogo.svg";
+import bytesLogoDark from "@/assets/bytesLogoDark.svg";
 import { Link, useLocation, useParams } from "react-router-dom";
 import eyeOpen from "@/assets/eyeOpen.svg";
 import eyeClosed from "@/assets/eyeClosed.svg";
@@ -153,7 +154,7 @@ export default function ResetPassword() {
         >
           <Link to="/" className="mb-3 flex items-center justify-center pt-8">
             <img
-              src={bytesLogo}
+              src={mode === "dark" ? bytesLogoDark : bytesLogo}
               alt="BytesBlog Logo"
               className="pt-8 text-center sm:pt-4"
             />

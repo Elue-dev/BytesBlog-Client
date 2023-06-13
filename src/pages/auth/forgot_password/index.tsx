@@ -1,6 +1,8 @@
 import Button from "@/components/button";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Input from "@/components/input";
+import bytesLogo from "@/assets/bytesLogo.svg";
+import bytesLogoDark from "@/assets/bytesLogoDark.svg";
 import { useState } from "react";
 import { validateEmail } from "@/utils/utils";
 import backIcon from "@/assets/backIcon.svg";
@@ -86,6 +88,13 @@ export default function ForgotPassword() {
 
             <span>Back</span>
           </div>
+          <Link to="/" className="mb-3 flex items-center justify-center pt-8">
+            <img
+              src={mode === "dark" ? bytesLogoDark : bytesLogo}
+              alt="BytesBlog Logo"
+              className="pt-8 sm:pt-4"
+            />
+          </Link>
           <h1
             className={`pt-3 text-center text-3xl font-semibold ${
               mode === "light" ? "text-blackNeutral" : "text-lightGraySec"

@@ -67,7 +67,11 @@ export default function RelatedPosts({ similarPosts }: RelatedPostsProps) {
                   )}
                 </div>
                 <div>
-                  <h4 className="text-1xl max-w-xs pt-1 font-semibold text-gray-800 lg:pt-0">
+                  <h4
+                    className={`text-1xl max-w-xs pt-1 font-semibold lg:pt-0 ${
+                      mode === "dark" ? "text-gray-300" : "text-gray-800 "
+                    }`}
+                  >
                     {post.title}
                   </h4>
                 </div>
