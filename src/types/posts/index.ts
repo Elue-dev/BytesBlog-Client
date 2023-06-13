@@ -37,7 +37,6 @@ export interface PostData {
 }
 
 export interface PostsLayout {
-  filteredPosts?: PostData[] | null;
   post: PostData;
 }
 

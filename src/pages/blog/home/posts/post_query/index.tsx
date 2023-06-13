@@ -93,6 +93,9 @@ export default function PostSearch() {
       </div>
 
       <div className="container">
+        <p className="pt-1 text-right text-slate-400">
+          Blog posts are based on your interests
+        </p>
         {postSearchResults?.map((post) => (
           <PostLayout key={post.id} post={post} />
         ))}

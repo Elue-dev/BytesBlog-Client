@@ -183,18 +183,6 @@ export default function PostDetails() {
     }
   };
 
-  // const copyContentToClipboard = async (postContent: string) => {
-  //   try {
-  //     await navigator.clipboard.writeText(parseText(postContent) || "");
-  //     revealAlert(
-  //       "Post content copied to clipboard, paste in editor and format properly",
-  //       "info"
-  //     );
-  //   } catch (error) {
-  //     console.error("Failed to copy URL to clipboard:", error);
-  //   }
-  // };
-
   return (
     <section className={styles["post__details"]}>
       <div className={styles.hero}></div>
@@ -399,7 +387,7 @@ export default function PostDetails() {
                     src={mode === "dark" ? commentDark : commentIcon}
                     alt="comment on post"
                   />
-                  <span>{postComments?.length}</span>
+                  <span className="underline">{postComments?.length}</span>
                 </div>
                 <div className="flex cursor-pointer items-center justify-start gap-2">
                   {mode === "dark" ? (

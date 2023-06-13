@@ -3,7 +3,7 @@ import { useTheme } from "@/context/useTheme";
 import { getUserInitials } from "@/helpers/user.initials";
 import { httpRequest } from "@/lib";
 import { RootState } from "@/redux/store";
-import { Bookmark, Like, PostData, PostsLayout } from "@/types/posts";
+import { Bookmark, Like, PostsLayout } from "@/types/posts";
 import { User } from "@/types/user";
 import { parseText } from "@/utils/utils";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -21,9 +21,7 @@ import bookmarkInactiveDark from "@/assets/bookmarkInactiveDark.svg";
 import likeInactive from "@/assets/likeInactive.svg";
 import likeActive from "@/assets/likeActive.svg";
 
-export default function PostLayout({ filteredPosts, post }: PostsLayout) {
-  //const postsToUse = filteredPosts ? filteredPosts : ([post] as PostData[]);
-
+export default function PostLayout({ post }: PostsLayout) {
   const [isLiked, setIsLiked] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
   const { revealAlert } = useAlert()!;
@@ -119,9 +117,7 @@ export default function PostLayout({ filteredPosts, post }: PostsLayout) {
   return (
     <>
       <div>
-        <div
-          className="flex flex-col items-center gap-8 pb-8 pt-10 sm:flex-col md:flex-col lg:flex-row border-b-2"
-        >
+        <div className="flex flex-col items-center gap-8 border-b-2 pb-8 pt-10 sm:flex-col md:flex-col lg:flex-row">
           <div className="w-full sm:w-1/2 md:w-full">
             <a href={post.image}>
               <img
@@ -187,7 +183,9 @@ export default function PostLayout({ filteredPosts, post }: PostsLayout) {
               </div>
 
               <div className="content">
-                <h1 className="pb-2 pt-3 text-3xl font-bold">{post.title}</h1>
+                <h1 className="pb-2 pt-3 text-2xl font-bold sm:text-3xl">
+                  {post.title}
+                </h1>
                 <article className="leading-8 text-grayNeutral">
                   {parseText(post.content.substring(0, 170))}...
                 </article>
