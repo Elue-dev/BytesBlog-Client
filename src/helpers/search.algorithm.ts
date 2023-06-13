@@ -30,6 +30,9 @@ export const getRelevantPosts = (
       (post.author?.lastName + " " + post.author?.firstName)
         .replace(/\s/g, "")
         .toLowerCase()
+        .includes(query!.toLowerCase()) ||
+      post.categories
+        ?.map((category) => category.toLowerCase())
         .includes(query!.toLowerCase())
   );
 
