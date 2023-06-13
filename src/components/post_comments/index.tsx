@@ -1,10 +1,6 @@
 import { useEffect, useState } from "react";
 import CommentForm from "../comment_form";
 import { CommentData, Like, PostComentsProps } from "@/types/posts";
-import likeInactive from "@/assets/likeInactive.svg";
-import likeActive from "@/assets/likeActive.svg";
-import likeDarkInactive from "@/assets/likeDarkInactive.svg";
-import likedarkLatest from "@/assets/likedarkLatest.svg";
 import moment from "moment";
 import { useTheme } from "@/context/useTheme";
 import { getUserInitials } from "@/helpers/user.initials";

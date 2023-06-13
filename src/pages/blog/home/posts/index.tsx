@@ -62,11 +62,7 @@ export default function Posts({
         ) : (
           <>
             {currentItems?.map((post) => (
-              <PostLayout
-                key={post.id}
-                filteredPosts={filteredPosts}
-                post={post}
-              />
+              <PostLayout key={post.id} post={post} />
             ))}
             {filteredPosts.length ? (
               <ReactPaginate
