@@ -120,9 +120,7 @@ export default function PostLayout({ filteredPosts, post }: PostsLayout) {
     <>
       <div>
         <div
-          className={`flex flex-col items-center gap-8 pb-8 pt-10 sm:flex-col md:flex-col lg:flex-row  ${
-            postsToUse?.indexOf(post) + 1 !== postsToUse?.length && "border-b-2"
-          }`}
+          className="flex flex-col items-center gap-8 pb-8 pt-10 sm:flex-col md:flex-col lg:flex-row border-b-2"
         >
           <div className="w-full sm:w-1/2 md:w-full">
             <a href={post.image}>
