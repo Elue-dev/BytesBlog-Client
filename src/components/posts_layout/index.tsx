@@ -3,7 +3,7 @@ import { useTheme } from "@/context/useTheme";
 import { getUserInitials } from "@/helpers/user.initials";
 import { httpRequest } from "@/lib";
 import { RootState } from "@/redux/store";
-import { Bookmark, Like, PostsLayout } from "@/types/posts";
+import { Like, PostsLayout } from "@/types/posts";
 import { User } from "@/types/user";
 import { parseText } from "@/utils/utils";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -12,12 +12,10 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { BiTimeFive } from "react-icons/bi";
-import bookmarkActive from "@/assets/bookmarkActive.svg";
-import bookmarkInactive from "@/assets/bookmarkInactive.svg";
+import commentIcon from "@/assets/commentIcon.svg";
+import commentDark from "@/assets/commentDark.svg";
 import likeDarkInactive from "@/assets/likeDarkInactive.svg";
 import likedarkLatest from "@/assets/likedarkLatest.svg";
-import bookmarkActiveDark from "@/assets/bookmarkActiveDark.svg";
-import bookmarkInactiveDark from "@/assets/bookmarkInactiveDark.svg";
 import likeInactive from "@/assets/likeInactive.svg";
 import likeActive from "@/assets/likeActive.svg";
 
@@ -43,22 +41,6 @@ export default function PostLayout({ post }: PostsLayout) {
     {
       onSuccess: () => {
         queryClient.invalidateQueries([`posts`]);
-      },
-    }
-  );
-
-  const bookmarksMutation = useMutation(
-    (postId: string) => {
-      return httpRequest.post(
-        `/bookmarks/addRemoveBookmark/${postId}`,
-        "",
-        authHeaders
-      );
-    },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries([`posts`]);
-        queryClient.invalidateQueries([`bookmarks`]);
       },
     }
   );
@@ -92,27 +74,13 @@ export default function PostLayout({ post }: PostsLayout) {
     }
   };
 
-  const addRemoveBookmark = async (postId: string) => {
-    try {
-      const response = await bookmarksMutation.mutateAsync(postId);
-      if (response && response.data.message === "Post added to bookmarks") {
-        revealAlert("Post added to saved", "success");
-        setIsBookmarked(true);
-      } else {
-        revealAlert("Post removed from saved", "info");
-      }
-    } catch (error: any) {
-      revealAlert(error.response.data.message, "error");
-    }
-  };
-
   const userHasLikedPost = (likes: Like[]): boolean => {
     return likes?.some((like) => like.userId === currentUser?.id);
   };
 
-  const userHasBookmarkedPost = (bookmarks: Bookmark[]): boolean => {
-    return bookmarks?.some((bookmark) => bookmark.userId === currentUser?.id);
-  };
+  const rootComments = post.comments?.filter(
+    (comment) => comment.parentId === null
+  );
 
   return (
     <>
@@ -240,44 +208,21 @@ export default function PostLayout({ post }: PostsLayout) {
                     </span>
                   </div>
                   <div className="flex gap-2">
-                    {mode === "dark" ? (
-                      <img
-                        src={
-                          userHasBookmarkedPost(post.bookmarks)
-                            ? bookmarkActiveDark
-                            : bookmarkInactiveDark
-                        }
-                        alt="bookmark post"
-                        className={`${
-                          isBookmarked ? "pop-in-animation" : ""
-                        } cursor-pointer text-gray500`}
-                        onClick={() => addRemoveBookmark(post.id)}
-                      />
-                    ) : (
-                      <img
-                        src={
-                          userHasBookmarkedPost(post.bookmarks)
-                            ? bookmarkActive
-                            : bookmarkInactive
-                        }
-                        alt="bookmark post"
-                        className={`${
-                          isBookmarked ? "pop-in-animation" : ""
-                        } cursor-pointer text-gray500`}
-                        onClick={() => addRemoveBookmark(post.id)}
-                      />
-                    )}
+                    <img
+                      src={mode === "dark" ? commentDark : commentIcon}
+                      alt=""
+                    />
                     <span
                       className={
                         mode === "dark" ? "text-slate-200" : "text-dark"
                       }
                     >
-                      {post.bookmarks?.length}{" "}
-                      {post.bookmarks?.length > 1
-                        ? "bookmarks"
-                        : post.bookmarks?.length === 0
-                        ? "bookmarks"
-                        : "bookmark"}
+                      {rootComments?.length}{" "}
+                      {rootComments!.length > 1
+                        ? "comments"
+                        : rootComments?.length === 0
+                        ? "comments"
+                        : "comment"}
                     </span>
                   </div>
                 </div>
