@@ -22,7 +22,7 @@ import likeInactive from "@/assets/likeInactive.svg";
 import likeActive from "@/assets/likeActive.svg";
 
 export default function PostLayout({ filteredPosts, post }: PostsLayout) {
-  const postsToUse = filteredPosts ? filteredPosts : ([post] as PostData[]);
+  //const postsToUse = filteredPosts ? filteredPosts : ([post] as PostData[]);
 
   const [isLiked, setIsLiked] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
