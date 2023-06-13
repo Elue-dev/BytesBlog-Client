@@ -10,7 +10,7 @@ export default function RelatedPosts({ similarPosts }: RelatedPostsProps) {
 
   return (
     <div className={styles["right__quarter"]}>
-      <h2 className="pb-8 pt-12 text-2xl font-semibold underline lg:pt-0">
+      <h2 className="pb-8 pt-12 text-2xl font-semibold lg:pt-0">
         Some Related Posts
       </h2>
       {similarPosts.length === 0 ? (

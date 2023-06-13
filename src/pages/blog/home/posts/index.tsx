@@ -19,9 +19,6 @@ export default function Posts({
   const [itemOffset, setItemOffset] = useState(0);
   const itemsPerPage = 6;
 
-  console.log({ currentItems: currentItems.length });
-  console.log({ itemsPerPage });
-
   const handlePageClick = (event: any) => {
     const newOffset = (event.selected * itemsPerPage) % filteredPosts?.length;
     setItemOffset(newOffset);
