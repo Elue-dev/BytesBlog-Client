@@ -15,6 +15,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { ClipLoader } from "react-spinners";
 import { useLocation } from "react-router-dom";
+import { useTheme } from "@/context/useTheme";
 
 export default function StepTwo({
   values,
@@ -38,6 +39,7 @@ export default function StepTwo({
   );
   const { readTime, title } = values;
   const { revealModal } = useModal()!;
+  const { mode } = useTheme()!;
   const { revealAlert, setDone } = useAlert()!;
 
   const manageArray = useCallback(() => {
@@ -196,8 +198,16 @@ export default function StepTwo({
         </button>
 
         <div className="px-normal sm:px-16">
-          <div className="rounded-lg bg-white px-2 py-6 shadow-lg sm:p-8">
-            <h2 className="text-2xl font-semibold text-blackNeutral">
+          <div
+            className={`mt-8 rounded-lg bg-white p-0 px-2 py-6 shadow-lg sm:p-8 ${
+              mode === "dark" ? "bg-zinc-900" : "bg-white"
+            }`}
+          >
+            <h2
+              className={`text-2xl font-semibold ${
+                mode === "dark" ? "text-gray-300" : "text-blackNeutral"
+              } `}
+            >
               Reding Duration
             </h2>
             <p className="pb-6 text-grayNeutral">
@@ -210,14 +220,24 @@ export default function StepTwo({
               name="readTime"
               onChange={handleInputChange}
               placeholder="e.g 3, 4, 5"
-              className="w-full rounded-lg border-2 p-2 text-blackNeutral outline-none hover:border-extraLightGreen hover:hoverShadow focus:border-extraLightGreen focus:hoverShadow"
+              className={`w-full rounded-lg border-2 bg-transparent p-2  outline-none hover:border-extraLightGreen hover:hoverShadow focus:border-extraLightGreen focus:hoverShadow ${
+                mode === "dark" ? "text-gray-300" : "text-blackNeutral"
+              }`}
             />
           </div>
         </div>
 
         <div className="px-normal sm:px-16">
-          <div className="mt-8 rounded-lg bg-white p-0 px-2 py-6 shadow-lg sm:p-8">
-            <h2 className="text-2xl font-semibold text-blackNeutral">
+          <div
+            className={`mt-8 rounded-lg bg-white p-0 px-2 py-6 shadow-lg sm:p-8 ${
+              mode === "dark" ? "bg-zinc-900" : "bg-white"
+            }`}
+          >
+            <h2
+              className={`text-2xl font-semibold ${
+                mode === "dark" ? "text-gray-300" : "text-blackNeutral"
+              } `}
+            >
               Category
             </h2>
             {state ? (
@@ -276,7 +296,7 @@ export default function StepTwo({
               selectAll={false}
               selectionLimit={3}
               showSelectAll={false}
-              className="custom-multiselect md:w-20rem mt-5 w-full"
+              className="custom-multiselect md:w-20rem mt-5 w-full bg-transparent"
             />
           </div>
         </div>
