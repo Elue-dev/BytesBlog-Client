@@ -10,7 +10,6 @@ import { StepOneprops } from "@/types/posts";
 import { useLocation } from "react-router-dom";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
-import { useTheme } from "@/context/useTheme";
 
 export default function StepOne({
   values,
@@ -26,7 +25,6 @@ export default function StepOne({
 }: StepOneprops) {
   const imageUploadRef = useRef<any | undefined>();
   const state = useLocation().state;
-  const { mode } = useTheme()!;
 
   const { title } = values;
   const { revealAlert } = useAlert()!;
