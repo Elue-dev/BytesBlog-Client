@@ -97,7 +97,10 @@ export default function Navbar() {
             {isLoggedIn ? (
               <div className="flex items-center justify-start gap-0 sm:gap-1">
                 {!pathname.includes("write") && (
-                  <Link to="/blog/write?action=new">
+                  <Link
+                    to="/blog/write?action=new"
+                    className={styles["write__post__cont"]}
+                  >
                     <Button
                       className={`${styles.write} flex items-center justify-start gap-1 whitespace-nowrap bg-primaryColor p-2.5 text-white hover:bg-primaryColorHover sm:p-3`}
                     >
@@ -160,31 +163,60 @@ export default function Navbar() {
                           </span>
                         </div>
                       ) : (
-                        <div
-                          onClick={() => {
-                            navigate("/user/profile");
-                            setShowDropdown(false);
-                          }}
-                          className="flex cursor-pointer items-center justify-start gap-3"
-                        >
-                          {mode === "dark" ? (
-                            <img
-                              src={profileDark}
-                              alt="profile"
-                              className="h-6"
-                            />
-                          ) : (
-                            <img src={profileIcon} alt="profile" />
-                          )}
-
-                          <span
-                            className={
-                              mode === "dark" ? "text-lightGray" : "text-dark"
-                            }
+                        <>
+                          <div className={styles["write__cont__mobile"]}>
+                            <div
+                              onClick={() => {
+                                navigate("/blog/write?action=new");
+                                setShowDropdown(false);
+                              }}
+                              className="flex cursor-pointer items-center justify-start gap-3"
+                            >
+                              <div>
+                                {" "}
+                                {mode === "dark" ? (
+                                  <BsVectorPen color="#fff" />
+                                ) : (
+                                  <BsVectorPen />
+                                )}
+                              </div>
+                              <span
+                                className={
+                                  mode === "dark"
+                                    ? "text-lightGray"
+                                    : "text-dark"
+                                }
+                              >
+                                Add Post
+                              </span>
+                            </div>
+                          </div>
+                          <div
+                            onClick={() => {
+                              navigate("/user/profile");
+                              setShowDropdown(false);
+                            }}
+                            className="flex cursor-pointer items-center justify-start gap-3"
                           >
-                            Profile
-                          </span>
-                        </div>
+                            {mode === "dark" ? (
+                              <img
+                                src={profileDark}
+                                alt="profile"
+                                className="h-6"
+                              />
+                            ) : (
+                              <img src={profileIcon} alt="profile" />
+                            )}
+
+                            <span
+                              className={
+                                mode === "dark" ? "text-lightGray" : "text-dark"
+                              }
+                            >
+                              Profile
+                            </span>
+                          </div>
+                        </>
                       )}
 
                       <div

@@ -8,6 +8,9 @@
   padding: 0.4rem;
   transition: all 0.5s ease;
 }
+.write__cont__mobile {
+  display: none;
+}
 .navbar {
   @include container();
   padding: 0.5rem;
@@ -32,5 +35,13 @@
       height: 2.6rem;
       width: 2.6rem;
     }
+  }
+}
+@include mQ(600px) {
+  .write__post__cont {
+    display: none;
+  }
+  .write__cont__mobile {
+    display: block;
   }
 }
