@@ -222,7 +222,7 @@ export default function SignUpForm({
 
             <div className="relative pt-8">
               <Input
-                type="text"
+                type="email"
                 name="email"
                 className={`${
                   validationErrors.includes("email") ? "border-rose-500" : ""

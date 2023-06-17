@@ -76,7 +76,7 @@ export default function Interests({
       setLoading(false);
       if (
         error.response.data.message ===
-        "Account has been signed up with google, sign in instead"
+        "Account has already been signed up with google, sign in instead"
       ) {
         revealAlert(
           error.response.data.message ||
