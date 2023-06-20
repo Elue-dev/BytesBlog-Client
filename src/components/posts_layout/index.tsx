@@ -186,7 +186,7 @@ export default function PostLayout({ post }: PostsLayout) {
                 <h1 className="pb-2 pt-3 text-2xl font-bold sm:text-3xl">
                   {post.title}
                 </h1>
-                <article className="leading-8 text-grayNeutral">
+                <article className="overflow-hidden whitespace-normal leading-8 text-grayNeutral">
                   {parseText(post.content.substring(0, 170))}...
                 </article>
 
