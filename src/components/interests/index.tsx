@@ -65,13 +65,13 @@ export default function Interests({
       if (response) {
         console.log({ response });
 
-        dispatch(SET_ACTIVE_USER(response.data.user));
+        // dispatch(SET_ACTIVE_USER(response.data.user));
         setLoading(false);
         revealModal(
           `Welcome, ${
             firstname || firstName
           }! Your account has been successfully created.`,
-          "/",
+          "/auth/sign-in",
           "success"
         );
         clearCredentials();
