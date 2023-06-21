@@ -41,8 +41,8 @@ export default function Interests({
   };
 
   const createUserAccount = async () => {
-    if (interests.length < 7)
-      return revealAlert("Interests must be at least 7", "error");
+    if (interests.length < 4)
+      return revealAlert("Interests must be at least 4", "error");
 
     const credentials = isGoogle
       ? {
