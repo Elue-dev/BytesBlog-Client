@@ -11,6 +11,8 @@ import { SERVER_URL } from "@/utils/variables";
 import { ClipLoader } from "react-spinners";
 import { useTheme } from "@/context/useTheme";
 import { useNavigate } from "react-router-dom";
+import { SET_ACTIVE_USER } from "@/redux/slices/auth.slice";
+import { useDispatch } from "react-redux";
 
 export default function Interests({
   interests,
@@ -22,6 +24,7 @@ export default function Interests({
 }: InterestsProps) {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { mode } = useTheme()!;
   const { revealModal } = useModal()!;
   const { revealAlert } = useAlert()!;
@@ -60,12 +63,13 @@ export default function Interests({
         credentials
       );
       if (response) {
+        dispatch(SET_ACTIVE_USER(response.data.user));
         setLoading(false);
         revealModal(
           `Welcome, ${
             firstname || firstName
-          }! Your account has been successfully created. Please sign in`,
-          "/auth/sign-in",
+          }! Your account has been successfully created.`,
+          "/",
           "success"
         );
         clearCredentials();
