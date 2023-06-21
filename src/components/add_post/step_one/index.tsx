@@ -152,15 +152,10 @@ export default function StepOne({
                   <h2 className="mb-2 text-2xl font-semibold text-grayLight">
                     Image
                   </h2>
-                  <Button
-                    className="flex h-12 w-32 items-center justify-center whitespace-nowrap bg-primaryColorLighter text-primaryColor"
-                    onClick={() => {
-                      setImage(undefined);
-                      imageUploadRef.current.click();
-                    }}
-                  >
-                    Change Image
-                  </Button>
+                  <span className="cursor-pointer text-base text-gray-500">
+                    {" "}
+                    Tap to change image
+                  </span>
                 </div>
                 <img
                   src={imagePreview}

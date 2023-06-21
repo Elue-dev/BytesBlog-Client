@@ -63,7 +63,6 @@ export default function Interests({
         credentials
       );
       if (response) {
-        console.log({ response: response.data.user });
         dispatch(SET_ACTIVE_USER(response.data.user));
         setLoading(false);
         revealModal(
