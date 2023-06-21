@@ -32,6 +32,7 @@ export default function Navbar() {
   const currentUser: User | null = useSelector<RootState, User | null>(
     (state) => state.auth.user
   );
+
   const dispatch = useDispatch();
   const { userId } = useParams();
   const { mode } = useTheme()!;
