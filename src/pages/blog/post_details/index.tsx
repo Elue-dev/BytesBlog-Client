@@ -240,16 +240,16 @@ export default function PostDetails() {
       console.error("Failed to copy URL to clipboard:", error);
     }
   };
-  interface VoiceOption {
-    name: string;
-    code: string;
-    lang: string;
-  }
-  const voicesArr: VoiceOption[] = voices.map((voice) => ({
-    name: `${voice.name} (${voice.lang})`,
-    code: voice.lang,
-    lang: voice.lang,
-  }));
+  // interface VoiceOption {
+  //   name: string;
+  //   code: string;
+  //   lang: string;
+  // }
+  // const voicesArr: VoiceOption[] = voices.map((voice) => ({
+  //   name: `${voice.name} (${voice.lang})`,
+  //   code: voice.lang,
+  //   lang: voice.lang,
+  // }));
 
   return (
     <section className={styles["post__details"]}>
@@ -392,7 +392,7 @@ export default function PostDetails() {
                   className="h-auto w-full rounded-lg object-cover"
                 />
               </a>
-              <div className="flex items-center justify-end gap-3 pt-6 sm:pt-0">
+              {/* <div className="flex items-center justify-end gap-3 pt-6 sm:pt-0">
                 <Dropdown
                   value={selectedVoice}
                   options={voicesArr}
@@ -423,7 +423,7 @@ export default function PostDetails() {
                     Listen
                   </Button>
                 )}
-              </div>
+              </div> */}
 
               <article className="text-break pt-8 leading-8 text-grayNeutral">
                 <PostContent content={post?.content} />
