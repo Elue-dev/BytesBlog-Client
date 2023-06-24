@@ -93,6 +93,9 @@ body {
   box-shadow: 0 0 0 0.05rem #c4f9d2 !important;
   border-color: #c4f9d2 !important;
 }
+.p-dropdown {
+  height: 2.3rem !important;
+}
 .ql-image {
   display: none !important;
 }
