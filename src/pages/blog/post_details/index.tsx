@@ -29,16 +29,16 @@ import { useAlert } from "@/context/useAlert";
 import { IoChevronBackCircleOutline } from "react-icons/io5";
 import { getUserInitials } from "@/helpers/user.initials";
 import { FiEdit } from "react-icons/fi";
-import { BsFillPlayFill } from "react-icons/bs";
-import { TiMediaStop } from "react-icons/ti";
+// import { BsFillPlayFill } from "react-icons/bs";
+// import { TiMediaStop } from "react-icons/ti";
 import styles from "./post.details.module.scss";
 import Spinner from "@/components/spinners";
 import LikesSidebar from "@/components/sidebars/LikesSidebar";
 import { FacebookButton, LinkedInButton } from "react-social";
 import ServerError from "@/components/server_error";
-import { parseText } from "@/utils/utils";
-import { Dropdown } from "primereact/dropdown";
-import Button from "@/components/button";
+// import { parseText } from "@/utils/utils";
+// import { Dropdown } from "primereact/dropdown";
+// import Button from "@/components/button";
 
 export default function PostDetails() {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -48,64 +48,61 @@ export default function PostDetails() {
   const { postId, slug } = useParams();
   const { mode } = useTheme()!;
   const { revealAlert } = useAlert()!;
-  const [placeholder, setPlaceholder] = useState("Select a voice");
+
   const navigate = useNavigate();
   const currentUser: User | null = useSelector<RootState, User | null>(
     (state) => state.auth.user
   );
   const socialURL = `https://bytes-blog-client.vercel.app/${slug}/${postId}`;
 
-  const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
-  const [selectedVoice, setSelectedVoice] =
-    useState<SpeechSynthesisVoice | null>(null);
-  const [isPlaying, setIsplaying] = useState(false);
+  // const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
+  // const [selectedVoice, setSelectedVoice] =
+  //   useState<SpeechSynthesisVoice | null>(null);
+  // const [placeholder, setPlaceholder] = useState("Select a voice");
+  // const [isPlaying, setIsplaying] = useState(false);
 
-  useEffect(() => {
-    const speech = new SpeechSynthesisUtterance();
-    let updatedVoices = [];
+  // useEffect(() => {
+  //   const speech = new SpeechSynthesisUtterance();
+  //   let updatedVoices = [];
 
-    const handleVoicesChanged = () => {
-      updatedVoices = window.speechSynthesis.getVoices();
-      setVoices(updatedVoices);
-      speech.voice = updatedVoices[0];
-    };
+  //   const handleVoicesChanged = () => {
+  //     updatedVoices = window.speechSynthesis.getVoices();
+  //     setVoices(updatedVoices);
+  //     speech.voice = updatedVoices[0];
+  //   };
 
-    window.speechSynthesis.addEventListener(
-      "voiceschanged",
-      handleVoicesChanged
-    );
+  //   window.speechSynthesis.addEventListener(
+  //     "voiceschanged",
+  //     handleVoicesChanged
+  //   );
 
-    return () => {
-      window.speechSynthesis.removeEventListener(
-        "voiceschanged",
-        handleVoicesChanged
-      );
-    };
-  }, []);
+  //   return () => {
+  //     window.speechSynthesis.removeEventListener(
+  //       "voiceschanged",
+  //       handleVoicesChanged
+  //     );
+  //   };
+  // }, []);
 
-  const handleVoiceChange = (event: { value: SpeechSynthesisVoice }) => {
-    console.log({ voices });
-    console.log({ e: event.value });
+  // const handleVoiceChange = (event: { value: SpeechSynthesisVoice }) => {
+  //   console.log({ voices });
+  //   console.log({ e: event.value });
 
-    const selectedOption = voices.find(
-      (option) => option.lang === event.value.lang
-    );
-    setSelectedVoice(selectedOption || null);
-    setPlaceholder(event.value.name);
-    console.log({ selectedVoice });
-  };
+  //   const selectedOption = voices.find(
+  //     (option) => option.lang === event.value.lang
+  //   );
+  //   setSelectedVoice(selectedOption || null);
+  //   setPlaceholder(event.value.name);
+  //   console.log({ selectedVoice });
+  // };
 
-  useEffect(() => {
-    console.log({ selectedVoice });
-  }, [selectedVoice]);
-
-  const handleListen = () => {
-    setIsplaying(true);
-    const speech = new SpeechSynthesisUtterance();
-    speech.voice = selectedVoice;
-    speech.text = parseText(post?.content) || "";
-    window.speechSynthesis.speak(speech);
-  };
+  // const handleListen = () => {
+  //   setIsplaying(true);
+  //   const speech = new SpeechSynthesisUtterance();
+  //   speech.voice = selectedVoice;
+  //   speech.text = parseText(post?.content) || "";
+  //   window.speechSynthesis.speak(speech);
+  // };
 
   const {
     isLoading,
