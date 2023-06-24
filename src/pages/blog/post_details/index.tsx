@@ -382,7 +382,17 @@ export default function PostDetails() {
                 </div>
               </div>
 
-              <div className="flex items-center justify-center gap-3 pt-3 sm:justify-end sm:pt-0">
+              <h1 className="pb-6 pt-10 text-2xl font-semibold sm:text-4xl">
+                {post?.title}
+              </h1>
+              <a href={post.image}>
+                <img
+                  src={post?.image}
+                  alt={post?.title}
+                  className="h-auto w-full rounded-lg object-cover"
+                />
+              </a>
+              <div className="flex items-center justify-end gap-3 pt-6 sm:pt-0">
                 <Dropdown
                   value={selectedVoice}
                   options={voicesArr}
@@ -415,16 +425,6 @@ export default function PostDetails() {
                 )}
               </div>
 
-              <h1 className="pb-6 pt-10 text-2xl font-semibold sm:text-4xl">
-                {post?.title}
-              </h1>
-              <a href={post.image}>
-                <img
-                  src={post?.image}
-                  alt={post?.title}
-                  className="h-auto w-full rounded-lg object-cover"
-                />
-              </a>
               <article className="text-break pt-8 leading-8 text-grayNeutral">
                 <PostContent content={post?.content} />
               </article>
