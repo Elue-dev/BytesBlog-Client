@@ -68,6 +68,31 @@ body {
 .p-editor-container .p-editor-toolbar {
   background: transparent !important;
 }
+.p-dropdown-label {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+.p-dropdown .p-dropdown-label.p-placeholder {
+  color: #333 !important;
+}
+.p-dropdown:not(.p-disabled).p-focus,
+.p-dropdown:not(.p-disabled).p-hover,
+.p-dropdown:not(.p-disabled):focus,
+.p-dropdown:not(.p-disabled):hover {
+  border-color: #c4f9d2 !important;
+  box-shadow: 0 0 0 0.05rem #c4f9d2 !important;
+}
+
+.p-dropdown:not(.p-disabled):focus .p-inputtext:hover,
+.p-inputtext:focus {
+  border: 1px solid #c4f9d2 !important;
+  box-shadow: 0 !important;
+}
+.p-inputtext:enabled:focus {
+  box-shadow: 0 0 0 0.05rem #c4f9d2 !important;
+  border-color: #c4f9d2 !important;
+}
 .ql-image {
   display: none !important;
 }
