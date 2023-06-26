@@ -97,7 +97,7 @@ export default function PostSearch() {
           Blog posts are based on your interests
         </p>
         {postSearchResults?.map((post) => (
-          <PostLayout key={post.id} post={post} />
+          <PostLayout key={post.id} post={post} postQuery={postQuery || ""} />
         ))}
       </div>
     </section>

@@ -20,8 +20,9 @@ import bookmarkActiveDark from "@/assets/bookmarkActiveDark.svg";
 import bookmarkInactiveDark from "@/assets/bookmarkInactiveDark.svg";
 import likeInactive from "@/assets/likeInactive.svg";
 import likeActive from "@/assets/likeActive.svg";
+import Highlighter from "react-highlight-words";
 
-export default function PostLayout({ post }: PostsLayout) {
+export default function PostLayout({ post, postQuery }: PostsLayout) {
   const [isLiked, setIsLiked] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
   const { revealAlert } = useAlert()!;
@@ -150,7 +151,25 @@ export default function PostLayout({ post }: PostsLayout) {
                         )}
                       </div>
                       <p>
-                        {post.author.firstName + " " + post.author.lastName}{" "}
+                        {postQuery ? (
+                          <>
+                            <Highlighter
+                              searchWords={[postQuery]}
+                              autoEscape={true}
+                              textToHighlight={`${post.author.firstName} ${post.author.lastName}`}
+                              highlightClassName="text-dark"
+                              highlightStyle={{
+                                backgroundColor: "#cceed4",
+                                borderRadius: ".5rem",
+                              }}
+                            />
+                          </>
+                        ) : (
+                          <>
+                            {post.author.firstName + " " + post.author.lastName}{" "}
+                          </>
+                        )}
+
                         <span className="text-grayLight">—</span>
                         <span className="text-grayLight">
                           {moment(post.createdAt).fromNow()}
@@ -184,10 +203,39 @@ export default function PostLayout({ post }: PostsLayout) {
 
               <div className="content">
                 <h1 className="pb-2 pt-3 text-2xl font-bold sm:text-3xl">
-                  {post.title}
+                  {postQuery ? (
+                    <Highlighter
+                      searchWords={[postQuery]}
+                      autoEscape={true}
+                      textToHighlight={post.title}
+                      highlightClassName="text-dark"
+                      highlightStyle={{
+                        backgroundColor: "#cceed4",
+                        borderRadius: ".5rem",
+                        padding: ".2rem",
+                      }}
+                    />
+                  ) : (
+                    <>{post.title}</>
+                  )}
                 </h1>
                 <article className="overflow-hidden whitespace-normal leading-8 text-grayNeutral">
-                  {parseText(post.content.substring(0, 170))}...
+                  {postQuery ? (
+                    <Highlighter
+                      searchWords={[postQuery]}
+                      autoEscape={true}
+                      textToHighlight={
+                        parseText(post.content.substring(0, 290) + "...") || ""
+                      }
+                      highlightClassName="text-dark"
+                      highlightStyle={{
+                        backgroundColor: "#cceed4",
+                        borderRadius: ".5rem",
+                      }}
+                    />
+                  ) : (
+                    <>{parseText(post.content.substring(0, 290))}...</>
+                  )}
                 </article>
 
                 <Link

@@ -38,6 +38,7 @@ export interface PostData {
 
 export interface PostsLayout {
   post: PostData;
+  postQuery: string;
 }
 
 export interface Like {
