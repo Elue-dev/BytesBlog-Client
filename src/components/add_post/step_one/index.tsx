@@ -153,7 +153,6 @@ export default function StepOne({
                     Image
                   </h2>
                   <span className="cursor-pointer text-base text-gray-500">
-                    {" "}
                     Tap to change image
                   </span>
                 </div>

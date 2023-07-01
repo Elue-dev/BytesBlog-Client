@@ -152,6 +152,7 @@ export default function SignUpForm({
       setCapsLockIsOnSec(false);
     }
   };
+
   return (
     <section className={`${mode === "dark" && "bg-zinc-900"}`}>
       <div className="flex h-screen items-center justify-center">

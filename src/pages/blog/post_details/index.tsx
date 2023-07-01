@@ -29,16 +29,11 @@ import { useAlert } from "@/context/useAlert";
 import { IoChevronBackCircleOutline } from "react-icons/io5";
 import { getUserInitials } from "@/helpers/user.initials";
 import { FiEdit } from "react-icons/fi";
-// import { BsFillPlayFill } from "react-icons/bs";
-// import { TiMediaStop } from "react-icons/ti";
 import styles from "./post.details.module.scss";
 import Spinner from "@/components/spinners";
 import LikesSidebar from "@/components/sidebars/LikesSidebar";
 import { FacebookButton, LinkedInButton } from "react-social";
 import ServerError from "@/components/server_error";
-// import { parseText } from "@/utils/utils";
-// import { Dropdown } from "primereact/dropdown";
-// import Button from "@/components/button";
 
 export default function PostDetails() {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -54,55 +49,6 @@ export default function PostDetails() {
     (state) => state.auth.user
   );
   const socialURL = `https://bytes-blog-client.vercel.app/${slug}/${postId}`;
-
-  // const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
-  // const [selectedVoice, setSelectedVoice] =
-  //   useState<SpeechSynthesisVoice | null>(null);
-  // const [placeholder, setPlaceholder] = useState("Select a voice");
-  // const [isPlaying, setIsplaying] = useState(false);
-
-  // useEffect(() => {
-  //   const speech = new SpeechSynthesisUtterance();
-  //   let updatedVoices = [];
-
-  //   const handleVoicesChanged = () => {
-  //     updatedVoices = window.speechSynthesis.getVoices();
-  //     setVoices(updatedVoices);
-  //     speech.voice = updatedVoices[0];
-  //   };
-
-  //   window.speechSynthesis.addEventListener(
-  //     "voiceschanged",
-  //     handleVoicesChanged
-  //   );
-
-  //   return () => {
-  //     window.speechSynthesis.removeEventListener(
-  //       "voiceschanged",
-  //       handleVoicesChanged
-  //     );
-  //   };
-  // }, []);
-
-  // const handleVoiceChange = (event: { value: SpeechSynthesisVoice }) => {
-  //   console.log({ voices });
-  //   console.log({ e: event.value });
-
-  //   const selectedOption = voices.find(
-  //     (option) => option.lang === event.value.lang
-  //   );
-  //   setSelectedVoice(selectedOption || null);
-  //   setPlaceholder(event.value.name);
-  //   console.log({ selectedVoice });
-  // };
-
-  // const handleListen = () => {
-  //   setIsplaying(true);
-  //   const speech = new SpeechSynthesisUtterance();
-  //   speech.voice = selectedVoice;
-  //   speech.text = parseText(post?.content) || "";
-  //   window.speechSynthesis.speak(speech);
-  // };
 
   const {
     isLoading,
@@ -237,16 +183,6 @@ export default function PostDetails() {
       console.error("Failed to copy URL to clipboard:", error);
     }
   };
-  // interface VoiceOption {
-  //   name: string;
-  //   code: string;
-  //   lang: string;
-  // }
-  // const voicesArr: VoiceOption[] = voices.map((voice) => ({
-  //   name: `${voice.name} (${voice.lang})`,
-  //   code: voice.lang,
-  //   lang: voice.lang,
-  // }));
 
   return (
     <section className={styles["post__details"]}>
@@ -329,7 +265,21 @@ export default function PostDetails() {
                         state={post.author}
                       >
                         <p className="text-lg">
-                          {post.author?.firstName + " " + post.author?.lastName}
+                          {(post.author.firstName + " " + post.author.lastName)
+                            .length > 20 ? (
+                            <>
+                              {post.author?.firstName +
+                                " " +
+                                post.author?.lastName.slice(0, 3)}
+                              ...
+                            </>
+                          ) : (
+                            <>
+                              {post.author?.firstName +
+                                " " +
+                                post.author?.lastName}
+                            </>
+                          )}
                         </p>
                       </Link>
                       <p className="text-grayLight">
@@ -389,38 +339,6 @@ export default function PostDetails() {
                   className="h-auto w-full rounded-lg object-cover"
                 />
               </a>
-              {/* <div className="flex items-center justify-end gap-3 pt-6 sm:pt-0">
-                <Dropdown
-                  value={selectedVoice}
-                  options={voicesArr}
-                  onChange={handleVoiceChange}
-                  optionLabel="name"
-                  placeholder={placeholder}
-                  filter
-                  filterBy="label"
-                  emptyFilterMessage="No results found"
-                />
-                {isPlaying ? (
-                  <Button
-                    onClick={() => {
-                      window.speechSynthesis.cancel();
-                      setIsplaying(false);
-                    }}
-                    className="flex items-center justify-center bg-primaryColor p-2 text-white hover:bg-primaryColorHover"
-                  >
-                    <TiMediaStop />
-                    Stop audio
-                  </Button>
-                ) : (
-                  <Button
-                    onClick={handleListen}
-                    className="flex items-center justify-center bg-primaryColor p-2 text-white hover:bg-primaryColorHover"
-                  >
-                    <BsFillPlayFill />
-                    Listen
-                  </Button>
-                )}
-              </div> */}
 
               <article className="text-break pt-8 leading-8 text-grayNeutral">
                 <PostContent content={post?.content} />
