@@ -145,7 +145,33 @@ export default function Navbar() {
                       mode === "dark" ? "bg-blackNeutral" : "bg-white"
                     } p-5 shadow-lg sm:right-auto sm:top-12`}
                   >
-                    <div className="py-5 leading-10 text-gray500">
+                    <div className="leading-10 text-gray500">
+                      <div className={styles["write__cont__mobile"]}>
+                        <div
+                          onClick={() => {
+                            navigate("/blog/write?action=new");
+                            setShowDropdown(false);
+                          }}
+                          className="flex cursor-pointer items-center justify-start gap-3"
+                        >
+                          <div>
+                            {" "}
+                            {mode === "dark" ? (
+                              <BsVectorPen color="#fff" />
+                            ) : (
+                              <BsVectorPen />
+                            )}
+                          </div>
+                          <span
+                            className={
+                              mode === "dark" ? "text-lightGray" : "text-dark"
+                            }
+                          >
+                            Add Post
+                          </span>
+                        </div>
+                      </div>
+
                       {pathname.includes("user") && !userId ? (
                         <div
                           onClick={() => {
@@ -165,33 +191,6 @@ export default function Navbar() {
                         </div>
                       ) : (
                         <>
-                          <div className={styles["write__cont__mobile"]}>
-                            <div
-                              onClick={() => {
-                                navigate("/blog/write?action=new");
-                                setShowDropdown(false);
-                              }}
-                              className="flex cursor-pointer items-center justify-start gap-3"
-                            >
-                              <div>
-                                {" "}
-                                {mode === "dark" ? (
-                                  <BsVectorPen color="#fff" />
-                                ) : (
-                                  <BsVectorPen />
-                                )}
-                              </div>
-                              <span
-                                className={
-                                  mode === "dark"
-                                    ? "text-lightGray"
-                                    : "text-dark"
-                                }
-                              >
-                                Add Post
-                              </span>
-                            </div>
-                          </div>
                           <div
                             onClick={() => {
                               navigate("/user/profile");
