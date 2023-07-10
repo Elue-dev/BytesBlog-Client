@@ -110,7 +110,6 @@ export default function EditProfile({
         dispatch(REMOVE_ACTIVE_USER());
         dispatch(SET_ACTIVE_USER(response.data.updatedUser));
         setLoading(false);
-        setBio("");
         setShowSidebar(false);
         revealAlert("Profile updated", "success");
       }
@@ -234,7 +233,9 @@ export default function EditProfile({
             }  leading-6 outline-none`}
             rows={6}
           ></textarea>
-          <p className="text-right leading-3 text-grayNeutral">0/200 words</p>
+          <p className="text-right leading-3 text-grayNeutral">
+            {bio?.length}/200 words
+          </p>
         </div>
 
         <div className="flex items-center justify-start rounded-sm pt-6">

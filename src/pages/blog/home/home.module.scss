@@ -91,6 +91,9 @@
     color: #333;
     border: 1px solid $color-primary-hover;
     margin: 2px;
+    @include mQ(600px) {
+      padding: 5px 10px;
+    }
   }
   .pagination .page-num:hover {
     color: #fff;

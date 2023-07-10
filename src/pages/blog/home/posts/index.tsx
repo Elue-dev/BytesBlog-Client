@@ -45,7 +45,7 @@ export default function Posts({
                 </span>
               ) : (
                 <span>
-                  No posts found. if there are blog posts in this category, they
+                  No posts found. If there are blog posts in this category, they
                   would appear here if they are among your interests.
                 </span>
               )}
@@ -67,11 +67,11 @@ export default function Posts({
             {filteredPosts?.length ? (
               <ReactPaginate
                 breakLabel="..."
-                nextLabel="Next"
+                nextLabel="Next >"
                 onPageChange={handlePageClick}
-                pageRangeDisplayed={3}
+                pageRangeDisplayed={5} // Set the maximum number of visible page links
                 pageCount={pageCount}
-                previousLabel="Prev"
+                previousLabel="< Prev"
                 renderOnZeroPageCount={null}
                 containerClassName={styles["pagination"]}
                 pageLinkClassName={styles["page-num"]}

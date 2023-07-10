@@ -147,33 +147,6 @@ export default function Navbar() {
                   >
                     <div className="py-5 leading-10 text-gray500">
                       {pathname.includes("user") && !userId ? (
-                        <>
-                          <div
-                              onClick={() => {
-                                navigate("/blog/write?action=new");
-                                setShowDropdown(false);
-                              }}
-                              className="flex cursor-pointer items-center justify-start gap-3"
-                            >
-                              <div>
-                                {" "}
-                                {mode === "dark" ? (
-                                  <BsVectorPen color="#fff" />
-                                ) : (
-                                  <BsVectorPen />
-                                )}
-                              </div>
-                              <span
-                                className={
-                                  mode === "dark"
-                                    ? "text-lightGray"
-                                    : "text-dark"
-                                }
-                              >
-                                Add Post
-                              </span>
-                            </div>
-                          </div>
                         <div
                           onClick={() => {
                             navigate("/blog");
@@ -190,7 +163,6 @@ export default function Navbar() {
                             Blog
                           </span>
                         </div>
-                        </>
                       ) : (
                         <>
                           <div className={styles["write__cont__mobile"]}>

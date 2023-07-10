@@ -340,7 +340,7 @@ export default function PostDetails() {
                 />
               </a>
 
-              <article className="text-break pt-8 leading-8 text-grayNeutral">
+              <article className="text-break break-words pt-8 leading-8 text-grayNeutral">
                 <PostContent content={post?.content} />
               </article>
 
