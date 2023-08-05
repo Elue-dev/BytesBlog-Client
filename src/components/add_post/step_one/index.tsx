@@ -1,6 +1,4 @@
 import plusIcon from "@/assets/plusIcon.svg";
-import "primereact/resources/themes/lara-light-indigo/theme.css";
-import "primereact/resources/primereact.min.css";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { Editor } from "primereact/editor";
 import styles from "./step.one.module.scss";

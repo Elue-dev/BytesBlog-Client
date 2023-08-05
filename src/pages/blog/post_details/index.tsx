@@ -56,7 +56,7 @@ export default function PostDetails() {
     data: post,
   } = useQuery<PostData>([`post-${slug}`], () =>
     httpRequest.get(`/posts/${slug}`).then((res) => {
-      return res.data.post[0];
+      return res.data.post;
     })
   );
 
