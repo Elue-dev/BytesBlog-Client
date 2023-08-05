@@ -94,7 +94,11 @@ export default function StepTwo({
 
   const editMutation = useMutation(
     (editedPost: Post) => {
-      return httpRequest.put(`/posts/${state.slug}`, editedPost, authHeaders);
+      return httpRequest.put(
+        `/posts/${state.slug}/${state.id}`,
+        editedPost,
+        authHeaders
+      );
     },
     {
       onSuccess: () => {
